@@ -1,0 +1,161 @@
+/* Layout */
+.quiqqer-contact-ctaAction {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: 620px;
+    height: 100%;
+}
+
+/* LEFT */
+.quiqqer-contact-ctaAction-left {
+    padding: 44px;
+}
+
+.quiqqer-contact-ctaAction .brand {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.quiqqer-contact-ctaAction .logo {
+    height: 48px;
+}
+
+.quiqqer-contact-ctaAction .logo img {
+    max-height: 48px;
+}
+
+.quiqqer-contact-ctaAction .brand h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.quiqqer-contact-ctaAction .brand p {
+    margin: 2px 0 0;
+    font-size: 13px;
+}
+
+.quiqqer-contact-ctaAction-left h2 {
+    margin: 0 0 10px;
+    font-size: 44px;
+    line-height: 1.05;
+}
+
+.quiqqer-contact-ctaAction-left .lead {
+    margin-bottom: 26px;
+    max-width: 460px;
+    font-size: 16px;
+}
+
+.quiqqer-contact-ctaAction .chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.quiqqer-contact-ctaAction-buttons {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* RIGHT */
+.quiqqer-contact-ctaAction-right {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 44px;
+}
+
+.quiqqer-contact-ctaAction-right h3 {
+    margin: 0 0 8px;
+    font-size: 30px;
+}
+
+.quiqqer-contact-ctaAction-right .sub {
+    margin-bottom: 22px;
+    font-size: 15px;
+}
+
+.quiqqer-contact-ctaAction form {
+    display: grid;
+    gap: 14px;
+}
+
+.quiqqer-contact-ctaAction .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.quiqqer-contact-ctaAction label {
+    display: grid;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.quiqqer-contact-ctaAction input,
+.quiqqer-contact-ctaAction select,
+.quiqqer-contact-ctaAction textarea {
+    padding: 14px;
+}
+
+.quiqqer-contact-ctaAction textarea {
+    min-height: 170px;
+    resize: vertical;
+}
+
+.quiqqer-contact-ctaAction .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-top: 6px;
+}
+
+.quiqqer-contact-ctaAction .check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.quiqqer-contact-ctaAction .actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.quiqqer-contact-ctaAction .btn {
+    padding: 14px 18px;
+    border: 0;
+    font-weight: 800;
+    cursor: pointer;
+    min-width: 170px;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+    .quiqqer-contact-ctaAction {
+        grid-template-columns: 1fr;
+    }
+
+    .quiqqer-contact-ctaAction-lefz {
+        border-right: 0;
+    }
+
+    .quiqqer-contact-ctaAction .grid2 {
+        grid-template-columns: 1fr;
+    }
+
+    .quiqqer-contact-ctaAction .row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .quiqqer-contact-ctaAction .btn {
+        width: 100%;
+    }
+}

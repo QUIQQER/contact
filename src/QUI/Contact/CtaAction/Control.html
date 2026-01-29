@@ -1,0 +1,109 @@
+<!-- LEFT -->
+<aside class="quiqqer-contact-ctaAction-left">
+    <div class="brand" aria-label="Branding">
+        <div class="logo" aria-hidden="true">
+            {if $logo}
+            {image image=$logo height=48}
+            {/if}
+        </div>
+        <div>
+            {$header}
+        </div>
+    </div>
+
+    <div class="default-content">
+        {$content}
+    </div>
+
+    <div data-name="buttons" class="quiqqer-contact-ctaAction-buttons">
+        {if $self->getAttribute('email')}
+        <a class="btn btn-secondary" href="mailto:{$self->getAttribute('email')}">
+            <span class="fa fa-envelope"></span>
+            <span>{$self->getAttribute('email')}</span>
+        </a>
+        {/if}
+
+        {if $self->getAttribute('whatsapp')}
+        <a class="btn btn-secondary" href="whatsapp://send?phone={$whatsapp}">
+            <span class="fa fa-whatsapp"></span>️ <span>{$self->getAttribute('whatsapp')}</span>
+        </a>
+        {/if}
+
+        {if $self->getAttribute('phone')}
+        <a class="btn btn-secondary" href="tel:{$phone}">
+            <span class="fa fa-phone"></span>️ <span>{$self->getAttribute('phone')}</span>
+        </a>
+        {/if}
+    </div>
+</aside>
+
+<!-- RIGHT -->
+<section class="quiqqer-contact-ctaAction-right">
+    <h3 id="modalTitle">{$title}</h3>
+    <p class="sub">{$description}</p>
+
+    <form action="#" method="post">
+        <div class="grid2">
+            <label>
+                {$nameLabel}
+                <input type="text"
+                       name="name"
+                       placeholder="{$namePlaceholder}"
+                       autocomplete="name"
+                       required
+                />
+            </label>
+
+            <label>
+                {$companyLabel}
+                <input type="text"
+                       name="company"
+                       placeholder="{$companyPlaceholder}"
+                       autocomplete="organization"
+                />
+            </label>
+        </div>
+
+        <div class="grid2">
+            <label>
+                {$emailLabel}
+                <input type="email"
+                       name="email"
+                       placeholder="{$emailPlaceholder}"
+                       autocomplete="email"
+                       required
+                />
+            </label>
+
+            <label>
+                {$phoneLabel}
+                <input type="tel"
+                       name="phone"
+                       placeholder="{$phonePlaceholder}"
+                       autocomplete="tel"
+                />
+            </label>
+        </div>
+
+        <label>
+            {$messageLabel}
+            <textarea name="message" placeholder="{$messagePlaceholder}" required></textarea>
+        </label>
+
+        <div class="row">
+            <label class="check">
+                <input type="checkbox" name="privacy" required/>
+                <span>
+                    Ich habe die <a href="#">Datenschutzerklärung</a> gelesen.
+                    Mit dem Absenden stimmst du der Verarbeitung deiner Angaben zur Bearbeitung der Anfrage zu.
+                </span>
+            </label>
+
+            <div class="actions">
+                <button class="btn btn-primary" type="submit">
+                    Anfrage senden
+                </button>
+            </div>
+        </div>
+    </form>
+</section>

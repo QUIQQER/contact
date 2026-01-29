@@ -20,8 +20,10 @@
             <en><![CDATA[Please select a contact form whose data you want to display.]]></en>
         </locale>
         <locale name="controls.RequestList.no_forms_info" html="true">
-            <de><![CDATA[Es existieren z.Z. noch keine Kontakt-Anfragen. Sobald Kontakt-Anfragen verfügbar sind, können Sie das entsprechende Kontakt-Formular oben auswählen. Sie können Kontakt-Formulare über eine Seite mit dem Typ <b>"QUIQQER - Kontakt"</b> erstellen.]]></de>
-            <en><![CDATA[Currently no contact requests exist yet. Once contact requests are available, you can select the appropriate contact form above. You can create contact forms with a Site of type <b>"QUIQQER - Contact"</b>.]]></en>
+            <de>
+                <![CDATA[Es existieren z.Z. noch keine Kontakt-Anfragen. Sobald Kontakt-Anfragen verfügbar sind, können Sie das entsprechende Kontakt-Formular oben auswählen. Sie können Kontakt-Formulare über eine Seite mit dem Typ <b>"QUIQQER - Kontakt"</b> erstellen.]]></de>
+            <en>
+                <![CDATA[Currently no contact requests exist yet. Once contact requests are available, you can select the appropriate contact form above. You can create contact forms with a Site of type <b>"QUIQQER - Contact"</b>.]]></en>
         </locale>
         <locale name="controls.RequestList.btn.view_request">
             <de><![CDATA[Details anzeigen]]></de>
@@ -32,8 +34,10 @@
             <en><![CDATA[Delete request(s)]]></en>
         </locale>
         <locale name="controls.RequestList.delete.info" html="true">
-            <de><![CDATA[Sind Sie sicher, dass Sie folgende Anfragen des Kontakt-Formulars <b>"[form]"</b> unwiderruflich löschen wollen?<br/><br/>[requestIds]]]></de>
-            <en><![CDATA[Are you sure you want to irrevocably delete the following requests for contact form <b>"[form]"</b>?<br/><br/>[requestIds]]]></en>
+            <de>
+                <![CDATA[Sind Sie sicher, dass Sie folgende Anfragen des Kontakt-Formulars <b>"[form]"</b> unwiderruflich löschen wollen?<br/><br/>[requestIds]]]></de>
+            <en>
+                <![CDATA[Are you sure you want to irrevocably delete the following requests for contact form <b>"[form]"</b>?<br/><br/>[requestIds]]]></en>
         </locale>
         <locale name="controls.RequestList.delete.title">
             <de><![CDATA[Formular-Anfragen löschen]]></de>
@@ -91,8 +95,10 @@
 
         <!-- Ajax -->
         <locale name="message.ajax.general_error">
-            <de><![CDATA[Beim Verarbeiten der Anfrage ist ein unerwarteter Fehler aufgetreten. Bitte prüfen Sie die Fehler-Logs oder kontaktieren Sie einen Administrator.]]></de>
-            <en><![CDATA[An unexpected error occurred while processing the request. Please check the error logs or contact an administrator.]]></en>
+            <de>
+                <![CDATA[Beim Verarbeiten der Anfrage ist ein unerwarteter Fehler aufgetreten. Bitte prüfen Sie die Fehler-Logs oder kontaktieren Sie einen Administrator.]]></de>
+            <en>
+                <![CDATA[An unexpected error occurred while processing the request. Please check the error logs or contact an administrator.]]></en>
         </locale>
         <locale name="message.ajax.requests.deleteRequests.success">
             <de><![CDATA[Die gewählten Kontakt-Anfragen wurden erfolgreich gelöscht.]]></de>
@@ -101,21 +107,29 @@
 
         <!-- Site type: contact -->
         <locale name="exception.types.contact.no_recipients">
-            <de><![CDATA[Das Formular kann leider nicht versendet werden, da keine Empfänger konfiguriert sind. Bitte wenden Sie sich an einen Administrator.]]></de>
-            <en><![CDATA[The form can not be sent because no recipients are configured. Please contact an administrator.]]></en>
+            <de>
+                <![CDATA[Das Formular kann leider nicht versendet werden, da keine Empfänger konfiguriert sind. Bitte wenden Sie sich an einen Administrator.]]></de>
+            <en>
+                <![CDATA[The form can not be sent because no recipients are configured. Please contact an administrator.]]></en>
         </locale>
         <locale name="exception.types.contact.blacklisted">
-            <de><![CDATA[Ihre Kontakt-Anfrage konnte leider nicht gesendet werden, da ihre E-Mail-Adresse oder ihre IP-Adresse vom System geblockt ist.]]></de>
-            <en><![CDATA[Your contact request could not be processed because your e-mail address or your IP address are blocked by the system.]]></en>
+            <de>
+                <![CDATA[Ihre Kontakt-Anfrage konnte leider nicht gesendet werden, da ihre E-Mail-Adresse oder ihre IP-Adresse vom System geblockt ist.]]></de>
+            <en>
+                <![CDATA[Your contact request could not be processed because your e-mail address or your IP address are blocked by the system.]]></en>
         </locale>
         <locale name="exception.types.contact.blacklisted_host" html="true">
-            <de><![CDATA[Ihre Kontakt-Anfrage konnte leider nicht gesendet werden, da ihre IP-Adresse sich auf der Sperrliste von <b>[blacklistHost]</b> befindet.]]></de>
-            <en><![CDATA[Your contact request could not be processed because your IP address is on the blacklist of <b>[blacklistHost]</b>.]]></en>
+            <de>
+                <![CDATA[Ihre Kontakt-Anfrage konnte leider nicht gesendet werden, da ihre IP-Adresse sich auf der Sperrliste von <b>[blacklistHost]</b> befindet.]]></de>
+            <en>
+                <![CDATA[Your contact request could not be processed because your IP address is on the blacklist of <b>[blacklistHost]</b>.]]></en>
         </locale>
 
         <locale name="contact.default.success_msg" html="true">
-            <de><![CDATA[<div class="content-message-success">Vielen Dank für Ihre Kontaktanfrage! Wir werden uns schnellstmöglich um Ihr Anliegen kümmern und Ihnen eine Antwort senden.</div>]]></de>
-            <en><![CDATA[<div class="content-message-success">Many thanks for your contact request! We will deal with your request as soon as possible and send you an answer.</div>]]></en>
+            <de>
+                <![CDATA[<div class="content-message-success">Vielen Dank für Ihre Kontaktanfrage! Wir werden uns schnellstmöglich um Ihr Anliegen kümmern und Ihnen eine Antwort senden.</div>]]></de>
+            <en>
+                <![CDATA[<div class="content-message-success">Many thanks for your contact request! We will deal with your request as soon as possible and send you an answer.</div>]]></en>
         </locale>
         <locale name="contact.default.success_mail_subject">
             <de><![CDATA[Vielen Dank für Ihre Nachricht]]></de>
@@ -129,7 +143,7 @@
 <p>We have received your message and will process it as soon as possible.</p>
 <p>Best regards!</p>]]></en>
         </locale>
-        
+
     </groups>
 
     <groups name="quiqqer/contact" datatype="php,js">
@@ -161,7 +175,8 @@
             <en><![CDATA[Encrypt saved contact requests]]></en>
         </locale>
         <locale name="settings.encryptContactRequests.description">
-            <de><![CDATA[Alle Kontakt-Anfragen, die in der Datenbank gespeichert werden, sollen verschlüsselt werden]]></de>
+            <de>
+                <![CDATA[Alle Kontakt-Anfragen, die in der Datenbank gespeichert werden, sollen verschlüsselt werden]]></de>
             <en><![CDATA[Every contact request that is saved in the database shall be encrypted]]></en>
         </locale>
         <locale name="settings.globalPrivacyPolicyField.title">
@@ -234,15 +249,18 @@
             <en><![CDATA[Filter contact requests via blacklists]]></en>
         </locale>
         <locale name="settings.blacklist.useDNSBL.description">
-            <de><![CDATA[Bei den unter "Blacklist-Provider" festgelegten Blacklists wird die IP des Formular-Absenders abgefragt. Befindet sich die IP auf einer der angegebenen Blacklists, wird die Kontakt-Anfrage gefiltert.]]></de>
-            <en><![CDATA[The IP of the contact request sender is queries with the providers configured in "Blacklist providers". If the IP is on one of the specified blacklists, the contact request is filtered.]]></en>
+            <de>
+                <![CDATA[Bei den unter "Blacklist-Provider" festgelegten Blacklists wird die IP des Formular-Absenders abgefragt. Befindet sich die IP auf einer der angegebenen Blacklists, wird die Kontakt-Anfrage gefiltert.]]></de>
+            <en>
+                <![CDATA[The IP of the contact request sender is queries with the providers configured in "Blacklist providers". If the IP is on one of the specified blacklists, the contact request is filtered.]]></en>
         </locale>
         <locale name="settings.blacklist.DNSBLProviders.title">
             <de><![CDATA[Blacklist-Provider]]></de>
             <en><![CDATA[Blacklist providers]]></en>
         </locale>
         <locale name="settings.blacklist.DNSBLProviders.description">
-            <de><![CDATA[Angabe der URLs einzelner Blacklist Provider. Müssen <b>untereinander</b> geschrieben werden.]]></de>
+            <de>
+                <![CDATA[Angabe der URLs einzelner Blacklist Provider. Müssen <b>untereinander</b> geschrieben werden.]]></de>
             <en><![CDATA[List of blacklist providers. <b>One provider URL per line</b>.]]></en>
         </locale>
 
@@ -282,5 +300,105 @@
                 <![CDATA[Erstellen Sie Formulare ganz nach Ihren Vorstellungen. Ein Formulareditor hilft Ihnen dabei.]]></de>
             <en><![CDATA[Create forms to your needs. A form editor will help you.]]></en>
         </locale>
+
+        <locale name="contact.ctaAction.default_title">
+            <de><![CDATA[Kontakt aufnehmen]]></de>
+            <en><![CDATA[Contact us]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_header">
+            <de><![CDATA[]]></de>
+            <en><![CDATA[]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_description">
+            <de><![CDATA[Ein paar Infos reichen – wir klären den Rest im Gespräch.]]></de>
+            <en><![CDATA[Some information is enough – we clarify the rest in conversation.]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_name_label">
+            <de><![CDATA[Name]]></de>
+            <en><![CDATA[Name]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_name_placeholder">
+            <de><![CDATA[Vor- und Nachname]]></de>
+            <en><![CDATA[First and Last name]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_company_label">
+            <de><![CDATA[Unternehmen (optional)]]></de>
+            <en><![CDATA[Company (optional)]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_company_placeholder">
+            <de><![CDATA[Firma / Organisation]]></de>
+            <en><![CDATA[Company / Organization]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_email_label">
+            <de><![CDATA[E-Mail]]></de>
+            <en><![CDATA[Email]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_email_placeholder">
+            <de><![CDATA[name@firma.de]]></de>
+            <en><![CDATA[name@organization.com]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_phone_label">
+            <de><![CDATA[Telefon]]></de>
+            <en><![CDATA[Phone]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_phone_placeholder">
+            <de><![CDATA[+49 123 456789]]></de>
+            <en><![CDATA[+1 123 456789]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_message_label">
+            <de><![CDATA[Nachricht]]></de>
+            <en><![CDATA[Message]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_message_placeholder">
+            <de><![CDATA[Kurzbeschreibung, Ziele, ggf. Links...]]></de>
+            <en><![CDATA[Short description, goals, maybe links...]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_content" html="true">
+            <de><![CDATA[
+            <h2>Unverbindlich anfragen</h2>
+            <p class="lead">
+                Sag uns kurz, was du vorhast – wir melden uns zeitnah mit einer klaren Einschätzung
+                (Budget, Aufwand, nächste Schritte).
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Antwort in 24–48h</strong>
+                    <span>In der Regel schneller – je nach Projektlage.</span>
+                </li>
+                <li>
+                    <strong>Direkt zum Punkt</strong>
+                    <span>Keine Werbefloskeln, sondern konkrete Optionen.</span>
+                </li>
+                <li>
+                    <strong>Alles aus einer Hand</strong>
+                    <span>Website, Shop, Webapp – inkl. Wartung &amp; Weiterentwicklung.</span>
+                </li>
+            </ul>
+            ]]></de>
+            <en><![CDATA[
+            <h2>Make a non-binding inquiry</h2>
+            <p class="lead">
+                Tell us briefly what you have in mind – we will get back to you promptly with a clear assessment
+                (budget, effort, next steps).
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Answer within 24–48h</strong>
+                    <span>In general faster – depending on project situation.</span>
+                </li>
+                <li>
+                    <strong>Direct to the point</strong>
+                    <span>No sales pitches, just concrete options.</span>
+                </li>
+                <li>
+                    <strong>One-stop solution</strong>
+                    <span>Website, Shop, Webapp – including maintenance &amp; further development.</span>
+                </li>
+            </ul>
+            ]]></en>
+        </locale>
+
     </groups>
 </locales>

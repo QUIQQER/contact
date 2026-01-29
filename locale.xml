@@ -301,6 +301,10 @@
             <en><![CDATA[Create forms to your needs. A form editor will help you.]]></en>
         </locale>
 
+        <locale name="contact.ctaAction.send.success">
+            <de><![CDATA[Vielen Dank für Ihre Nachricht. Wir werden uns so schnell wie möglich bei Ihnen melden.]]></de>
+            <en><![CDATA[Thank you for your message. We will contact you as soon as possible.]]></en>
+        </locale>
         <locale name="contact.ctaAction.default_title">
             <de><![CDATA[Kontakt aufnehmen]]></de>
             <en><![CDATA[Contact us]]></en>

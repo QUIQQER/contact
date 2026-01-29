@@ -3,9 +3,12 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
     'qui/QUI',
     'qui/controls/Control',
     'Ajax',
+    'Locale'
 
-], function (QUI, QUIControl, QUIAjax) {
+], function (QUI, QUIControl, QUIAjax, QUILocale) {
     "use strict";
+
+    const lg = 'quiqqer/contact';
 
     return new Class({
 
@@ -29,6 +32,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             message_label: '',
             message_placeholder: '',
             submit_label: '',
+            success_message: '',
 
             // buttons
             whatsapp: '',
@@ -45,6 +49,9 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
 
             container.classList.add('cta-action');
             container.innerHTML = '';
+            container.style.width = '100%';
+
+            this.$Elm = container;
 
             QUIAjax.get('package_quiqqer_contact_ajax_ctaAction_get', (html) => {
                 container.innerHTML = html;
@@ -63,7 +70,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                     this.fireEvent('load', [this]);
                 });
             }, {
-                'package': 'quiqqer/contact',
+                'package': lg,
                 attributes: JSON.stringify({
                     header: this.getAttribute('header'),
                     content: this.getAttribute('content'),
@@ -96,8 +103,40 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             this.fireEvent('sendBegin');
 
             return new Promise(() => {
-                QUIAjax.post('package_quiqqer_contact_ajax_ctaAction_send', () => {
+                let message = this.getAttribute('success_message');
 
+                if (!message || message.length === 0) {
+                    message = QUILocale.get(lg, 'contact.ctaAction.send.success');
+                }
+
+                QUIAjax.post('package_quiqqer_contact_ajax_ctaAction_send', () => {
+                    // finish mess
+                    const success = document.createElement('div');
+                    success.classList.add('quiqqer-contact-ctaAction-success');
+                    success.innerHTML = `
+                        <span class="fa fa-check"></span>
+                        <div>${message}</div>
+                    `;
+
+                    const container = this.getElm().querySelector('.quiqqer-contact-ctaAction')
+                    const nodes = Array.from(
+                        this.getElm().querySelectorAll(
+                            '[data-name="left"],[data-name="right"]'
+                        )
+                    );
+
+                    moofx(nodes).animate({
+                        opacity: 0
+                    }, {
+                        callback: () => {
+                            container.innerHTML = '';
+                            container.classList.add('quiqqer-contact-ctaAction--success');
+                            container.appendChild(success);
+
+                            this.fireEvent('sendEnd', [this])
+                            this.fireEvent('send', [this])
+                        }
+                    });
                 }, {
                     'package': 'quiqqer/contact',
                     onError: () => {

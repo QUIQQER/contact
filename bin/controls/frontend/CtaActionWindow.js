@@ -72,6 +72,9 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
                     },
                     onSendBegin: () => {
                         this.Loader.show();
+                    },
+                    onSendEnd: () => {
+                        this.Loader.hide();
                     }
                 });
 

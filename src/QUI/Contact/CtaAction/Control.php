@@ -213,6 +213,10 @@ class Control extends QUI\Control
     {
         $mailer = QUI::getMailManager()->getMailer();
 
+        // recipient -> wenn im baustein, dann id vom baustein und email daraus
+        // recipient -> wenn kein baustein, contact erhält standard kontakt mail
+        // recipient -> wenn alles nix, dann admin mail
+
         // $mailer->setSubject();
         // $mailer->setFrom();
         // $mailer->addRecipient();

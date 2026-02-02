@@ -404,5 +404,16 @@
             ]]></en>
         </locale>
 
+        <locale name="brick.control.ctaAction.setting.title">
+            <de><![CDATA[CTA Action Kontaktformular]]></de>
+            <en><![CDATA[CTA Action contact form]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.description">
+            <de><![CDATA[CTA Action - Beschreibung]]></de>
+            <en><![CDATA[CTA Action - Description]]></en>
+        </locale>
+
+
+
     </groups>
 </locales>

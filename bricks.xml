@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
+    <bricks>
+        <brick control="\QUI\Contact\CtaAction">
+            <title>
+                <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.title"/>
+            </title>
+            <description>
+                <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.description"/>
+            </description>
+
+            <settings>
+                <setting name="recipient" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.recipient"/>
+                </setting>
+                <setting name="header" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.header"/>
+                </setting>
+                <setting name="title" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.title"/>
+                </setting>
+                <setting name="description" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.description"/>
+                </setting>
+
+                <!-- buttons -->
+                <setting name="whatsapp" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsapp"/>
+                </setting>
+                <setting name="phone" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phone"/>
+                </setting>
+                <setting name="email" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.email"/>
+                </setting>
+            </settings>
+        </brick>
+    </bricks>
+</quiqqer>

@@ -405,15 +405,45 @@
         </locale>
 
         <locale name="brick.control.ctaAction.setting.title">
-            <de><![CDATA[CTA Action Kontaktformular]]></de>
-            <en><![CDATA[CTA Action contact form]]></en>
+            <de><![CDATA[CTA Kontaktformular]]></de>
+            <en><![CDATA[CTA contact form]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.description">
-            <de><![CDATA[CTA Action - Beschreibung]]></de>
-            <en><![CDATA[CTA Action - Description]]></en>
+            <de><![CDATA[CTA Action – Kontakt Einleitungstext]]></de>
+            <en><![CDATA[CTA Action – Recipient Description]]></en>
         </locale>
-
-
+        <locale name="brick.control.ctaAction.setting.recipient">
+            <de><![CDATA[CTA Action – Empfänger]]></de>
+            <en><![CDATA[CTA Action – Recipient]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.logo">
+            <de><![CDATA[CTA Action – Logo]]></de>
+            <en><![CDATA[CTA Action – Logo]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.whatsapp">
+            <de><![CDATA[CTA Action – Kontakt Button WhatsApp]]></de>
+            <en><![CDATA[CTA Action – Contact button WhatsApp]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.whatsapp.description">
+            <de><![CDATA[Zeigt einen WhatsApp-Kontaktbutton an, sobald eine Nummer hinterlegt ist.]]></de>
+            <en><![CDATA[Shows a WhatsApp contact button as soon as a number is entered.]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.phone">
+            <de><![CDATA[CTA Action – Kontakt Button Telefon]]></de>
+            <en><![CDATA[CTA Action – Contact button Phone]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.phone.description">
+            <de><![CDATA[Zeigt einen Telefon-Kontaktbutton an, sobald eine Nummer hinterlegt ist.]]></de>
+            <en><![CDATA[Shows a phone contact button as soon as a number is entered.]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.email">
+            <de><![CDATA[CTA Action – Kontakt Button E-Mail]]></de>
+            <en><![CDATA[CTA Action – Contact button E-mail]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.email.description">
+            <de><![CDATA[Zeigt einen E-Mail-Kontaktbutton an, sobald eine E-Mail hinterlegt ist.]]></de>
+            <en><![CDATA[Shows an email contact button as soon as an email is entered.]]></en>
+        </locale>
 
     </groups>
 </locales>

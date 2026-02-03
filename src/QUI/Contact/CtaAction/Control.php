@@ -41,14 +41,37 @@ class Control extends QUI\Control
 
     public function getBody(): string
     {
+        $brickId = $this->getAttribute('data-brickid');
+        $logo = null;
+
+        // set brick data
+        if (!empty($brickId)) {
+            try {
+                QUI\Bricks\Manager::init()->getBrickById((int)$brickId);
+
+                $this->setAttribute('title', $this->getAttribute('frontendTitle'));
+                $this->setAttribute('description', $this->getAttribute('ctaDescription'));
+
+                if (!empty($this->getAttribute('logo'))) {
+                    try {
+                        $logo = QUI\Projects\Media\Utils::getImageByUrl($this->getAttribute('logo'));
+                    } catch (QUI\Exception) {
+                    }
+                }
+            } catch (QUI\Exception) {
+            }
+        }
+
         $Engine = QUI::getTemplateManager()->getEngine();
-        $logo = QUI::getRewrite()->getProject()->getMedia()->getLogoImage();
+
+        if (empty($logo)) {
+            $logo = QUI::getRewrite()->getProject()->getMedia()->getLogoImage();
+        }
 
         $title = $this->getAttribute('title');
-        $header = $this->getAttribute('header');
+        //$header = $this->getAttribute('header');
         $description = $this->getAttribute('description');
         $content = $this->getAttribute('content');
-
 
         $nameLabel = $this->getAttribute('name_label');
         $namePlaceholder = $this->getAttribute('name_placeholder');
@@ -62,7 +85,7 @@ class Control extends QUI\Control
         $messagePlaceholder = $this->getAttribute('message_placeholder');
         $submitLabel = $this->getAttribute('submit_label');
 
-        if (empty($titel)) {
+        if (empty($title)) {
             $title = QUI::getLocale()->get(
                 'quiqqer/contact',
                 'contact.ctaAction.default_title'
@@ -186,7 +209,6 @@ class Control extends QUI\Control
         $Engine->assign([
             'self' => $this,
             'logo' => $logo,
-            'header' => $header,
             'content' => $content,
             'title' => $title,
             'description' => $description,
@@ -222,5 +244,10 @@ class Control extends QUI\Control
         // $mailer->addRecipient();
 
         $mailer->send();
+    }
+
+    protected function isInBrick(): bool
+    {
+        return !empty($this->getAttribute('data-brickid'));
     }
 }

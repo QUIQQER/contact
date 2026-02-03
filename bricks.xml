@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiqqer>
     <bricks>
-        <brick control="\QUI\Contact\CtaAction">
+        <brick control="\QUI\Contact\CtaAction\Control">
             <title>
                 <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.title"/>
             </title>
@@ -13,25 +13,31 @@
                 <setting name="recipient" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.recipient"/>
                 </setting>
-                <setting name="header" type="text">
-                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.header"/>
-                </setting>
-                <setting name="title" type="text">
-                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.title"/>
-                </setting>
-                <setting name="description" type="text">
+                <setting name="ctaDescription" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.description"/>
+                </setting>
+                <setting name="logo" type="text" data-qui="controls/projects/project/media/Input">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.logo"/>
                 </setting>
 
                 <!-- buttons -->
                 <setting name="whatsapp" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsapp"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsapp.description"/>
+                    </description>
                 </setting>
                 <setting name="phone" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phone"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phone.description"/>
+                    </description>
                 </setting>
                 <setting name="email" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.email"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.email.description"/>
+                    </description>
                 </setting>
             </settings>
         </brick>

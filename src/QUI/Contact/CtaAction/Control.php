@@ -431,4 +431,29 @@ class Control extends QUI\Control
 
         return '<p>' . $safeText . '</p>';
     }
+
+    public static function getAllowedAttributes(): array
+    {
+        return [
+            'header',
+            'content',
+            'title',
+            'description',
+            'name_label',
+            'name_placeholder',
+            'company_label',
+            'company_placeholder',
+            'email_label',
+            'email_placeholder',
+            'phone_label',
+            'phone_placeholder',
+            'message_label',
+            'message_placeholder',
+            'submit_label',
+            'success_message',
+            'whatsapp',
+            'phone',
+            'email'
+        ];
+    }
 }

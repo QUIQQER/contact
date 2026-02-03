@@ -8,28 +8,7 @@ QUI::$Ajax->registerFunction(
         $control = new Control();
 
         if (!empty($attributes) && is_string($attributes)) {
-            $allowed = [
-                'header',
-                'content',
-                'title',
-                'description',
-                'name_label',
-                'name_placeholder',
-                'company_label',
-                'company_placeholder',
-                'email_label',
-                'email_placeholder',
-                'phone_label',
-                'phone_placeholder',
-                'message_label',
-                'message_placeholder',
-                'submit_label',
-                'success_message',
-                'whatsapp',
-                'phone',
-                'email'
-            ];
-
+            $allowed = Control::getAllowedAttributes();
             $attributes = json_decode($attributes, true);
 
             if (!empty($attributes) && is_array($attributes)) {

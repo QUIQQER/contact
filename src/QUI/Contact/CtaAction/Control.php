@@ -336,7 +336,8 @@ class Control extends QUI\Control
             $html .= $this->buildHtmlParagraph($formData['message'], true);
         }
 
-        $mailer->setHtml($html);
+        $mailer->setHtml(true);
+        $mailer->setBody($html);
         $mailer->send();
     }
 

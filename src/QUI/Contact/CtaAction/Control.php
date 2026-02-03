@@ -188,6 +188,21 @@ class Control extends QUI\Control
             );
         }
 
+        $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+        $description = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
+        $content = htmlspecialchars($content, ENT_QUOTES, 'UTF-8');
+        $nameLabel = htmlspecialchars($nameLabel, ENT_QUOTES, 'UTF-8');
+        $namePlaceholder = htmlspecialchars($namePlaceholder, ENT_QUOTES, 'UTF-8');
+        $companyLabel = htmlspecialchars($companyLabel, ENT_QUOTES, 'UTF-8');
+        $companyPlaceholder = htmlspecialchars($companyPlaceholder, ENT_QUOTES, 'UTF-8');
+        $emailLabel = htmlspecialchars($emailLabel, ENT_QUOTES, 'UTF-8');
+        $emailPlaceholder = htmlspecialchars($emailPlaceholder, ENT_QUOTES, 'UTF-8');
+        $phoneLabel = htmlspecialchars($phoneLabel, ENT_QUOTES, 'UTF-8');
+        $phonePlaceholder = htmlspecialchars($phonePlaceholder, ENT_QUOTES, 'UTF-8');
+        $messageLabel = htmlspecialchars($messageLabel, ENT_QUOTES, 'UTF-8');
+        $messagePlaceholder = htmlspecialchars($messagePlaceholder, ENT_QUOTES, 'UTF-8');
+        $submitLabel = htmlspecialchars($submitLabel, ENT_QUOTES, 'UTF-8');
+
         // buttons
         if (!empty($this->getAttribute('whatsapp'))) {
             $whatsapp = $this->getAttribute('whatsapp');
@@ -198,6 +213,7 @@ class Control extends QUI\Control
                 $whatsapp = '49' . substr($whatsapp, 1);
             }
 
+            $this->setAttribute('whatsapp', $whatsapp);
             $Engine->assign('whatsapp', $whatsapp);
         }
 
@@ -210,7 +226,21 @@ class Control extends QUI\Control
                 $phone = '49' . substr($phone, 1);
             }
 
+            $this->setAttribute('phone', $phone);
             $Engine->assign('phone', $phone);
+        }
+
+        if (!empty($this->getAttribute('email'))) {
+            $email = $this->getAttribute('email');
+
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $this->setAttribute(
+                    'email',
+                    htmlspecialchars($email, ENT_QUOTES, 'UTF-8')
+                );
+            } else {
+                $this->setAttribute('email', '');
+            }
         }
 
 

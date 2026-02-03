@@ -113,10 +113,15 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                     // finish mess
                     const success = document.createElement('div');
                     success.classList.add('quiqqer-contact-ctaAction-success');
-                    success.innerHTML = `
-                        <span class="fa fa-check"></span>
-                        <div>${message}</div>
-                    `;
+
+                    const icon = document.createElement('span');
+                    icon.classList.add('fa', 'fa-check');
+
+                    const text = document.createElement('div');
+                    text.textContent = message;
+
+                    success.appendChild(icon);
+                    success.appendChild(text);
 
                     const container = this.getElm().querySelector('.quiqqer-contact-ctaAction')
                     const nodes = Array.from(

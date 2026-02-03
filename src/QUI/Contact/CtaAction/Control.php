@@ -5,6 +5,13 @@ namespace QUI\Contact\CtaAction;
 use QUI;
 use QUI\Exception;
 
+/**
+ * This class represents a control for managing a contact call-to-action (CTA) element in a QUI application.
+ * It provides functionality to configure its attributes and render its content dynamically. Additionally,
+ * it supports form submission for collecting user input and validating the required fields.
+ *
+ * @todo datenschutz checkbox -> sprachvariable
+ */
 class Control extends QUI\Control
 {
     public function __construct(array $attributes = [])
@@ -229,10 +236,28 @@ class Control extends QUI\Control
     }
 
     /**
-     * @throws Exception|\PHPMailer\PHPMailer\Exception
+     * @throws Exception
      */
     public function send(array $formData = []): void
     {
+        $name = trim((string)($formData['name'] ?? ''));
+        $email = trim((string)($formData['email'] ?? ''));
+        $phone = trim((string)($formData['phone'] ?? ''));
+        $hasEmail = $email !== '';
+        $hasPhone = $phone !== '';
+
+        if ($name === '') {
+            throw new QUI\Exception('Name is required');
+        }
+
+        if (!$hasEmail && !$hasPhone) {
+            throw new QUI\Exception('Provide either email or phone');
+        }
+
+        if ($hasEmail && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new QUI\Exception('Invalid email');
+        }
+
         $mailer = QUI::getMailManager()->getMailer();
         $recipient = '';
         $brick = null;
@@ -338,7 +363,13 @@ class Control extends QUI\Control
 
         $mailer->setHtml(true);
         $mailer->setBody($html);
-        $mailer->send();
+
+        try {
+            $mailer->send();
+        } catch (\Exception $e) {
+            QUI\System\Log::addError($e->getMessage());
+            throw new QUI\Exception('Something went wrong. Please try again later.');
+        }
     }
 
     protected function isInBrick(): bool

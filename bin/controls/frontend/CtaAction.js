@@ -35,9 +35,9 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             success_message: '',
 
             // buttons
-            whatsapp: '',
-            phone: '',
-            email: ''
+            whatsapp: false,
+            phone: false,
+            email: false
         },
 
         initialize: function (options) {

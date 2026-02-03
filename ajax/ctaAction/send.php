@@ -4,7 +4,7 @@ use QUI\Contact\CtaAction\Control;
 
 QUI::$Ajax->registerFunction(
     'package_quiqqer_contact_ajax_ctaAction_send',
-    function ($attributes) {
+    function ($attributes, $formData) {
         $control = new Control();
 
         if (!empty($attributes) && is_string($attributes)) {
@@ -12,7 +12,15 @@ QUI::$Ajax->registerFunction(
             $control->setAttributes($attributes);
         }
 
-        $control->send();
+        if (is_string($formData)) {
+            $formData = json_decode($formData, true);
+        }
+
+        if (!is_array($formData)) {
+            throw new \Exception('Invalid form data');
+        }
+
+        $control->send($formData);
     },
-    ['attributes']
+    ['attributes', 'formData']
 );

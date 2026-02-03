@@ -444,6 +444,44 @@
             <de><![CDATA[Zeigt einen E-Mail-Kontaktbutton an, sobald eine E-Mail hinterlegt ist.]]></de>
             <en><![CDATA[Shows an email contact button as soon as an email is entered.]]></en>
         </locale>
+        <locale name="brick.control.ctaAction.mail.title">
+            <de><![CDATA[Neue Kontaktanfrage:]]></de>
+            <en><![CDATA[New contact request:]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.brick.title">
+            <de><![CDATA[Baustein CTA Daten]]></de>
+            <en><![CDATA[Brick CTA data]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.mail.brick.brickId">
+            <de><![CDATA[ID]]></de>
+            <en><![CDATA[ID]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.brick.brickTitle">
+            <de><![CDATA[Titel]]></de>
+            <en><![CDATA[Title]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.mail.contact">
+            <de><![CDATA[Kontakt]]></de>
+            <en><![CDATA[Contact]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.contact.name">
+            <de><![CDATA[Name]]></de>
+            <en><![CDATA[Name]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.contact.email">
+            <de><![CDATA[E-Mail]]></de>
+            <en><![CDATA[E-mail]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.contact.phone">
+            <de><![CDATA[Telefon]]></de>
+            <en><![CDATA[Phone]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.contact.message">
+            <de><![CDATA[Nachricht]]></de>
+            <en><![CDATA[Message]]></en>
+        </locale>
 
     </groups>
 </locales>

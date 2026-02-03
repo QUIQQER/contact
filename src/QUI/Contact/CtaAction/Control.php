@@ -231,23 +231,141 @@ class Control extends QUI\Control
     /**
      * @throws Exception|\PHPMailer\PHPMailer\Exception
      */
-    public function send(): void
+    public function send(array $formData = []): void
     {
         $mailer = QUI::getMailManager()->getMailer();
+        $recipient = '';
+        $brick = null;
 
         // recipient -> wenn im baustein, dann id vom baustein und email daraus
+        if ($this->isInBrick()) {
+            try {
+                $brick = QUI\Bricks\Manager::init()->getBrickById(
+                    (int)$this->getAttribute('data-brickid')
+                );
+
+                $recipient = $brick->getAttribute('recipient');
+            } catch (QUI\Exception) {
+            }
+        }
+
         // recipient -> wenn kein baustein, contact erhält standard kontakt mail
+        // @todo contact -> standard kontakt email als einstellung
+
         // recipient -> wenn alles nix, dann admin mail
+        if (empty($recipient)) {
+            $recipient = QUI::conf('mail', 'admin_mail');
+        }
 
-        // $mailer->setSubject();
-        // $mailer->setFrom();
-        // $mailer->addRecipient();
+        $mailer->addRecipient($recipient);
+        $mailer->setSubject($this->getAttribute('title'));
 
+        if (
+            !empty($formData['email'])
+            && filter_var($formData['email'], FILTER_VALIDATE_EMAIL)
+        ) {
+            $mailer->addReplyTo($formData['email']);
+        }
+
+        // body
+        $locale = QUI::getLocale();
+
+        $html = $this->buildHtmlHeading(
+            $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.title')
+        );
+
+        // source data
+        $html .= $this->buildHtmlHeading(
+            $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.brick.title')
+        );
+        $html .= '<ul>';
+
+        if ($brick) {
+            $html .= $this->buildHtmlListItem(
+                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.brick.brickId'),
+                (string)$brick->getAttribute('id')
+            );
+
+            $html .= $this->buildHtmlListItem(
+                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.brick.brickTitle'),
+                (string)$brick->getAttribute('title')
+            );
+        }
+        $html .= '</ul>';
+
+        // contact data
+        $html .= $this->buildHtmlHeading(
+            $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact')
+        );
+        $html .= '<ul>';
+
+        if (!empty($formData['name'])) {
+            $html .= $this->buildHtmlListItem(
+                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact.name'),
+                $formData['name']
+            );
+        }
+
+        if (!empty($formData['company'])) {
+            $html .= $this->buildHtmlListItem(
+                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact.company'),
+                $formData['company']
+            );
+        }
+
+        if (!empty($formData['email'])) {
+            $html .= $this->buildHtmlListItem(
+                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact.email'),
+                $formData['email']
+            );
+        }
+
+        if (!empty($formData['phone'])) {
+            $html .= $this->buildHtmlListItem(
+                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact.phone'),
+                $formData['phone']
+            );
+        }
+
+        $html .= '</ul>';
+
+        if (!empty($formData['message'])) {
+            $html .= $this->buildHtmlHeading(
+                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact.message')
+            );
+            $html .= $this->buildHtmlParagraph($formData['message'], true);
+        }
+
+        $mailer->setHtml($html);
         $mailer->send();
     }
 
     protected function isInBrick(): bool
     {
         return !empty($this->getAttribute('data-brickid'));
+    }
+
+    private function buildHtmlListItem(string $label, string $value): string
+    {
+        $safeLabel = htmlspecialchars($label, ENT_QUOTES, 'UTF-8');
+        $safeValue = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+
+        return '<li><strong>' . $safeLabel . ':</strong> ' . $safeValue . '</li>';
+    }
+
+    private function buildHtmlHeading(string $text): string
+    {
+        return '<h3>' . htmlspecialchars($text, ENT_QUOTES, 'UTF-8') . '</h3>';
+    }
+
+    private function buildHtmlParagraph(string $text, bool $allowLineBreaks = false): string
+    {
+        $safeText = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+
+        if ($allowLineBreaks) {
+            $safeText = nl2br($safeText);
+        }
+
+        return '<p>' . $safeText . '</p>';
     }
 }

@@ -8,6 +8,7 @@ QUI::$Ajax->registerFunction(
         $control = new Control();
 
         if (!empty($attributes) && is_string($attributes)) {
+            $allowed = [];
             $attributes = json_decode($attributes, true);
             $control->setAttributes($attributes);
         }

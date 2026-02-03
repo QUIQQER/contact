@@ -11,6 +11,7 @@ use QUI\Exception;
  * it supports form submission for collecting user input and validating the required fields.
  *
  * @todo datenschutz checkbox -> sprachvariable
+ * @todo exceptions -> sprachvariablen
  */
 class Control extends QUI\Control
 {

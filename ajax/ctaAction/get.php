@@ -2,7 +2,7 @@
 
 use QUI\Contact\CtaAction\Control;
 
-QUI::$Ajax->registerFunction(
+QUI::getAjax()->registerFunction(
     'package_quiqqer_contact_ajax_ctaAction_get',
     function ($attributes) {
         $control = new Control();

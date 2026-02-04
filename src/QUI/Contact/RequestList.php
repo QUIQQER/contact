@@ -32,7 +32,7 @@ class RequestList
         $Now = new DateTime();
         $submitData = [];
         $Conf = QUI::getPackage('quiqqer/contact')->getConfig();
-        $encrypt = boolval($Conf->get('settings', 'encryptContactRequests'));
+        $encrypt = boolval($Conf?->get('settings', 'encryptContactRequests'));
 
         foreach ($formFields as $FormField) {
             $submitData[$FormField->getName()] = $FormField->getValueText();
@@ -50,7 +50,7 @@ class RequestList
         $submitData = json_encode($submitData);
 
         if ($encrypt) {
-            $submitData = Encryption::encrypt($submitData);
+            $submitData = Encryption::encrypt((string)$submitData);
         }
 
         QUI::getDataBase()->insert(
@@ -66,7 +66,7 @@ class RequestList
     /**
      * Get all forms that save requests
      *
-     * @return array
+     * @return array<int, array{title: string, identifier: string, dataFields: mixed, id: int|string}>
      * @throws QUI\Database\Exception
      */
     public static function getForms(): array
@@ -117,17 +117,18 @@ class RequestList
     /**
      * Get the request list
      *
-     * @param array $searchParams
+     * @param array<string, mixed> $searchParams
      * @param bool $countOnly
-     * @return array|int
+     * @return array<int, array<string, mixed>>|int
      * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
      */
-    public static function getList(array $searchParams, bool $countOnly = false): array | int
+    public static function getList(array $searchParams, bool $countOnly = false): array|int
     {
         $Grid = new Grid($searchParams);
         $gridParams = $Grid->parseDBParams($searchParams);
         $Conf = QUI::getPackage('quiqqer/contact')->getConfig();
-        $encrypt = boolval($Conf->get('settings', 'encryptContactRequests'));
+        $encrypt = boolval($Conf?->get('settings', 'encryptContactRequests'));
 
         $binds = [];
         $where = [];
@@ -157,8 +158,9 @@ class RequestList
 
             $where[] = '(' . implode(' OR ', $whereOr) . ')';
 
+            $searchValue = (string)$searchParams['search'];
             $binds['search'] = [
-                'value' => '%' . $searchParams['search'] . '%',
+                'value' => '%' . $searchValue . '%',
                 'type' => PDO::PARAM_STR
             ];
         }
@@ -231,7 +233,7 @@ class RequestList
     /**
      * Delete contact requests
      *
-     * @param array $requestIds
+     * @param array<int> $requestIds
      * @return void
      * @throws QUI\Database\Exception
      */

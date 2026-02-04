@@ -35,7 +35,7 @@ class Handler
         $customFields = [];
 
         if (
-            $Conf->get('settings', 'globalPrivacyPolicyField')
+            $Conf?->get('settings', 'globalPrivacyPolicyField')
             && !$Form->getAttribute('hideGlobalPrivacyPolicy')
         ) {
             $customFields[] = [

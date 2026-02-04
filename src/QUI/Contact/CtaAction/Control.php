@@ -12,6 +12,9 @@ use QUI\Exception;
  */
 class Control extends QUI\Control
 {
+    /**
+     * @param array<string, mixed> $attributes
+     */
     public function __construct(array $attributes = [])
     {
         $this->setAttributes([
@@ -53,14 +56,14 @@ class Control extends QUI\Control
         // set brick data
         if (!empty($brickId)) {
             try {
-                QUI\Bricks\Manager::init()->getBrickById((int)$brickId);
+                QUI\Bricks\Manager::init()?->getBrickById((int)$brickId);
 
                 $this->setAttribute('title', $this->getAttribute('frontendTitle'));
                 $this->setAttribute('description', $this->getAttribute('ctaDescription'));
 
                 if (!empty($this->getAttribute('logo'))) {
                     try {
-                        $logo = QUI\Projects\Media\Utils::getImageByUrl($this->getAttribute('logo'));
+                        $logo = QUI\Projects\Media\Utils::getImageByUrl((string)$this->getAttribute('logo'));
                     } catch (QUI\Exception) {
                     }
                 }
@@ -71,7 +74,11 @@ class Control extends QUI\Control
         $Engine = QUI::getTemplateManager()->getEngine();
 
         if (empty($logo)) {
-            $logo = QUI::getRewrite()->getProject()->getMedia()->getLogoImage();
+            $Project = QUI::getRewrite()->getProject();
+
+            if ($Project) {
+                $logo = $Project->getMedia()->getLogoImage();
+            }
         }
 
         $title = $this->getAttribute('title');
@@ -204,10 +211,10 @@ class Control extends QUI\Control
         // buttons
         if (!empty($this->getAttribute('whatsapp'))) {
             $whatsapp = $this->getAttribute('whatsapp');
-            $whatsapp = preg_replace('/\D+/', '', (string)$whatsapp);
+            $whatsapp = preg_replace('/\D+/', '', (string)$whatsapp) ?? '';
 
             // Wenn Nummer mit 0 beginnt, ersetze führende 0 durch 49 (DE)
-            if (preg_match('/^0\d+$/', $whatsapp)) {
+            if ($whatsapp !== '' && preg_match('/^0\d+$/', $whatsapp)) {
                 $whatsapp = '49' . substr($whatsapp, 1);
             }
 
@@ -217,10 +224,10 @@ class Control extends QUI\Control
 
         if (!empty($this->getAttribute('phone'))) {
             $phone = $this->getAttribute('phone');
-            $phone = preg_replace('/\D+/', '', (string)$phone);
+            $phone = preg_replace('/\D+/', '', (string)$phone) ?? '';
 
             // Wenn Nummer mit 0 beginnt, ersetze führende 0 durch 49 (DE)
-            if (preg_match('/^0\d+$/', $phone)) {
+            if ($phone !== '' && preg_match('/^0\d+$/', $phone)) {
                 $phone = '49' . substr($phone, 1);
             }
 
@@ -268,6 +275,7 @@ class Control extends QUI\Control
     }
 
     /**
+     * @param array<string, mixed> $formData
      * @throws Exception
      */
     public function send(array $formData = []): void
@@ -303,11 +311,11 @@ class Control extends QUI\Control
         // recipient -> wenn im baustein, dann id vom baustein und email daraus
         if ($this->isInBrick()) {
             try {
-                $brick = QUI\Bricks\Manager::init()->getBrickById(
+                $brick = QUI\Bricks\Manager::init()?->getBrickById(
                     (int)$this->getAttribute('data-brickid')
                 );
 
-                $recipient = $brick->getAttribute('recipient');
+                $recipient = $brick?->getAttribute('recipient');
             } catch (QUI\Exception) {
             }
         }
@@ -421,9 +429,13 @@ class Control extends QUI\Control
     {
         try {
             $Config = QUI::getPackage('quiqqer/erp')->getConfig();
-            $values = $Config->get('sites', 'privacy_policy');
+            $values = $Config?->get('sites', 'privacy_policy');
             $Project = QUI::getRewrite()->getProject();
         } catch (QUI\Exception) {
+            return '';
+        }
+
+        if (empty($Project)) {
             return '';
         }
 
@@ -569,6 +581,13 @@ class Control extends QUI\Control
         return $sanitized === false ? '' : trim($sanitized);
     }
 
+    /**
+     * @param \DOMNode $node
+     * @param array<int, string> $allowedTags
+     * @param array<string, array<int, string>> $allowedAttrs
+     * @param array<int, string> $dropTags
+     * @return void
+     */
     private function sanitizeDomNode(
         \DOMNode $node,
         array $allowedTags,
@@ -636,7 +655,7 @@ class Control extends QUI\Control
 
                                 if ($target === '_blank') {
                                     $rel = $child->getAttribute('rel');
-                                    $relParts = preg_split('/\s+/', strtolower(trim($rel)));
+                                    $relParts = preg_split('/\s+/', strtolower(trim($rel))) ?: [];
                                     $relParts = array_filter($relParts);
                                     $relParts[] = 'noopener';
                                     $relParts[] = 'noreferrer';
@@ -653,6 +672,11 @@ class Control extends QUI\Control
         }
     }
 
+    /**
+     * Retrieves the list of allowed attributes for the current context.
+     *
+     * @return array<string> An array of strings representing the allowed attribute keys.
+     */
     public static function getAllowedAttributes(): array
     {
         return [

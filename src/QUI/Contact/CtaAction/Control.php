@@ -188,7 +188,7 @@ class Control extends QUI\Control
 
         $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
         $description = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
-        $content = htmlspecialchars($content, ENT_QUOTES, 'UTF-8');
+        $content = $this->sanitizeContentHtml($content);
         $nameLabel = htmlspecialchars($nameLabel, ENT_QUOTES, 'UTF-8');
         $namePlaceholder = htmlspecialchars($namePlaceholder, ENT_QUOTES, 'UTF-8');
         $companyLabel = htmlspecialchars($companyLabel, ENT_QUOTES, 'UTF-8');
@@ -505,6 +505,151 @@ class Control extends QUI\Control
         }
 
         return '<p>' . $safeText . '</p>';
+    }
+
+    private function sanitizeContentHtml(string $html): string
+    {
+        $html = trim($html);
+
+        if ($html === '') {
+            return '';
+        }
+
+        $allowedTags = [
+            'h1',
+            'h2',
+            'h3',
+            'h4',
+            'h5',
+            'h6',
+            'p',
+            'br',
+            'ul',
+            'ol',
+            'li',
+            'strong',
+            'em',
+            'b',
+            'i',
+            'u',
+            'a',
+            'small',
+            'sup',
+            'sub',
+            'blockquote'
+        ];
+
+        $allowedAttrs = [
+            'a' => ['href', 'title', 'target', 'rel']
+        ];
+
+        $dropTags = [
+            'script',
+            'style',
+            'iframe',
+            'object',
+            'embed',
+            'link',
+            'meta',
+            'base'
+        ];
+
+        $doc = new \DOMDocument('1.0', 'UTF-8');
+        $prevUseErrors = libxml_use_internal_errors(true);
+        $doc->loadHTML(
+            '<?xml encoding="UTF-8">' . $html,
+            LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+        );
+        libxml_clear_errors();
+        libxml_use_internal_errors($prevUseErrors);
+
+        $this->sanitizeDomNode($doc, $allowedTags, $allowedAttrs, $dropTags);
+
+        $sanitized = $doc->saveHTML();
+        return $sanitized === false ? '' : trim($sanitized);
+    }
+
+    private function sanitizeDomNode(
+        \DOMNode $node,
+        array $allowedTags,
+        array $allowedAttrs,
+        array $dropTags
+    ): void {
+        if ($node->hasChildNodes()) {
+            // Copy to array to avoid live NodeList issues when removing nodes
+            $children = [];
+            foreach ($node->childNodes as $child) {
+                $children[] = $child;
+            }
+
+            foreach ($children as $child) {
+                if ($child->nodeType === XML_ELEMENT_NODE) {
+                    $tag = strtolower($child->nodeName);
+
+                    if (in_array($tag, $dropTags, true)) {
+                        $node->removeChild($child);
+                        continue;
+                    }
+
+                    if (!in_array($tag, $allowedTags, true)) {
+                        // unwrap element: keep its children/text, drop the element itself
+                        while ($child->firstChild) {
+                            $node->insertBefore($child->firstChild, $child);
+                        }
+                        $node->removeChild($child);
+                        continue;
+                    }
+
+                    if ($child->hasAttributes()) {
+                        $allowedForTag = $allowedAttrs[$tag] ?? [];
+                        $attrs = [];
+                        foreach ($child->attributes as $attr) {
+                            $attrs[] = $attr;
+                        }
+
+                        foreach ($attrs as $attr) {
+                            $attrName = strtolower($attr->name);
+                            if (!in_array($attrName, $allowedForTag, true)) {
+                                $child->removeAttributeNode($attr);
+                                continue;
+                            }
+
+                            if ($tag === 'a' && $attrName === 'href') {
+                                $href = trim($attr->value);
+                                if (
+                                    $href === '' ||
+                                    preg_match('#^\s*javascript:#i', $href) ||
+                                    preg_match('#^\s*data:#i', $href)
+                                ) {
+                                    $child->removeAttributeNode($attr);
+                                }
+                                continue;
+                            }
+
+                            if ($tag === 'a' && $attrName === 'target') {
+                                $target = strtolower(trim($attr->value));
+                                if ($target !== '_blank' && $target !== '_self') {
+                                    $child->removeAttributeNode($attr);
+                                    continue;
+                                }
+
+                                if ($target === '_blank') {
+                                    $rel = $child->getAttribute('rel');
+                                    $relParts = preg_split('/\s+/', strtolower(trim($rel)));
+                                    $relParts = array_filter($relParts);
+                                    $relParts[] = 'noopener';
+                                    $relParts[] = 'noreferrer';
+                                    $relParts = array_unique($relParts);
+                                    $child->setAttribute('rel', implode(' ', $relParts));
+                                }
+                            }
+                        }
+                    }
+                }
+
+                $this->sanitizeDomNode($child, $allowedTags, $allowedAttrs, $dropTags);
+            }
+        }
     }
 
     public static function getAllowedAttributes(): array

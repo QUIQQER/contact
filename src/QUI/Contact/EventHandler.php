@@ -65,6 +65,10 @@ class EventHandler
                     continue;
                 }
 
+                if (is_array($contactSites) === false) {
+                    continue;
+                }
+
                 foreach ($contactSites as $Site) {
                     self::parseContactSiteIntoFormTable($Site);
                 }
@@ -94,7 +98,7 @@ class EventHandler
         $successMessage = $Site->getAttribute('quiqqer.contact.success');
 
         if (empty($successMessage)) {
-            $SiteEdit->setAttribute(
+            $SiteEdit?->setAttribute(
                 'quiqqer.contact.success',
                 QUI::getLocale()->get('quiqqer/contact', 'contact.default.success_msg')
             );
@@ -113,7 +117,7 @@ class EventHandler
             $Site->setAttribute('quiqqer.contact.success_mail', json_encode($successMail));
         }
 
-        $SiteEdit->save(QUI::getUsers()->getSystemUser());
+        $SiteEdit?->save(QUI::getUsers()->getSystemUser());
     }
 
     /**

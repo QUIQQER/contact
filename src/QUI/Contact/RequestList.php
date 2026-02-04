@@ -21,7 +21,7 @@ class RequestList
     /**
      * Save a form request to the database
      *
-     * @param QUI\FormBuilder\Field[] $formFields - The form fields with submit data
+     * @param QUI\FormBuilder\Field[] $formFields - The form fields submit data
      * @param QUI\Interfaces\Projects\Site $FormSite - The Site the form was submitted from
      * @return void
      *
@@ -67,6 +67,7 @@ class RequestList
      * Get all forms that save requests
      *
      * @return array
+     * @throws QUI\Database\Exception
      */
     public static function getForms(): array
     {
@@ -114,15 +115,14 @@ class RequestList
     }
 
     /**
-     * Get request list
+     * Get the request list
      *
      * @param array $searchParams
      * @param bool $countOnly
      * @return array|int
      * @throws Exception
-     * @throws \Doctrine\DBAL\Exception
      */
-    public static function getList(array $searchParams, bool $countOnly = false): array|int
+    public static function getList(array $searchParams, bool $countOnly = false): array | int
     {
         $Grid = new Grid($searchParams);
         $gridParams = $Grid->parseDBParams($searchParams);
@@ -233,6 +233,7 @@ class RequestList
      *
      * @param array $requestIds
      * @return void
+     * @throws QUI\Database\Exception
      */
     public static function deleteRequests(array $requestIds): void
     {
@@ -335,8 +336,9 @@ class RequestList
      *
      * @param string $identifier
      * @return int|false - ID if found; false if not found
+     * @throws QUI\Database\Exception
      */
-    public static function getFormIdByIdentifier(string $identifier): bool|int
+    public static function getFormIdByIdentifier(string $identifier): bool | int
     {
         $result = QUI::getDataBase()->fetch([
             'select' => 'id',
@@ -354,7 +356,7 @@ class RequestList
     }
 
     /**
-     * Get table where forms are saved
+     * Get the table where forms are saved
      *
      * @return string
      */
@@ -364,7 +366,7 @@ class RequestList
     }
 
     /**
-     * Get table where requests are saved
+     * Get the table where requests are saved
      *
      * @return string
      */

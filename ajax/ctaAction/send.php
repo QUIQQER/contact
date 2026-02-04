@@ -30,7 +30,7 @@ QUI::$Ajax->registerFunction(
             $formData = json_decode($formData, true);
         }
 
-        if (!is_array($formData)) {
+        if (!is_array($formData) || empty($formData)) {
             throw new \Exception('Invalid form data');
         }
 

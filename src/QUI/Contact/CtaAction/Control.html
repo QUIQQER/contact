@@ -87,20 +87,17 @@
             <textarea name="message" placeholder="{$messagePlaceholder}" required></textarea>
         </label>
 
-        <div class="row">
-            <label class="check">
+        <div>
+            <label data-name="privacy" class="check">
                 <input type="checkbox" name="privacy" required/>
-                <span>
-                    Ich habe die <a href="#">Datenschutzerklärung</a> gelesen.
-                    Mit dem Absenden stimmst du der Verarbeitung deiner Angaben zur Bearbeitung der Anfrage zu.
-                </span>
+                <span>{$privacyText}</span>
             </label>
+        </div>
 
-            <div class="actions">
-                <button class="btn btn-primary" type="submit">
-                    Anfrage senden
-                </button>
-            </div>
+        <div class="actions">
+            <button class="btn btn-primary" type="submit">
+                {$submitLabel}
+            </button>
         </div>
     </form>
 </section>

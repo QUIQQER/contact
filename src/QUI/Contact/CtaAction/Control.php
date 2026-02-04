@@ -9,9 +9,6 @@ use QUI\Exception;
  * This class represents a control for managing a contact call-to-action (CTA) element in a QUI application.
  * It provides functionality to configure its attributes and render its content dynamically. Additionally,
  * it supports form submission for collecting user input and validating the required fields.
- *
- * @todo datenschutz checkbox -> sprachvariable
- * @todo exceptions -> sprachvariablen
  */
 class Control extends QUI\Control
 {
@@ -43,6 +40,7 @@ class Control extends QUI\Control
 
         parent::__construct($attributes);
 
+        $this->setJavaScriptControl('package/quiqqer/contact/bin/controls/frontend/CtaAction');
         $this->addCSSClass('quiqqer-contact-ctaAction');
         $this->addCSSFile(dirname(__FILE__) . '/Control.css');
     }
@@ -260,7 +258,10 @@ class Control extends QUI\Control
             'phonePlaceholder' => $phonePlaceholder,
             'messageLabel' => $messageLabel,
             'messagePlaceholder' => $messagePlaceholder,
-            'submitLabel' => $submitLabel
+            'submitLabel' => $submitLabel,
+            'privacyText' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.privacy', [
+                'privacyLink' => $this->getPrivacyLink()
+            ])
         ]);
 
         return $Engine->fetch(dirname(__FILE__) . '/Control.html');
@@ -278,15 +279,21 @@ class Control extends QUI\Control
         $hasPhone = $phone !== '';
 
         if ($name === '') {
-            throw new QUI\Exception('Name is required');
+            throw new QUI\Exception(
+                QUI::getLocale()->get('quiqqer/contact', 'brick.control.ctaAction.exception.nameNeeded')
+            );
         }
 
         if (!$hasEmail && !$hasPhone) {
-            throw new QUI\Exception('Provide either email or phone');
+            throw new QUI\Exception(
+                QUI::getLocale()->get('quiqqer/contact', 'brick.control.ctaAction.exception.emailNeeded')
+            );
         }
 
         if ($hasEmail && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new QUI\Exception('Invalid email');
+            throw new QUI\Exception(
+                QUI::getLocale()->get('quiqqer/contact', 'brick.control.ctaAction.exception.invalidEmail')
+            );
         }
 
         $mailer = QUI::getMailManager()->getMailer();
@@ -399,13 +406,81 @@ class Control extends QUI\Control
             $mailer->send();
         } catch (\Exception $e) {
             QUI\System\Log::addError($e->getMessage());
-            throw new QUI\Exception('Something went wrong. Please try again later.');
+            throw new QUI\Exception(
+                QUI::getLocale()->get('quiqqer/contact', 'brick.control.ctaAction.exception.mailSendFailed')
+            );
         }
     }
 
     protected function isInBrick(): bool
     {
         return !empty($this->getAttribute('data-brickid'));
+    }
+
+    public function getPrivacyLink(): string
+    {
+        try {
+            $Config = QUI::getPackage('quiqqer/erp')->getConfig();
+            $values = $Config->get('sites', 'privacy_policy');
+            $Project = QUI::getRewrite()->getProject();
+        } catch (QUI\Exception) {
+            return '';
+        }
+
+        $url = '';
+        $project = '';
+        $lang = '';
+        $id = '';
+        $title = '';
+
+        if (!empty($values)) {
+            $lang = $Project->getLang();
+            $values = json_decode($values, true);
+
+            if (!empty($values[$lang])) {
+                try {
+                    $Site = QUI\Projects\Site\Utils::getSiteByLink($values[$lang]);
+
+                    $url = $Site->getUrlRewritten();
+                    $title = $Site->getAttribute('title');
+                    $project = $Site->getProject()->getName();
+                    $lang = $Site->getProject()->getLang();
+                    $id = $Site->getId();
+                } catch (QUI\Exception) {
+                }
+            }
+        }
+
+        if (
+            empty($url)
+            && empty($project)
+            && empty($id)
+            && empty($title)
+        ) {
+            try {
+                $privacy = $Project->getSites([
+                    'where' => [
+                        'type' => 'quiqqer/sitetypes:types/privacypolicy'
+                    ],
+                    'limit' => 1
+                ]);
+
+                if (isset($privacy[0])) {
+                    $Site = $privacy[0];
+                    $url = $Site->getUrlRewritten();
+                    $title = $Site->getAttribute('title');
+                    $project = $Site->getProject()->getName();
+                    $lang = $Site->getProject()->getLang();
+                    $id = $Site->getId();
+                }
+            } catch (QUI\Exception) {
+            }
+        }
+
+        return '<a href="' . $url . '" target="_blank" 
+            data-project="' . $project . '" 
+            data-lang="' . $lang . '" 
+            data-id="' . $id . '">' . $title . '</a>';
     }
 
     private function buildHtmlListItem(string $label, string $value): string
@@ -435,6 +510,7 @@ class Control extends QUI\Control
     public static function getAllowedAttributes(): array
     {
         return [
+            'data-brickid',
             'header',
             'content',
             'title',

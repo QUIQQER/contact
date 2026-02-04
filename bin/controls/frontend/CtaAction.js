@@ -2,10 +2,11 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
 
     'qui/QUI',
     'qui/controls/Control',
+    'qui/controls/loader/Loader',
     'Ajax',
     'Locale'
 
-], function (QUI, QUIControl, QUIAjax, QUILocale) {
+], function (QUI, QUIControl, QUILoader, QUIAjax, QUILocale) {
     "use strict";
 
     const lg = 'quiqqer/contact';
@@ -42,6 +43,19 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
 
         initialize: function (options) {
             this.parent(options);
+
+            this.Loader = new QUILoader();
+
+            this.addEvents({
+                onImport: this.$onImport
+            });
+        },
+
+        $onImport: function () {
+            this.getElm().classList.add('cta-action');
+            this.getElm().style.width = '100%';
+            this.Loader.inject(this.getElm());
+            this.$initEvents();
         },
 
         create: function () {
@@ -55,54 +69,62 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
 
             QUIAjax.get('package_quiqqer_contact_ajax_ctaAction_get', (html) => {
                 container.innerHTML = html;
+                this.Loader.inject(this.getElm());
 
                 QUI.parse(container).then(() => {
-                    const form = container.querySelector('form');
-
-                    form.addEventListener('submit', (e) => {
-                        e.preventDefault();
-
-                        this.send().catch(() => {
-                            this.fireEvent('sendError', [this]);
-                        });
-                    });
-
-                    this.fireEvent('load', [this]);
+                    this.$initEvents();
                 });
             }, {
                 'package': lg,
-                attributes: JSON.stringify({
-                    header: this.getAttribute('header'),
-                    content: this.getAttribute('content'),
-                    title: this.getAttribute('title'),
-                    description: this.getAttribute('description'),
-
-                    name_label: this.getAttribute('name_label'),
-                    name_placeholder: this.getAttribute('name_placeholder'),
-                    company_label: this.getAttribute('company_label'),
-                    company_placeholder: this.getAttribute('company_placeholder'),
-                    email_label: this.getAttribute('email_label'),
-                    email_placeholder: this.getAttribute('email_placeholder'),
-                    phone_label: this.getAttribute('phone_label'),
-                    phone_placeholder: this.getAttribute('phone_placeholder'),
-                    message_label: this.getAttribute('message_label'),
-                    message_placeholder: this.getAttribute('message_placeholder'),
-                    submit_label: this.getAttribute('submit_label'),
-
-                    // buttons
-                    whatsapp: this.getAttribute('whatsapp'),
-                    phone: this.getAttribute('phone'),
-                    email: this.getAttribute('email'),
-                })
+                attributes: JSON.stringify(this.getControlAttributes())
             });
 
             return container;
         },
 
+        $initEvents: function () {
+            const form = this.getElm().querySelector('form');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                this.send().catch(() => {
+                    // nothing, error event is triggered in send
+                });
+            });
+
+            const privacyLabel = this.getElm().querySelector('[data-name="privacy"]');
+
+            if (privacyLabel) {
+                const aNode = privacyLabel.querySelector('a');
+
+                aNode.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    require(['package/quiqqer/controls/bin/site/Window'], function (Win) {
+                        new Win({
+                            showTitle: true,
+                            project: aNode.dataset.project,
+                            lang: aNode.dataset.lang,
+                            id: aNode.dataset.id
+                        }).open();
+                    });
+                });
+            }
+
+            this.fireEvent('load', [this]);
+        },
+
         send: function () {
             this.fireEvent('sendBegin');
+            this.Loader.show();
 
-            return new Promise(() => {
+            const form = this.getElm().querySelector('form');
+            const formData = new FormData(form);
+
+            return new Promise((resolve, reject) => {
                 let message = this.getAttribute('success_message');
 
                 if (!message || message.length === 0) {
@@ -123,7 +145,6 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                     success.appendChild(icon);
                     success.appendChild(text);
 
-                    const container = this.getElm().querySelector('.quiqqer-contact-ctaAction')
                     const nodes = Array.from(
                         this.getElm().querySelectorAll(
                             '[data-name="left"],[data-name="right"]'
@@ -134,21 +155,63 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                         opacity: 0
                     }, {
                         callback: () => {
-                            container.innerHTML = '';
-                            container.classList.add('quiqqer-contact-ctaAction--success');
-                            container.appendChild(success);
+                            nodes.forEach((node) => {
+                                node.parentNode.removeChild(node);
+                            });
 
-                            this.fireEvent('sendEnd', [this])
-                            this.fireEvent('send', [this])
+                            this.getElm().classList.add('quiqqer-contact-ctaAction--success');
+                            this.getElm().appendChild(success);
+
+                            this.fireEvent('sendEnd', [this]);
+                            this.fireEvent('send', [this]);
+                            this.Loader.hide();
+                            resolve();
                         }
                     });
                 }, {
                     'package': 'quiqqer/contact',
+                    attributes: JSON.stringify(this.getControlAttributes()),
+                    formData: JSON.stringify(Object.fromEntries(formData.entries())),
                     onError: () => {
-                        this.fireEvent('sendError', [this])
+                        this.fireEvent('sendError', [this]);
+                        this.Loader.hide();
+                        reject();
                     }
                 });
             });
+        },
+
+        getControlAttributes: function () {
+            let brickId = false;
+
+            if (this.getElm().getAttribute('data-brickid')) {
+                brickId = this.getElm().getAttribute('data-brickid');
+            }
+
+            return {
+                'data-brickid': brickId,
+                header: this.getAttribute('header'),
+                content: this.getAttribute('content'),
+                title: this.getAttribute('title'),
+                description: this.getAttribute('description'),
+
+                name_label: this.getAttribute('name_label'),
+                name_placeholder: this.getAttribute('name_placeholder'),
+                company_label: this.getAttribute('company_label'),
+                company_placeholder: this.getAttribute('company_placeholder'),
+                email_label: this.getAttribute('email_label'),
+                email_placeholder: this.getAttribute('email_placeholder'),
+                phone_label: this.getAttribute('phone_label'),
+                phone_placeholder: this.getAttribute('phone_placeholder'),
+                message_label: this.getAttribute('message_label'),
+                message_placeholder: this.getAttribute('message_placeholder'),
+                submit_label: this.getAttribute('submit_label'),
+
+                // buttons
+                whatsapp: this.getAttribute('whatsapp'),
+                phone: this.getAttribute('phone'),
+                email: this.getAttribute('email'),
+            };
         }
     });
 });

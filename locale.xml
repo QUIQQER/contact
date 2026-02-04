@@ -403,6 +403,18 @@
             </ul>
             ]]></en>
         </locale>
+        <locale name="contact.ctaAction.privacy">
+            <de><![CDATA[
+            Ich habe die [privacyLink] gelesen. Mit dem Absenden stimmst du der Verarbeitung deiner Angaben zur Bearbeitung der Anfrage zu.
+            ]]></de>
+            <en><![CDATA[
+            I have read the [privacyLink]. By submitting, you agree to the processing of your data for the processing of the request.
+            ]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_submit_label">
+            <de><![CDATA[Anfrage senden]]></de>
+            <en><![CDATA[Submit request]]></en>
+        </locale>
 
         <locale name="brick.control.ctaAction.setting.title">
             <de><![CDATA[CTA Kontaktformular]]></de>
@@ -453,6 +465,7 @@
             <en><![CDATA[Brick CTA data]]></en>
         </locale>
 
+
         <locale name="brick.control.ctaAction.mail.brick.brickId">
             <de><![CDATA[ID]]></de>
             <en><![CDATA[ID]]></en>
@@ -478,9 +491,29 @@
             <de><![CDATA[Telefon]]></de>
             <en><![CDATA[Phone]]></en>
         </locale>
+        <locale name="brick.control.ctaAction.mail.contact.company">
+            <de><![CDATA[Unternehmen]]></de>
+            <en><![CDATA[Company]]></en>
+        </locale>
         <locale name="brick.control.ctaAction.mail.contact.message">
             <de><![CDATA[Nachricht]]></de>
             <en><![CDATA[Message]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.exception.nameNeeded">
+            <de><![CDATA[Bitte ein Name angeben]]></de>
+            <en><![CDATA[Please provide a name]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.exception.emailNeeded">
+            <de><![CDATA[Bitte eine E-Mail oder Telefon angeben]]></de>
+            <en><![CDATA[Please provide either email or phone]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.exception.emailInvalid">
+            <de><![CDATA[Bitte eine gültige E-Mail angeben]]></de>
+            <en><![CDATA[Please provide a valid email]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.exception.mailSendFailed">
+            <de><![CDATA[Die E-Mail konnte nicht versendet werden]]></de>
+            <en><![CDATA[The email could not be sent]]></en>
         </locale>
 
     </groups>

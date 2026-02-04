@@ -98,10 +98,19 @@
     font-size: 13px;
 }
 
+.quiqqer-contact-ctaAction label.check {
+    cursor: pointer;
+}
+
 .quiqqer-contact-ctaAction input,
 .quiqqer-contact-ctaAction select,
 .quiqqer-contact-ctaAction textarea {
     padding: 14px;
+}
+
+.quiqqer-contact-ctaAction input[type="checkbox"] {
+    padding: 20px;
+    margin: 5px 0 0 0;
 }
 
 .quiqqer-contact-ctaAction textarea {
@@ -119,7 +128,7 @@
 
 .quiqqer-contact-ctaAction .check {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     font-size: 14px;
 }

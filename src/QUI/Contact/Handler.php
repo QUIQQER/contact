@@ -102,7 +102,7 @@ class Handler
     }
 
     /**
-     * Sends mail to submitter for a submitted form
+     * Sends mail to the submitter for a submitted form
      *
      * @param Form $Form
      * @param QUI\Projects\Site $Site

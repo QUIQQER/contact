@@ -70,6 +70,7 @@ class RequestList
      */
     public static function getForms(): array
     {
+        /** @var array<int, array{title: string, identifier: string, dataFields: mixed, id: int|string}> $result */
         $result = QUI::getDataBase()->fetch([
             'select' => [
                 'id',
@@ -80,14 +81,16 @@ class RequestList
             'from' => self::getFormsTable()
         ]);
 
+        /** @var array<string, true> $parsed */
         $parsed = [];
+        /** @var array<string, int> $parsedTitles */
         $parsedTitles = [];
         $forms = [];
 
         foreach ($result as $row) {
             $title = $row['title'];
             $titleHash = md5($title);
-            $identifier = $row['identifier'];
+            $identifier = (string)$row['identifier'];
 
             if (isset($parsed[$identifier])) {
                 continue;

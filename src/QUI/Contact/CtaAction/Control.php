@@ -316,6 +316,10 @@ class Control extends QUI\Control
                 );
 
                 $recipient = $brick?->getAttribute('recipient');
+
+                if (empty($this->getAttribute('title'))) {
+                    $this->setAttribute('title', $brick->getAttribute('title'));
+                }
             } catch (QUI\Exception) {
             }
         }

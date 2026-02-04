@@ -584,6 +584,7 @@ class Control extends QUI\Control
 
             foreach ($children as $child) {
                 if ($child->nodeType === XML_ELEMENT_NODE) {
+                    /** @var \DOMElement $child */
                     $tag = strtolower($child->nodeName);
 
                     if (in_array($tag, $dropTags, true)) {
@@ -610,7 +611,7 @@ class Control extends QUI\Control
                         foreach ($attrs as $attr) {
                             $attrName = strtolower($attr->name);
                             if (!in_array($attrName, $allowedForTag, true)) {
-                                $child->removeAttributeNode($attr);
+                                $child->removeAttribute($attrName);
                                 continue;
                             }
 
@@ -621,7 +622,7 @@ class Control extends QUI\Control
                                     preg_match('#^\s*javascript:#i', $href) ||
                                     preg_match('#^\s*data:#i', $href)
                                 ) {
-                                    $child->removeAttributeNode($attr);
+                                    $child->removeAttribute($attrName);
                                 }
                                 continue;
                             }
@@ -629,7 +630,7 @@ class Control extends QUI\Control
                             if ($tag === 'a' && $attrName === 'target') {
                                 $target = strtolower(trim($attr->value));
                                 if ($target !== '_blank' && $target !== '_self') {
-                                    $child->removeAttributeNode($attr);
+                                    $child->removeAttribute($attrName);
                                     continue;
                                 }
 

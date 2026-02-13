@@ -232,15 +232,9 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
         $onDestroy: function () {
             this.$clearEditorPeriodicalSave();
             this.$save();
-            //this.$Editor.destroy();
-            //Editors.destroyEditor(this.$Editor);
-
 
             this.$Editor = null;
             this.$EditorInstance = null;
-
-            //this.$Panel.setContent('');
-            //this.$Panel.maximizeCategory();
         }
     });
 });

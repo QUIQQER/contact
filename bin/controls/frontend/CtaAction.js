@@ -85,33 +85,37 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
         $initEvents: function () {
             const form = this.getElm().querySelector('form');
 
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
 
-                this.send().catch(() => {
-                    // nothing, error event is triggered in send
+                    this.send().catch(() => {
+                        // nothing, error event is triggered in send
+                    });
                 });
-            });
+            }
 
             const privacyLabel = this.getElm().querySelector('[data-name="privacy"]');
 
             if (privacyLabel) {
                 const aNode = privacyLabel.querySelector('a');
 
-                aNode.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    require(['package/quiqqer/controls/bin/site/Window'], function (Win) {
-                        new Win({
-                            showTitle: true,
-                            project: aNode.dataset.project,
-                            lang: aNode.dataset.lang,
-                            id: aNode.dataset.id
-                        }).open();
+                if (aNode) {
+                    aNode.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        require(['package/quiqqer/controls/bin/site/Window'], function (Win) {
+                            new Win({
+                                showTitle: true,
+                                project: aNode.dataset.project,
+                                lang: aNode.dataset.lang,
+                                id: aNode.dataset.id
+                            }).open();
+                        });
                     });
-                });
+                }
             }
 
             this.fireEvent('load', [this]);
@@ -121,7 +125,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             this.fireEvent('sendBegin');
             this.Loader.show();
 
-            const form = this.getElm().querySelector('form');
+            const form = this.getElm().querySelector('form') || document.createElement('form');
             const formData = new FormData(form);
 
             return new Promise((resolve, reject) => {

@@ -62,7 +62,13 @@ define('package/quiqqer/contact/bin/SitePanel', [
             const self = this;
             let formData = this.$Site.getAttribute('quiqqer.contact.settings.form');
 
-            formData = JSON.decode(formData);
+            if (formData) {
+                try {
+                    formData = JSON.decode(formData);
+                } catch (e) {
+                    formData = false;
+                }
+            }
 
             this.$Panel.Loader.show();
 

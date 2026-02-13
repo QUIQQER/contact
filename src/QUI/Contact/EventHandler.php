@@ -13,8 +13,6 @@ use function json_encode;
 
 /**
  * Class EventHandler
- *
- * @package QUI\Contact
  */
 class EventHandler
 {

@@ -1,9 +1,5 @@
 /**
  * Contact form
- *
- * @module package/quiqqer/contact/bin/SitePanel
- * @author www.pcsg.de (Henning Leutz)
- * @author www.pcsg.de (Patrick Müller)
  */
 define('package/quiqqer/contact/bin/SitePanel', [
 
@@ -17,7 +13,7 @@ define('package/quiqqer/contact/bin/SitePanel', [
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/quiqqer/contact/bin/SitePanel',
+        Type: 'package/quiqqer/contact/bin/SitePanel',
 
         Binds: [
             '$onInject',
@@ -31,13 +27,13 @@ define('package/quiqqer/contact/bin/SitePanel', [
         initialize: function (options) {
             this.parent(options);
 
-            this.$Panel   = this.getAttribute('Panel');
-            this.$Site    = this.getAttribute('Site');
+            this.$Panel = this.getAttribute('Panel');
+            this.$Site = this.getAttribute('Site');
             this.$Project = this.$Site.getProject();
-            this.$Form    = new FormBuilder();
+            this.$Form = new FormBuilder();
 
             this.addEvents({
-                onInject : this.$onInject,
+                onInject: this.$onInject,
                 onDestroy: this.$onDestroy
             });
         },
@@ -51,8 +47,8 @@ define('package/quiqqer/contact/bin/SitePanel', [
             this.$Elm = new Element('div', {
                 styles: {
                     'float': 'left',
-                    height : '100%',
-                    width  : '100%'
+                    height: '100%',
+                    width: '100%'
                 }
             });
 
@@ -60,13 +56,11 @@ define('package/quiqqer/contact/bin/SitePanel', [
         },
 
         /**
-         * event : on inject
+         * event: onInject
          */
         $onInject: function () {
-            var self     = this;
-            var formData = this.$Site.getAttribute(
-                'quiqqer.contact.settings.form'
-            );
+            const self = this;
+            let formData = this.$Site.getAttribute('quiqqer.contact.settings.form');
 
             formData = JSON.decode(formData);
 
@@ -106,13 +100,13 @@ define('package/quiqqer/contact/bin/SitePanel', [
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_quiqqer_contact_ajax_getSettings', resolve, {
                     'package': 'quiqqer/contact',
-                    onError  : reject
+                    onError: reject
                 });
             });
         },
 
         /**
-         * event : on destroy
+         * event: onDestroy
          * set the tags to the site
          */
         $onDestroy: function () {

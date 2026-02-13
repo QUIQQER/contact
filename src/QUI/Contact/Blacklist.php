@@ -2,6 +2,7 @@
 
 namespace QUI\Contact;
 
+use Exception;
 use QUI;
 use QUI\FormBuilder\Builder;
 use QUI\FormBuilder\Fields\EMail as FormBuilderEmailType;
@@ -274,7 +275,7 @@ class Blacklist
         try {
             $Config = QUI::getPackage('quiqqer/contact')->getConfig();
             self::$conf = $Config?->getSection('blacklist') ?? [];
-        } catch (\Exception $Exception) {
+        } catch (Exception $Exception) {
             QUI\System\Log::writeException($Exception);
             self::$conf = [];
         }

@@ -175,7 +175,7 @@ class EventHandler
 
         $dataFields = json_encode($dataFields);
 
-        // if exists only update title
+        // if there exists only update title
         if ($exists) {
             QUI::getDataBase()->update(
                 RequestList::getFormsTable(),

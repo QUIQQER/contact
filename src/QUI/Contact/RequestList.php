@@ -82,8 +82,8 @@ class RequestList
             'from' => self::getFormsTable()
         ]);
 
-        /** @var array<string, true> $parsed */
-        $parsed = [];
+        //$parsed = [];
+
         /** @var array<string, int> $parsedTitles */
         $parsedTitles = [];
         $forms = [];
@@ -91,11 +91,11 @@ class RequestList
         foreach ($result as $row) {
             $title = $row['title'];
             $titleHash = md5($title);
-            $identifier = (string)$row['identifier'];
+            //$identifier = (string)$row['identifier'];
 
-            if (isset($parsed[$identifier])) {
-                continue;
-            }
+            //if (isset($parsed[$identifier])) {
+            //    continue;
+            //}
 
             if (!isset($parsedTitles[$titleHash])) {
                 $parsedTitles[$titleHash] = 0;
@@ -121,7 +121,6 @@ class RequestList
      * @param bool $countOnly
      * @return array<int, array<string, mixed>>|int
      * @throws Exception
-     * @throws \Doctrine\DBAL\Exception
      */
     public static function getList(array $searchParams, bool $countOnly = false): array|int
     {

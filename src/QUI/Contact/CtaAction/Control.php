@@ -2,6 +2,9 @@
 
 namespace QUI\Contact\CtaAction;
 
+use DOMDocument;
+use DOMElement;
+use DOMNode;
 use QUI;
 use QUI\Exception;
 
@@ -317,7 +320,7 @@ class Control extends QUI\Control
 
                 $recipient = $brick?->getAttribute('recipient');
 
-                if (empty($this->getAttribute('title'))) {
+                if (empty($this->getAttribute('title')) && $brick) {
                     $this->setAttribute('title', $brick->getAttribute('title'));
                 }
             } catch (QUI\Exception) {
@@ -570,7 +573,7 @@ class Control extends QUI\Control
             'base'
         ];
 
-        $doc = new \DOMDocument('1.0', 'UTF-8');
+        $doc = new DOMDocument('1.0', 'UTF-8');
         $prevUseErrors = libxml_use_internal_errors(true);
         $doc->loadHTML(
             '<?xml encoding="UTF-8">' . $html,
@@ -586,14 +589,14 @@ class Control extends QUI\Control
     }
 
     /**
-     * @param \DOMNode $node
+     * @param DOMNode $node
      * @param array<int, string> $allowedTags
      * @param array<string, array<int, string>> $allowedAttrs
      * @param array<int, string> $dropTags
      * @return void
      */
     private function sanitizeDomNode(
-        \DOMNode $node,
+        DOMNode $node,
         array $allowedTags,
         array $allowedAttrs,
         array $dropTags
@@ -607,7 +610,7 @@ class Control extends QUI\Control
 
             foreach ($children as $child) {
                 if ($child->nodeType === XML_ELEMENT_NODE) {
-                    /** @var \DOMElement $child */
+                    /** @var DOMElement $child */
                     $tag = strtolower($child->nodeName);
 
                     if (in_array($tag, $dropTags, true)) {
@@ -616,7 +619,7 @@ class Control extends QUI\Control
                     }
 
                     if (!in_array($tag, $allowedTags, true)) {
-                        // unwrap element: keep its children/text, drop the element itself
+                        // unwrap the element: keep its children/text, drop the element itself
                         while ($child->firstChild) {
                             $node->insertBefore($child->firstChild, $child);
                         }

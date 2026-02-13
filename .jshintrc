@@ -1,0 +1,14 @@
+{
+  "esversion": 6,
+  "browser": true,
+  "undef": true,
+  "unused": false,
+  "laxbreak": true,
+  "globals": {
+    "define": false,
+    "require": false,
+    "Class": false,
+    "Element": false,
+    "moofx": false
+  }
+}

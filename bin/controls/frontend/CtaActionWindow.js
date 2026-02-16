@@ -19,6 +19,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
         ],
 
         options: {
+            'data-brickid': '',
             header: '',
             content: '',
             title: '',
@@ -39,7 +40,10 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
             // buttons
             whatsapp: '',
             phone: '',
-            email: ''
+            email: '',
+
+            // design
+            formDesign: 'default', // default, grid, labelLeft
         },
 
         initialize: function (options) {
@@ -59,7 +63,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
 
         $onOpen: function () {
             this.Loader.show();
-            this.getContent().classList.add('cta-action-window');
+            this.getContent().classList.add('qui-contact-controls-ctaActionWindow');
             this.getContent().innerHTML = '';
 
             require(['package/quiqqer/contact/bin/controls/frontend/CtaAction'], (CtaAction) => {

@@ -1,12 +1,9 @@
-<!-- LEFT -->
-<aside data-name="left" class="quiqqer-contact-ctaAction-left">
-    <div class="brand" aria-label="Branding">
-        <div class="logo" aria-hidden="true">
-            {if $logo}
-            {image image=$logo height=48}
-            {/if}
-        </div>
+<aside data-name="left" class="quiqqer-contact-ctaAction__leftContent">
+    {if $logo}
+    <div class="logo" aria-hidden="true">
+        {image image=$logo height=50}
     </div>
+    {/if}
 
     <div class="default-content">
         {$content}
@@ -14,90 +11,109 @@
 
     <div data-name="buttons" class="quiqqer-contact-ctaAction-buttons">
         {if $self->getAttribute('email')}
-        <a class="btn btn-secondary" href="mailto:{$self->getAttribute('email')}">
-            <span class="fa fa-envelope"></span>
-            <span>{$self->getAttribute('email')}</span>
+        <a class="btn btn--mail" href="mailto:{$self->getAttribute('email')}">
+            <span class="fa fa-envelope btn-icon"></span> {$self->getAttribute('email')}
         </a>
         {/if}
 
         {if $self->getAttribute('whatsapp')}
-        <a class="btn btn-secondary" href="whatsapp://send?phone={$whatsapp}">
-            <span class="fa fa-whatsapp"></span>️ <span>{$self->getAttribute('whatsapp')}</span>
+        <a class="btn btn--whatsapp" href="whatsapp://send?phone={$whatsapp}">
+            <span class="fa fa-whatsapp btn-icon" style="font-size: 1.25em;"></span>️ {$self->getAttribute('whatsapp')}
         </a>
         {/if}
 
         {if $self->getAttribute('phone')}
-        <a class="btn btn-secondary" href="tel:{$phone}">
-            <span class="fa fa-phone"></span>️ <span>{$self->getAttribute('phone')}</span>
+        <a class="btn btn-secondary btn--phone" href="tel:{$phone}">
+            <span class="fa fa-phone btn-icon"></span>️ {$self->getAttribute('phone')}
         </a>
         {/if}
     </div>
 </aside>
 
-<!-- RIGHT -->
-<section data-name="right" class="quiqqer-contact-ctaAction-right">
-    <h3 id="modalTitle">{$title}</h3>
+<section data-name="right" class="quiqqer-contact-ctaAction__rightContent">
+    <h3>{$title}</h3>
     <p class="sub">{$description}</p>
 
-    <form action="#" method="post">
-        <div class="grid2">
-            <label>
+    <form action="#" method="post" class="quiqqer-contact-ctaAction__form form form--{$formDesign}">
+
+        <div class="form-field form-field--name">
+            <label class="form-label" for="name">
                 {$nameLabel}
+            </label>
+            <div class="form-control">
                 <input type="text"
                        name="name"
+                       id="name"
                        placeholder="{$namePlaceholder}"
                        autocomplete="name"
                        required
                 />
-            </label>
-
-            <label>
+            </div>
+        </div>
+        <div class="form-field form-field--company">
+            <label class="form-label" for="company">
                 {$companyLabel}
+            </label>
+            <div class="form-control">
                 <input type="text"
                        name="company"
+                       id="company"
                        placeholder="{$companyPlaceholder}"
-                       autocomplete="organization"
+                       autocomplete="name"
                 />
-            </label>
+            </div>
         </div>
 
-        <div class="grid2">
-            <label>
+        <div class="form-field form-field--email">
+            <label class="form-label" for="email">
                 {$emailLabel}
+            </label>
+            <div class="form-control">
                 <input type="email"
                        name="email"
+                       id="email"
                        placeholder="{$emailPlaceholder}"
-                       autocomplete="email"
+                       autocomplete="name"
                        required
                 />
-            </label>
+            </div>
+        </div>
 
-            <label>
+        <div class="form-field form-field--phone">
+            <label class="form-label" for="phone">
                 {$phoneLabel}
+            </label>
+            <div class="form-control">
                 <input type="tel"
                        name="phone"
+                       id="phone"
                        placeholder="{$phonePlaceholder}"
                        autocomplete="tel"
                 />
-            </label>
+            </div>
         </div>
 
-        <label>
-            {$messageLabel}
-            <textarea name="message" placeholder="{$messagePlaceholder}" required></textarea>
-        </label>
+        <div class="form-field form-field--message">
+            <label class="form-label" for="message">
+                {$messageLabel}
+            </label>
+            <div class="form-control">
+                <textarea name="message" id="message" placeholder="{$messagePlaceholder}" required class="quiqqer-contact-ctaAction__textarea"></textarea>
+            </div>
+        </div>
 
-        <div>
+        <div class="form-field form-field--privacy">
             <label data-name="privacy" class="check">
-                <input type="checkbox" name="privacy" required/>
+                <input type="checkbox" name="privacy" id="privacy" required/>
                 <span>{$privacyText}</span>
             </label>
         </div>
 
-        <div class="actions">
+        <div class="form-actions">
             <button class="btn btn-primary" type="submit">
                 {$submitLabel}
             </button>
         </div>
+
     </form>
 </section>

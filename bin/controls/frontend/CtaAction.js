@@ -17,6 +17,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
         Extends: QUIControl,
 
         options: {
+            'data-brickid': '',
             header: '',
             content: '',
             title: '',
@@ -38,7 +39,10 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             // buttons
             whatsapp: false,
             phone: false,
-            email: false
+            email: false,
+
+            // design
+            formDesign: 'default', // default, grid, labelLeft
         },
 
         initialize: function (options) {
@@ -52,7 +56,6 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
         },
 
         $onImport: function () {
-            this.getElm().classList.add('cta-action');
             this.getElm().style.width = '100%';
             this.Loader.inject(this.getElm());
             this.$initEvents();
@@ -61,7 +64,6 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
         create: function () {
             const container = this.parent();
 
-            container.classList.add('cta-action');
             container.innerHTML = '';
             container.style.width = '100%';
 
@@ -192,6 +194,10 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                 brickId = this.getElm().getAttribute('data-brickid');
             }
 
+            if (!brickId && this.getAttribute('data-brickid')) {
+                brickId = this.getAttribute('data-brickid');
+            }
+
             return {
                 'data-brickid': brickId,
                 header: this.getAttribute('header'),
@@ -215,6 +221,9 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                 whatsapp: this.getAttribute('whatsapp'),
                 phone: this.getAttribute('phone'),
                 email: this.getAttribute('email'),
+
+                // design
+                formDesign: this.getAttribute('formDesign')
             };
         }
     });

@@ -1,3 +1,22 @@
-.cta-action-window {
+.qui-contact-controls-ctaActionWindow {
     display: flex;
+}
+
+.qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction {
+    --layout-gap: var(--qui-contact-ctaAction-layout-gap, 0);
+
+    width: 100%;
+    height: 100%;
+}
+
+.qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__rightContent {
+    padding: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+    .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__leftContent,
+    .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__rightContent {
+        overflow: auto;
+        height: 100%;
+    }
 }

@@ -42,6 +42,9 @@ class Control extends QUI\Control
             'whatsapp' => '',
             'phone' => '',
             'email' => '',
+
+            // design
+            'formDesign' => '', // default, grid, labelLeft
         ]);
 
         parent::__construct($attributes);
@@ -73,6 +76,11 @@ class Control extends QUI\Control
             } catch (QUI\Exception) {
             }
         }
+
+        $formDesign = match ($this->getAttribute('formDesign')) {
+            'grid', 'labelLeft' => $this->getAttribute('formDesign'),
+            default => 'default'
+        };
 
         $Engine = QUI::getTemplateManager()->getEngine();
 
@@ -271,7 +279,8 @@ class Control extends QUI\Control
             'submitLabel' => $submitLabel,
             'privacyText' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.privacy', [
                 'privacyLink' => $this->getPrivacyLink()
-            ])
+            ]),
+            'formDesign' => $formDesign
         ]);
 
         return $Engine->fetch(dirname(__FILE__) . '/Control.html');
@@ -435,11 +444,17 @@ class Control extends QUI\Control
     public function getPrivacyLink(): string
     {
         try {
-            $Config = QUI::getPackage('quiqqer/erp')->getConfig();
-            $values = $Config?->get('sites', 'privacy_policy');
             $Project = QUI::getRewrite()->getProject();
         } catch (QUI\Exception) {
             return '';
+        }
+
+        $values = null;
+
+        try {
+            $Config = QUI::getPackage('quiqqer/erp')->getConfig();
+            $values = $Config?->get('sites', 'privacy_policy');
+        } catch (QUI\Exception) {
         }
 
         if (empty($Project)) {
@@ -496,7 +511,16 @@ class Control extends QUI\Control
             }
         }
 
-        return '<a href="' . $url . '" target="_blank" 
+        if (
+            empty($url)
+            || empty($project)
+            || empty($id)
+            || empty($title)
+        ) {
+            return '';
+        }
+
+        return '<a href="' . $url . '" target="_blank" rel="noopener" 
             data-project="' . $project . '" 
             data-lang="' . $lang . '" 
             data-id="' . $id . '">' . $title . '</a>';
@@ -706,7 +730,8 @@ class Control extends QUI\Control
             'success_message',
             'whatsapp',
             'phone',
-            'email'
+            'email',
+            'formDesign'
         ];
     }
 }

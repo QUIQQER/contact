@@ -367,15 +367,15 @@
 
             <ul>
                 <li>
-                    <strong>Antwort in 24–48h</strong>
+                    <strong>Antwort in 24–48h</strong><br>
                     <span>In der Regel schneller – je nach Projektlage.</span>
                 </li>
                 <li>
-                    <strong>Direkt zum Punkt</strong>
+                    <strong>Direkt zum Punkt</strong><br>
                     <span>Keine Werbefloskeln, sondern konkrete Optionen.</span>
                 </li>
                 <li>
-                    <strong>Alles aus einer Hand</strong>
+                    <strong>Alles aus einer Hand</strong><br>
                     <span>Website, Shop, Webapp – inkl. Wartung &amp; Weiterentwicklung.</span>
                 </li>
             </ul>
@@ -389,15 +389,15 @@
 
             <ul>
                 <li>
-                    <strong>Answer within 24–48h</strong>
+                    <strong>Answer within 24–48h</strong><br>
                     <span>In general faster – depending on project situation.</span>
                 </li>
                 <li>
-                    <strong>Direct to the point</strong>
+                    <strong>Direct to the point</strong><br>
                     <span>No sales pitches, just concrete options.</span>
                 </li>
                 <li>
-                    <strong>One-stop solution</strong>
+                    <strong>One-stop solution</strong><br>
                     <span>Website, Shop, Webapp – including maintenance &amp; further development.</span>
                 </li>
             </ul>
@@ -431,6 +431,22 @@
         <locale name="brick.control.ctaAction.setting.logo">
             <de><![CDATA[CTA Action – Logo]]></de>
             <en><![CDATA[CTA Action – Logo]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.formDesign">
+            <de><![CDATA[Formular-Layout]]></de>
+            <en><![CDATA[Form layout]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.formDesign.default">
+            <de><![CDATA[Standard (Inputs untereinander)]]></de>
+            <en><![CDATA[Default (stacked inputs)]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.formDesign.grid">
+            <de><![CDATA[Raster (grid)]]></de>
+            <en><![CDATA[Grid]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.formDesign.labelLeft">
+            <de><![CDATA[Labels links]]></de>
+            <en><![CDATA[Labels left]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.whatsapp">
             <de><![CDATA[CTA Action – Kontakt Button WhatsApp]]></de>

@@ -10,6 +10,19 @@
             </description>
 
             <settings>
+                <setting name="formDesign" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.formDesign"/>
+                    <option></option>
+                    <option value="default">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.formDesign.default"/>
+                    </option>
+                    <option value="grid">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.formDesign.grid"/>
+                    </option>
+                    <option value="labelLeft">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.formDesign.labelLeft"/>
+                    </option>
+                </setting>
                 <setting name="recipient" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.recipient"/>
                 </setting>

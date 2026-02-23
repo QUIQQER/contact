@@ -40,8 +40,11 @@ class Control extends QUI\Control
 
             // buttons
             'whatsapp' => '',
+            'whatsappLabel' => '',
             'phone' => '',
+            'phoneLabel' => '',
             'email' => '',
+            'emailLabel' => '',
 
             // design
             'formDesign' => '', // default, grid, labelLeft
@@ -62,7 +65,15 @@ class Control extends QUI\Control
         // set brick data
         if (!empty($brickId)) {
             try {
-                QUI\Bricks\Manager::init()?->getBrickById((int)$brickId);
+                $brick = QUI\Bricks\Manager::init()?->getBrickById((int)$brickId);
+
+                if ($brick->getAttribute('frontendTitle')) {
+                    $this->setAttribute('title', $brick->getAttribute('frontendTitle'));
+                }
+
+                if ($brick->getAttribute('ctaDescription')) {
+                    $this->setAttribute('description', $brick->getAttribute('ctaDescription'));
+                }
 
                 $this->setAttribute('title', $this->getAttribute('frontendTitle'));
                 $this->setAttribute('description', $this->getAttribute('ctaDescription'));
@@ -206,7 +217,7 @@ class Control extends QUI\Control
 
         $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
         $description = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
-        $content = $this->sanitizeContentHtml($content);
+//        $content = $this->sanitizeContentHtml($content);
         $nameLabel = htmlspecialchars($nameLabel, ENT_QUOTES, 'UTF-8');
         $namePlaceholder = htmlspecialchars($namePlaceholder, ENT_QUOTES, 'UTF-8');
         $companyLabel = htmlspecialchars($companyLabel, ENT_QUOTES, 'UTF-8');
@@ -224,38 +235,68 @@ class Control extends QUI\Control
             $whatsapp = $this->getAttribute('whatsapp');
             $whatsapp = preg_replace('/\D+/', '', (string)$whatsapp) ?? '';
 
+            $whatsappLabel = (string)$this->getAttribute('whatsappLabel');
+
             // Wenn Nummer mit 0 beginnt, ersetze führende 0 durch 49 (DE)
             if ($whatsapp !== '' && preg_match('/^0\d+$/', $whatsapp)) {
                 $whatsapp = '49' . substr($whatsapp, 1);
             }
 
+            if ($whatsappLabel === '') {
+                $whatsappLabel = $whatsapp;
+            }
+
             $this->setAttribute('whatsapp', $whatsapp);
+            $this->setAttribute('whatsappLabel', $whatsappLabel);
             $Engine->assign('whatsapp', $whatsapp);
+            $Engine->assign('whatsappLabel', $whatsappLabel);
         }
 
         if (!empty($this->getAttribute('phone'))) {
             $phone = $this->getAttribute('phone');
             $phone = preg_replace('/\D+/', '', (string)$phone) ?? '';
 
+            $phoneLabel = (string)$this->getAttribute('phoneLabel');
+
             // Wenn Nummer mit 0 beginnt, ersetze führende 0 durch 49 (DE)
             if ($phone !== '' && preg_match('/^0\d+$/', $phone)) {
                 $phone = '49' . substr($phone, 1);
             }
 
+            if ($phoneLabel === '') {
+                $phoneLabel = $phone;
+            }
+
             $this->setAttribute('phone', $phone);
+            $this->setAttribute('phoneLabel', $phoneLabel);
             $Engine->assign('phone', $phone);
+            $Engine->assign('phoneLabel', $phoneLabel);
         }
 
         if (!empty($this->getAttribute('email'))) {
             $email = $this->getAttribute('email');
 
+            $emailLabel = (string)$this->getAttribute('emailLabel');
+
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $email = htmlspecialchars((string)$email, ENT_QUOTES, 'UTF-8');
+
                 $this->setAttribute(
                     'email',
                     htmlspecialchars($email, ENT_QUOTES, 'UTF-8')
                 );
+
+                if ($emailLabel === '') {
+                    $emailLabel = $email;
+                }
+
+                $this->setAttribute('emailLabel', $emailLabel);
+
+                $Engine->assign('email', $email);
+                $Engine->assign('emailLabel', $emailLabel);
             } else {
                 $this->setAttribute('email', '');
+                $this->setAttribute('emailLabel', '');
             }
         }
 

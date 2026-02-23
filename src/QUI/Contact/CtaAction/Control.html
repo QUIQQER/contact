@@ -11,28 +11,33 @@
 
     <div data-name="buttons" class="quiqqer-contact-ctaAction-buttons">
         {if $self->getAttribute('email')}
-        <a class="btn btn--mail" href="mailto:{$self->getAttribute('email')}">
-            <span class="fa fa-envelope btn-icon"></span> {$self->getAttribute('email')}
+        <a class="btn btn--mail" href="mailto:{$email}">
+            <span class="fa fa-envelope btn-icon"></span> {$emailLabel}
         </a>
         {/if}
 
         {if $self->getAttribute('whatsapp')}
         <a class="btn btn--whatsapp" href="whatsapp://send?phone={$whatsapp}">
-            <span class="fa fa-whatsapp btn-icon" style="font-size: 1.25em;"></span>️ {$self->getAttribute('whatsapp')}
+            <span class="fa fa-whatsapp btn-icon" style="font-size: 1.25em;"></span>️ {$whatsappLabel}
         </a>
         {/if}
 
         {if $self->getAttribute('phone')}
         <a class="btn btn-secondary btn--phone" href="tel:{$phone}">
-            <span class="fa fa-phone btn-icon"></span>️ {$self->getAttribute('phone')}
+            <span class="fa fa-phone btn-icon"></span>️ {$phoneLabel}
         </a>
         {/if}
     </div>
 </aside>
 
 <section data-name="right" class="quiqqer-contact-ctaAction__rightContent">
-    <h3>{$title}</h3>
-    <p class="sub">{$description}</p>
+    {if $title}
+        <h3>{$title}</h3>
+    {/if}
+
+    {if $description}
+        <p class="sub">{$description}</p>
+    {/if}
 
     <form action="#" method="post" class="quiqqer-contact-ctaAction__form form form--{$formDesign}">
 

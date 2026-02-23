@@ -3,10 +3,9 @@
 }
 
 .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction {
-    --layout-gap: var(--qui-contact-ctaAction-layout-gap, 0);
-
     width: 100%;
     height: 100%;
+    border-radius: 0;
 }
 
 .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__rightContent {

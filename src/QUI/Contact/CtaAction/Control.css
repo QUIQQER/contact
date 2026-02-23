@@ -1,10 +1,23 @@
 .quiqqer-contact-ctaAction {
-    --left-bgColor: var(--qui-contact-ctaAction-left-bgColor, #f5f5f5);
-    --layout-gap: var(--qui-contact-ctaAction-layout-gap, clamp(1.5rem, 5%, 4rem));
+    --wrapper-bgColor: var(--qui-contact-ctaAction-wrapper-bgColor, var(--qui-colors-body-bgColor, #fff));
+    --wrapper-Color: var(--qui-contact-ctaAction-wrapper-Color, var(--qui-colors-body, currentColor));
+    --wrapper-borderColor: var(--qui-contact-ctaAction-wrapper-borderColor, var(--left-bgColor));
+    --wrapper-borderWidth: var(--qui-contact-ctaAction-wrapper-borderWidth, 0.25rem);
+    --wrapper-borderStyle: var(--qui-contact-ctaAction-wrapper-borderStyle, solid);
+    --borderRadius: var(--qui-contact-ctaAction-borderRadius, 1.5rem);
+    /*--left-bgColor: var(--qui-contact-ctaAction-left-bgColor, color-mix(in srgb, var(--qui-colors-body-bgColor, #fff), black 7%));*/
+    --left-bgColor: var(--qui-contact-ctaAction-left-bgColor, hsl(from var(--qui-colors-body-bgColor, #fff) h s calc(l - 5)));
+    --left-color: var(--qui-contact-ctaAction-left-color, var(--qui-colors-body, currentColor));
+    --inner-padding: var(--qui-contact-ctaAction-inner-padding, clamp(1.5rem, 4%, 2.5rem));
 
+    outline: var(--wrapper-borderWidth) var(--wrapper-borderStyle) var(--wrapper-borderColor);
+    outline-offset: calc(var(--wrapper-borderWidth) * -1);
     display: flex;
     flex-wrap: wrap;
-    gap: var(--layout-gap);
+    overflow: hidden;
+    border-radius: var(--borderRadius);
+    background-color: var(--wrapper-bgColor);
+    color: var(--wrapper-Color);
 }
 
 .quiqqer-contact-ctaAction__leftContent {
@@ -19,7 +32,9 @@
 /* Left content */
 .quiqqer-contact-ctaAction__leftContent {
     background-color: var(--left-bgColor);
-    padding: 2rem;
+    color: var(--left-color);
+    padding: var(--inner-padding);
+    border-radius: var(--borderRadius);
 }
 
 .quiqqer-contact-ctaAction .logo {
@@ -34,6 +49,10 @@
 }
 
 /* Right content */
+.quiqqer-contact-ctaAction__rightContent {
+    padding: var(--inner-padding);
+}
+
 .quiqqer-contact-ctaAction__rightContent .sub {
     font-size: 0.875rem;
 }
@@ -121,14 +140,14 @@
     flex-wrap: wrap;
 }
 
-.form--grid .form-field {
+.quiqqer-contact-ctaAction .form--grid .form-field {
     min-width: calc(50% - 1rem);
     flex-grow: 1;
 }
 
-.form--grid .form-field--message,
-.form--grid .form-field--privacy,
-.form--grid .form-actions {
+.quiqqer-contact-ctaAction .form--grid .form-field--message,
+.quiqqer-contact-ctaAction .form--grid .form-field--privacy,
+.quiqqer-contact-ctaAction .form--grid .form-actions {
     min-width: 100%;
 }
 
@@ -140,30 +159,30 @@
     --label-minWidth: 200px;
 }
 
-.form--labelLeft .form-field,
-.form--labelLeft .form-actions {
+.quiqqer-contact-ctaAction .form--labelLeft .form-field,
+.quiqqer-contact-ctaAction .form--labelLeft .form-actions {
     align-items: baseline;
     display: flex;
     flex-wrap: wrap;
 }
 
-.form--labelLeft .form-label {
+.quiqqer-contact-ctaAction .form--labelLeft .form-label {
     width: min(var(--label-minWidth), 100%);
 }
 
-.form--labelLeft .form-control {
+.quiqqer-contact-ctaAction .form--labelLeft .form-control {
     flex-grow: 1;
     flex-basis: var(--input-minWidth);
 }
 
-.form--labelLeft .form-field--privacy:before,
-.form--labelLeft .form-actions:before {
+.quiqqer-contact-ctaAction .form--labelLeft .form-field--privacy:before,
+.quiqqer-contact-ctaAction .form--labelLeft .form-actions:before {
     content: '';
     width: min(var(--label-minWidth), 100%);
 }
 
-.form--labelLeft .form-field--privacy label.check,
-.form--labelLeft .form-actions > .btn {
+.quiqqer-contact-ctaAction .form--labelLeft .form-field--privacy label.check,
+.quiqqer-contact-ctaAction .form--labelLeft .form-actions > .btn {
     flex-basis: var(--input-minWidth);
     flex-grow: 1;
 }

@@ -27,7 +27,7 @@
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.recipient"/>
                 </setting>
                 <setting name="ctaDescription" type="text">
-                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.description"/>
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.ctaDescription"/>
                 </setting>
                 <setting name="logo" type="text" data-qui="controls/projects/project/media/Input">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.logo"/>
@@ -40,16 +40,34 @@
                         <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsapp.description"/>
                     </description>
                 </setting>
+                <setting name="whatsappLabel" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsappLabel"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsappLabel.desc"/>
+                    </description>
+                </setting>
                 <setting name="phone" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phone"/>
                     <description>
                         <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phone.description"/>
                     </description>
                 </setting>
+                <setting name="phoneLabel" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phoneLabel"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phoneLabel.desc"/>
+                    </description>
+                </setting>
                 <setting name="email" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.email"/>
                     <description>
                         <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.email.description"/>
+                    </description>
+                </setting>
+                <setting name="emailLabel" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.emailLabel"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.emailLabel.desc"/>
                     </description>
                 </setting>
             </settings>

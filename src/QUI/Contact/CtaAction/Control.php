@@ -818,5 +818,4 @@ class Control extends QUI\Control
             'var(--qui-contact-ctaAction-' . $name . ', ' . $value . ')'
         );
     }
-
 }

@@ -23,6 +23,7 @@
                         <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.formDesign.labelLeft"/>
                     </option>
                 </setting>
+
                 <setting name="recipient" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.recipient"/>
                 </setting>
@@ -68,6 +69,31 @@
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.emailLabel"/>
                     <description>
                         <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.emailLabel.desc"/>
+                    </description>
+                </setting>
+
+                <setting name="bgColor" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.bgColor"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.bgColor.description"/>
+                    </description>
+                </setting>
+                <setting name="color" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.color"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.color.description"/>
+                    </description>
+                </setting>
+                <setting name="leftBgColor" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.leftBgColor"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.leftBgColor.description"/>
+                    </description>
+                </setting>
+                <setting name="leftColor" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.leftColor"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.leftColor.description"/>
                     </description>
                 </setting>
             </settings>

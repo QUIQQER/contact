@@ -48,6 +48,10 @@ class Control extends QUI\Control
 
             // design
             'formDesign' => '', // default, grid, labelLeft
+            'bgColor' => '',
+            'color' => '',
+            'leftBgColor' => '',
+            'leftColor' => ''
         ]);
 
         parent::__construct($attributes);
@@ -67,16 +71,15 @@ class Control extends QUI\Control
             try {
                 $brick = QUI\Bricks\Manager::init()?->getBrickById((int)$brickId);
 
-                if ($brick->getAttribute('frontendTitle')) {
-                    $this->setAttribute('title', $brick->getAttribute('frontendTitle'));
-                }
+                if ($brick !== null) {
+                    if ($brick->getAttribute('frontendTitle')) {
+                        $this->setAttribute('title', $brick->getAttribute('frontendTitle'));
+                    }
 
-                if ($brick->getAttribute('ctaDescription')) {
-                    $this->setAttribute('description', $brick->getAttribute('ctaDescription'));
+                    if ($brick->getAttribute('ctaDescription')) {
+                        $this->setAttribute('description', $brick->getAttribute('ctaDescription'));
+                    }
                 }
-
-                $this->setAttribute('title', $this->getAttribute('frontendTitle'));
-                $this->setAttribute('description', $this->getAttribute('ctaDescription'));
 
                 if (!empty($this->getAttribute('logo'))) {
                     try {
@@ -215,9 +218,14 @@ class Control extends QUI\Control
             );
         }
 
+        $this->setCustomVariable('bgColor', $this->getAttribute('bgColor'));
+        $this->setCustomVariable('color', $this->getAttribute('color'));
+        $this->setCustomVariable('left-bgColor', $this->getAttribute('leftBgColor'));
+        $this->setCustomVariable('left-color', $this->getAttribute('leftColor'));
+
         $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
         $description = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
-//        $content = $this->sanitizeContentHtml($content);
+        $content = $this->sanitizeContentHtml($content);
         $nameLabel = htmlspecialchars($nameLabel, ENT_QUOTES, 'UTF-8');
         $namePlaceholder = htmlspecialchars($namePlaceholder, ENT_QUOTES, 'UTF-8');
         $companyLabel = htmlspecialchars($companyLabel, ENT_QUOTES, 'UTF-8');
@@ -620,11 +628,15 @@ class Control extends QUI\Control
             'small',
             'sup',
             'sub',
-            'blockquote'
+            'blockquote',
+            'div',
+            'img'
         ];
 
         $allowedAttrs = [
-            'a' => ['href', 'title', 'target', 'rel']
+            'a' => ['href', 'title', 'target', 'rel', 'class', 'style'],
+            'img' => ['src', 'alt', 'title', 'class', 'style'],
+            'div' => ['class', 'style']
         ];
 
         $dropTags = [
@@ -770,9 +782,41 @@ class Control extends QUI\Control
             'submit_label',
             'success_message',
             'whatsapp',
+            'whatsappLabel',
             'phone',
+            'phoneLabel',
             'email',
-            'formDesign'
+            'emailLabel',
+            'formDesign',
+            'bgColor',
+            'color',
+            'leftBgColor',
+            'leftColor'
         ];
     }
+
+    /**
+     * Set custom CSS variable to the control as inline style
+     * --_q-controlSetting-$name: var(--qui-contact-ctaAction-$name, $value);
+     *
+     * Example:
+     *     --_q-controlSetting-bgColor: var(--qui-contact-ctaAction-bgColor, #ffffff);
+     *
+     * @param string $name
+     * @param string $value
+     *
+     * @return void
+     */
+    private function setCustomVariable(string $name, string $value): void
+    {
+        if (!$name || !$value) {
+            return;
+        }
+
+        $this->setStyle(
+            '--_q-controlSetting-' . $name,
+            'var(--qui-contact-ctaAction-' . $name . ', ' . $value . ')'
+        );
+    }
+
 }

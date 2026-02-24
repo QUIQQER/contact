@@ -1,15 +1,33 @@
-.qui-contact-controls-ctaActionWindow {
+.qui-contact-controls-ctaActionWindow,
+.qui-contact-controls-ctaActionWindow__controlContainer {
     display: flex;
 }
 
-.qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction {
+.qui-contact-controls-ctaActionWindow__controlContainer {
+    transition: opacity 0.5s ease;
+}
+
+.qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction,
+.qui-contact-controls-ctaActionWindow__controlContainer {
     width: 100%;
     height: 100%;
-    border-radius: 0;
+}
+
+.qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction {
+    --borderRadius: var(--qui-contact-ctaActionWindow-borderRadius, 0);
+    --wrapper-borderWidth: var(--qui-contact-ctaActionWindow-wrapper-borderWidth, 0);
+    overflow: auto;
 }
 
 .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__rightContent {
     padding: 2rem;
+}
+
+@media screen and (max-width: 767px) {
+    .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__rightContent {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 @media screen and (min-width: 768px) {
@@ -17,5 +35,123 @@
     .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__rightContent {
         overflow: auto;
         height: 100%;
+    }
+}
+
+/**
+ * Copy CtaAction css to style skeleton loader
+ */
+.qui-contact-controls-ctaActionWindow__skeletonLoader {
+    width: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+
+    :where(.quiqqer-contact-ctaAction) {
+        --wrapper-bgColor: var(--qui-contact-ctaAction-wrapper-bgColor, var(--_q-controlSetting-bgColor, var(--qui-colors-body-bgColor, #fff)));
+        --wrapper-Color: var(--qui-contact-ctaAction-wrapper-Color, var(--_q-controlSetting-color, var(--qui-colors-body, currentColor)));
+        --wrapper-borderColor: var(--qui-contact-ctaAction-wrapper-borderColor, var(--left-bgColor));
+        --wrapper-borderWidth: var(--qui-contact-ctaActionWindow-wrapper-borderWidth, 0);
+        --wrapper-borderStyle: var(--qui-contact-ctaAction-wrapper-borderStyle, solid);
+        --borderRadius: var(--qui-contact-ctaActionWindow-borderRadius, 0);
+        --left-bgColor: var(--qui-contact-ctaAction-left-bgColor, var(--_q-controlSetting-left-bgColor, hsl(from var(--qui-colors-body-bgColor, #fff) h s calc(l - 5))));
+        --left-color: var(--qui-contact-ctaAction-left-color, var(--_q-controlSetting-left-color, var(--qui-colors-body, currentColor)));
+        --inner-padding: var(--qui-contact-ctaAction-inner-padding, clamp(1.5rem, 4%, 2.5rem));
+
+        display: flex;
+        flex-wrap: wrap;
+        border-radius: var(--borderRadius);
+        background-color: var(--wrapper-bgColor);
+        color: var(--wrapper-Color);
+    }
+
+    .quiqqer-contact-ctaAction__leftContent {
+        flex: 1 0 min(350px, 100%);
+    }
+
+    .quiqqer-contact-ctaAction__rightContent {
+        flex: 1 0 min(500px, 100%);
+    }
+
+    /* Left content */
+    .quiqqer-contact-ctaAction__leftContent {
+        background-color: var(--left-bgColor);
+        color: var(--left-color);
+        padding: var(--inner-padding);
+        border-radius: var(--borderRadius);
+    }
+
+    /* Right content */
+    .quiqqer-contact-ctaAction__rightContent {
+        padding: var(--inner-padding);
+    }
+
+    @media screen and (max-width: 767px) {
+        .quiqqer-contact-ctaAction__rightContent {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    /**
+     * Form design: grid
+     */
+    .quiqqer-contact-ctaAction .form--grid.form {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .quiqqer-contact-ctaAction .form--grid .form-field {
+        min-width: calc(50% - 1rem);
+        flex-grow: 1;
+    }
+
+    .quiqqer-contact-ctaAction .form--grid .form-field--message,
+    .quiqqer-contact-ctaAction .form--grid .form-field--privacy,
+    .quiqqer-contact-ctaAction .form--grid .form-actions {
+        min-width: 100%;
+    }
+
+    /**
+     * Form design: labels left
+     */
+    .quiqqer-contact-ctaAction .form--labelLeft {
+        --input-minWidth: 300px;
+        --label-minWidth: 200px;
+    }
+
+    .quiqqer-contact-ctaAction .form--labelLeft .form-field,
+    .quiqqer-contact-ctaAction .form--labelLeft .form-actions {
+        align-items: baseline;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    /* only for skeleton loader */
+    .quiqqer-contact-ctaAction .form--labelLeft.quiqqer-contact-ctaAction__form--dummy-content .form-field,
+    .quiqqer-contact-ctaAction .form--labelLeft.quiqqer-contact-ctaAction__form--dummy-content .form-actions {
+        align-items: flex-start;
+    }
+
+    .quiqqer-contact-ctaAction .form--labelLeft .form-label {
+        width: min(var(--label-minWidth), 100%);
+    }
+
+    .quiqqer-contact-ctaAction .form--labelLeft .form-control {
+        flex-grow: 1;
+        flex-basis: var(--input-minWidth);
+    }
+
+    .quiqqer-contact-ctaAction .form--labelLeft .form-field--privacy:before,
+    .quiqqer-contact-ctaAction .form--labelLeft .form-actions:before {
+        content: '';
+        width: min(var(--label-minWidth), 100%);
+    }
+
+    .quiqqer-contact-ctaAction .form--labelLeft .form-field--privacy label.check,
+    .quiqqer-contact-ctaAction .form--labelLeft .form-actions > .btn {
+        flex-basis: var(--input-minWidth);
+        flex-grow: 1;
     }
 }

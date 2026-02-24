@@ -448,6 +448,7 @@
             <de><![CDATA[Labels links]]></de>
             <en><![CDATA[Labels left]]></en>
         </locale>
+
         <locale name="brick.control.ctaAction.setting.whatsapp">
             <de><![CDATA[Kontakt Button WhatsApp <br><small>CTA Kontaktformular</small>]]></de>
             <en><![CDATA[Contact button WhatsApp <br><small>CTA contact form</small>]]></en>
@@ -496,6 +497,43 @@
             <de><![CDATA[Dieser Text wird für den Button verwendet. Wenn nicht gesetzt, die eingegebene E-Mail-Adresse wird als Text verwendet.]]></de>
             <en><![CDATA[This text is used for the button. If not set, the entered email address is used as text.]]></en>
         </locale>
+
+        <locale name="brick.control.ctaAction.setting.bgColor">
+            <de><![CDATA[Hintergrundfarbe <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Background color <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.bgColor.description">
+            <de><![CDATA[Setzt die Hintergrundfarbe des gesamten CTA-Blocks (CSS Variable: --qui-contact-ctaAction-bgColor).]]></de>
+            <en><![CDATA[Sets the background color of the whole CTA block (CSS variable: --qui-contact-ctaAction-bgColor).]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.color">
+            <de><![CDATA[Textfarbe <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Text color <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.color.description">
+            <de><![CDATA[Setzt die Textfarbe des gesamten CTA-Blocks (CSS Variable: --qui-contact-ctaAction-color).]]></de>
+            <en><![CDATA[Sets the text color of the whole CTA block (CSS variable: --qui-contact-ctaAction-color).]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.leftBgColor">
+            <de><![CDATA[Hintergrundfarbe (linke Spalte) <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Background color (left column) <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.leftBgColor.description">
+            <de><![CDATA[Setzt die Hintergrundfarbe der linken Spalte (CSS Variable: --qui-contact-ctaAction-left-bgColor).]]></de>
+            <en><![CDATA[Sets the background color of the left column (CSS variable: --qui-contact-ctaAction-left-bgColor).]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.leftColor">
+            <de><![CDATA[Textfarbe (linke Spalte) <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Text color (left column) <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.leftColor.description">
+            <de><![CDATA[Setzt die Textfarbe der linken Spalte (CSS Variable: --qui-contact-ctaAction-left-color).]]></de>
+            <en><![CDATA[Sets the text color of the left column (CSS variable: --qui-contact-ctaAction-left-color).]]></en>
+        </locale>
+
         <locale name="brick.control.ctaAction.mail.title">
             <de><![CDATA[Neue Kontaktanfrage:]]></de>
             <en><![CDATA[New contact request:]]></en>

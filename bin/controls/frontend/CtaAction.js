@@ -38,11 +38,18 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
 
             // buttons
             whatsapp: false,
+            whatsappLabel: false,
             phone: false,
+            phoneLabel: false,
             email: false,
+            emailLabel: false,
 
             // design
             formDesign: 'default', // default, grid, labelLeft
+            bgColor: '',
+            color: '',
+            leftBgColor: '',
+            leftColor: '',
         },
 
         initialize: function (options) {
@@ -219,11 +226,18 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
 
                 // buttons
                 whatsapp: this.getAttribute('whatsapp'),
+                whatsappLabel: this.getAttribute('whatsappLabel'),
                 phone: this.getAttribute('phone'),
+                phoneLabel: this.getAttribute('phoneLabel'),
                 email: this.getAttribute('email'),
+                emailLabel: this.getAttribute('emailLabel'),
 
                 // design
-                formDesign: this.getAttribute('formDesign')
+                formDesign: this.getAttribute('formDesign'),
+                bgColor: this.getAttribute('bgColor'),
+                color: this.getAttribute('color'),
+                leftBgColor: this.getAttribute('leftBgColor'),
+                leftColor: this.getAttribute('leftColor'),
             };
         }
     });

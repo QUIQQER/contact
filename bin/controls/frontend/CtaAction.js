@@ -82,7 +82,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                 this.Loader.inject(this.getElm());
 
                 QUI.parse(container).then(() => {
-                    this.$initEvents();
+                    this.fireEvent('load', [this]);
                 });
             }, {
                 'package': lg,
@@ -139,58 +139,47 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             const formData = new FormData(form);
 
             return new Promise((resolve, reject) => {
-                let message = this.getAttribute('success_message');
+                this.getSuccessHtml().then(/** @param {string} successHtml */ (successHtml) => {
+                    QUIAjax.post('package_quiqqer_contact_ajax_ctaAction_send', () => {
+                        // finish mess
+                        const success = document.createElement('div');
+                        success.classList.add('quiqqer-contact-ctaAction__success');
 
-                if (!message || message.length === 0) {
-                    message = QUILocale.get(lg, 'contact.ctaAction.send.success');
-                }
+                        success.innerHTML = successHtml;
 
-                QUIAjax.post('package_quiqqer_contact_ajax_ctaAction_send', () => {
-                    // finish mess
-                    const success = document.createElement('div');
-                    success.classList.add('quiqqer-contact-ctaAction-success');
+                        const nodes = Array.from(
+                            this.getElm().querySelectorAll(
+                                '[data-name="left"],[data-name="right"]'
+                            )
+                        );
 
-                    const icon = document.createElement('span');
-                    icon.classList.add('fa', 'fa-check');
+                        moofx(nodes).animate({
+                            opacity: 0
+                        }, {
+                            callback: () => {
+                                nodes.forEach((node) => {
+                                    node.parentNode.removeChild(node);
+                                });
 
-                    const text = document.createElement('div');
-                    text.textContent = message;
+                                this.getElm().classList.add('quiqqer-contact-ctaAction--success');
+                                this.getElm().appendChild(success);
 
-                    success.appendChild(icon);
-                    success.appendChild(text);
-
-                    const nodes = Array.from(
-                        this.getElm().querySelectorAll(
-                            '[data-name="left"],[data-name="right"]'
-                        )
-                    );
-
-                    moofx(nodes).animate({
-                        opacity: 0
+                                this.fireEvent('sendEnd', [this]);
+                                this.fireEvent('send', [this]);
+                                this.Loader.hide();
+                                resolve();
+                            }
+                        });
                     }, {
-                        callback: () => {
-                            nodes.forEach((node) => {
-                                node.parentNode.removeChild(node);
-                            });
-
-                            this.getElm().classList.add('quiqqer-contact-ctaAction--success');
-                            this.getElm().appendChild(success);
-
-                            this.fireEvent('sendEnd', [this]);
-                            this.fireEvent('send', [this]);
+                        'package': 'quiqqer/contact',
+                        attributes: JSON.stringify(this.getControlAttributes()),
+                        formData: JSON.stringify(Object.fromEntries(formData.entries())),
+                        onError: () => {
+                            this.fireEvent('sendError', [this]);
                             this.Loader.hide();
-                            resolve();
+                            reject();
                         }
                     });
-                }, {
-                    'package': 'quiqqer/contact',
-                    attributes: JSON.stringify(this.getControlAttributes()),
-                    formData: JSON.stringify(Object.fromEntries(formData.entries())),
-                    onError: () => {
-                        this.fireEvent('sendError', [this]);
-                        this.Loader.hide();
-                        reject();
-                    }
                 });
             });
         },
@@ -241,6 +230,31 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                 leftBgColor: this.getAttribute('leftBgColor'),
                 leftColor: this.getAttribute('leftColor'),
             };
+        },
+
+        /**
+         * @return {Promise<string>}
+         */
+        getSuccessHtml: function () {
+            let message = this.getAttribute('success_message');
+
+            if (!message || message.length === 0) {
+                message = QUILocale.get(lg, 'contact.ctaAction.send.success');
+            }
+
+            return new Promise((resolve) => {
+                require([
+                    'Mustache',
+                    'text!package/quiqqer/contact/bin/controls/frontend/CtaAction.Success.html',
+                    'css!package/quiqqer/contact/bin/controls/frontend/CtaAction.Success.css',
+                ], function (Mustache, template) {
+                    const html = Mustache.render(template, {
+                        message: message
+                    });
+
+                    resolve(html);
+                });
+            });
         }
     });
 });

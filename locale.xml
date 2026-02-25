@@ -449,6 +449,36 @@
             <en><![CDATA[Labels left]]></en>
         </locale>
 
+        <locale name="brick.control.ctaAction.frontend.btn.email.title">
+            <de><![CDATA[Kontaktieren Sie uns per Mail]]></de>
+            <en><![CDATA[Contact us by email]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.frontend.btn.whatsapp.title">
+            <de><![CDATA[Schreiben Sie uns per WhatsApp]]></de>
+            <en><![CDATA[Message us on WhatsApp]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.frontend.btn.phone.title">
+            <de><![CDATA[Rufen Sie uns an]]></de>
+            <en><![CDATA[Give us a call]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.btnStyle">
+            <de><![CDATA[Button-Design <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Button design <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.btnStyle.button">
+            <de><![CDATA[Normaler Button (Text)]]></de>
+            <en><![CDATA[Default button (text)]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.btnStyle.icon">
+            <de><![CDATA[Nur Icon]]></de>
+            <en><![CDATA[Only icon]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.btnStyle.iconRounded">
+            <de><![CDATA[Nur Icon (rund)]]></de>
+            <en><![CDATA[Only icon (round)]]></en>
+        </locale>
+
         <locale name="brick.control.ctaAction.setting.whatsapp">
             <de><![CDATA[Kontakt Button WhatsApp <br><small>CTA Kontaktformular</small>]]></de>
             <en><![CDATA[Contact button WhatsApp <br><small>CTA contact form</small>]]></en>
@@ -462,8 +492,8 @@
             <en><![CDATA[Displayed text for WhatsApp <br><small>CTA contact form</small>]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.whatsappLabel.desc">
-            <de><![CDATA[Dieser Text wird für den Button verwendet. Wenn nicht gesetzt, wird die hinterlegte Nummer als Text verwendet.]]></de>
-            <en><![CDATA[This text is used for the button. If not set, the entered number is used as text.]]></en>
+            <de><![CDATA[Dieser Text wird für den normalen Button verwendet. Wenn nicht gesetzt, wird die hinterlegte Nummer als Text verwendet.]]></de>
+            <en><![CDATA[This text is used for the default button. If not set, the entered number is used as text.]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.phone">
             <de><![CDATA[Kontakt Button Telefon <br><small>CTA Kontaktformular</small>]]></de>
@@ -478,8 +508,8 @@
             <en><![CDATA[Displayed text for phone <br><small>CTA contact form</small>]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.phoneLabel.desc">
-            <de><![CDATA[Dieser Text wird für den Button verwendet. Wenn nicht gesetzt, die eingegebene Nummer wird als Text verwendet.]]></de>
-            <en><![CDATA[This text is used for the button. If not set, the entered number address is used as text.]]></en>
+            <de><![CDATA[Dieser Text wird für den normalen Button verwendet. Wenn nicht gesetzt, die eingegebene Nummer wird als Text verwendet.]]></de>
+            <en><![CDATA[This text is used for the default button. If not set, the entered number address is used as text.]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.email">
             <de><![CDATA[Kontakt Button E-Mail <br><small>CTA Kontaktformular</small>]]></de>
@@ -494,8 +524,8 @@
             <en><![CDATA[Displayed text for email <br><small>CTA contact form</small>]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.emailLabel.desc">
-            <de><![CDATA[Dieser Text wird für den Button verwendet. Wenn nicht gesetzt, die eingegebene E-Mail-Adresse wird als Text verwendet.]]></de>
-            <en><![CDATA[This text is used for the button. If not set, the entered email address is used as text.]]></en>
+            <de><![CDATA[Dieser Text wird für den normalen Button verwendet. Wenn nicht gesetzt, die eingegebene E-Mail-Adresse wird als Text verwendet.]]></de>
+            <en><![CDATA[This text is used for the default button. If not set, the entered email address is used as text.]]></en>
         </locale>
 
         <locale name="brick.control.ctaAction.setting.bgColor">

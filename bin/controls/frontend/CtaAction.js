@@ -37,6 +37,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             success_message: '',
 
             // buttons
+            btnStyle: 'iconRounded', // iconRounded, icon, button
             whatsapp: false,
             whatsappLabel: false,
             phone: false,
@@ -225,6 +226,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                 submit_label: this.getAttribute('submit_label'),
 
                 // buttons
+                btnStyle: this.getAttribute('btnStyle'),
                 whatsapp: this.getAttribute('whatsapp'),
                 whatsappLabel: this.getAttribute('whatsappLabel'),
                 phone: this.getAttribute('phone'),

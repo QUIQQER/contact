@@ -35,6 +35,20 @@
                 </setting>
 
                 <!-- buttons -->
+                <setting name="btnStyle" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.btnStyle"/>
+
+                    <option></option>
+                    <option value="button">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.btnStyle.button"/>
+                    </option>
+                    <option value="icon">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.btnStyle.icon"/>
+                    </option>
+                    <option value="iconRounded">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.btnStyle.iconRounded"/>
+                    </option>
+                </setting>
                 <setting name="whatsapp" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsapp"/>
                     <description>

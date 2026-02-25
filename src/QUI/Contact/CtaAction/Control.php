@@ -39,6 +39,7 @@ class Control extends QUI\Control
             'submit_label' => '',
 
             // buttons
+            'btnStyle' => 'iconRounded', // iconRounded, icon, button
             'whatsapp' => '',
             'whatsappLabel' => '',
             'phone' => '',
@@ -308,6 +309,10 @@ class Control extends QUI\Control
             }
         }
 
+        $btnStyle = match ($this->getAttribute('btnStyle')) {
+            'icon', 'button' => $this->getAttribute('btnStyle'),
+            default => 'iconRounded'
+        };
 
         $Engine->assign([
             'self' => $this,
@@ -329,7 +334,8 @@ class Control extends QUI\Control
             'privacyText' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.privacy', [
                 'privacyLink' => $this->getPrivacyLink()
             ]),
-            'formDesign' => $formDesign
+            'formDesign' => $formDesign,
+            'btnStyle' => $btnStyle
         ]);
 
         return $Engine->fetch(dirname(__FILE__) . '/Control.html');
@@ -788,6 +794,7 @@ class Control extends QUI\Control
             'email',
             'emailLabel',
             'formDesign',
+            'btnStyle',
             'bgColor',
             'color',
             'leftBgColor',

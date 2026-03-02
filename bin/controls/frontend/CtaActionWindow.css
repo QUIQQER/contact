@@ -1,3 +1,17 @@
+.qui-window-popup--ctaActionWindow {
+    --_qui-window-borderRadius: var(--qui-contact-ctaActionWindow-borderRadius, 0);
+    --_qui-window-ctaControl-borderRadius: var(--qui-contact-ctaActionWindow-ctaControl-borderRadius, 0);
+    --_qui-window-ctaControl-wrapper-borderWidth: var(--qui-contact-ctaActionWindow-ctaControl-wrapper-borderWidth, 0);
+
+    border-radius: var(--_qui-window-borderRadius);
+}
+
+@media screen and (max-width: 767px) {
+    .qui-window-popup--ctaActionWindow {
+        border-radius: 0;
+    }
+}
+
 .qui-contact-controls-ctaActionWindow,
 .qui-contact-controls-ctaActionWindow__controlContainer {
     display: flex;
@@ -13,21 +27,27 @@
     height: 100%;
 }
 
+/**
+ * Close button
+ */
+.qui-window-popup--ctaActionWindow .qui-window-popup-title-close {
+    background-color: transparent !important;
+    opacity: 0.5;
+    top: 1rem;
+    right: 1rem;
+}
+
+.qui-window-popup--ctaActionWindow .qui-window-popup-title-close:hover {
+    background-color: transparent !important;
+    opacity: 1;
+}
+/**
+ * 1. Override .quiqqer-contact-ctaAction css variables in QUI Popup
+ */
 .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction {
-    --borderRadius: var(--qui-contact-ctaActionWindow-borderRadius, 0);
-    --wrapper-borderWidth: var(--qui-contact-ctaActionWindow-wrapper-borderWidth, 0);
+    --borderRadius: var(--_qui-window-ctaControl-borderRadius); /* 1 */
+    --wrapper-borderWidth: var(--_qui-window-ctaControl-wrapper-borderWidth); /* 1 */
     overflow: auto;
-}
-
-.qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__rightContent {
-    padding: 2rem;
-}
-
-@media screen and (max-width: 767px) {
-    .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__rightContent {
-        padding-left: 0;
-        padding-right: 0;
-    }
 }
 
 @media screen and (min-width: 768px) {

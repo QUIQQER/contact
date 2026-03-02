@@ -15,13 +15,15 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
         Extends: SimpleWindow,
 
         Binds: [
-            '$onOpen'
+            '$onOpen',
+            '$onCreate'
         ],
 
         options: {
             maxHeight: 800,
             maxWidth: 1200,
             backgroundClosable: false,
+            resizable: false,
 
             'data-brickid': '',
             header: '',
@@ -64,12 +66,16 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
             this.$ctaAction = null;
 
             this.addEvents({
-                onOpen: this.$onOpen
+                onOpen: this.$onOpen,
+                onCreate: this.$onCreate
             });
         },
 
-        $onOpen: function () {
+        $onCreate: function() {
             this.getElm().classList.add('qui-window-popup--ctaActionWindow');
+        },
+
+        $onOpen: function () {
             this.getContent().classList.add('qui-contact-controls-ctaActionWindow');
             this.getContent().innerHTML = '';
             this.getContent().innerHTML = this.$getSkeletonHtml(this.getAttribute('formDesign'));

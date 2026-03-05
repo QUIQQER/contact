@@ -65,6 +65,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
 
         $onImport: function () {
             this.getElm().style.width = '100%';
+            this.setAttribute('btnStyle', this.getElm().getAttribute('data-qui-options-btnstyle'));
             this.Loader.inject(this.getElm());
             this.$initEvents();
         },
@@ -139,7 +140,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             const formData = new FormData(form);
 
             return new Promise((resolve, reject) => {
-                this.getSuccessHtml().then(/** @param {string} successHtml */ (successHtml) => {
+                this.getSuccessHtml().then(/** @param {string} successHtml */(successHtml) => {
                     QUIAjax.post('package_quiqqer_contact_ajax_ctaAction_send', () => {
                         // finish mess
                         const success = document.createElement('div');
@@ -182,6 +183,72 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                     });
                 });
             });
+        },
+
+        addButton: function (text, icon, cssClass, href) {
+            const buttons = this.getElm().querySelector('[data-name="buttons"]');
+
+            if (!buttons) {
+                return;
+            }
+
+            const rawBtnStyle = this.getAttribute('btnStyle');
+            const btnStyle = rawBtnStyle === 'icon' || rawBtnStyle === 'button'
+                ? rawBtnStyle
+                : 'iconRounded';
+
+            buttons.classList.remove(
+                'quiqqer-contact-ctaAction-buttons--icon',
+                'quiqqer-contact-ctaAction-buttons--iconRounded',
+                'quiqqer-contact-ctaAction-buttons--button'
+            );
+            buttons.classList.add(`quiqqer-contact-ctaAction-buttons--${btnStyle}`);
+
+            const button = document.createElement('a');
+            button.classList.add('btn');
+            button.setAttribute('href', href || '#');
+
+            if (cssClass) {
+                cssClass.split(' ')
+                    .map((className) => className.trim())
+                    .filter((className) => className.length)
+                    .forEach((className) => {
+                        button.classList.add(className);
+                    });
+            }
+
+            const showText = btnStyle === 'button';
+
+            if (icon) {
+                const iconNode = document.createElement('span');
+                iconNode.classList.add('btn-icon');
+
+                icon.split(' ')
+                    .map((className) => className.trim())
+                    .filter((className) => className.length)
+                    .forEach((className) => {
+                        iconNode.classList.add(className);
+                    });
+
+                button.appendChild(iconNode);
+            }
+
+            if (showText && text) {
+                if (icon) {
+                    button.appendChild(document.createTextNode(' '));
+                }
+
+                button.appendChild(document.createTextNode(text));
+            }
+
+            if (!showText && text) {
+                button.setAttribute('title', text);
+                button.setAttribute('aria-label', text);
+            }
+
+            buttons.appendChild(button);
+
+            return button;
         },
 
         getControlAttributes: function () {

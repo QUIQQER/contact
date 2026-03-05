@@ -314,6 +314,8 @@ class Control extends QUI\Control
             default => 'iconRounded'
         };
 
+        $this->setJavaScriptControlOption('btnStyle', $this->getAttribute('btnStyle'));
+
         $Engine->assign([
             'self' => $this,
             'logo' => $logo,

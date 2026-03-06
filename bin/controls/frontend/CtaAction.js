@@ -44,6 +44,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             phoneLabel: false,
             email: false,
             emailLabel: false,
+            customButtons: '',
 
             // design
             formDesign: 'default', // default, grid, labelLeft
@@ -186,16 +187,24 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
         },
 
         addButton: function (text, icon, cssClass, href) {
-            const buttons = this.getElm().querySelector('[data-name="buttons"]');
-
-            if (!buttons) {
-                return;
-            }
-
             const rawBtnStyle = this.getAttribute('btnStyle');
             const btnStyle = rawBtnStyle === 'icon' || rawBtnStyle === 'button'
                 ? rawBtnStyle
                 : 'iconRounded';
+            let buttons = this.getElm().querySelector('[data-name="buttons"]');
+
+            if (!buttons) {
+                const leftContent = this.getElm().querySelector('[data-name="left"]');
+
+                if (!leftContent) {
+                    return;
+                }
+
+                buttons = document.createElement('div');
+                buttons.setAttribute('data-name', 'buttons');
+                buttons.classList.add('quiqqer-contact-ctaAction-buttons');
+                leftContent.appendChild(buttons);
+            }
 
             buttons.classList.remove(
                 'quiqqer-contact-ctaAction-buttons--icon',
@@ -289,6 +298,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                 phoneLabel: this.getAttribute('phoneLabel'),
                 email: this.getAttribute('email'),
                 emailLabel: this.getAttribute('emailLabel'),
+                customButtons: this.getAttribute('customButtons'),
 
                 // design
                 formDesign: this.getAttribute('formDesign'),

@@ -85,6 +85,12 @@
                         <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.emailLabel.desc"/>
                     </description>
                 </setting>
+                <setting name="customButtons" data-qui="package/quiqqer/contact/bin/controls/backend/CtaActionButtons">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.customButtons"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.customButtons.desc"/>
+                    </description>
+                </setting>
 
                 <setting name="bgColor" type="color">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.bgColor"/>

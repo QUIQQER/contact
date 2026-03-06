@@ -527,6 +527,62 @@
             <de><![CDATA[Dieser Text wird für den normalen Button verwendet. Wenn nicht gesetzt, die eingegebene E-Mail-Adresse wird als Text verwendet.]]></de>
             <en><![CDATA[This text is used for the default button. If not set, the entered email address is used as text.]]></en>
         </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons">
+            <de><![CDATA[Zusätzliche Buttons <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Additional buttons <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.desc">
+            <de><![CDATA[Fügen Sie weitere Aktionsbuttons (Text, Icon, CSS-Klassen und Link) hinzu.]]></de>
+            <en><![CDATA[Add additional action buttons (text, icon, CSS classes and link).]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.empty">
+            <de><![CDATA[Noch keine zusätzlichen Buttons hinterlegt.]]></de>
+            <en><![CDATA[No additional buttons configured yet.]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.btn.add">
+            <de><![CDATA[Button hinzufügen]]></de>
+            <en><![CDATA[Add button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.btn.edit.title">
+            <de><![CDATA[Button bearbeiten]]></de>
+            <en><![CDATA[Edit button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.btn.delete.title">
+            <de><![CDATA[Button löschen]]></de>
+            <en><![CDATA[Delete button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.window.add.title">
+            <de><![CDATA[Neuen Button hinzufügen]]></de>
+            <en><![CDATA[Add new button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.window.edit.title">
+            <de><![CDATA[Button bearbeiten]]></de>
+            <en><![CDATA[Edit button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.window.delete.title">
+            <de><![CDATA[Button entfernen]]></de>
+            <en><![CDATA[Remove button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.window.delete.text">
+            <de><![CDATA[Möchten Sie diesen Zusatzbutton wirklich löschen?]]></de>
+            <en><![CDATA[Do you really want to delete this additional button?]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.form.text">
+            <de><![CDATA[Text]]></de>
+            <en><![CDATA[Text]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.form.icon">
+            <de><![CDATA[Icon-Klassen]]></de>
+            <en><![CDATA[Icon classes]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.form.cssClass">
+            <de><![CDATA[Button-CSS-Klassen]]></de>
+            <en><![CDATA[Button CSS classes]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.form.href">
+            <de><![CDATA[Link]]></de>
+            <en><![CDATA[Link]]></en>
+        </locale>
 
         <locale name="brick.control.ctaAction.setting.bgColor">
             <de><![CDATA[Hintergrundfarbe <br><small>CTA Kontaktformular</small>]]></de>

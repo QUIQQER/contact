@@ -51,6 +51,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
             phoneLabel: '',
             email: '',
             emailLabel: '',
+            customButtons: '',
 
             // design
             formDesign: 'default', // default, grid, labelLeft

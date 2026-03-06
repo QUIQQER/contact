@@ -16,6 +16,11 @@ use QUI\Exception;
 class Control extends QUI\Control
 {
     /**
+     * @var array<int, array{text: string, icon: string, cssClass: string, href: string}>
+     */
+    protected array $customButtons = [];
+
+    /**
      * @param array<string, mixed> $attributes
      */
     public function __construct(array $attributes = [])
@@ -46,6 +51,7 @@ class Control extends QUI\Control
             'phoneLabel' => '',
             'email' => '',
             'emailLabel' => '',
+            'customButtons' => '',
 
             // design
             'formDesign' => '', // default, grid, labelLeft
@@ -315,6 +321,10 @@ class Control extends QUI\Control
         };
 
         $this->setJavaScriptControlOption('btnStyle', $this->getAttribute('btnStyle'));
+        $customButtons = $this->buildCustomButtonsHtml($btnStyle, $this->getCustomButtons());
+        $hasDefaultButtons = (bool)$this->getAttribute('email')
+            || (bool)$this->getAttribute('whatsapp')
+            || (bool)$this->getAttribute('phone');
 
         $Engine->assign([
             'self' => $this,
@@ -337,10 +347,28 @@ class Control extends QUI\Control
                 'privacyLink' => $this->getPrivacyLink()
             ]),
             'formDesign' => $formDesign,
-            'btnStyle' => $btnStyle
+            'btnStyle' => $btnStyle,
+            'hasButtons' => $hasDefaultButtons || $customButtons !== '',
+            'customButtons' => $customButtons
         ]);
 
         return $Engine->fetch(dirname(__FILE__) . '/Control.html');
+    }
+
+    public function addButton(
+        string $text = '',
+        string $icon = '',
+        string $cssClass = '',
+        string $href = '#'
+    ): static {
+        $this->customButtons[] = [
+            'text' => trim($text),
+            'icon' => trim($icon),
+            'cssClass' => trim($cssClass),
+            'href' => trim($href)
+        ];
+
+        return $this;
     }
 
     /**
@@ -674,6 +702,136 @@ class Control extends QUI\Control
     }
 
     /**
+     * @return array<int, array{text: string, icon: string, cssClass: string, href: string}>
+     */
+    private function getCustomButtons(): array
+    {
+        $buttons = $this->customButtons;
+        $configuredButtons = $this->getAttribute('customButtons');
+
+        if (is_string($configuredButtons) && trim($configuredButtons) !== '') {
+            $decodedButtons = json_decode($configuredButtons, true);
+
+            if (is_array($decodedButtons)) {
+                $configuredButtons = $decodedButtons;
+            }
+        }
+
+        if (!is_array($configuredButtons)) {
+            return $buttons;
+        }
+
+        foreach ($configuredButtons as $button) {
+            if (!is_array($button)) {
+                continue;
+            }
+
+            $buttons[] = [
+                'text' => trim((string)($button['text'] ?? '')),
+                'icon' => trim((string)($button['icon'] ?? '')),
+                'cssClass' => trim((string)($button['cssClass'] ?? '')),
+                'href' => trim((string)($button['href'] ?? '#'))
+            ];
+        }
+
+        return $buttons;
+    }
+
+    /**
+     * @param array<int, array{text: string, icon: string, cssClass: string, href: string}> $buttons
+     */
+    private function buildCustomButtonsHtml(string $btnStyle, array $buttons): string
+    {
+        if (empty($buttons)) {
+            return '';
+        }
+
+        $showText = $btnStyle === 'button';
+        $html = '';
+
+        foreach ($buttons as $button) {
+            $text = $button['text'];
+            $iconClasses = $this->sanitizeCssClassList($button['icon']);
+            $buttonClasses = trim('btn ' . $this->sanitizeCssClassList($button['cssClass']));
+            $href = $this->sanitizeButtonHref($button['href']);
+
+            $html .= '<a class="' . $buttonClasses . '" href="' . $href . '"';
+
+            if (!$showText && $text !== '') {
+                $safeText = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+                $html .= ' title="' . $safeText . '" aria-label="' . $safeText . '"';
+            }
+
+            $html .= '>';
+
+            if ($iconClasses !== '') {
+                $html .= '<span class="btn-icon ' . $iconClasses . '"></span>';
+            }
+
+            if ($showText && $text !== '') {
+                if ($iconClasses !== '') {
+                    $html .= ' ';
+                }
+
+                $html .= htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+            }
+
+            $html .= '</a>';
+        }
+
+        return $html;
+    }
+
+    private function sanitizeCssClassList(string $classList): string
+    {
+        $classes = preg_split('/\s+/', trim($classList)) ?: [];
+        $classes = array_filter($classes, static function ($class): bool {
+            return (bool)preg_match('/^[a-zA-Z0-9_-]+$/', $class);
+        });
+
+        return implode(' ', $classes);
+    }
+
+    private function sanitizeButtonHref(string $href): string
+    {
+        $href = trim($href);
+
+        if ($href === '') {
+            return '#';
+        }
+
+        if (
+            preg_match('#^\s*javascript:#i', $href)
+            || preg_match('#^\s*data:#i', $href)
+        ) {
+            return '#';
+        }
+
+        if (
+            str_starts_with($href, '#')
+            || str_starts_with($href, '/')
+            || str_starts_with($href, '?')
+        ) {
+            return htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
+        }
+
+        $scheme = parse_url($href, PHP_URL_SCHEME);
+
+        if ($scheme === null || $scheme === false) {
+            return htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
+        }
+
+        $scheme = strtolower($scheme);
+        $allowedSchemes = ['http', 'https', 'mailto', 'tel', 'whatsapp'];
+
+        if (!in_array($scheme, $allowedSchemes, true)) {
+            return '#';
+        }
+
+        return htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
+    }
+
+    /**
      * @param DOMNode $node
      * @param array<int, string> $allowedTags
      * @param array<string, array<int, string>> $allowedAttrs
@@ -795,6 +953,7 @@ class Control extends QUI\Control
             'phoneLabel',
             'email',
             'emailLabel',
+            'customButtons',
             'formDesign',
             'btnStyle',
             'bgColor',

@@ -9,7 +9,7 @@
         {$content}
     </div>
 
-    {if $self->getAttribute('email') || $self->getAttribute('whatsapp') || $self->getAttribute('phone')}
+    {if $hasButtons}
         <div data-name="buttons" class="quiqqer-contact-ctaAction-buttons quiqqer-contact-ctaAction-buttons--{$btnStyle}">
             {if $btnStyle === 'icon' || $btnStyle === 'iconRounded'}
                 {if $self->getAttribute('email')}
@@ -48,6 +48,7 @@
                     </a>
                 {/if}
             {/if}
+            {$customButtons}
         </div>
     {/if}
 </aside>

@@ -13,8 +13,6 @@ use function json_encode;
 
 /**
  * Class EventHandler
- *
- * @package QUI\Contact
  */
 class EventHandler
 {
@@ -65,6 +63,10 @@ class EventHandler
                     continue;
                 }
 
+                if (is_array($contactSites) === false) {
+                    continue;
+                }
+
                 foreach ($contactSites as $Site) {
                     self::parseContactSiteIntoFormTable($Site);
                 }
@@ -94,7 +96,7 @@ class EventHandler
         $successMessage = $Site->getAttribute('quiqqer.contact.success');
 
         if (empty($successMessage)) {
-            $SiteEdit->setAttribute(
+            $SiteEdit?->setAttribute(
                 'quiqqer.contact.success',
                 QUI::getLocale()->get('quiqqer/contact', 'contact.default.success_msg')
             );
@@ -113,7 +115,7 @@ class EventHandler
             $Site->setAttribute('quiqqer.contact.success_mail', json_encode($successMail));
         }
 
-        $SiteEdit->save(QUI::getUsers()->getSystemUser());
+        $SiteEdit?->save(QUI::getUsers()->getSystemUser());
     }
 
     /**
@@ -173,7 +175,7 @@ class EventHandler
 
         $dataFields = json_encode($dataFields);
 
-        // if exists only update title
+        // if there exists only update title
         if ($exists) {
             QUI::getDataBase()->update(
                 RequestList::getFormsTable(),

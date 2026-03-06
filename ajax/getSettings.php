@@ -7,10 +7,10 @@
  * @return bool - success
  */
 
-QUI::$Ajax->registerFunction(
+QUI::getAjax()->registerFunction(
     'package_quiqqer_contact_ajax_getSettings',
     function () {
-        return QUI::getPackage('quiqqer/contact')->getConfig()->toArray();
+        return QUI::getPackage('quiqqer/contact')->getConfig()?->toArray();
     },
     [],
     'Permission::checkAdminUser'

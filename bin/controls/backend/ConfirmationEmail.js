@@ -1,8 +1,5 @@
 /**
  * Contact form confirmation e-mail editor
- *
- * @module package/quiqqer/contact/bin/controls/backend/ConfirmationEmail
- * @author www.pcsg.de (Patrick Müller)
  */
 define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
 
@@ -20,12 +17,12 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
 ], function (QUIControl, FormBuilder, QUIAjax, QUILocale, Mustache, Editors, template) {
     "use strict";
 
-    var lg = 'quiqqer/contact';
+    const lg = 'quiqqer/contact';
 
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/quiqqer/contact/bin/controls/backend/ConfirmationEmail',
+        Type: 'package/quiqqer/contact/bin/controls/backend/ConfirmationEmail',
 
         Binds: [
             '$onInject',
@@ -44,22 +41,22 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
         initialize: function (options) {
             this.parent(options);
 
-            this.$Panel              = this.getAttribute('Panel');
-            this.$Site               = this.getAttribute('Site');
-            this.$Project            = this.$Site.getProject();
-            this.$Form               = new FormBuilder();
-            this.$Editor             = null;
-            this.$EditorInstance     = null;
+            this.$Panel = this.getAttribute('Panel');
+            this.$Site = this.getAttribute('Site');
+            this.$Project = this.$Site.getProject();
+            this.$Form = new FormBuilder();
+            this.$Editor = null;
+            this.$EditorInstance = null;
             this.$editorSaveInterval = null;
-            this.$SendMailCheckbox   = null;
-            this.$MailSubjectInput   = null;
+            this.$SendMailCheckbox = null;
+            this.$MailSubjectInput = null;
 
             //this.$Panel.addEvent('onCategoryLeave', this.$onDestroy);
 
             this.addEvents({
-                onInject : this.$onInject,
+                onInject: this.$onInject,
                 onDestroy: this.$onDestroy,
-                onResize : this.$onResize
+                onResize: this.$onResize
             });
         },
 
@@ -72,8 +69,8 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
             this.$Elm = new Element('div', {
                 styles: {
                     'float': 'left',
-                    height : '100%',
-                    width  : '100%'
+                    height: '100%',
+                    width: '100%'
                 }
             });
 
@@ -81,16 +78,16 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
         },
 
         /**
-         * event : on inject
+         * event: onInject
          */
         $onInject: function () {
-            var self     = this;
-            var MailData = this.$Site.getAttribute('quiqqer.contact.success_mail');
+            const self = this;
+            let MailData = this.$Site.getAttribute('quiqqer.contact.success_mail');
 
             if (MailData) {
                 try {
                     MailData = JSON.decode(MailData);
-                } catch(e) {
+                } catch (e) {
                     MailData = false;
                 }
             }
@@ -99,14 +96,14 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
 
             this.$getFields().then(function (fields) {
                 self.$Elm.set('html', Mustache.render(template, {
-                    fields            : fields,
-                    labelLabel        : QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.labelLabel'),
-                    labelValue        : QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.labelValue'),
+                    fields: fields,
+                    labelLabel: QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.labelLabel'),
+                    labelValue: QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.labelValue'),
                     headerPlaceholders: QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.headerPlaceholders'),
-                    headerSettings    : QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.headerSettings'),
-                    headerBody        : QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.headerBody'),
-                    labelSendMail     : QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.labelSendMail'),
-                    labelSubject      : QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.labelSubject')
+                    headerSettings: QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.headerSettings'),
+                    headerBody: QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.headerBody'),
+                    labelSendMail: QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.labelSendMail'),
+                    labelSubject: QUILocale.get(lg, 'controls.ConfirmationEmail.tpl.labelSubject')
                 }));
 
                 self.$SendMailCheckbox = self.$Elm.getElement('input[name="send_mail"]');
@@ -117,7 +114,7 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
 
                 if (MailData) {
                     self.$SendMailCheckbox.checked = MailData.send;
-                    self.$MailSubjectInput.value   = MailData.subject;
+                    self.$MailSubjectInput.value = MailData.subject;
                 }
 
                 Editors.getEditor().then(function (Editor) {
@@ -152,7 +149,7 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
          * onResize
          */
         $onResize: function () {
-            var ContentSize = this.$Panel.getContent().getSize();
+            const ContentSize = this.$Panel.getContent().getSize();
 
             if (this.$Editor) {
                 this.$Editor.setWidth(ContentSize.x - 250);
@@ -161,12 +158,12 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
         },
 
         /**
-         * Triggers if user clicks on a placeholder text
+         * Triggers if a user clicks on a placeholder text
          *
          * @param {DocumentEvent} event
          */
         $onPlaceholderClick: function (event) {
-            var placeholder = event.target.get('data-value');
+            const placeholder = event.target.get('data-value');
 
             if (typeof this.$EditorInstance.insertText === 'function') {
                 this.$EditorInstance.insertText(placeholder);
@@ -189,7 +186,7 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
          * Start editor content save interval (every 1 second)
          */
         $startEditorPeriodicalSave: function () {
-            var self = this;
+            const self = this;
 
             this.$editorSaveInterval = setInterval(function () {
                 self.$save();
@@ -200,10 +197,10 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
          * Save mail content to Site
          */
         $save: function () {
-            var MailData = {
-                send   : this.$SendMailCheckbox.checked,
+            const MailData = {
+                send: this.$SendMailCheckbox.checked,
                 subject: this.$MailSubjectInput.value.trim(),
-                body   : this.$Editor.getContent()
+                body: this.$Editor.getContent()
             };
 
             this.$Site.setAttribute('quiqqer.contact.success_mail', JSON.encode(MailData));
@@ -215,35 +212,29 @@ define('package/quiqqer/contact/bin/controls/backend/ConfirmationEmail', [
          * @return {Promise}
          */
         $getFields: function () {
-            var self = this;
+            const self = this;
 
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_quiqqer_contact_ajax_getFields', resolve, {
                     'package': 'quiqqer/contact',
-                    project  : self.$Project.encode(),
-                    siteId   : self.$Site.getId(),
-                    onError  : reject
+                    project: self.$Project.encode(),
+                    siteId: self.$Site.getId(),
+                    onError: reject
                 });
             });
         },
 
         /**
-         * event : on destroy
+         * event: onDestroy
          *
          * Save mail content
          */
         $onDestroy: function () {
             this.$clearEditorPeriodicalSave();
             this.$save();
-            //this.$Editor.destroy();
-            //Editors.destroyEditor(this.$Editor);
 
-
-            this.$Editor         = null;
+            this.$Editor = null;
             this.$EditorInstance = null;
-
-            //this.$Panel.setContent('');
-            //this.$Panel.maximizeCategory();
         }
     });
 });

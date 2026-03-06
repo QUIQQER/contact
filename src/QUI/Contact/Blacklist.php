@@ -2,6 +2,7 @@
 
 namespace QUI\Contact;
 
+use Exception;
 use QUI;
 use QUI\FormBuilder\Builder;
 use QUI\FormBuilder\Fields\EMail as FormBuilderEmailType;
@@ -17,12 +18,12 @@ class Blacklist
     /**
      * Blacklist configuration
      *
-     * @var array|null
+     * @var array<string, mixed>|null
      */
     protected static ?array $conf = null;
 
     /**
-     * Check if a submitted form is blacklisted by any measure
+     * Check if any measure blacklists a submitted form
      *
      * @param Builder $Form
      * @return bool
@@ -54,8 +55,8 @@ class Blacklist
      */
     public static function isIpBlacklistedByIpList(string $ip): bool
     {
-        $conf = self::getBlacklistConf();
-        $ipList = json_decode($conf['ipAddresses'], true);
+        $conf = self::getBlacklistConf() ?? [];
+        $ipList = json_decode((string)($conf['ipAddresses'] ?? '[]'), true);
         $longIp = ip2long($ip);
 
         if (empty($ipList) || !is_array($ipList)) {
@@ -139,8 +140,8 @@ class Blacklist
             return false;
         }
 
-        $conf = self::getBlacklistConf();
-        $blockedEmailAddresses = json_decode($conf['emailAddresses'], true);
+        $conf = self::getBlacklistConf() ?? [];
+        $blockedEmailAddresses = json_decode((string)($conf['emailAddresses'] ?? '[]'), true);
 
         if (empty($blockedEmailAddresses) || !is_array($blockedEmailAddresses)) {
             $blockedEmailAddresses = [];
@@ -196,13 +197,13 @@ class Blacklist
      */
     public static function isIpBlacklistedByDNSBL(string $ip, bool $returnBlockingList = false): bool|string
     {
-        $conf = self::getBlacklistConf();
+        $conf = self::getBlacklistConf() ?? [];
 
-        if (!$conf['useDNSBL']) {
+        if (!($conf['useDNSBL'] ?? false)) {
             return false;
         }
 
-        $providers = json_decode($conf['DNSBLProviders'], true);
+        $providers = json_decode((string)($conf['DNSBLProviders'] ?? '[]'), true);
         $reverse_ip = implode(".", array_reverse(explode(".", $ip)));
 
         if (empty($providers) || !is_array($providers)) {
@@ -263,7 +264,7 @@ class Blacklist
     /**
      * Get config array for blacklist configuration of quiqqer/contact
      *
-     * @return array|null
+     * @return array<string, mixed>|null
      */
     protected static function getBlacklistConf(): ?array
     {
@@ -272,9 +273,11 @@ class Blacklist
         }
 
         try {
-            self::$conf = QUI::getPackage('quiqqer/contact')->getConfig()->getSection('blacklist');
-        } catch (\Exception $Exception) {
+            $Config = QUI::getPackage('quiqqer/contact')->getConfig();
+            self::$conf = $Config?->getSection('blacklist') ?? [];
+        } catch (Exception $Exception) {
             QUI\System\Log::writeException($Exception);
+            self::$conf = [];
         }
 
         return self::$conf;

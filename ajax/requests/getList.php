@@ -11,7 +11,7 @@ use QUI\Contact\RequestList;
 use QUI\Utils\Grid;
 use QUI\Utils\Security\Orthos;
 
-QUI::$Ajax->registerFunction(
+QUI::getAjax()->registerFunction(
     'package_quiqqer_contact_ajax_requests_getList',
     function ($searchParams) {
         $searchParams = Orthos::clearArray(json_decode($searchParams, true));
@@ -19,7 +19,16 @@ QUI::$Ajax->registerFunction(
         try {
             $Grid = new Grid($searchParams);
             $result = RequestList::getList($searchParams);
+            $count = RequestList::getList($searchParams, true);
             $gridRows = [];
+
+            if (!is_array($result)) {
+                $result = [];
+            }
+
+            if (!is_int($count)) {
+                $count = 0;
+            }
 
             foreach ($result as $row) {
                 $rowData = json_decode($row['submitData'], true);
@@ -31,10 +40,7 @@ QUI::$Ajax->registerFunction(
                 $gridRows[] = $rowData;
             }
 
-            return $Grid->parseResult(
-                $gridRows,
-                RequestList::getList($searchParams, true)
-            );
+            return $Grid->parseResult($gridRows, $count);
         } catch (Exception $Exception) {
             QUI\System\Log::writeException($Exception);
 

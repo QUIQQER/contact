@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiqqer>
+    <bricks>
+        <brick control="\QUI\Contact\CtaAction\Control">
+            <title>
+                <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.title"/>
+            </title>
+            <description>
+                <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.description"/>
+            </description>
+
+            <settings>
+                <setting name="formDesign" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.formDesign"/>
+                    <option></option>
+                    <option value="default">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.formDesign.default"/>
+                    </option>
+                    <option value="grid">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.formDesign.grid"/>
+                    </option>
+                    <option value="labelLeft">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.formDesign.labelLeft"/>
+                    </option>
+                </setting>
+
+                <setting name="recipient" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.recipient"/>
+                </setting>
+                <setting name="ctaDescription" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.ctaDescription"/>
+                </setting>
+                <setting name="logo" type="text" data-qui="controls/projects/project/media/Input">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.logo"/>
+                </setting>
+
+                <!-- buttons -->
+                <setting name="btnStyle" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.btnStyle"/>
+
+                    <option></option>
+                    <option value="button">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.btnStyle.button"/>
+                    </option>
+                    <option value="icon">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.btnStyle.icon"/>
+                    </option>
+                    <option value="iconRounded">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.btnStyle.iconRounded"/>
+                    </option>
+                </setting>
+                <setting name="whatsapp" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsapp"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsapp.description"/>
+                    </description>
+                </setting>
+                <setting name="whatsappLabel" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsappLabel"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsappLabel.desc"/>
+                    </description>
+                </setting>
+                <setting name="phone" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phone"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phone.description"/>
+                    </description>
+                </setting>
+                <setting name="phoneLabel" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phoneLabel"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.phoneLabel.desc"/>
+                    </description>
+                </setting>
+                <setting name="email" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.email"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.email.description"/>
+                    </description>
+                </setting>
+                <setting name="emailLabel" type="text">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.emailLabel"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.emailLabel.desc"/>
+                    </description>
+                </setting>
+                <setting name="customButtons" data-qui="package/quiqqer/contact/bin/controls/backend/CtaActionButtons">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.customButtons"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.customButtons.desc"/>
+                    </description>
+                </setting>
+
+                <setting name="bgColor" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.bgColor"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.bgColor.description"/>
+                    </description>
+                </setting>
+                <setting name="color" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.color"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.color.description"/>
+                    </description>
+                </setting>
+                <setting name="leftBgColor" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.leftBgColor"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.leftBgColor.description"/>
+                    </description>
+                </setting>
+                <setting name="leftColor" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.leftColor"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.leftColor.description"/>
+                    </description>
+                </setting>
+            </settings>
+        </brick>
+    </bricks>
+</quiqqer>

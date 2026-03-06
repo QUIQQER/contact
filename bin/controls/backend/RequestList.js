@@ -1,8 +1,5 @@
 /**
  * View/Export contact requests
- *
- * @module package/quiqqer/contact/bin/controls/backend/RequestList
- * @author www.pcsg.de (Patrick Müller)
  */
 define('package/quiqqer/contact/bin/controls/backend/RequestList', [
 
@@ -27,12 +24,12 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
              QUILocale, Mustache, template) {
     "use strict";
 
-    var lg = 'quiqqer/contact';
+    const lg = 'quiqqer/contact';
 
     return new Class({
 
         Extends: QUIPanel,
-        Type   : 'package/quiqqer/contact/bin/controls/backend/RequestList',
+        Type: 'package/quiqqer/contact/bin/controls/backend/RequestList',
 
         Binds: [
             '$onCreate',
@@ -54,20 +51,20 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
         initialize: function (options) {
             this.parent(options);
 
-            this.Loader         = new QUILoader();
-            this.$User          = null;
-            this.$Grid          = null;
-            this.$GridParent    = null;
-            this.$Panel         = null;
-            this.$Forms         = {};
+            this.Loader = new QUILoader();
+            this.$User = null;
+            this.$Grid = null;
+            this.$GridParent = null;
+            this.$Panel = null;
+            this.$Forms = {};
             this.$currentFormId = false;
-            this.$ViewBtn       = null;
-            this.$DeleteBtn     = null;
+            this.$ViewBtn = null;
+            this.$DeleteBtn = null;
 
             this.addEvents({
-                onCreate : this.$onCreate,
+                onCreate: this.$onCreate,
                 onRefresh: this.$onRefresh,
-                onResize : this.$onResize
+                onResize: this.$onResize
             });
         },
 
@@ -75,18 +72,18 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
          * Event: onCreate
          */
         $onCreate: function () {
-            var self = this;
+            const self = this;
 
             this.Loader.inject(this.$Elm);
             this.$Elm.addClass('quiqqer-contact-requestlist');
 
-            var FormSelect = new QUISelect({
-                'class'              : 'form-select',
-                placeholderText      : QUILocale.get(lg, 'controls.RequestList.formselect_placeholder'),
-                placeholderIcon      : false,
+            const FormSelect = new QUISelect({
+                'class': 'form-select',
+                placeholderText: QUILocale.get(lg, 'controls.RequestList.formselect_placeholder'),
+                placeholderIcon: false,
                 placeholderSelectable: false, // placeholder is standard selectable menu child
-                showIcons            : false,
-                events               : {
+                showIcons: false,
+                events: {
                     onChange: function (value) {
                         self.$buildFormTable(value);
                     }
@@ -98,10 +95,10 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
             this.addButton(new QUISeparator());
 
             this.$ViewBtn = new QUIButton({
-                disabled : true,
-                text     : QUILocale.get(lg, 'controls.RequestList.btn.view_request'),
+                disabled: true,
+                text: QUILocale.get(lg, 'controls.RequestList.btn.view_request'),
                 textimage: 'fa fa-eye',
-                events   : {
+                events: {
                     onClick: function () {
                         self.$showRequestDetails(self.$Grid.getSelectedData()[0]);
                     }
@@ -111,10 +108,10 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
             this.addButton(this.$ViewBtn);
 
             this.$DeleteBtn = new QUIButton({
-                disabled : true,
-                text     : QUILocale.get(lg, 'controls.RequestList.btn.delete_requests'),
+                disabled: true,
+                text: QUILocale.get(lg, 'controls.RequestList.btn.delete_requests'),
                 textimage: 'fa fa-trash',
-                events   : {
+                events: {
                     onClick: this.$deleteRequests
                 }
             });
@@ -126,8 +123,9 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
             Requests.getForms().then(function (forms) {
                 self.Loader.hide();
 
-                for (var i = 0, len = forms.length; i < len; i++) {
-                    var Form = forms[i];
+                let Form;
+                for (let i = 0, len = forms.length; i < len; i++) {
+                    Form = forms[i];
 
                     FormSelect.appendChild(
                         Form.title,
@@ -136,11 +134,11 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
 
                     self.$Forms[Form.id] = {
                         fields: JSON.decode(Form.dataFields),
-                        title : Form.title
+                        title: Form.title
                     };
                 }
 
-                var infoText = QUILocale.get(lg, 'controls.RequestList.select_info');
+                let infoText = QUILocale.get(lg, 'controls.RequestList.select_info');
 
                 if (!forms.length) {
                     infoText = QUILocale.get(lg, 'controls.RequestList.no_forms_info');
@@ -167,7 +165,7 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
          */
         $onResize: function () {
             if (this.$GridParent && this.$Grid) {
-                var size = this.$GridParent.getSize();
+                const size = this.$GridParent.getSize();
 
                 this.$Grid.setHeight(size.y);
                 this.$Grid.resize();
@@ -180,57 +178,58 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
          * @param {String} id - Special form id
          */
         $buildFormTable: function (id) {
-            var self = this;
+            const self = this;
 
             this.$ViewBtn.disable();
             this.$DeleteBtn.disable();
 
-            var columns = [{
-                header   : QUILocale.get('quiqqer/system', 'id'),
+            const columns = [{
+                header: QUILocale.get('quiqqer/system', 'id'),
                 dataIndex: 'id',
-                dataType : 'number',
-                width    : 75,
+                dataType: 'number',
+                width: 75,
             }, {
-                header   : QUILocale.get(lg, 'controls.RequestList.tbl.header.submitDate'),
+                header: QUILocale.get(lg, 'controls.RequestList.tbl.header.submitDate'),
                 dataIndex: 'submitDate',
-                dataType : 'string',
-                width    : 200
+                dataType: 'string',
+                width: 200
             }, {
                 dataIndex: 'formId',
-                dataType : 'number',
-                hidden   : true
+                dataType: 'number',
+                hidden: true
             }];
 
-            var formFields = this.$Forms[id].fields;
+            let Field;
+            const formFields = this.$Forms[id].fields;
 
-            for (var i = 0, len = formFields.length; i < len; i++) {
-                var Field = formFields[i];
+            for (let i = 0, len = formFields.length; i < len; i++) {
+                Field = formFields[i];
 
                 columns.push({
-                    header   : Field.label,
+                    header: Field.label,
                     dataIndex: Field.name,
-                    dataType : 'string',
-                    width    : 150
+                    dataType: 'string',
+                    width: 150
                 });
             }
 
             this.setContent(Mustache.render(template));
-            var Content = this.getContent();
+            const Content = this.getContent();
 
             this.$GridParent = Content.getElement(
                 '.quiqqer-contact-requestlist-table'
             );
 
             this.$Grid = new Grid(this.$GridParent, {
-                columnModel      : columns,
-                pagination       : true,
-                serverSort       : false,
-                selectable       : true,
+                columnModel: columns,
+                pagination: true,
+                serverSort: false,
+                selectable: true,
                 multipleSelection: true,
-                exportData       : true,
-                exportTypes      : {
-                    pdf : 'PDF',
-                    csv : 'CSV',
+                exportData: true,
+                exportTypes: {
+                    pdf: 'PDF',
+                    csv: 'CSV',
                     json: 'JSON'
                 }
             });
@@ -239,8 +238,8 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
                 onDblClick: function () {
                     self.$showRequestDetails(self.$Grid.getSelectedData()[0]);
                 },
-                onClick   : function () {
-                    var selected = self.$Grid.getSelectedData();
+                onClick: function () {
+                    const selected = self.$Grid.getSelectedData();
 
                     if (selected.length === 1) {
                         self.$ViewBtn.enable();
@@ -250,7 +249,7 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
 
                     self.$DeleteBtn.enable();
                 },
-                onRefresh : this.$listRefresh
+                onRefresh: this.$listRefresh
             });
 
             this.$currentFormId = id;
@@ -278,14 +277,14 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
                 return;
             }
 
-            var self = this;
+            const self = this;
 
-            var GridParams = {
-                sortOn : Grid.getAttribute('sortOn'),
-                sortBy : Grid.getAttribute('sortBy'),
+            const GridParams = {
+                sortOn: Grid.getAttribute('sortOn'),
+                sortBy: Grid.getAttribute('sortBy'),
                 perPage: Grid.getAttribute('perPage'),
-                page   : Grid.getAttribute('page'),
-                id     : this.$currentFormId
+                page: Grid.getAttribute('page'),
+                id: this.$currentFormId
             };
 
             this.Loader.show();
@@ -311,37 +310,47 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
          * @param {Object} RequestData - The request data
          */
         $showRequestDetails: function (RequestData) {
-            var Form = this.$Forms[RequestData.formId];
+            const Form = this.$Forms[RequestData.formId];
 
-            var Popup = new QUIConfirm({
+            const Popup = new QUIConfirm({
                 maxHeight: 800,
 
                 title: Form.title + ' - ' + RequestData.submitDate,
-                icon : 'fa fa-list-alt',
+                icon: 'fa fa-list-alt',
 
                 cancel_button: false,
-                ok_button    : {
-                    text     : 'OK',
+                ok_button: {
+                    text: 'OK',
                     textimage: 'icon-ok fa fa-check'
                 },
-                events       : {
+                events: {
                     onOpen: function () {
-                        var Content = Popup.getContent();
+                        const Content = Popup.getContent();
 
                         Content.set('html', '');
 
-                        var List = new Element('ul').inject(Content);
+                        let li, label, value;
+                        const List = document.createElement('ul');
+                        Content.appendChild(List);
 
-                        for (var i = 0, len = Form.fields.length; i < len; i++) {
-                            new Element('li', {
-                                'class': 'quiqqer-contact-requestlist-request-field',
-                                html   : '<span>' + Form.fields[i].label + '</span>' +
-                                '<p>' + RequestData[Form.fields[i].name] + '</p>'
-                            }).inject(List);
+                        for (let i = 0, len = Form.fields.length; i < len; i++) {
+                            li = document.createElement('li');
+                            li.className = 'quiqqer-contact-requestlist-request-field';
+
+                            label = document.createElement('span');
+                            label.textContent = Form.fields[i].label;
+
+                            value = document.createElement('p');
+                            value.textContent = RequestData[Form.fields[i].name] != null
+                                ? String(RequestData[Form.fields[i].name])
+                                : '';
+
+                            li.appendChild(label);
+                            li.appendChild(value);
+                            List.appendChild(li);
                         }
                     }
                 }
-
             });
 
             Popup.open();
@@ -351,40 +360,40 @@ define('package/quiqqer/contact/bin/controls/backend/RequestList', [
          * Delete contact requests of the selected rows
          */
         $deleteRequests: function () {
-            var self      = this;
-            var deleteIds = [];
-            var rows      = this.$Grid.getSelectedData();
-            var Form      = this.$Forms[this.$currentFormId];
+            const self = this;
+            const deleteIds = [];
+            const rows = this.$Grid.getSelectedData();
+            const Form = this.$Forms[this.$currentFormId];
 
-            for (var i = 0, len = rows.length; i < len; i++) {
+            for (let i = 0, len = rows.length; i < len; i++) {
                 deleteIds.push(rows[i].id);
             }
 
             // open popup
-            var Popup = new QUIConfirm({
+            const Popup = new QUIConfirm({
                 maxHeight: 300,
                 autoclose: false,
 
                 information: QUILocale.get(lg,
                     'controls.RequestList.delete.info', {
-                        form      : Form.title,
+                        form: Form.title,
                         requestIds: '#' + deleteIds.join(', #')
                     }
                 ),
-                title      : QUILocale.get(lg, 'controls.RequestList.delete.title'),
-                texticon   : 'fa fa-trash',
-                text       : QUILocale.get(lg, 'controls.RequestList.delete.title'),
-                icon       : 'fa fa-trash',
+                title: QUILocale.get(lg, 'controls.RequestList.delete.title'),
+                texticon: 'fa fa-trash',
+                text: QUILocale.get(lg, 'controls.RequestList.delete.title'),
+                icon: 'fa fa-trash',
 
                 cancel_button: {
-                    text     : false,
+                    text: false,
                     textimage: 'icon-remove fa fa-remove'
                 },
-                ok_button    : {
-                    text     : false,
+                ok_button: {
+                    text: false,
                     textimage: 'icon-ok fa fa-check'
                 },
-                events       : {
+                events: {
                     onSubmit: function () {
                         Popup.Loader.show();
 

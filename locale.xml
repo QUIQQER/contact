@@ -20,8 +20,10 @@
             <en><![CDATA[Please select a contact form whose data you want to display.]]></en>
         </locale>
         <locale name="controls.RequestList.no_forms_info" html="true">
-            <de><![CDATA[Es existieren z.Z. noch keine Kontakt-Anfragen. Sobald Kontakt-Anfragen verfügbar sind, können Sie das entsprechende Kontakt-Formular oben auswählen. Sie können Kontakt-Formulare über eine Seite mit dem Typ <b>"QUIQQER - Kontakt"</b> erstellen.]]></de>
-            <en><![CDATA[Currently no contact requests exist yet. Once contact requests are available, you can select the appropriate contact form above. You can create contact forms with a Site of type <b>"QUIQQER - Contact"</b>.]]></en>
+            <de>
+                <![CDATA[Es existieren z.Z. noch keine Kontakt-Anfragen. Sobald Kontakt-Anfragen verfügbar sind, können Sie das entsprechende Kontakt-Formular oben auswählen. Sie können Kontakt-Formulare über eine Seite mit dem Typ <b>"QUIQQER - Kontakt"</b> erstellen.]]></de>
+            <en>
+                <![CDATA[Currently no contact requests exist yet. Once contact requests are available, you can select the appropriate contact form above. You can create contact forms with a Site of type <b>"QUIQQER - Contact"</b>.]]></en>
         </locale>
         <locale name="controls.RequestList.btn.view_request">
             <de><![CDATA[Details anzeigen]]></de>
@@ -32,8 +34,10 @@
             <en><![CDATA[Delete request(s)]]></en>
         </locale>
         <locale name="controls.RequestList.delete.info" html="true">
-            <de><![CDATA[Sind Sie sicher, dass Sie folgende Anfragen des Kontakt-Formulars <b>"[form]"</b> unwiderruflich löschen wollen?<br/><br/>[requestIds]]]></de>
-            <en><![CDATA[Are you sure you want to irrevocably delete the following requests for contact form <b>"[form]"</b>?<br/><br/>[requestIds]]]></en>
+            <de>
+                <![CDATA[Sind Sie sicher, dass Sie folgende Anfragen des Kontakt-Formulars <b>"[form]"</b> unwiderruflich löschen wollen?<br/><br/>[requestIds]]]></de>
+            <en>
+                <![CDATA[Are you sure you want to irrevocably delete the following requests for contact form <b>"[form]"</b>?<br/><br/>[requestIds]]]></en>
         </locale>
         <locale name="controls.RequestList.delete.title">
             <de><![CDATA[Formular-Anfragen löschen]]></de>
@@ -91,8 +95,10 @@
 
         <!-- Ajax -->
         <locale name="message.ajax.general_error">
-            <de><![CDATA[Beim Verarbeiten der Anfrage ist ein unerwarteter Fehler aufgetreten. Bitte prüfen Sie die Fehler-Logs oder kontaktieren Sie einen Administrator.]]></de>
-            <en><![CDATA[An unexpected error occurred while processing the request. Please check the error logs or contact an administrator.]]></en>
+            <de>
+                <![CDATA[Beim Verarbeiten der Anfrage ist ein unerwarteter Fehler aufgetreten. Bitte prüfen Sie die Fehler-Logs oder kontaktieren Sie einen Administrator.]]></de>
+            <en>
+                <![CDATA[An unexpected error occurred while processing the request. Please check the error logs or contact an administrator.]]></en>
         </locale>
         <locale name="message.ajax.requests.deleteRequests.success">
             <de><![CDATA[Die gewählten Kontakt-Anfragen wurden erfolgreich gelöscht.]]></de>
@@ -101,21 +107,29 @@
 
         <!-- Site type: contact -->
         <locale name="exception.types.contact.no_recipients">
-            <de><![CDATA[Das Formular kann leider nicht versendet werden, da keine Empfänger konfiguriert sind. Bitte wenden Sie sich an einen Administrator.]]></de>
-            <en><![CDATA[The form can not be sent because no recipients are configured. Please contact an administrator.]]></en>
+            <de>
+                <![CDATA[Das Formular kann leider nicht versendet werden, da keine Empfänger konfiguriert sind. Bitte wenden Sie sich an einen Administrator.]]></de>
+            <en>
+                <![CDATA[The form can not be sent because no recipients are configured. Please contact an administrator.]]></en>
         </locale>
         <locale name="exception.types.contact.blacklisted">
-            <de><![CDATA[Ihre Kontakt-Anfrage konnte leider nicht gesendet werden, da ihre E-Mail-Adresse oder ihre IP-Adresse vom System geblockt ist.]]></de>
-            <en><![CDATA[Your contact request could not be processed because your e-mail address or your IP address are blocked by the system.]]></en>
+            <de>
+                <![CDATA[Ihre Kontakt-Anfrage konnte leider nicht gesendet werden, da ihre E-Mail-Adresse oder ihre IP-Adresse vom System geblockt ist.]]></de>
+            <en>
+                <![CDATA[Your contact request could not be processed because your e-mail address or your IP address are blocked by the system.]]></en>
         </locale>
         <locale name="exception.types.contact.blacklisted_host" html="true">
-            <de><![CDATA[Ihre Kontakt-Anfrage konnte leider nicht gesendet werden, da ihre IP-Adresse sich auf der Sperrliste von <b>[blacklistHost]</b> befindet.]]></de>
-            <en><![CDATA[Your contact request could not be processed because your IP address is on the blacklist of <b>[blacklistHost]</b>.]]></en>
+            <de>
+                <![CDATA[Ihre Kontakt-Anfrage konnte leider nicht gesendet werden, da ihre IP-Adresse sich auf der Sperrliste von <b>[blacklistHost]</b> befindet.]]></de>
+            <en>
+                <![CDATA[Your contact request could not be processed because your IP address is on the blacklist of <b>[blacklistHost]</b>.]]></en>
         </locale>
 
         <locale name="contact.default.success_msg" html="true">
-            <de><![CDATA[<div class="content-message-success">Vielen Dank für Ihre Kontaktanfrage! Wir werden uns schnellstmöglich um Ihr Anliegen kümmern und Ihnen eine Antwort senden.</div>]]></de>
-            <en><![CDATA[<div class="content-message-success">Many thanks for your contact request! We will deal with your request as soon as possible and send you an answer.</div>]]></en>
+            <de>
+                <![CDATA[<div class="content-message-success">Vielen Dank für Ihre Kontaktanfrage! Wir werden uns schnellstmöglich um Ihr Anliegen kümmern und Ihnen eine Antwort senden.</div>]]></de>
+            <en>
+                <![CDATA[<div class="content-message-success">Many thanks for your contact request! We will deal with your request as soon as possible and send you an answer.</div>]]></en>
         </locale>
         <locale name="contact.default.success_mail_subject">
             <de><![CDATA[Vielen Dank für Ihre Nachricht]]></de>
@@ -129,7 +143,7 @@
 <p>We have received your message and will process it as soon as possible.</p>
 <p>Best regards!</p>]]></en>
         </locale>
-        
+
     </groups>
 
     <groups name="quiqqer/contact" datatype="php,js">
@@ -161,7 +175,8 @@
             <en><![CDATA[Encrypt saved contact requests]]></en>
         </locale>
         <locale name="settings.encryptContactRequests.description">
-            <de><![CDATA[Alle Kontakt-Anfragen, die in der Datenbank gespeichert werden, sollen verschlüsselt werden]]></de>
+            <de>
+                <![CDATA[Alle Kontakt-Anfragen, die in der Datenbank gespeichert werden, sollen verschlüsselt werden]]></de>
             <en><![CDATA[Every contact request that is saved in the database shall be encrypted]]></en>
         </locale>
         <locale name="settings.globalPrivacyPolicyField.title">
@@ -234,15 +249,18 @@
             <en><![CDATA[Filter contact requests via blacklists]]></en>
         </locale>
         <locale name="settings.blacklist.useDNSBL.description">
-            <de><![CDATA[Bei den unter "Blacklist-Provider" festgelegten Blacklists wird die IP des Formular-Absenders abgefragt. Befindet sich die IP auf einer der angegebenen Blacklists, wird die Kontakt-Anfrage gefiltert.]]></de>
-            <en><![CDATA[The IP of the contact request sender is queries with the providers configured in "Blacklist providers". If the IP is on one of the specified blacklists, the contact request is filtered.]]></en>
+            <de>
+                <![CDATA[Bei den unter "Blacklist-Provider" festgelegten Blacklists wird die IP des Formular-Absenders abgefragt. Befindet sich die IP auf einer der angegebenen Blacklists, wird die Kontakt-Anfrage gefiltert.]]></de>
+            <en>
+                <![CDATA[The IP of the contact request sender is queries with the providers configured in "Blacklist providers". If the IP is on one of the specified blacklists, the contact request is filtered.]]></en>
         </locale>
         <locale name="settings.blacklist.DNSBLProviders.title">
             <de><![CDATA[Blacklist-Provider]]></de>
             <en><![CDATA[Blacklist providers]]></en>
         </locale>
         <locale name="settings.blacklist.DNSBLProviders.description">
-            <de><![CDATA[Angabe der URLs einzelner Blacklist Provider. Müssen <b>untereinander</b> geschrieben werden.]]></de>
+            <de>
+                <![CDATA[Angabe der URLs einzelner Blacklist Provider. Müssen <b>untereinander</b> geschrieben werden.]]></de>
             <en><![CDATA[List of blacklist providers. <b>One provider URL per line</b>.]]></en>
         </locale>
 
@@ -282,5 +300,385 @@
                 <![CDATA[Erstellen Sie Formulare ganz nach Ihren Vorstellungen. Ein Formulareditor hilft Ihnen dabei.]]></de>
             <en><![CDATA[Create forms to your needs. A form editor will help you.]]></en>
         </locale>
+
+        <locale name="contact.ctaAction.send.success" html="true">
+            <de><![CDATA[<strong>Vielen Dank für Ihre Nachricht</strong> <p>Wir werden uns so schnell wie möglich bei Ihnen melden.</p>]]></de>
+            <en><![CDATA[Thank you for your message. We will contact you as soon as possible.]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_title">
+            <de><![CDATA[Kontakt aufnehmen]]></de>
+            <en><![CDATA[Contact us]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_header">
+            <de><![CDATA[]]></de>
+            <en><![CDATA[]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_description">
+            <de><![CDATA[Ein paar Infos reichen – wir klären den Rest im Gespräch.]]></de>
+            <en><![CDATA[Some information is enough – we clarify the rest in conversation.]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_name_label">
+            <de><![CDATA[Name]]></de>
+            <en><![CDATA[Name]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_name_placeholder">
+            <de><![CDATA[Vor- und Nachname]]></de>
+            <en><![CDATA[First and Last name]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_company_label">
+            <de><![CDATA[Unternehmen (optional)]]></de>
+            <en><![CDATA[Company (optional)]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_company_placeholder">
+            <de><![CDATA[Firma / Organisation]]></de>
+            <en><![CDATA[Company / Organization]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_email_label">
+            <de><![CDATA[E-Mail]]></de>
+            <en><![CDATA[Email]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_email_placeholder">
+            <de><![CDATA[name@firma.de]]></de>
+            <en><![CDATA[name@organization.com]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_phone_label">
+            <de><![CDATA[Telefon]]></de>
+            <en><![CDATA[Phone]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_phone_placeholder">
+            <de><![CDATA[+49 123 456789]]></de>
+            <en><![CDATA[+1 123 456789]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_message_label">
+            <de><![CDATA[Nachricht]]></de>
+            <en><![CDATA[Message]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_message_placeholder">
+            <de><![CDATA[Kurzbeschreibung, Ziele, ggf. Links...]]></de>
+            <en><![CDATA[Short description, goals, maybe links...]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_content" html="true">
+            <de><![CDATA[
+            <h2>Unverbindlich anfragen</h2>
+            <p class="lead">
+                Sag uns kurz, was du vorhast – wir melden uns zeitnah mit einer klaren Einschätzung
+                (Budget, Aufwand, nächste Schritte).
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Antwort in 24–48h</strong><br>
+                    <span>In der Regel schneller – je nach Projektlage.</span>
+                </li>
+                <li>
+                    <strong>Direkt zum Punkt</strong><br>
+                    <span>Keine Werbefloskeln, sondern konkrete Optionen.</span>
+                </li>
+                <li>
+                    <strong>Alles aus einer Hand</strong><br>
+                    <span>Website, Shop, Webapp – inkl. Wartung &amp; Weiterentwicklung.</span>
+                </li>
+            </ul>
+            ]]></de>
+            <en><![CDATA[
+            <h2>Make a non-binding inquiry</h2>
+            <p class="lead">
+                Tell us briefly what you have in mind – we will get back to you promptly with a clear assessment
+                (budget, effort, next steps).
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Answer within 24–48h</strong><br>
+                    <span>In general faster – depending on project situation.</span>
+                </li>
+                <li>
+                    <strong>Direct to the point</strong><br>
+                    <span>No sales pitches, just concrete options.</span>
+                </li>
+                <li>
+                    <strong>One-stop solution</strong><br>
+                    <span>Website, Shop, Webapp – including maintenance &amp; further development.</span>
+                </li>
+            </ul>
+            ]]></en>
+        </locale>
+        <locale name="contact.ctaAction.privacy">
+            <de><![CDATA[
+            Ich habe die [privacyLink] gelesen. Mit dem Absenden stimmst du der Verarbeitung deiner Angaben zur Bearbeitung der Anfrage zu.
+            ]]></de>
+            <en><![CDATA[
+            I have read the [privacyLink]. By submitting, you agree to the processing of your data for the processing of the request.
+            ]]></en>
+        </locale>
+        <locale name="contact.ctaAction.default_submit_label">
+            <de><![CDATA[Anfrage senden]]></de>
+            <en><![CDATA[Submit request]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.title">
+            <de><![CDATA[CTA Kontaktformular]]></de>
+            <en><![CDATA[CTA contact form]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.ctaDescription">
+            <de><![CDATA[Kontakt Einleitungstext <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Recipient Description <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.recipient">
+            <de><![CDATA[Empfänger <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Recipient <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.logo">
+            <de><![CDATA[Logo <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Logo <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.formDesign">
+            <de><![CDATA[Formular-Layout <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Form layout]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.formDesign.default">
+            <de><![CDATA[Standard (Inputs untereinander)]]></de>
+            <en><![CDATA[Default (stacked inputs)]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.formDesign.grid">
+            <de><![CDATA[Raster (grid)]]></de>
+            <en><![CDATA[Grid]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.formDesign.labelLeft">
+            <de><![CDATA[Labels links]]></de>
+            <en><![CDATA[Labels left]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.frontend.btn.email.title">
+            <de><![CDATA[Kontaktieren Sie uns per Mail]]></de>
+            <en><![CDATA[Contact us by email]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.frontend.btn.whatsapp.title">
+            <de><![CDATA[Schreiben Sie uns per WhatsApp]]></de>
+            <en><![CDATA[Message us on WhatsApp]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.frontend.btn.phone.title">
+            <de><![CDATA[Rufen Sie uns an]]></de>
+            <en><![CDATA[Give us a call]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.btnStyle">
+            <de><![CDATA[Button-Design <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Button design <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.btnStyle.button">
+            <de><![CDATA[Normaler Button (Text)]]></de>
+            <en><![CDATA[Default button (text)]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.btnStyle.icon">
+            <de><![CDATA[Nur Icon]]></de>
+            <en><![CDATA[Only icon]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.btnStyle.iconRounded">
+            <de><![CDATA[Nur Icon (rund)]]></de>
+            <en><![CDATA[Only icon (round)]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.whatsapp">
+            <de><![CDATA[Kontakt Button WhatsApp <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Contact button WhatsApp <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.whatsapp.description">
+            <de><![CDATA[Zeigt einen WhatsApp-Kontaktbutton an, sobald eine Nummer hinterlegt ist.]]></de>
+            <en><![CDATA[Shows a WhatsApp contact button as soon as a number is entered.]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.whatsappLabel">
+            <de><![CDATA[Angezeigter Text für WhatsApp <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Displayed text for WhatsApp <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.whatsappLabel.desc">
+            <de><![CDATA[Dieser Text wird für den normalen Button verwendet. Wenn nicht gesetzt, wird die hinterlegte Nummer als Text verwendet.]]></de>
+            <en><![CDATA[This text is used for the default button. If not set, the entered number is used as text.]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.phone">
+            <de><![CDATA[Kontakt Button Telefon <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Contact button Phone <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.phone.description">
+            <de><![CDATA[Zeigt einen Telefon-Kontaktbutton an, sobald eine Nummer hinterlegt ist.]]></de>
+            <en><![CDATA[Shows a phone contact button as soon as a number is entered.]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.phoneLabel">
+            <de><![CDATA[Angezeigter Text für Telefon <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Displayed text for phone <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.phoneLabel.desc">
+            <de><![CDATA[Dieser Text wird für den normalen Button verwendet. Wenn nicht gesetzt, die eingegebene Nummer wird als Text verwendet.]]></de>
+            <en><![CDATA[This text is used for the default button. If not set, the entered number address is used as text.]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.email">
+            <de><![CDATA[Kontakt Button E-Mail <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Contact button E-mail <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.email.description">
+            <de><![CDATA[Zeigt einen E-Mail-Kontaktbutton an, sobald eine E-Mail hinterlegt ist.]]></de>
+            <en><![CDATA[Shows an email contact button as soon as an email is entered.]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.emailLabel">
+            <de><![CDATA[Angezeigter Text für E-Mail <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Displayed text for email <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.emailLabel.desc">
+            <de><![CDATA[Dieser Text wird für den normalen Button verwendet. Wenn nicht gesetzt, die eingegebene E-Mail-Adresse wird als Text verwendet.]]></de>
+            <en><![CDATA[This text is used for the default button. If not set, the entered email address is used as text.]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons">
+            <de><![CDATA[Zusätzliche Buttons <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Additional buttons <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.desc">
+            <de><![CDATA[Fügen Sie weitere Aktionsbuttons (Text, Icon, CSS-Klassen und Link) hinzu.]]></de>
+            <en><![CDATA[Add additional action buttons (text, icon, CSS classes and link).]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.empty">
+            <de><![CDATA[Noch keine zusätzlichen Buttons hinterlegt.]]></de>
+            <en><![CDATA[No additional buttons configured yet.]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.btn.add">
+            <de><![CDATA[Button hinzufügen]]></de>
+            <en><![CDATA[Add button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.btn.edit.title">
+            <de><![CDATA[Button bearbeiten]]></de>
+            <en><![CDATA[Edit button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.btn.delete.title">
+            <de><![CDATA[Button löschen]]></de>
+            <en><![CDATA[Delete button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.window.add.title">
+            <de><![CDATA[Neuen Button hinzufügen]]></de>
+            <en><![CDATA[Add new button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.window.edit.title">
+            <de><![CDATA[Button bearbeiten]]></de>
+            <en><![CDATA[Edit button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.window.delete.title">
+            <de><![CDATA[Button entfernen]]></de>
+            <en><![CDATA[Remove button]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.window.delete.text">
+            <de><![CDATA[Möchten Sie diesen Zusatzbutton wirklich löschen?]]></de>
+            <en><![CDATA[Do you really want to delete this additional button?]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.form.text">
+            <de><![CDATA[Text]]></de>
+            <en><![CDATA[Text]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.form.icon">
+            <de><![CDATA[Icon-Klassen]]></de>
+            <en><![CDATA[Icon classes]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.form.cssClass">
+            <de><![CDATA[Button-CSS-Klassen]]></de>
+            <en><![CDATA[Button CSS classes]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.customButtons.form.href">
+            <de><![CDATA[Link]]></de>
+            <en><![CDATA[Link]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.bgColor">
+            <de><![CDATA[Hintergrundfarbe <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Background color <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.bgColor.description">
+            <de><![CDATA[Setzt die Hintergrundfarbe des gesamten CTA-Blocks (CSS Variable: --qui-contact-ctaAction-bgColor).]]></de>
+            <en><![CDATA[Sets the background color of the whole CTA block (CSS variable: --qui-contact-ctaAction-bgColor).]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.color">
+            <de><![CDATA[Textfarbe <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Text color <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.color.description">
+            <de><![CDATA[Setzt die Textfarbe des gesamten CTA-Blocks (CSS Variable: --qui-contact-ctaAction-color).]]></de>
+            <en><![CDATA[Sets the text color of the whole CTA block (CSS variable: --qui-contact-ctaAction-color).]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.leftBgColor">
+            <de><![CDATA[Hintergrundfarbe (linke Spalte) <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Background color (left column) <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.leftBgColor.description">
+            <de><![CDATA[Setzt die Hintergrundfarbe der linken Spalte (CSS Variable: --qui-contact-ctaAction-left-bgColor).]]></de>
+            <en><![CDATA[Sets the background color of the left column (CSS variable: --qui-contact-ctaAction-left-bgColor).]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.leftColor">
+            <de><![CDATA[Textfarbe (linke Spalte) <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Text color (left column) <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.leftColor.description">
+            <de><![CDATA[Setzt die Textfarbe der linken Spalte (CSS Variable: --qui-contact-ctaAction-left-color).]]></de>
+            <en><![CDATA[Sets the text color of the left column (CSS variable: --qui-contact-ctaAction-left-color).]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.mail.title">
+            <de><![CDATA[Neue Kontaktanfrage:]]></de>
+            <en><![CDATA[New contact request:]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.brick.title">
+            <de><![CDATA[Baustein CTA Daten]]></de>
+            <en><![CDATA[Brick CTA data]]></en>
+        </locale>
+
+
+        <locale name="brick.control.ctaAction.mail.brick.brickId">
+            <de><![CDATA[ID]]></de>
+            <en><![CDATA[ID]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.brick.brickTitle">
+            <de><![CDATA[Titel]]></de>
+            <en><![CDATA[Title]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.mail.contact">
+            <de><![CDATA[Kontakt]]></de>
+            <en><![CDATA[Contact]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.contact.name">
+            <de><![CDATA[Name]]></de>
+            <en><![CDATA[Name]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.contact.email">
+            <de><![CDATA[E-Mail]]></de>
+            <en><![CDATA[E-mail]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.contact.phone">
+            <de><![CDATA[Telefon]]></de>
+            <en><![CDATA[Phone]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.contact.company">
+            <de><![CDATA[Unternehmen]]></de>
+            <en><![CDATA[Company]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.mail.contact.message">
+            <de><![CDATA[Nachricht]]></de>
+            <en><![CDATA[Message]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.exception.nameNeeded">
+            <de><![CDATA[Bitte ein Name angeben]]></de>
+            <en><![CDATA[Please provide a name]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.exception.emailNeeded">
+            <de><![CDATA[Bitte eine E-Mail oder Telefon angeben]]></de>
+            <en><![CDATA[Please provide either email or phone]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.exception.emailInvalid">
+            <de><![CDATA[Bitte eine gültige E-Mail angeben]]></de>
+            <en><![CDATA[Please provide a valid email]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.exception.mailSendFailed">
+            <de><![CDATA[Die E-Mail konnte nicht versendet werden]]></de>
+            <en><![CDATA[The email could not be sent]]></en>
+        </locale>
+
     </groups>
 </locales>

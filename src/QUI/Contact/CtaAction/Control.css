@@ -1,0 +1,198 @@
+.quiqqer-contact-ctaAction {
+    --wrapper-bgColor: var(--qui-contact-ctaAction-wrapper-bgColor, var(--_q-controlSetting-bgColor, var(--qui-colors-body-bgColor, #fff)));
+    --wrapper-Color: var(--qui-contact-ctaAction-wrapper-Color, var(--_q-controlSetting-color, var(--qui-colors-body, currentColor)));
+    --wrapper-borderColor: var(--qui-contact-ctaAction-wrapper-borderColor, var(--left-bgColor));
+    --wrapper-borderWidth: var(--qui-contact-ctaAction-wrapper-borderWidth, 0.25rem);
+    --wrapper-borderStyle: var(--qui-contact-ctaAction-wrapper-borderStyle, solid);
+    --borderRadius: var(--qui-contact-ctaAction-borderRadius, 0);
+    --left-bgColor: var(--qui-contact-ctaAction-left-bgColor, var(--_q-controlSetting-left-bgColor, hsl(from var(--qui-colors-body-bgColor, #fff) h s calc(l - 5))));
+    --left-color: var(--qui-contact-ctaAction-left-color, var(--_q-controlSetting-left-color, var(--qui-colors-body, currentColor)));
+    --inner-padding: var(--qui-contact-ctaAction-inner-padding, clamp(1.5rem, 4%, 2.5rem));
+    --logo-height: var(--qui-contact-ctaAction-logo-height, 50px);
+
+    outline: var(--wrapper-borderWidth) var(--wrapper-borderStyle) var(--wrapper-borderColor);
+    outline-offset: calc(var(--wrapper-borderWidth) * -1);
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    border-radius: var(--borderRadius);
+    background-color: var(--wrapper-bgColor);
+    color: var(--wrapper-Color);
+}
+
+@media screen and (max-width: 767px) {
+    .quiqqer-contact-ctaAction {
+        border-radius: 0;
+    }
+}
+
+.quiqqer-contact-ctaAction__leftContent {
+    flex: 1 0 min(350px, 100%);
+}
+
+.quiqqer-contact-ctaAction__rightContent {
+    flex: 1 0 min(500px, 100%);
+}
+
+/**
+ * Left content
+ */
+.quiqqer-contact-ctaAction__leftContent {
+    background-color: var(--left-bgColor);
+    color: var(--left-color);
+    padding: var(--inner-padding);
+    border-radius: var(--borderRadius);
+}
+
+.quiqqer-contact-ctaAction .logo {
+    margin-bottom: 1.5rem;
+}
+
+.quiqqer-contact-ctaAction .logo-img {
+    height: var(--logo-height);
+}
+
+.quiqqer-contact-ctaAction-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin-top: 1rem;
+}
+
+/**
+ * Right content
+ */
+.quiqqer-contact-ctaAction__rightContent {
+    padding: var(--inner-padding);
+}
+
+.quiqqer-contact-ctaAction__rightContent :where(.sub) {
+    font-size: 0.875rem;
+}
+
+.quiqqer-contact-ctaAction__textarea {
+    min-height: 170px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/**
+ * Contact buttons
+ */
+.quiqqer-contact-ctaAction-buttons .btn-icon {
+    font-size: var(--icon-fontSize, inherit);
+}
+
+/* brand */
+.quiqqer-contact-ctaAction-buttons .btn--whatsapp {
+    --icon-fontSize: 1.25em;
+    --qui-btn-bgColor: #27d367;
+    --qui-btn-color: #fff;
+    --qui-btn-borderColor: #27d367;
+    --qui-btn-bgColor--hover: #22b559;
+    --qui-btn-color--hover: #fff;
+    --qui-btn-borderColor--hover: #22b559;
+}
+
+.quiqqer-contact-ctaAction-buttons .btn--mail {
+    --qui-btn-bgColor: #4ab1f0;
+    --qui-btn-color: #fff;
+    --qui-btn-borderColor: #4ab1f0;
+    --qui-btn-bgColor--hover: #409ad2;
+    --qui-btn-color--hover: #fff;
+    --qui-btn-borderColor--hover: #409ad2;
+}
+
+/* button design */
+.quiqqer-contact-ctaAction-buttons--icon .btn,
+.quiqqer-contact-ctaAction-buttons--iconRounded .btn {
+    aspect-ratio: 1;
+    padding: 0;
+    width: 3em;
+    height: 3em;
+}
+
+.quiqqer-contact-ctaAction-buttons--iconRounded .btn {
+    border-radius: 50%;
+}
+
+.quiqqer-contact-ctaAction-buttons--icon,
+.quiqqer-contact-ctaAction-buttons--iconRounded {
+    --icon-fontSize: 1.25em;
+}
+
+/**
+ * Form
+ */
+.quiqqer-contact-ctaAction .form {
+    display: grid;
+    gap: 1rem;
+}
+
+.quiqqer-contact-ctaAction .form-field {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.quiqqer-contact-ctaAction .form-control {
+    display: grid;
+}
+
+/**
+ * Form design: grid
+ */
+.quiqqer-contact-ctaAction .form--grid.form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quiqqer-contact-ctaAction .form--grid .form-field {
+    min-width: calc(50% - 1rem);
+    flex-grow: 1;
+}
+
+.quiqqer-contact-ctaAction .form--grid .form-field--message,
+.quiqqer-contact-ctaAction .form--grid .form-field--privacy,
+.quiqqer-contact-ctaAction .form--grid .form-actions {
+    min-width: 100%;
+}
+
+/**
+ * Form design: labels left
+ */
+.quiqqer-contact-ctaAction .form--labelLeft {
+    --input-minWidth: 300px;
+    --label-minWidth: 200px;
+}
+
+.quiqqer-contact-ctaAction .form--labelLeft .form-field,
+.quiqqer-contact-ctaAction .form--labelLeft .form-actions {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quiqqer-contact-ctaAction .form--labelLeft .form-label {
+    width: min(var(--label-minWidth), 100%);
+}
+
+.quiqqer-contact-ctaAction .form--labelLeft .form-control {
+    flex-grow: 1;
+    flex-basis: var(--input-minWidth);
+}
+
+.quiqqer-contact-ctaAction .form--labelLeft .form-field--privacy:before,
+.quiqqer-contact-ctaAction .form--labelLeft .form-actions:before {
+    content: '';
+    width: min(var(--label-minWidth), 100%);
+}
+
+.quiqqer-contact-ctaAction .form--labelLeft .form-field--privacy label.check,
+.quiqqer-contact-ctaAction .form--labelLeft .form-actions > .btn {
+    flex-basis: var(--input-minWidth);
+    flex-grow: 1;
+}

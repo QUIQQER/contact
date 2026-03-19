@@ -1,0 +1,62 @@
+.quiqqer-contact-ctaActionButtons {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    padding: 0.75rem;
+    width: 100%;
+}
+
+.quiqqer-contact-ctaActionButtons-list {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.quiqqer-contact-ctaActionButtons-empty {
+    color: #777;
+    margin-bottom: 0.75rem;
+}
+
+.quiqqer-contact-ctaActionButtons-entry {
+    align-items: center;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: space-between;
+    padding: 0.5rem 0.75rem;
+}
+
+.quiqqer-contact-ctaActionButtons-entry-title {
+    font-weight: 600;
+}
+
+.quiqqer-contact-ctaActionButtons-entry-meta {
+    color: #666;
+    font-size: 0.875rem;
+}
+
+.quiqqer-contact-ctaActionButtons-entry-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.quiqqer-contact-ctaActionButtons-entry-actions .qui-button {
+    margin: 0;
+}
+
+.quiqqer-contact-ctaActionButtons-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.75rem;
+    width: 100%;
+}
+
+.quiqqer-contact-ctaActionButtons-form {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.quiqqer-contact-ctaActionButtons-actions .qui-button {
+    justify-content: flex-start;
+}

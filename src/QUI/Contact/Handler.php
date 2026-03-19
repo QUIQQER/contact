@@ -35,7 +35,7 @@ class Handler
         $customFields = [];
 
         if (
-            $Conf->get('settings', 'globalPrivacyPolicyField')
+            $Conf?->get('settings', 'globalPrivacyPolicyField')
             && !$Form->getAttribute('hideGlobalPrivacyPolicy')
         ) {
             $customFields[] = [
@@ -102,7 +102,7 @@ class Handler
     }
 
     /**
-     * Sends mail to submitter for a submitted form
+     * Sends mail to the submitter for a submitted form
      *
      * @param Form $Form
      * @param QUI\Projects\Site $Site

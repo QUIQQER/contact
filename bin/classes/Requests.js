@@ -1,10 +1,5 @@
 /**
  * Contact Requests Handler
- *
- * @module package/quiqqer/contact/bin/classes/Requests
- * @author www.pcsg.de (Patrick Müller)
- *
- * @require Ajax
  */
 define('package/quiqqer/contact/bin/classes/Requests', [
 
@@ -13,14 +8,14 @@ define('package/quiqqer/contact/bin/classes/Requests', [
 ], function (QUIAjax) {
     "use strict";
 
-    var pkg = 'quiqqer/contact';
+    const pkg = 'quiqqer/contact';
 
     return new Class({
 
         Type: 'package/quiqqer/contact/bin/classes/Requests',
 
         /**
-         * Get list of all Requests
+         * Get a list of all Requests
          *
          * @param {Object} SearchParams
          * @return {Promise}
@@ -28,15 +23,15 @@ define('package/quiqqer/contact/bin/classes/Requests', [
         getList: function (SearchParams) {
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_quiqqer_contact_ajax_requests_getList', resolve, {
-                    'package'   : pkg,
+                    'package': pkg,
                     searchParams: JSON.encode(SearchParams),
-                    onError     : reject
+                    onError: reject
                 });
             });
         },
 
         /**
-         * Get list of all request forms
+         * Get a list of all request forms
          *
          * @return {Promise}
          */
@@ -44,7 +39,7 @@ define('package/quiqqer/contact/bin/classes/Requests', [
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_quiqqer_contact_ajax_requests_getForms', resolve, {
                     'package': pkg,
-                    onError  : reject
+                    onError: reject
                 });
             });
         },
@@ -58,9 +53,9 @@ define('package/quiqqer/contact/bin/classes/Requests', [
         deleteRequests: function (requestIds) {
             return new Promise(function (resolve, reject) {
                 QUIAjax.get('package_quiqqer_contact_ajax_requests_deleteRequests', resolve, {
-                    'package' : pkg,
+                    'package': pkg,
                     requestIds: JSON.encode(requestIds),
-                    onError   : reject
+                    onError: reject
                 });
             });
         }

@@ -21,7 +21,7 @@ class RequestList
     /**
      * Save a form request to the database
      *
-     * @param QUI\FormBuilder\Field[] $formFields - The form fields with submit data
+     * @param QUI\FormBuilder\Field[] $formFields - The form fields submit data
      * @param QUI\Interfaces\Projects\Site $FormSite - The Site the form was submitted from
      * @return void
      *
@@ -32,7 +32,7 @@ class RequestList
         $Now = new DateTime();
         $submitData = [];
         $Conf = QUI::getPackage('quiqqer/contact')->getConfig();
-        $encrypt = boolval($Conf->get('settings', 'encryptContactRequests'));
+        $encrypt = boolval($Conf?->get('settings', 'encryptContactRequests'));
 
         foreach ($formFields as $FormField) {
             $submitData[$FormField->getName()] = $FormField->getValueText();
@@ -50,7 +50,7 @@ class RequestList
         $submitData = json_encode($submitData);
 
         if ($encrypt) {
-            $submitData = Encryption::encrypt($submitData);
+            $submitData = Encryption::encrypt((string)$submitData);
         }
 
         QUI::getDataBase()->insert(
@@ -66,10 +66,12 @@ class RequestList
     /**
      * Get all forms that save requests
      *
-     * @return array
+     * @return array<int, array{title: string, identifier: string, dataFields: mixed, id: int|string}>
+     * @throws QUI\Database\Exception
      */
     public static function getForms(): array
     {
+        /** @var array<int, array{title: string, identifier: string, dataFields: mixed, id: int|string}> $result */
         $result = QUI::getDataBase()->fetch([
             'select' => [
                 'id',
@@ -80,18 +82,20 @@ class RequestList
             'from' => self::getFormsTable()
         ]);
 
-        $parsed = [];
+        //$parsed = [];
+
+        /** @var array<string, int> $parsedTitles */
         $parsedTitles = [];
         $forms = [];
 
         foreach ($result as $row) {
             $title = $row['title'];
             $titleHash = md5($title);
-            $identifier = $row['identifier'];
+            //$identifier = (string)$row['identifier'];
 
-            if (isset($parsed[$identifier])) {
-                continue;
-            }
+            //if (isset($parsed[$identifier])) {
+            //    continue;
+            //}
 
             if (!isset($parsedTitles[$titleHash])) {
                 $parsedTitles[$titleHash] = 0;
@@ -111,20 +115,19 @@ class RequestList
     }
 
     /**
-     * Get request list
+     * Get the request list
      *
-     * @param array $searchParams
+     * @param array<string, mixed> $searchParams
      * @param bool $countOnly
-     * @return array|int
+     * @return array<int, array<string, mixed>>|int
      * @throws Exception
-     * @throws \Doctrine\DBAL\Exception
      */
     public static function getList(array $searchParams, bool $countOnly = false): array|int
     {
         $Grid = new Grid($searchParams);
         $gridParams = $Grid->parseDBParams($searchParams);
         $Conf = QUI::getPackage('quiqqer/contact')->getConfig();
-        $encrypt = boolval($Conf->get('settings', 'encryptContactRequests'));
+        $encrypt = boolval($Conf?->get('settings', 'encryptContactRequests'));
 
         $binds = [];
         $where = [];
@@ -154,8 +157,9 @@ class RequestList
 
             $where[] = '(' . implode(' OR ', $whereOr) . ')';
 
+            $searchValue = (string)$searchParams['search'];
             $binds['search'] = [
-                'value' => '%' . $searchParams['search'] . '%',
+                'value' => '%' . $searchValue . '%',
                 'type' => PDO::PARAM_STR
             ];
         }
@@ -228,8 +232,9 @@ class RequestList
     /**
      * Delete contact requests
      *
-     * @param array $requestIds
+     * @param array<int> $requestIds
      * @return void
+     * @throws QUI\Database\Exception
      */
     public static function deleteRequests(array $requestIds): void
     {
@@ -332,8 +337,9 @@ class RequestList
      *
      * @param string $identifier
      * @return int|false - ID if found; false if not found
+     * @throws QUI\Database\Exception
      */
-    public static function getFormIdByIdentifier(string $identifier): bool|int
+    public static function getFormIdByIdentifier(string $identifier): bool | int
     {
         $result = QUI::getDataBase()->fetch([
             'select' => 'id',
@@ -351,7 +357,7 @@ class RequestList
     }
 
     /**
-     * Get table where forms are saved
+     * Get the table where forms are saved
      *
      * @return string
      */
@@ -361,7 +367,7 @@ class RequestList
     }
 
     /**
-     * Get table where requests are saved
+     * Get the table where requests are saved
      *
      * @return string
      */

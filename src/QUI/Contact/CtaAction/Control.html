@@ -1,0 +1,147 @@
+<aside data-name="left" class="quiqqer-contact-ctaAction__leftContent">
+    {if $logo}
+    <div class="logo" aria-hidden="true">
+        {image image=$logo height=50 class="logo-img"}
+    </div>
+    {/if}
+
+    <div class="default-content">
+        {$content}
+    </div>
+
+    {if $hasButtons}
+        <div data-name="buttons" class="quiqqer-contact-ctaAction-buttons quiqqer-contact-ctaAction-buttons--{$btnStyle}">
+            {if $btnStyle === 'icon' || $btnStyle === 'iconRounded'}
+                {if $self->getAttribute('email')}
+                <a class="btn btn--mail" href="mailto:{$email}" title="{locale group='quiqqer/contact' var='brick.control.ctaAction.frontend.btn.email.title'}">
+                    <span class="fa fa-envelope btn-icon"></span>
+                </a>
+                {/if}
+
+                {if $self->getAttribute('whatsapp')}
+                <a class="btn btn--whatsapp" href="whatsapp://send?phone={$whatsapp}" title="{locale group='quiqqer/contact' var='brick.control.ctaAction.frontend.btn.whatsapp.title'}">
+                    <span class="fa fa-whatsapp btn-icon"></span>
+                </a>
+                {/if}
+
+                {if $self->getAttribute('phone')}
+                <a class="btn btn-secondary btn--phone" href="tel:{$phone}" title="{locale group='quiqqer/contact' var='brick.control.ctaAction.frontend.btn.phone.title'}">
+                    <span class="fa fa-phone btn-icon"></span>
+                </a>
+                {/if}
+            {else}
+                {if $self->getAttribute('email')}
+                    <a class="btn btn--mail" href="mailto:{$email}">
+                        <span class="fa fa-envelope btn-icon"></span> {$emailLabel}
+                    </a>
+                {/if}
+
+                {if $self->getAttribute('whatsapp')}
+                    <a class="btn btn--whatsapp" href="whatsapp://send?phone={$whatsapp}">
+                        <span class="fa fa-whatsapp btn-icon" style="font-size: 1.25em;"></span>️ {$whatsappLabel}
+                    </a>
+                {/if}
+
+                {if $self->getAttribute('phone')}
+                    <a class="btn btn-secondary btn--phone" href="tel:{$phone}">
+                        <span class="fa fa-phone btn-icon"></span>️ {$phoneLabel}
+                    </a>
+                {/if}
+            {/if}
+            {$customButtons}
+        </div>
+    {/if}
+</aside>
+
+<section data-name="right" class="quiqqer-contact-ctaAction__rightContent">
+    {if $title}
+        <h3>{$title}</h3>
+    {/if}
+
+    {if $description}
+        <p class="sub">{$description}</p>
+    {/if}
+
+    <form action="#" method="post" class="quiqqer-contact-ctaAction__form form form--{$formDesign}">
+
+        <div class="form-field form-field--name">
+            <label class="form-label" for="name">
+                {$nameLabel}
+            </label>
+            <div class="form-control">
+                <input type="text"
+                       name="name"
+                       id="name"
+                       placeholder="{$namePlaceholder}"
+                       autocomplete="name"
+                       required
+                />
+            </div>
+        </div>
+        <div class="form-field form-field--company">
+            <label class="form-label" for="company">
+                {$companyLabel}
+            </label>
+            <div class="form-control">
+                <input type="text"
+                       name="company"
+                       id="company"
+                       placeholder="{$companyPlaceholder}"
+                       autocomplete="name"
+                />
+            </div>
+        </div>
+
+        <div class="form-field form-field--email">
+            <label class="form-label" for="email">
+                {$emailLabel}
+            </label>
+            <div class="form-control">
+                <input type="email"
+                       name="email"
+                       id="email"
+                       placeholder="{$emailPlaceholder}"
+                       autocomplete="name"
+                       required
+                />
+            </div>
+        </div>
+
+        <div class="form-field form-field--phone">
+            <label class="form-label" for="phone">
+                {$phoneLabel}
+            </label>
+            <div class="form-control">
+                <input type="tel"
+                       name="phone"
+                       id="phone"
+                       placeholder="{$phonePlaceholder}"
+                       autocomplete="tel"
+                />
+            </div>
+        </div>
+
+        <div class="form-field form-field--message">
+            <label class="form-label" for="message">
+                {$messageLabel}
+            </label>
+            <div class="form-control">
+                <textarea name="message" id="message" placeholder="{$messagePlaceholder}" required class="quiqqer-contact-ctaAction__textarea"></textarea>
+            </div>
+        </div>
+
+        <div class="form-field form-field--privacy">
+            <label data-name="privacy" class="check">
+                <input type="checkbox" name="privacy" id="privacy" required/>
+                <span>{$privacyText}</span>
+            </label>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">
+                {$submitLabel}
+            </button>
+        </div>
+
+    </form>
+</section>

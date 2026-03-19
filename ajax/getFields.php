@@ -10,7 +10,7 @@
 
 use QUI\FormBuilder\Builder;
 
-QUI::$Ajax->registerFunction(
+QUI::getAjax()->registerFunction(
     'package_quiqqer_contact_ajax_getFields',
     function ($project, $siteId) {
         $Project = QUI::getProjectManager()->decode($project);

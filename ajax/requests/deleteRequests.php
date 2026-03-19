@@ -9,7 +9,7 @@
 
 use QUI\Contact\RequestList;
 
-QUI::$Ajax->registerFunction(
+QUI::getAjax()->registerFunction(
     'package_quiqqer_contact_ajax_requests_deleteRequests',
     function ($requestIds) {
         try {

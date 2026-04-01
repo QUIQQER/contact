@@ -53,9 +53,6 @@
 }
 
 .quiqqer-contact-ctaAction-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
     margin-top: 1rem;
 }
 
@@ -83,13 +80,9 @@
 /**
  * Contact buttons
  */
-.quiqqer-contact-ctaAction-buttons .btn-icon {
-    font-size: var(--icon-fontSize, inherit);
-}
 
 /* brand */
 .quiqqer-contact-ctaAction-buttons .btn--whatsapp {
-    --icon-fontSize: 1.25em;
     --qui-btn-bgColor: #27d367;
     --qui-btn-color: #fff;
     --qui-btn-borderColor: #27d367;
@@ -105,24 +98,6 @@
     --qui-btn-bgColor--hover: #409ad2;
     --qui-btn-color--hover: #fff;
     --qui-btn-borderColor--hover: #409ad2;
-}
-
-/* button design */
-.quiqqer-contact-ctaAction-buttons--icon .btn,
-.quiqqer-contact-ctaAction-buttons--iconRounded .btn {
-    aspect-ratio: 1;
-    padding: 0;
-    width: 3em;
-    height: 3em;
-}
-
-.quiqqer-contact-ctaAction-buttons--iconRounded .btn {
-    border-radius: 50%;
-}
-
-.quiqqer-contact-ctaAction-buttons--icon,
-.quiqqer-contact-ctaAction-buttons--iconRounded {
-    --icon-fontSize: 1.25em;
 }
 
 /**

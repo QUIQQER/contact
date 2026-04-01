@@ -49,6 +49,19 @@
                         <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.btnStyle.iconRounded"/>
                     </option>
                 </setting>
+                <setting name="size" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.size"/>
+
+                    <option value="default">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.size.default"/>
+                    </option>
+                    <option value="sm">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.size.small"/>
+                    </option>
+                    <option value="lg">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.size.large"/>
+                    </option>
+                </setting>
                 <setting name="whatsapp" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.whatsapp"/>
                     <description>
@@ -85,7 +98,8 @@
                         <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.emailLabel.desc"/>
                     </description>
                 </setting>
-                <setting name="customButtons" data-qui="package/quiqqer/contact/bin/controls/backend/CtaActionButtons">
+                <setting name="customButtons" type="hidden"
+                         data-qui="package/quiqqer/contact/bin/controls/backend/CtaActionButtons">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.customButtons"/>
                     <description>
                         <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.customButtons.desc"/>

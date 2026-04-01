@@ -7,6 +7,7 @@ use DOMElement;
 use DOMNode;
 use QUI;
 use QUI\Exception;
+use QUI\Components\Controls\Button;
 
 /**
  * This class represents a control for managing a contact call-to-action (CTA) element in a QUI application.
@@ -45,6 +46,7 @@ class Control extends QUI\Control
 
             // buttons
             'btnStyle' => 'iconRounded', // iconRounded, icon, button
+            'size' => 'default',
             'whatsapp' => '',
             'whatsappLabel' => '',
             'phone' => '',
@@ -320,11 +322,8 @@ class Control extends QUI\Control
             default => 'iconRounded'
         };
 
-        $this->setJavaScriptControlOption('btnStyle', $this->getAttribute('btnStyle'));
-        $customButtons = $this->buildCustomButtonsHtml($btnStyle, $this->getCustomButtons());
-        $hasDefaultButtons = (bool)$this->getAttribute('email')
-            || (bool)$this->getAttribute('whatsapp')
-            || (bool)$this->getAttribute('phone');
+        $this->setJavaScriptControlOption('btnStyle', $btnStyle);
+        $buttons = $this->getButtons($btnStyle);
 
         $Engine->assign([
             'self' => $this,
@@ -348,8 +347,8 @@ class Control extends QUI\Control
             ]),
             'formDesign' => $formDesign,
             'btnStyle' => $btnStyle,
-            'hasButtons' => $hasDefaultButtons || $customButtons !== '',
-            'customButtons' => $customButtons
+            'hasButtons' => !empty($buttons),
+            'buttons' => $buttons
         ]);
 
         return $Engine->fetch(dirname(__FILE__) . '/Control.html');
@@ -702,12 +701,107 @@ class Control extends QUI\Control
     }
 
     /**
-     * @return array<int, array{text: string, icon: string, cssClass: string, href: string}>
+     * @return array<int, Button>
+     */
+    private function getButtons(string $btnStyle): array
+    {
+        $buttons = [];
+        $displayMode = $this->getButtonDisplayMode($btnStyle);
+        $defaultSize = $this->sanitizeDefaultButtonSize((string)$this->getAttribute('size'));
+
+        foreach ($this->getDefaultButtons() as $button) {
+            if (empty($button['size'])) {
+                $button['size'] = $defaultSize;
+            }
+
+            $Button = $this->createButtonControl($button, $displayMode);
+
+            if ($Button !== null) {
+                $buttons[] = $Button;
+            }
+        }
+
+        foreach ($this->getCustomButtons() as $button) {
+            if (empty($button['size'])) {
+                $button['size'] = $defaultSize;
+            }
+
+            $Button = $this->createButtonControl($button, $displayMode);
+
+            if ($Button !== null) {
+                $buttons[] = $Button;
+            }
+        }
+
+        return $buttons;
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    private function getDefaultButtons(): array
+    {
+        $buttons = [];
+
+        if ($this->getAttribute('email')) {
+            $buttons[] = [
+                'text' => (string)$this->getAttribute('emailLabel'),
+                'icon' => 'fa fa-envelope',
+                'href' => 'mailto:' . (string)$this->getAttribute('email'),
+                'title' => QUI::getLocale()->get(
+                    'quiqqer/contact',
+                    'brick.control.ctaAction.frontend.btn.email.title'
+                ),
+                'ariaLabel' => (string)$this->getAttribute('emailLabel'),
+                'customClass' => 'btn--mail',
+                'btnType' => '',
+            ];
+        }
+
+        if ($this->getAttribute('whatsapp')) {
+            $buttons[] = [
+                'text' => (string)$this->getAttribute('whatsappLabel'),
+                'icon' => 'fa fa-whatsapp',
+                'href' => 'whatsapp://send?phone=' . (string)$this->getAttribute('whatsapp'),
+                'title' => QUI::getLocale()->get(
+                    'quiqqer/contact',
+                    'brick.control.ctaAction.frontend.btn.whatsapp.title'
+                ),
+                'ariaLabel' => (string)$this->getAttribute('whatsappLabel'),
+                'customClass' => 'btn--whatsapp',
+                'btnType' => '',
+            ];
+        }
+
+        if ($this->getAttribute('phone')) {
+            $buttons[] = [
+                'text' => (string)$this->getAttribute('phoneLabel'),
+                'icon' => 'fa fa-phone',
+                'href' => 'tel:' . (string)$this->getAttribute('phone'),
+                'title' => QUI::getLocale()->get(
+                    'quiqqer/contact',
+                    'brick.control.ctaAction.frontend.btn.phone.title'
+                ),
+                'ariaLabel' => (string)$this->getAttribute('phoneLabel'),
+                'customClass' => 'btn--phone',
+                'btnType' => 'secondary',
+            ];
+        }
+
+        return $buttons;
+    }
+
+    /**
+     * @return array<int, array<string, mixed>>
      */
     private function getCustomButtons(): array
     {
-        $buttons = $this->customButtons;
+        $buttons = [];
         $configuredButtons = $this->getAttribute('customButtons');
+
+        foreach ($this->customButtons as $button) {
+            $buttons[] = $this->normalizeButtonConfig($button);
+        }
 
         if (is_string($configuredButtons) && trim($configuredButtons) !== '') {
             $decodedButtons = json_decode($configuredButtons, true);
@@ -726,60 +820,75 @@ class Control extends QUI\Control
                 continue;
             }
 
-            $buttons[] = [
-                'text' => trim((string)($button['text'] ?? '')),
-                'icon' => trim((string)($button['icon'] ?? '')),
-                'cssClass' => trim((string)($button['cssClass'] ?? '')),
-                'href' => trim((string)($button['href'] ?? '#'))
-            ];
+            $buttons[] = $this->normalizeButtonConfig($button);
         }
 
         return $buttons;
     }
 
     /**
-     * @param array<int, array{text: string, icon: string, cssClass: string, href: string}> $buttons
+     * @param array<string, mixed> $button
+     * @return array<string, mixed>
      */
-    private function buildCustomButtonsHtml(string $btnStyle, array $buttons): string
+    private function normalizeButtonConfig(array $button): array
     {
-        if (empty($buttons)) {
-            return '';
+        $icon = (string)($button['icon'] ?? $button['iconClass'] ?? '');
+        $customClass = (string)($button['customClass'] ?? $button['cssClass'] ?? '');
+        $title = trim((string)($button['title'] ?? ''));
+        $ariaLabel = trim((string)($button['ariaLabel'] ?? ''));
+        $text = trim((string)($button['text'] ?? ''));
+
+        if ($title === '' && $text !== '') {
+            $title = $text;
         }
 
-        $showText = $btnStyle === 'button';
-        $html = '';
-
-        foreach ($buttons as $button) {
-            $text = $button['text'];
-            $iconClasses = $this->sanitizeCssClassList($button['icon']);
-            $buttonClasses = trim('btn ' . $this->sanitizeCssClassList($button['cssClass']));
-            $href = $this->sanitizeButtonHref($button['href']);
-
-            $html .= '<a class="' . $buttonClasses . '" href="' . $href . '"';
-
-            if (!$showText && $text !== '') {
-                $safeText = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
-                $html .= ' title="' . $safeText . '" aria-label="' . $safeText . '"';
-            }
-
-            $html .= '>';
-
-            if ($iconClasses !== '') {
-                $html .= '<span class="btn-icon ' . $iconClasses . '"></span>';
-            }
-
-            if ($showText && $text !== '') {
-                if ($iconClasses !== '') {
-                    $html .= ' ';
-                }
-
-                $html .= htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
-            }
-
-            $html .= '</a>';
+        if ($ariaLabel === '' && $text !== '') {
+            $ariaLabel = $text;
         }
 
-        return $html;
+        return [
+            'text' => $text,
+            'identifier' => $this->sanitizeIdentifier((string)($button['identifier'] ?? '')),
+            'icon' => $this->sanitizeCssClassList($icon),
+            'iconPosition' => ($button['iconPosition'] ?? '') === 'end' ? 'end' : 'start',
+            'btnType' => $this->sanitizeButtonType((string)($button['btnType'] ?? '')),
+            'size' => $this->sanitizeButtonSize((string)($button['size'] ?? '')),
+            'openBrickId' => max(0, (int)($button['openBrickId'] ?? 0)),
+            'openBrickWinWidth' => $this->sanitizeDimension($button['openBrickWinWidth'] ?? 0),
+            'openBrickWinHeight' => $this->sanitizeDimension($button['openBrickWinHeight'] ?? 0),
+            'href' => $this->sanitizeButtonHref((string)($button['href'] ?? '#')),
+            'targetBlank' => $this->normalizeBooleanFlag($button['targetBlank'] ?? false),
+            'title' => strip_tags($title),
+            'ariaLabel' => strip_tags($ariaLabel),
+            'disabled' => $this->normalizeBooleanFlag($button['disabled'] ?? false),
+            'fullWidth' => $this->normalizeBooleanFlag($button['fullWidth'] ?? false),
+            'onClick' => $this->sanitizeOnClick((string)($button['onClick'] ?? '')),
+            'customClass' => $this->sanitizeCssClassList($customClass),
+            'isDisabled' => $this->normalizeBooleanFlag($button['isDisabled'] ?? false),
+        ];
+    }
+
+    /**
+     * @param array<string, mixed> $button
+     */
+    private function createButtonControl(array $button, string $displayMode): ?Button
+    {
+        if (!empty($button['isDisabled'])) {
+            return null;
+        }
+
+        return new Button(array_merge($button, [
+            'displayMode' => $displayMode,
+        ]));
+    }
+
+    private function getButtonDisplayMode(string $btnStyle): string
+    {
+        return match ($btnStyle) {
+            'icon' => 'icon-only',
+            'iconRounded' => 'icon-only-rounded',
+            default => 'button',
+        };
     }
 
     private function sanitizeCssClassList(string $classList): string
@@ -790,6 +899,80 @@ class Control extends QUI\Control
         });
 
         return implode(' ', $classes);
+    }
+
+    private function sanitizeIdentifier(string $identifier): string
+    {
+        return preg_replace('/[^A-Za-z0-9_-]/', '', trim($identifier)) ?? '';
+    }
+
+    private function sanitizeButtonType(string $type): string
+    {
+        $allowed = [
+            '',
+            'primary',
+            'primary-outline',
+            'secondary',
+            'secondary-outline',
+            'success',
+            'success-outline',
+            'danger',
+            'danger-outline',
+            'warning',
+            'warning-outline',
+            'info',
+            'info-outline',
+            'light',
+            'light-outline',
+            'dark',
+            'dark-outline',
+            'white',
+            'white-outline',
+            'link',
+            'link-body',
+        ];
+
+        $type = trim($type);
+
+        if (!in_array($type, $allowed, true)) {
+            return 'primary';
+        }
+
+        return $type;
+    }
+
+    private function sanitizeButtonSize(string $size): string
+    {
+        return match (trim($size)) {
+            'sm', 'lg', 'default' => trim($size),
+            default => '',
+        };
+    }
+
+    private function sanitizeDefaultButtonSize(string $size): string
+    {
+        return match (trim($size)) {
+            'sm', 'lg' => trim($size),
+            default => 'default',
+        };
+    }
+
+    private function sanitizeDimension(mixed $value): int
+    {
+        $dimension = (int)$value;
+
+        if ($dimension > 0) {
+            return $dimension;
+        }
+
+        return 0;
+    }
+
+    private function normalizeBooleanFlag(mixed $value): bool
+    {
+        return $value === true
+            || $value === 1
+            || $value === '1';
     }
 
     private function sanitizeButtonHref(string $href): string
@@ -812,13 +995,13 @@ class Control extends QUI\Control
             || str_starts_with($href, '/')
             || str_starts_with($href, '?')
         ) {
-            return htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
+            return $href;
         }
 
         $scheme = parse_url($href, PHP_URL_SCHEME);
 
         if ($scheme === null || $scheme === false) {
-            return htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
+            return $href;
         }
 
         $scheme = strtolower($scheme);
@@ -828,7 +1011,41 @@ class Control extends QUI\Control
             return '#';
         }
 
-        return htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
+        return $href;
+    }
+
+    private function sanitizeOnClick(string $onClick): string
+    {
+        $onClick = trim($onClick);
+
+        if ($onClick === '') {
+            return '';
+        }
+
+        if (str_ends_with($onClick, ';')) {
+            $onClick = rtrim(substr($onClick, 0, -1));
+        }
+
+        if (preg_match('/^[A-Za-z_$][A-Za-z0-9_$.]*$/', $onClick)) {
+            return $onClick . '();';
+        }
+
+        if (preg_match('/^([A-Za-z_$][A-Za-z0-9_$.]*)\((.*)\)$/s', $onClick, $matches)) {
+            $args = trim($matches[2]);
+
+            if (
+                str_contains($args, ';') ||
+                str_contains($args, '<') ||
+                str_contains($args, '>') ||
+                str_contains($args, '`')
+            ) {
+                return '';
+            }
+
+            return $matches[1] . '(' . $args . ');';
+        }
+
+        return '';
     }
 
     /**
@@ -956,6 +1173,7 @@ class Control extends QUI\Control
             'customButtons',
             'formDesign',
             'btnStyle',
+            'size',
             'bgColor',
             'color',
             'leftBgColor',

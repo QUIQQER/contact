@@ -37,7 +37,8 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             success_message: '',
 
             // buttons
-            btnStyle: 'iconRounded', // iconRounded, icon, button
+            btnStyle: 'button', // iconRounded, icon, button
+            size: 'default',
             whatsapp: false,
             whatsappLabel: false,
             phone: false,
@@ -67,6 +68,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
         $onImport: function () {
             this.getElm().style.width = '100%';
             this.setAttribute('btnStyle', this.getElm().getAttribute('data-qui-options-btnstyle'));
+            this.setAttribute('size', this.getElm().getAttribute('data-qui-options-size'));
             this.Loader.inject(this.getElm());
             this.$initEvents();
         },
@@ -186,18 +188,45 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             });
         },
 
-        addButton: function (text, icon, cssClass, href) {
-            const rawBtnStyle = this.getAttribute('btnStyle');
-            const btnStyle = rawBtnStyle === 'icon' || rawBtnStyle === 'button'
-                ? rawBtnStyle
-                : 'iconRounded';
+        addButton: function (buttonData) {
+            const button = this.$normalizeButtonConfig(buttonData);
+            const displayMode = this.$getDisplayMode();
+
+            if (
+                button.isDisabled ||
+                (
+                    (displayMode === 'icon-only' || displayMode === 'icon-only-rounded') &&
+                    !button.icon
+                )
+            ) {
+                return null;
+            }
+
+            const container = this.$getButtonsContainer();
+
+            if (!container) {
+                return null;
+            }
+
+            const element = this.$createButtonElement(button);
+            container.appendChild(element);
+
+            if (element.getAttribute('data-qui')) {
+                QUI.parse(element);
+            }
+
+            return element;
+        },
+
+        $getButtonsContainer: function () {
+            const btnStyle = this.$getBtnStyle();
             let buttons = this.getElm().querySelector('[data-name="buttons"]');
 
             if (!buttons) {
                 const leftContent = this.getElm().querySelector('[data-name="left"]');
 
                 if (!leftContent) {
-                    return;
+                    return null;
                 }
 
                 buttons = document.createElement('div');
@@ -213,51 +242,300 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             );
             buttons.classList.add(`quiqqer-contact-ctaAction-buttons--${btnStyle}`);
 
-            const button = document.createElement('a');
-            button.classList.add('btn');
-            button.setAttribute('href', href || '#');
+            return buttons;
+        },
 
-            if (cssClass) {
-                cssClass.split(' ')
-                    .map((className) => className.trim())
-                    .filter((className) => className.length)
-                    .forEach((className) => {
-                        button.classList.add(className);
-                    });
+        $createButtonElement: function (button) {
+            const displayMode = this.$getDisplayMode();
+            const isIconOnly = displayMode === 'icon-only' || displayMode === 'icon-only-rounded';
+            const hasOpenBrick = button.openBrickId > 0;
+            const tagName = hasOpenBrick || !button.href ? 'button' : 'a';
+            const Button = document.createElement(tagName);
+            const title = button.title || button.text || '';
+            const ariaLabel = button.ariaLabel || button.text || '';
+
+            Button.className = this.$getButtonClassName(button, displayMode);
+
+            if (button.identifier) {
+                Button.setAttribute('data-identifier', button.identifier);
             }
 
-            const showText = btnStyle === 'button';
-
-            if (icon) {
-                const iconNode = document.createElement('span');
-                iconNode.classList.add('btn-icon');
-
-                icon.split(' ')
-                    .map((className) => className.trim())
-                    .filter((className) => className.length)
-                    .forEach((className) => {
-                        iconNode.classList.add(className);
-                    });
-
-                button.appendChild(iconNode);
+            if (title) {
+                Button.setAttribute('title', title);
             }
 
-            if (showText && text) {
-                if (icon) {
-                    button.appendChild(document.createTextNode(' '));
+            if (ariaLabel) {
+                Button.setAttribute('aria-label', ariaLabel);
+            }
+
+            if (hasOpenBrick) {
+                Button.setAttribute('type', 'button');
+                Button.setAttribute(
+                    'data-qui',
+                    'package/quiqqer/components/bin/Controls/Button/OpenBrick'
+                );
+                Button.setAttribute('data-open-brick-id', String(button.openBrickId));
+
+                if (button.openBrickWinWidth > 0) {
+                    Button.setAttribute('data-win-width', String(button.openBrickWinWidth));
                 }
 
-                button.appendChild(document.createTextNode(text));
+                if (button.openBrickWinHeight > 0) {
+                    Button.setAttribute('data-win-height', String(button.openBrickWinHeight));
+                }
+            } else if (tagName === 'a') {
+                Button.setAttribute('href', button.href);
+
+                if (button.targetBlank) {
+                    Button.setAttribute('target', '_blank');
+                    Button.setAttribute('rel', 'noopener noreferrer');
+                }
+            } else {
+                Button.setAttribute('type', 'button');
             }
 
-            if (!showText && text) {
-                button.setAttribute('title', text);
-                button.setAttribute('aria-label', text);
+            if (button.disabled) {
+                Button.setAttribute('aria-disabled', 'true');
+
+                if (tagName === 'button' || hasOpenBrick) {
+                    Button.setAttribute('disabled', 'disabled');
+                } else {
+                    Button.setAttribute('tabindex', '-1');
+                }
             }
 
-            buttons.appendChild(button);
+            if (button.onClick) {
+                Button.setAttribute('onclick', button.onClick);
+            }
 
-            return button;
+            if (button.icon && button.iconPosition === 'start') {
+                Button.appendChild(this.$createButtonIcon(button.icon));
+            }
+
+            if (!isIconOnly && button.text) {
+                const TextNode = document.createElement('span');
+                TextNode.className = 'btn__text';
+                TextNode.textContent = button.text;
+                Button.appendChild(TextNode);
+            }
+
+            if (button.icon && button.iconPosition === 'end') {
+                Button.appendChild(this.$createButtonIcon(button.icon));
+            }
+
+            return Button;
+        },
+
+        $createButtonIcon: function (iconClass) {
+            const Icon = document.createElement('span');
+            Icon.className = `btn__icon ${iconClass}`.trim();
+            Icon.setAttribute('aria-hidden', 'true');
+
+            return Icon;
+        },
+
+        $getButtonClassName: function (button, displayMode) {
+            const classNames = ['btn'];
+
+            if (button.btnType) {
+                classNames.push(`btn-${button.btnType}`);
+            }
+
+            if (button.size === 'sm') {
+                classNames.push('btn-sm');
+            }
+
+            if (button.size === 'lg') {
+                classNames.push('btn-lg');
+            }
+
+            if (button.customClass) {
+                classNames.push(button.customClass);
+            }
+
+            if (displayMode === 'icon-only' || displayMode === 'icon-only-rounded') {
+                classNames.push('btn-icon');
+            }
+
+            if (displayMode === 'icon-only-rounded') {
+                classNames.push('btn-rounded');
+            }
+
+            if (button.fullWidth) {
+                classNames.push('btn-full');
+            }
+
+            if (button.disabled) {
+                classNames.push('disabled');
+            }
+
+            return classNames.join(' ');
+        },
+
+        $normalizeButtonConfig: function (buttonData) {
+            buttonData = typeOf(buttonData) === 'object' ? buttonData : {};
+
+            const text = (buttonData.text || '').toString().trim();
+            const title = (buttonData.title || text).toString().trim();
+            const ariaLabel = (buttonData.ariaLabel || text).toString().trim();
+
+            return {
+                text: text,
+                identifier: (buttonData.identifier || '').toString().replace(/[^A-Za-z0-9_-]/g, ''),
+                icon: this.$sanitizeClassList(
+                    (buttonData.icon || buttonData.iconClass || '').toString()
+                ),
+                iconPosition: buttonData.iconPosition === 'end' ? 'end' : 'start',
+                btnType: this.$normalizeButtonType(buttonData.btnType),
+                size: this.$normalizeButtonSize(buttonData.size || this.getAttribute('size')),
+                openBrickId: this.$normalizeDimension(buttonData.openBrickId),
+                openBrickWinWidth: this.$normalizeDimension(buttonData.openBrickWinWidth),
+                openBrickWinHeight: this.$normalizeDimension(buttonData.openBrickWinHeight),
+                href: this.$normalizeHref((buttonData.href || '#').toString()),
+                targetBlank: this.$normalizeFlag(buttonData.targetBlank),
+                title: title,
+                ariaLabel: ariaLabel,
+                disabled: this.$normalizeFlag(buttonData.disabled),
+                fullWidth: this.$normalizeFlag(buttonData.fullWidth),
+                onClick: this.$normalizeOnClick((buttonData.onClick || '').toString()),
+                customClass: this.$sanitizeClassList(
+                    (buttonData.customClass || buttonData.cssClass || '').toString()
+                ),
+                isDisabled: this.$normalizeFlag(buttonData.isDisabled)
+            };
+        },
+
+        $getBtnStyle: function () {
+            const rawBtnStyle = this.getAttribute('btnStyle');
+
+            if (rawBtnStyle === 'icon' || rawBtnStyle === 'button') {
+                return rawBtnStyle;
+            }
+
+            return 'iconRounded';
+        },
+
+        $getDisplayMode: function () {
+            const btnStyle = this.$getBtnStyle();
+
+            if (btnStyle === 'icon') {
+                return 'icon-only';
+            }
+
+            if (btnStyle === 'iconRounded') {
+                return 'icon-only-rounded';
+            }
+
+            return 'button';
+        },
+
+        $sanitizeClassList: function (classList) {
+            return classList.split(/\s+/)
+                .map((className) => className.trim())
+                .filter((className) => /^[A-Za-z0-9_-]+$/.test(className))
+                .join(' ');
+        },
+
+        $normalizeButtonType: function (btnType) {
+            const allowed = [
+                '',
+                'primary',
+                'primary-outline',
+                'secondary',
+                'secondary-outline',
+                'success',
+                'success-outline',
+                'danger',
+                'danger-outline',
+                'warning',
+                'warning-outline',
+                'info',
+                'info-outline',
+                'light',
+                'light-outline',
+                'dark',
+                'dark-outline',
+                'white',
+                'white-outline',
+                'link',
+                'link-body'
+            ];
+
+            btnType = (btnType || '').toString().trim();
+
+            if (allowed.contains(btnType)) {
+                return btnType;
+            }
+
+            return 'primary';
+        },
+
+        $normalizeButtonSize: function (size) {
+            size = (size || '').toString().trim();
+
+            if (size === 'sm' || size === 'lg' || size === 'default') {
+                return size;
+            }
+
+            return '';
+        },
+
+        $normalizeDimension: function (value) {
+            value = parseInt(value, 10);
+
+            if (!isNaN(value) && value > 0) {
+                return value;
+            }
+
+            return 0;
+        },
+
+        $normalizeFlag: function (value) {
+            return value === true || value === 1 || value === '1';
+        },
+
+        $normalizeHref: function (href) {
+            href = href.trim();
+
+            if (!href) {
+                return '#';
+            }
+
+            if (/^\s*(javascript|data):/i.test(href)) {
+                return '#';
+            }
+
+            return href;
+        },
+
+        $normalizeOnClick: function (onClick) {
+            onClick = onClick.trim();
+
+            if (!onClick) {
+                return '';
+            }
+
+            if (onClick.endsWith(';')) {
+                onClick = onClick.slice(0, -1).trim();
+            }
+
+            if (/^[A-Za-z_$][A-Za-z0-9_$.]*$/.test(onClick)) {
+                return `${onClick}();`;
+            }
+
+            const matches = onClick.match(/^([A-Za-z_$][A-Za-z0-9_$.]*)\((.*)\)$/s);
+
+            if (!matches) {
+                return '';
+            }
+
+            const args = matches[2].trim();
+
+            if (/[;<>`]/.test(args)) {
+                return '';
+            }
+
+            return `${matches[1]}(${args});`;
         },
 
         getControlAttributes: function () {
@@ -292,6 +570,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
 
                 // buttons
                 btnStyle: this.getAttribute('btnStyle'),
+                size: this.getAttribute('size'),
                 whatsapp: this.getAttribute('whatsapp'),
                 whatsappLabel: this.getAttribute('whatsappLabel'),
                 phone: this.getAttribute('phone'),

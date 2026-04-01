@@ -18,6 +18,8 @@ Features
 * Optionally use a CAPTCHA to protect your forms from automated spam
 * Use special form fields like WYSIWYG-content, User select or Full Name input
 * Filter contact requests with blacklists (IP addresses/ranges, e-mail filter, DNSBL filter)
+* CTA Action Control - use it as brick or as JavaScript control. More details on the wiki page:
+  [CTA Action Control](https://dev.quiqqer.com/quiqqer/contact/-/wikis/cta-action).
 
 Installation
 ------------

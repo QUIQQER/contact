@@ -44,7 +44,8 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
             submit_label: '',
 
             // buttons
-            btnStyle: 'iconRounded', // iconRounded, icon, button
+            btnStyle: 'button', // iconRounded, icon, button
+            size: 'default',
             whatsapp: '',
             whatsappLabel: '',
             phone: '',

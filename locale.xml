@@ -478,6 +478,22 @@
             <de><![CDATA[Nur Icon (rund)]]></de>
             <en><![CDATA[Only icon (round)]]></en>
         </locale>
+        <locale name="brick.control.ctaAction.setting.size">
+            <de><![CDATA[Button-Größe <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[Button size <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.size.default">
+            <de><![CDATA[Standard]]></de>
+            <en><![CDATA[Default]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.size.small">
+            <de><![CDATA[Klein]]></de>
+            <en><![CDATA[Small]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.size.large">
+            <de><![CDATA[Groß]]></de>
+            <en><![CDATA[Large]]></en>
+        </locale>
 
         <locale name="brick.control.ctaAction.setting.whatsapp">
             <de><![CDATA[Kontakt Button WhatsApp <br><small>CTA Kontaktformular</small>]]></de>

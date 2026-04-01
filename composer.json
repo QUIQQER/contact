@@ -20,8 +20,10 @@
   },
   "require": {
     "quiqqer/core": "^2",
-    "quiqqer/formbuilder": "^2"
-  },
+    "quiqqer/formbuilder": "^2",
+    "quiqqer/components": "^1",
+    "quiqqer/bricks": "^2"
+   },
   "autoload": {
     "psr-0": {
       "QUI": "src/"

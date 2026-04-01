@@ -10,45 +10,10 @@
     </div>
 
     {if $hasButtons}
-        <div data-name="buttons" class="quiqqer-contact-ctaAction-buttons quiqqer-contact-ctaAction-buttons--{$btnStyle}">
-            {if $btnStyle === 'icon' || $btnStyle === 'iconRounded'}
-                {if $self->getAttribute('email')}
-                <a class="btn btn--mail" href="mailto:{$email}" title="{locale group='quiqqer/contact' var='brick.control.ctaAction.frontend.btn.email.title'}">
-                    <span class="fa fa-envelope btn-icon"></span>
-                </a>
-                {/if}
-
-                {if $self->getAttribute('whatsapp')}
-                <a class="btn btn--whatsapp" href="whatsapp://send?phone={$whatsapp}" title="{locale group='quiqqer/contact' var='brick.control.ctaAction.frontend.btn.whatsapp.title'}">
-                    <span class="fa fa-whatsapp btn-icon"></span>
-                </a>
-                {/if}
-
-                {if $self->getAttribute('phone')}
-                <a class="btn btn-secondary btn--phone" href="tel:{$phone}" title="{locale group='quiqqer/contact' var='brick.control.ctaAction.frontend.btn.phone.title'}">
-                    <span class="fa fa-phone btn-icon"></span>
-                </a>
-                {/if}
-            {else}
-                {if $self->getAttribute('email')}
-                    <a class="btn btn--mail" href="mailto:{$email}">
-                        <span class="fa fa-envelope btn-icon"></span> {$emailLabel}
-                    </a>
-                {/if}
-
-                {if $self->getAttribute('whatsapp')}
-                    <a class="btn btn--whatsapp" href="whatsapp://send?phone={$whatsapp}">
-                        <span class="fa fa-whatsapp btn-icon" style="font-size: 1.25em;"></span>️ {$whatsappLabel}
-                    </a>
-                {/if}
-
-                {if $self->getAttribute('phone')}
-                    <a class="btn btn-secondary btn--phone" href="tel:{$phone}">
-                        <span class="fa fa-phone btn-icon"></span>️ {$phoneLabel}
-                    </a>
-                {/if}
-            {/if}
-            {$customButtons}
+        <div data-name="buttons" class="btn-container quiqqer-contact-ctaAction-buttons quiqqer-contact-ctaAction-buttons--{$btnStyle}">
+            {foreach from=$buttons item=button}
+                {$button->create()}
+            {/foreach}
         </div>
     {/if}
 </aside>

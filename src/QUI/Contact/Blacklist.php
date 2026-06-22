@@ -213,7 +213,7 @@ class Blacklist
         // check if nslookup is available and executable
         // If not - use checkdnsrr (disadvantage: has no timeout parameter)
         $isNslookupExecutable = false;
-        $nslookupExecutable = trim(`which nslookup`);
+        $nslookupExecutable = trim((string)shell_exec('which nslookup'));
 
         if ($nslookupExecutable) {
             $openBaseDir = ini_get('open_basedir');

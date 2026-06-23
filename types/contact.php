@@ -36,7 +36,7 @@ try {
 
     if ($Form->isSuccess()) {
         foreach ($Form->getElements() as $FormElement) {
-            if ($FormElement->getType() === FormBuilderEmailType::class) {
+            if ($FormElement instanceof FormBuilderEmailType) {
                 if (Blacklist::isEmailAddressBlacklisted($FormElement->getValueText())) {
                     throw new ContactException([
                         'quiqqer/contact',

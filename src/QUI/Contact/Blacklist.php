@@ -33,7 +33,7 @@ class Blacklist
         $ip = $_SERVER['REMOTE_ADDR'];
 
         foreach ($Form->getElements() as $FormElement) {
-            if ($FormElement->getType() === FormBuilderEmailType::class) {
+            if ($FormElement instanceof FormBuilderEmailType) {
                 if (self::isEmailAddressBlacklisted($FormElement->getValueText())) {
                     return true;
                 }

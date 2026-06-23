@@ -21,7 +21,7 @@ class RequestList
     /**
      * Save a form request to the database
      *
-     * @param QUI\FormBuilder\Field[] $formFields - The form fields submit data
+     * @param QUI\FormBuilder\Interfaces\Field[] $formFields - The form fields submit data
      * @param QUI\Interfaces\Projects\Site $FormSite - The Site the form was submitted from
      * @return void
      *

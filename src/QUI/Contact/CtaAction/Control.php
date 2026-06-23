@@ -687,17 +687,34 @@ class Control extends QUI\Control
 
         $doc = new DOMDocument('1.0', 'UTF-8');
         $prevUseErrors = libxml_use_internal_errors(true);
+        $wrapperId = 'quiqqer-contact-ctaAction-sanitize-root';
+
         $doc->loadHTML(
-            '<?xml encoding="UTF-8">' . $html,
+            '<?xml encoding="UTF-8"><div id="' . $wrapperId . '">' . $html . '</div>',
             LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
         );
         libxml_clear_errors();
         libxml_use_internal_errors($prevUseErrors);
 
-        $this->sanitizeDomNode($doc, $allowedTags, $allowedAttrs, $dropTags);
+        $wrapper = $doc->getElementById($wrapperId);
 
-        $sanitized = $doc->saveHTML();
-        return $sanitized === false ? '' : trim($sanitized);
+        if (!$wrapper instanceof DOMElement) {
+            return '';
+        }
+
+        $this->sanitizeDomNode($wrapper, $allowedTags, $allowedAttrs, $dropTags);
+
+        $sanitized = '';
+
+        foreach (iterator_to_array($wrapper->childNodes) as $childNode) {
+            $nodeHtml = $doc->saveHTML($childNode);
+
+            if ($nodeHtml !== false) {
+                $sanitized .= $nodeHtml;
+            }
+        }
+
+        return trim($sanitized);
     }
 
     /**

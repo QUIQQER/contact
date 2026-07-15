@@ -6,6 +6,7 @@ namespace QUITests\Contact;
 
 use PHPUnit\Framework\TestCase;
 use QUI\Contact\CtaAction\Control;
+use ReflectionMethod;
 
 class CtaActionControlTest extends TestCase
 {
@@ -46,5 +47,84 @@ class CtaActionControlTest extends TestCase
         self::assertStringContainsString('Phone button', $html);
         self::assertStringContainsString('mailto:a&amp;b@example.com', $html);
         self::assertStringNotContainsString('mailto:a&amp;amp;b@example.com', $html);
+    }
+
+    public function testSanitizesConfiguredContentHtml(): void
+    {
+        $Control = new Control();
+        $html = $this->invoke($Control, 'sanitizeContentHtml', [
+            '<p onclick="evil()">Safe <strong>bold</strong>' .
+            '<script>alert(1)</script><a href="javascript:alert(1)" target="_blank">link</a>' .
+            '<span>kept text</span></p>'
+        ]);
+
+        self::assertIsString($html);
+        self::assertStringContainsString('<strong>bold</strong>', $html);
+        self::assertStringContainsString('kept text', $html);
+        self::assertStringContainsString('rel="noopener noreferrer"', $html);
+        self::assertStringNotContainsString('onclick', $html);
+        self::assertStringNotContainsString('<script', $html);
+        self::assertStringNotContainsString('javascript:', $html);
+        self::assertStringNotContainsString('<span', $html);
+    }
+
+    public function testNormalizesCustomButtonSecurityAttributes(): void
+    {
+        $Control = new Control();
+        $button = $this->invoke($Control, 'normalizeButtonConfig', [[
+            'text' => ' Test ',
+            'identifier' => 'invalid id!<>',
+            'icon' => 'fa fa-envelope <script>',
+            'cssClass' => 'safe-class invalid<script>',
+            'btnType' => 'unknown',
+            'size' => 'huge',
+            'openBrickWinWidth' => -10,
+            'href' => 'javascript:alert(1)',
+            'targetBlank' => '1',
+            'onClick' => 'evil(); alert(1)',
+            'disabled' => 1
+        ]]);
+
+        self::assertIsArray($button);
+        self::assertSame('Test', $button['text']);
+        self::assertSame('invalidid', $button['identifier']);
+        self::assertSame('fa fa-envelope', $button['icon']);
+        self::assertSame('safe-class', $button['customClass']);
+        self::assertSame('primary', $button['btnType']);
+        self::assertSame('', $button['size']);
+        self::assertSame(0, $button['openBrickWinWidth']);
+        self::assertSame('#', $button['href']);
+        self::assertTrue($button['targetBlank']);
+        self::assertTrue($button['disabled']);
+        self::assertSame('', $button['onClick']);
+    }
+
+    public function testKeepsSafeButtonLinksAndCallbacks(): void
+    {
+        $Control = new Control();
+
+        self::assertSame(
+            'https://www.example.com/contact',
+            $this->invoke($Control, 'sanitizeButtonHref', ['https://www.example.com/contact'])
+        );
+        self::assertSame('/contact', $this->invoke($Control, 'sanitizeButtonHref', ['/contact']));
+        self::assertSame('#', $this->invoke($Control, 'sanitizeButtonHref', ['data:text/html,test']));
+        self::assertSame('Contact.open();', $this->invoke($Control, 'sanitizeOnClick', ['Contact.open']));
+        self::assertSame(
+            'Contact.open("form");',
+            $this->invoke($Control, 'sanitizeOnClick', ['Contact.open("form")'])
+        );
+        self::assertSame('icon-only', $this->invoke($Control, 'getButtonDisplayMode', ['icon']));
+        self::assertSame('button', $this->invoke($Control, 'getButtonDisplayMode', ['unknown']));
+    }
+
+    /**
+     * @param array<int, mixed> $arguments
+     */
+    private function invoke(Control $Control, string $method, array $arguments): mixed
+    {
+        $Method = new ReflectionMethod($Control, $method);
+
+        return $Method->invokeArgs($Control, $arguments);
     }
 }

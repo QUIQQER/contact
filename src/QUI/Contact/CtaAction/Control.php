@@ -273,44 +273,40 @@ class Control extends QUI\Control
             $phone = $this->getAttribute('phone');
             $phone = preg_replace('/\D+/', '', (string)$phone) ?? '';
 
-            $phoneLabel = (string)$this->getAttribute('phoneLabel');
+            $contactPhoneLabel = (string)$this->getAttribute('phoneLabel');
 
             // Wenn Nummer mit 0 beginnt, ersetze führende 0 durch 49 (DE)
             if ($phone !== '' && preg_match('/^0\d+$/', $phone)) {
                 $phone = '49' . substr($phone, 1);
             }
 
-            if ($phoneLabel === '') {
-                $phoneLabel = $phone;
+            if ($contactPhoneLabel === '') {
+                $contactPhoneLabel = $phone;
             }
 
             $this->setAttribute('phone', $phone);
-            $this->setAttribute('phoneLabel', $phoneLabel);
+            $this->setAttribute('phoneLabel', $contactPhoneLabel);
             $Engine->assign('phone', $phone);
-            $Engine->assign('phoneLabel', $phoneLabel);
+            $Engine->assign('contactPhoneLabel', $contactPhoneLabel);
         }
 
         if (!empty($this->getAttribute('email'))) {
             $email = $this->getAttribute('email');
 
-            $emailLabel = (string)$this->getAttribute('emailLabel');
+            $contactEmailLabel = (string)$this->getAttribute('emailLabel');
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $email = htmlspecialchars((string)$email, ENT_QUOTES, 'UTF-8');
+                $email = (string)$email;
+                $this->setAttribute('email', $email);
 
-                $this->setAttribute(
-                    'email',
-                    htmlspecialchars($email, ENT_QUOTES, 'UTF-8')
-                );
-
-                if ($emailLabel === '') {
-                    $emailLabel = $email;
+                if ($contactEmailLabel === '') {
+                    $contactEmailLabel = $email;
                 }
 
-                $this->setAttribute('emailLabel', $emailLabel);
+                $this->setAttribute('emailLabel', $contactEmailLabel);
 
                 $Engine->assign('email', $email);
-                $Engine->assign('emailLabel', $emailLabel);
+                $Engine->assign('contactEmailLabel', $contactEmailLabel);
             } else {
                 $this->setAttribute('email', '');
                 $this->setAttribute('emailLabel', '');

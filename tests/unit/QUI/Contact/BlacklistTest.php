@@ -22,12 +22,14 @@ class BlacklistTest extends TestCase
         $this->originalConfig = $Config->getValue();
         $Config->setValue(null, [
             'ipAddresses' => json_encode([
+                '0.0.0.0',
                 '192.0.2.10',
                 '198.51.100.1-198.51.100.10'
             ]),
             'emailAddresses' => json_encode([
                 'blocked@example.com',
-                '*@spam.example'
+                '*@spam.example',
+                'sales*@example.com'
             ]),
             'useDNSBL' => false,
             'DNSBLProviders' => '[]'
@@ -58,15 +60,19 @@ class BlacklistTest extends TestCase
 
     public function testChecksExactAndRangeIpEntries(): void
     {
+        self::assertTrue(Blacklist::isIpBlacklistedByIpList('0.0.0.0'));
         self::assertTrue(Blacklist::isIpBlacklistedByIpList('192.0.2.10'));
         self::assertTrue(Blacklist::isIpBlacklistedByIpList('198.51.100.5'));
         self::assertFalse(Blacklist::isIpBlacklistedByIpList('203.0.113.1'));
+        self::assertFalse(Blacklist::isIpBlacklistedByIpList('invalid-address'));
     }
 
     public function testChecksExactAndWildcardEmailEntries(): void
     {
         self::assertTrue(Blacklist::isEmailAddressBlacklisted('blocked@example.com'));
         self::assertTrue(Blacklist::isEmailAddressBlacklisted('person@spam.example'));
+        self::assertTrue(Blacklist::isEmailAddressBlacklisted('sales-team@example.com'));
+        self::assertFalse(Blacklist::isEmailAddressBlacklisted('presales@example.com'));
         self::assertFalse(Blacklist::isEmailAddressBlacklisted('person@example.com'));
         self::assertFalse(Blacklist::isEmailAddressBlacklisted('invalid-address'));
     }

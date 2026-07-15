@@ -59,6 +59,10 @@ class Blacklist
         $ipList = json_decode((string)($conf['ipAddresses'] ?? '[]'), true);
         $longIp = ip2long($ip);
 
+        if ($longIp === false) {
+            return false;
+        }
+
         if (empty($ipList) || !is_array($ipList)) {
             $ipList = [];
         }
@@ -72,7 +76,7 @@ class Blacklist
             if (mb_strpos($entry, "-") === false) {
                 $longIpCheck = ip2long($entry);
 
-                if (empty($longIpCheck)) {
+                if ($longIpCheck === false) {
                     QUI\System\Log::addError(
                         'Package quiqqer/contact -> An IP address that is used for blacklisting'
                         . ' has the wrong format: "' . $entry . '"'
@@ -103,7 +107,7 @@ class Blacklist
             $longIpCheck1 = ip2long($rangeIps[0]);
             $longIpCheck2 = ip2long($rangeIps[1]);
 
-            if (empty($longIpCheck1) || empty($longIpCheck2)) {
+            if ($longIpCheck1 === false || $longIpCheck2 === false) {
                 QUI\System\Log::addError(
                     'Package quiqqer/contact -> An IP address range that is used for blacklisting'
                     . ' has the wrong format: "' . $entry . '"'
@@ -173,8 +177,8 @@ class Blacklist
             $blockedName = $blockedParts[0];
             $blockedHost = $blockedParts[1];
 
-            $blockedNameRegex = '#' . str_replace(['.', '*'], ['\\.', '.*'], $blockedName) . '#i';
-            $blockedHostRegex = '#' . str_replace(['.', '*'], ['\\.', '.*'], $blockedHost) . '#i';
+            $blockedNameRegex = '#^' . str_replace('\\*', '.*', preg_quote($blockedName, '#')) . '$#i';
+            $blockedHostRegex = '#^' . str_replace('\\*', '.*', preg_quote($blockedHost, '#')) . '$#i';
 
             preg_match($blockedNameRegex, $emailName, $nameMatches);
             preg_match($blockedHostRegex, $emailHost, $hostMatches);

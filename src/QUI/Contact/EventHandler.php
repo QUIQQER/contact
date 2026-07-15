@@ -114,7 +114,7 @@ class EventHandler
                 'body' => QUI::getLocale()->get('quiqqer/contact', 'contact.default.success_mail_body')
             ];
 
-            $Site->setAttribute('quiqqer.contact.success_mail', json_encode($successMail));
+            $SiteEdit?->setAttribute('quiqqer.contact.success_mail', json_encode($successMail));
         }
 
         $SiteEdit?->save(QUI::getUsers()->getSystemUser());

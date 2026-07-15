@@ -204,7 +204,6 @@ class Blacklist
         }
 
         $providers = json_decode((string)($conf['DNSBLProviders'] ?? '[]'), true);
-        $reverse_ip = implode(".", array_reverse(explode(".", $ip)));
 
         if (empty($providers) || !is_array($providers)) {
             $providers = [];
@@ -235,10 +234,10 @@ class Blacklist
         }
 
         foreach ($providers as $host) {
-            $host = $reverse_ip . "." . $host . ".";
+            $host = self::buildDnsblHost($ip, (string)$host);
 
             if (!$isNslookupExecutable) {
-                if (checkdnsrr($reverse_ip . "." . $host . ".", "A")) {
+                if (checkdnsrr($host, "A")) {
                     return $returnBlockingList ? $host : true;
                 }
 
@@ -259,6 +258,13 @@ class Blacklist
         }
 
         return false;
+    }
+
+    protected static function buildDnsblHost(string $ip, string $provider): string
+    {
+        $reverseIp = implode('.', array_reverse(explode('.', $ip)));
+
+        return $reverseIp . '.' . trim($provider, '.') . '.';
     }
 
     /**

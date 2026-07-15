@@ -2,31 +2,34 @@
   "name": "quiqqer/contact",
   "type": "quiqqer-module",
   "description": "Integrate complex forms into your web page using the simple form editor. Complex development of contact, offer and other forms are a thing of the past.",
+  "homepage": "https://www.quiqqer.com",
   "license": [
     "PCSG QL-1.0",
     "CC BY-NC-SA 4.0"
   ],
   "authors": [
     {
-      "name": "Henning Leutz",
-      "email": "support@pcsg.de",
-      "homepage": "https://www.pcsg.de",
-      "role": "Developer"
+      "name": "PCSG - Computer & Internet Service OHG",
+      "email": "info@quiqqer.com",
+      "homepage": "https://www.quiqqer.com",
+      "role": "Maintainer"
     }
   ],
   "support": {
     "email": "support@pcsg.de",
-    "url": "https://www.pcsg.de"
+    "issues": "https://dev.quiqqer.com/quiqqer/contact/-/issues",
+    "source": "https://dev.quiqqer.com/quiqqer/contact"
   },
   "require": {
-    "quiqqer/core": "^2",
+    "php": "^8.2",
+    "quiqqer/core": "^2.24",
     "quiqqer/formbuilder": "^2",
     "quiqqer/components": "^1",
     "quiqqer/bricks": "^2"
-   },
+  },
   "autoload": {
-    "psr-0": {
-      "QUI": "src/"
+    "psr-4": {
+      "QUI\\Contact\\": "src/QUI/Contact"
     }
   },
   "scripts": {
@@ -51,8 +54,8 @@
       "which composer > /dev/null || (echo 'Error: composer has to be globally installed'; exit 1)",
       "which phive > /dev/null || (echo 'Error: PHIVE has to be globally installed'; exit 1)"
     ],
-    "dev:init:tools": "phive install",
-    "dev:init:git-hooks": "./tools/captainhook install --only-enabled"
+    "dev:init:tools": "phive install --temporary",
+    "dev:init:git-hooks": "./tools/captainhook install --only-enabled --force"
   },
   "scripts-aliases": {
     "test": [

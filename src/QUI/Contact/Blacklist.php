@@ -33,7 +33,7 @@ class Blacklist
         $ip = $_SERVER['REMOTE_ADDR'];
 
         foreach ($Form->getElements() as $FormElement) {
-            if ($FormElement->getType() === FormBuilderEmailType::class) {
+            if ($FormElement instanceof FormBuilderEmailType) {
                 if (self::isEmailAddressBlacklisted($FormElement->getValueText())) {
                     return true;
                 }
@@ -59,6 +59,10 @@ class Blacklist
         $ipList = json_decode((string)($conf['ipAddresses'] ?? '[]'), true);
         $longIp = ip2long($ip);
 
+        if ($longIp === false) {
+            return false;
+        }
+
         if (empty($ipList) || !is_array($ipList)) {
             $ipList = [];
         }
@@ -72,7 +76,7 @@ class Blacklist
             if (mb_strpos($entry, "-") === false) {
                 $longIpCheck = ip2long($entry);
 
-                if (empty($longIpCheck)) {
+                if ($longIpCheck === false) {
                     QUI\System\Log::addError(
                         'Package quiqqer/contact -> An IP address that is used for blacklisting'
                         . ' has the wrong format: "' . $entry . '"'
@@ -103,7 +107,7 @@ class Blacklist
             $longIpCheck1 = ip2long($rangeIps[0]);
             $longIpCheck2 = ip2long($rangeIps[1]);
 
-            if (empty($longIpCheck1) || empty($longIpCheck2)) {
+            if ($longIpCheck1 === false || $longIpCheck2 === false) {
                 QUI\System\Log::addError(
                     'Package quiqqer/contact -> An IP address range that is used for blacklisting'
                     . ' has the wrong format: "' . $entry . '"'
@@ -173,8 +177,8 @@ class Blacklist
             $blockedName = $blockedParts[0];
             $blockedHost = $blockedParts[1];
 
-            $blockedNameRegex = '#' . str_replace(['.', '*'], ['\\.', '.*'], $blockedName) . '#i';
-            $blockedHostRegex = '#' . str_replace(['.', '*'], ['\\.', '.*'], $blockedHost) . '#i';
+            $blockedNameRegex = '#^' . str_replace('\\*', '.*', preg_quote($blockedName, '#')) . '$#i';
+            $blockedHostRegex = '#^' . str_replace('\\*', '.*', preg_quote($blockedHost, '#')) . '$#i';
 
             preg_match($blockedNameRegex, $emailName, $nameMatches);
             preg_match($blockedHostRegex, $emailHost, $hostMatches);
@@ -204,7 +208,6 @@ class Blacklist
         }
 
         $providers = json_decode((string)($conf['DNSBLProviders'] ?? '[]'), true);
-        $reverse_ip = implode(".", array_reverse(explode(".", $ip)));
 
         if (empty($providers) || !is_array($providers)) {
             $providers = [];
@@ -213,7 +216,7 @@ class Blacklist
         // check if nslookup is available and executable
         // If not - use checkdnsrr (disadvantage: has no timeout parameter)
         $isNslookupExecutable = false;
-        $nslookupExecutable = trim(`which nslookup`);
+        $nslookupExecutable = trim((string)shell_exec('which nslookup'));
 
         if ($nslookupExecutable) {
             $openBaseDir = ini_get('open_basedir');
@@ -235,10 +238,10 @@ class Blacklist
         }
 
         foreach ($providers as $host) {
-            $host = $reverse_ip . "." . $host . ".";
+            $host = self::buildDnsblHost($ip, (string)$host);
 
             if (!$isNslookupExecutable) {
-                if (checkdnsrr($reverse_ip . "." . $host . ".", "A")) {
+                if (checkdnsrr($host, "A")) {
                     return $returnBlockingList ? $host : true;
                 }
 
@@ -259,6 +262,13 @@ class Blacklist
         }
 
         return false;
+    }
+
+    protected static function buildDnsblHost(string $ip, string $provider): string
+    {
+        $reverseIp = implode('.', array_reverse(explode('.', $ip)));
+
+        return $reverseIp . '.' . trim($provider, '.') . '.';
     }
 
     /**

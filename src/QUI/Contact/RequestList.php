@@ -3,12 +3,15 @@
 namespace QUI\Contact;
 
 use DateTime;
-use PDO;
+use Doctrine\DBAL\ArrayParameterType;
+use Doctrine\DBAL\Exception as DBALException;
 use QUI;
 use QUI\Exception;
 use QUI\Security\Encryption;
+use QUI\Utils\Doctrine;
 use QUI\Utils\Grid;
 
+use function array_map;
 use function json_decode;
 
 /**
@@ -21,7 +24,7 @@ class RequestList
     /**
      * Save a form request to the database
      *
-     * @param QUI\FormBuilder\Field[] $formFields - The form fields submit data
+     * @param QUI\FormBuilder\Interfaces\Field[] $formFields - The form fields submit data
      * @param QUI\Interfaces\Projects\Site $FormSite - The Site the form was submitted from
      * @return void
      *
@@ -53,8 +56,8 @@ class RequestList
             $submitData = Encryption::encrypt((string)$submitData);
         }
 
-        QUI::getDataBase()->insert(
-            self::getRequestsTable(),
+        QUI::getDataBaseConnection()->insert(
+            Doctrine::quoteIdentifier(self::getRequestsTable()),
             [
                 'formId' => $formId,
                 'submitDate' => $Now->format('Y-m-d H:i:s'),
@@ -67,20 +70,21 @@ class RequestList
      * Get all forms that save requests
      *
      * @return array<int, array{title: string, identifier: string, dataFields: mixed, id: int|string}>
-     * @throws QUI\Database\Exception
+     * @throws DBALException
      */
     public static function getForms(): array
     {
-        /** @var array<int, array{title: string, identifier: string, dataFields: mixed, id: int|string}> $result */
-        $result = QUI::getDataBase()->fetch([
-            'select' => [
-                'id',
-                'identifier',
-                'title',
-                'dataFields'
-            ],
-            'from' => self::getFormsTable()
-        ]);
+        $Connection = QUI::getDataBaseConnection();
+        $result = $Connection->createQueryBuilder()
+            ->select(
+                Doctrine::quoteIdentifier('id'),
+                Doctrine::quoteIdentifier('identifier'),
+                Doctrine::quoteIdentifier('title'),
+                Doctrine::quoteIdentifier('dataFields')
+            )
+            ->from(Doctrine::quoteIdentifier(self::getFormsTable()))
+            ->executeQuery()
+            ->fetchAllAssociative();
 
         //$parsed = [];
 
@@ -107,8 +111,12 @@ class RequestList
                 $title .= ' [' . ($parsedTitles[$titleHash] - 1) . ']';
             }
 
-            $row['title'] = $title;
-            $forms[] = $row;
+            $forms[] = [
+                'id' => (int)$row['id'],
+                'identifier' => (string)$row['identifier'],
+                'title' => $title,
+                'dataFields' => $row['dataFields']
+            ];
         }
 
         return $forms;
@@ -129,72 +137,40 @@ class RequestList
         $Conf = QUI::getPackage('quiqqer/contact')->getConfig();
         $encrypt = boolval($Conf?->get('settings', 'encryptContactRequests'));
 
-        $binds = [];
-        $where = [];
+        $Connection = QUI::getDataBaseConnection();
+        $QueryBuilder = $Connection->createQueryBuilder();
+        $QueryBuilder->from(Doctrine::quoteIdentifier(self::getRequestsTable()));
 
         if ($countOnly) {
-            $sql = "SELECT COUNT(*)";
+            $QueryBuilder->select('COUNT(*)');
         } else {
-            $sql = "SELECT *";
+            $QueryBuilder->select('*');
         }
 
-        $sql .= " FROM `" . self::getRequestsTable() . "`";
-
         if (!empty($searchParams['id'])) {
-            $where[] = '`formId` = ' . (int)$searchParams['id'];
+            $QueryBuilder
+                ->andWhere(Doctrine::quoteIdentifier('formId') . ' = :formId')
+                ->setParameter('formId', (int)$searchParams['id']);
         }
 
         if (!empty($searchParams['search'])) {
-            $searchColumns = [
-                'submitData'
-            ];
-
-            $whereOr = [];
-
-            foreach ($searchColumns as $searchColumn) {
-                $whereOr[] = '`' . $searchColumn . '` LIKE :search';
-            }
-
-            $where[] = '(' . implode(' OR ', $whereOr) . ')';
-
             $searchValue = (string)$searchParams['search'];
-            $binds['search'] = [
-                'value' => '%' . $searchValue . '%',
-                'type' => PDO::PARAM_STR
-            ];
+            $QueryBuilder
+                ->andWhere(Doctrine::quoteIdentifier('submitData') . ' LIKE :search')
+                ->setParameter('search', '%' . $searchValue . '%');
         }
 
-        // build WHERE query string
-        if (!empty($where)) {
-            $sql .= " WHERE " . implode(" AND ", $where);
-        }
-
-        // ORDER BY
-        $sql .= " ORDER BY id DESC";
-
-        // LIMIT
-        if (
-            !empty($gridParams['limit'])
-            && !$countOnly
-        ) {
-            $sql .= " LIMIT " . $gridParams['limit'];
-        } else {
-            if (!$countOnly) {
-                $sql .= " LIMIT " . 20;
-            }
-        }
-
-        $Stmt = QUI::getPDO()->prepare($sql);
-
-        // bind search values
-        foreach ($binds as $var => $bind) {
-            $Stmt->bindValue(':' . $var, $bind['value'], $bind['type']);
+        if (!$countOnly) {
+            [$offset, $limit] = self::parseGridLimit($gridParams['limit'] ?? null);
+            $QueryBuilder
+                ->orderBy(Doctrine::quoteIdentifier('id'), 'DESC')
+                ->setFirstResult($offset)
+                ->setMaxResults($limit);
         }
 
         try {
-            $Stmt->execute();
-            $result = $Stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (\Exception $Exception) {
+            $Result = $QueryBuilder->executeQuery();
+        } catch (DBALException $Exception) {
             QUI\System\Log::addError(
                 self::class . ' :: search() -> ' . $Exception->getMessage()
             );
@@ -203,13 +179,17 @@ class RequestList
         }
 
         if ($countOnly) {
-            return (int)current(current($result));
+            return (int)$Result->fetchOne();
         }
+
+        $result = $Result->fetchAllAssociative();
 
         if ($encrypt) {
             foreach ($result as $k => $row) {
-                if (!self::isJSON($row['submitData'])) {
-                    $result[$k]['submitData'] = Encryption::decrypt($row['submitData']);
+                $submitData = (string)$row['submitData'];
+
+                if (!self::isJSON($submitData)) {
+                    $result[$k]['submitData'] = Encryption::decrypt($submitData);
                 }
             }
         }
@@ -230,38 +210,66 @@ class RequestList
     }
 
     /**
+     * @return array{0: int, 1: int}
+     */
+    protected static function parseGridLimit(mixed $gridLimit): array
+    {
+        $offset = 0;
+        $limit = 20;
+
+        if (is_string($gridLimit) && str_contains($gridLimit, ',')) {
+            [$gridOffset, $gridMax] = explode(',', $gridLimit, 2);
+            $offset = max(0, (int)$gridOffset);
+            $limit = max(1, (int)$gridMax);
+        } elseif (is_numeric($gridLimit)) {
+            $limit = max(1, (int)$gridLimit);
+        }
+
+        return [$offset, $limit];
+    }
+
+    /**
      * Delete contact requests
      *
      * @param array<int> $requestIds
      * @return void
-     * @throws QUI\Database\Exception
+     * @throws DBALException
      */
     public static function deleteRequests(array $requestIds): void
     {
-        array_walk($requestIds, function (&$v) {
-            $v = (int)$v;
-        });
+        $requestIds = array_map('intval', $requestIds);
+
+        if ($requestIds === []) {
+            return;
+        }
+
+        $Connection = QUI::getDataBaseConnection();
 
         foreach ($requestIds as $requestId) {
             try {
-                $resultFormIdentifier = QUI::getDataBase()->fetch([
-                    'select' => ['formId', 'submitData'],
-                    'from' => self::getRequestsTable(),
-                    'where' => [
-                        'id' => $requestId
-                    ]
-                ]);
+                $requestData = $Connection->createQueryBuilder()
+                    ->select(Doctrine::quoteIdentifier('formId'), Doctrine::quoteIdentifier('submitData'))
+                    ->from(Doctrine::quoteIdentifier(self::getRequestsTable()))
+                    ->where(Doctrine::quoteIdentifier('id') . ' = :requestId')
+                    ->setParameter('requestId', $requestId)
+                    ->executeQuery()
+                    ->fetchAssociative();
 
-                $requestData = $resultFormIdentifier[0];
+                if ($requestData === false) {
+                    continue;
+                }
 
-                $resultFormData = QUI::getDataBase()->fetch([
-                    'from' => self::getFormsTable(),
-                    'where' => [
-                        'id' => $requestData['formId']
-                    ]
-                ]);
+                $formData = $Connection->createQueryBuilder()
+                    ->select('*')
+                    ->from(Doctrine::quoteIdentifier(self::getFormsTable()))
+                    ->where(Doctrine::quoteIdentifier('id') . ' = :formId')
+                    ->setParameter('formId', (int)$requestData['formId'])
+                    ->executeQuery()
+                    ->fetchAssociative();
 
-                $formData = $resultFormData[0];
+                if ($formData === false) {
+                    continue;
+                }
 
                 if (
                     empty($formData['projectName']) ||
@@ -278,7 +286,7 @@ class RequestList
                     'quiqqerContactDeleteFormRequest',
                     [
                         $requestId,
-                        json_decode($requestData['submitData'], true),
+                        self::decodeSubmitData((string)$requestData['submitData']),
                         $Site
                     ]
                 );
@@ -287,15 +295,27 @@ class RequestList
             }
         }
 
-        QUI::getDataBase()->delete(
-            self::getRequestsTable(),
-            [
-                'id' => [
-                    'type' => 'IN',
-                    'value' => $requestIds
-                ]
-            ]
-        );
+        $QueryBuilder = $Connection->createQueryBuilder();
+        $QueryBuilder
+            ->delete(Doctrine::quoteIdentifier(self::getRequestsTable()))
+            ->where($QueryBuilder->expr()->in(Doctrine::quoteIdentifier('id'), ':requestIds'))
+            ->setParameter('requestIds', $requestIds, ArrayParameterType::INTEGER)
+            ->executeStatement();
+    }
+
+    /**
+     * @return array<string, mixed>
+     * @throws QUI\Exception
+     */
+    protected static function decodeSubmitData(string $submitData): array
+    {
+        if (!self::isJSON($submitData)) {
+            $submitData = Encryption::decrypt($submitData);
+        }
+
+        $decodedData = json_decode($submitData, true);
+
+        return is_array($decodedData) ? $decodedData : [];
     }
 
     /**
@@ -337,23 +357,24 @@ class RequestList
      *
      * @param string $identifier
      * @return int|false - ID if found; false if not found
-     * @throws QUI\Database\Exception
+     * @throws DBALException
      */
     public static function getFormIdByIdentifier(string $identifier): bool | int
     {
-        $result = QUI::getDataBase()->fetch([
-            'select' => 'id',
-            'from' => self::getFormsTable(),
-            'where' => [
-                'identifier' => $identifier
-            ]
-        ]);
+        $result = QUI::getDataBaseConnection()->createQueryBuilder()
+            ->select(Doctrine::quoteIdentifier('id'))
+            ->from(Doctrine::quoteIdentifier(self::getFormsTable()))
+            ->where(Doctrine::quoteIdentifier('identifier') . ' = :identifier')
+            ->setParameter('identifier', $identifier)
+            ->setMaxResults(1)
+            ->executeQuery()
+            ->fetchOne();
 
-        if (empty($result)) {
+        if ($result === false) {
             return false;
         }
 
-        return (int)$result[0]['id'];
+        return (int)$result;
     }
 
     /**

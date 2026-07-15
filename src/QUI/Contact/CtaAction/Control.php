@@ -273,44 +273,40 @@ class Control extends QUI\Control
             $phone = $this->getAttribute('phone');
             $phone = preg_replace('/\D+/', '', (string)$phone) ?? '';
 
-            $phoneLabel = (string)$this->getAttribute('phoneLabel');
+            $contactPhoneLabel = (string)$this->getAttribute('phoneLabel');
 
             // Wenn Nummer mit 0 beginnt, ersetze führende 0 durch 49 (DE)
             if ($phone !== '' && preg_match('/^0\d+$/', $phone)) {
                 $phone = '49' . substr($phone, 1);
             }
 
-            if ($phoneLabel === '') {
-                $phoneLabel = $phone;
+            if ($contactPhoneLabel === '') {
+                $contactPhoneLabel = $phone;
             }
 
             $this->setAttribute('phone', $phone);
-            $this->setAttribute('phoneLabel', $phoneLabel);
+            $this->setAttribute('phoneLabel', $contactPhoneLabel);
             $Engine->assign('phone', $phone);
-            $Engine->assign('phoneLabel', $phoneLabel);
+            $Engine->assign('contactPhoneLabel', $contactPhoneLabel);
         }
 
         if (!empty($this->getAttribute('email'))) {
             $email = $this->getAttribute('email');
 
-            $emailLabel = (string)$this->getAttribute('emailLabel');
+            $contactEmailLabel = (string)$this->getAttribute('emailLabel');
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $email = htmlspecialchars((string)$email, ENT_QUOTES, 'UTF-8');
+                $email = (string)$email;
+                $this->setAttribute('email', $email);
 
-                $this->setAttribute(
-                    'email',
-                    htmlspecialchars($email, ENT_QUOTES, 'UTF-8')
-                );
-
-                if ($emailLabel === '') {
-                    $emailLabel = $email;
+                if ($contactEmailLabel === '') {
+                    $contactEmailLabel = $email;
                 }
 
-                $this->setAttribute('emailLabel', $emailLabel);
+                $this->setAttribute('emailLabel', $contactEmailLabel);
 
                 $Engine->assign('email', $email);
-                $Engine->assign('emailLabel', $emailLabel);
+                $Engine->assign('contactEmailLabel', $contactEmailLabel);
             } else {
                 $this->setAttribute('email', '');
                 $this->setAttribute('emailLabel', '');
@@ -687,17 +683,34 @@ class Control extends QUI\Control
 
         $doc = new DOMDocument('1.0', 'UTF-8');
         $prevUseErrors = libxml_use_internal_errors(true);
+        $wrapperId = 'quiqqer-contact-ctaAction-sanitize-root';
+
         $doc->loadHTML(
-            '<?xml encoding="UTF-8">' . $html,
+            '<?xml encoding="UTF-8"><div id="' . $wrapperId . '">' . $html . '</div>',
             LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
         );
         libxml_clear_errors();
         libxml_use_internal_errors($prevUseErrors);
 
-        $this->sanitizeDomNode($doc, $allowedTags, $allowedAttrs, $dropTags);
+        $wrapper = $doc->getElementById($wrapperId);
 
-        $sanitized = $doc->saveHTML();
-        return $sanitized === false ? '' : trim($sanitized);
+        if (!$wrapper instanceof DOMElement) {
+            return '';
+        }
+
+        $this->sanitizeDomNode($wrapper, $allowedTags, $allowedAttrs, $dropTags);
+
+        $sanitized = '';
+
+        foreach (iterator_to_array($wrapper->childNodes) as $childNode) {
+            $nodeHtml = $doc->saveHTML($childNode);
+
+            if ($nodeHtml !== false) {
+                $sanitized .= $nodeHtml;
+            }
+        }
+
+        return trim($sanitized);
     }
 
     /**

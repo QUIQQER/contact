@@ -79,7 +79,7 @@ class Handler
         }
 
         foreach ($Form->getElements() as $FormElement) {
-            if ($FormElement->getType() == 'QUI\FormBuilder\Fields\EMail') {
+            if ($FormElement instanceof QUI\FormBuilder\Fields\EMail) {
                 $recipient = $FormElement->getAttribute('data');
 
                 if (is_array($recipient)) {
@@ -131,7 +131,7 @@ class Handler
         $formElements = $Form->getElements();
 
         foreach ($formElements as $FormElement) {
-            if ($FormElement->getType() == 'QUI\FormBuilder\Fields\EMail') {
+            if ($FormElement instanceof QUI\FormBuilder\Fields\EMail) {
                 $data = $FormElement->getAttribute('data');
 
                 if (QUI\Utils\Security\Orthos::checkMailSyntax($data)) {

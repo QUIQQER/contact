@@ -9,7 +9,11 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Schema\Schema;
 use PHPUnit\Framework\TestCase;
 use QUI;
+use QUI\Contact\EventHandler;
 use QUI\Contact\RequestList;
+use QUI\Projects\Project;
+use QUI\Projects\Site;
+use ReflectionMethod;
 use ReflectionProperty;
 
 class RequestListDatabaseTest extends TestCase
@@ -129,6 +133,57 @@ class RequestListDatabaseTest extends TestCase
 
         self::assertSame(2, RequestList::getList([], true));
         self::assertSame(1, RequestList::getList(['id' => 1], true));
+    }
+
+    public function testCreatesAndUpdatesFormMetadataFromContactSite(): void
+    {
+        $formData = json_encode([
+            'elements' => [[
+                'type' => 'package/quiqqer/formbuilder/bin/fields/Input',
+                'attributes' => [
+                    'label' => 'Name',
+                    'required' => true
+                ]
+            ]]
+        ]);
+        $title = 'Contact form';
+        $Project = $this->createMock(Project::class);
+        $Project->method('getName')->willReturn('contact-phpunit');
+        $Project->method('getLang')->willReturn('en');
+        $Site = $this->createMock(Site::class);
+        $Site->method('getId')->willReturn(42);
+        $Site->method('getProject')->willReturn($Project);
+        $Site->method('getAttribute')->willReturnCallback(
+            static function (string $name) use ($formData, &$title): mixed {
+                return match ($name) {
+                    'quiqqer.contact.settings.form' => $formData,
+                    'title' => $title,
+                    default => null
+                };
+            }
+        );
+        $parseContactSite = new ReflectionMethod(EventHandler::class, 'parseContactSiteIntoFormTable');
+
+        $parseContactSite->invoke(null, $Site);
+        $forms = RequestList::getForms();
+
+        self::assertCount(4, $forms);
+        self::assertSame('contact-phpunit (en): Contact form', $forms[3]['title']);
+        self::assertSame(
+            [[
+                'name' => 'field-0',
+                'label' => 'Name',
+                'required' => true
+            ]],
+            json_decode((string)$forms[3]['dataFields'], true)
+        );
+
+        $title = 'Updated contact form';
+        $parseContactSite->invoke(null, $Site);
+        $forms = RequestList::getForms();
+
+        self::assertCount(4, $forms);
+        self::assertSame('contact-phpunit (en): Updated contact form', $forms[3]['title']);
     }
 
     private function insertForm(Connection $Connection, int $id, string $identifier, string $title): void

@@ -6,8 +6,10 @@
 
 namespace QUI\Contact;
 
+use Doctrine\DBAL\Exception as DBALException;
 use QUI;
 use QUI\Projects\Site;
+use QUI\Utils\Doctrine;
 
 use function json_encode;
 
@@ -122,7 +124,7 @@ class EventHandler
      * Parses information from a quiqqer/contact:types/contact Site to the quiqqer_contact_forms table
      *
      * @param Site $Site
-     * @throws QUI\Exception
+     * @throws QUI\Exception|DBALException
      */
     protected static function parseContactSiteIntoFormTable(Site $Site): void
     {
@@ -143,15 +145,15 @@ class EventHandler
         $Project = $Site->getProject();
         $title = $Project->getName() . ' (' . $Project->getLang() . '): ' . $Site->getAttribute('title');
 
-        $result = QUI::getDataBase()->fetch([
-            'count' => 1,
-            'from' => RequestList::getFormsTable(),
-            'where' => [
-                'identifier' => $formIdentifier
-            ]
-        ]);
-
-        $exists = (int)current(current($result)) > 0;
+        $Connection = QUI::getDataBaseConnection();
+        $table = Doctrine::quoteIdentifier(RequestList::getFormsTable());
+        $exists = (int)$Connection->createQueryBuilder()
+            ->select('COUNT(*)')
+            ->from($table)
+            ->where(Doctrine::quoteIdentifier('identifier') . ' = :identifier')
+            ->setParameter('identifier', $formIdentifier)
+            ->executeQuery()
+            ->fetchOne() > 0;
         $dataFields = [];
         $FormBuilder = new QUI\FormBuilder\Builder();
 
@@ -177,8 +179,8 @@ class EventHandler
 
         // if there exists only update title
         if ($exists) {
-            QUI::getDataBase()->update(
-                RequestList::getFormsTable(),
+            $Connection->update(
+                $table,
                 [
                     'title' => $title,
                     'dataFields' => $dataFields,
@@ -195,8 +197,8 @@ class EventHandler
         }
 
         // if not exists -> insert
-        QUI::getDataBase()->insert(
-            RequestList::getFormsTable(),
+        $Connection->insert(
+            $table,
             [
                 'title' => $title,
                 'dataFields' => $dataFields,

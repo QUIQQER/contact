@@ -286,7 +286,7 @@ class RequestList
                     'quiqqerContactDeleteFormRequest',
                     [
                         $requestId,
-                        json_decode($requestData['submitData'], true),
+                        self::decodeSubmitData((string)$requestData['submitData']),
                         $Site
                     ]
                 );
@@ -301,6 +301,21 @@ class RequestList
             ->where($QueryBuilder->expr()->in(Doctrine::quoteIdentifier('id'), ':requestIds'))
             ->setParameter('requestIds', $requestIds, ArrayParameterType::INTEGER)
             ->executeStatement();
+    }
+
+    /**
+     * @return array<string, mixed>
+     * @throws QUI\Exception
+     */
+    protected static function decodeSubmitData(string $submitData): array
+    {
+        if (!self::isJSON($submitData)) {
+            $submitData = Encryption::decrypt($submitData);
+        }
+
+        $decodedData = json_decode($submitData, true);
+
+        return is_array($decodedData) ? $decodedData : [];
     }
 
     /**

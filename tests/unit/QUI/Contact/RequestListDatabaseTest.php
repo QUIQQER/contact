@@ -13,6 +13,7 @@ use QUI\Contact\EventHandler;
 use QUI\Contact\RequestList;
 use QUI\Projects\Project;
 use QUI\Projects\Site;
+use QUI\Security\Encryption;
 use ReflectionMethod;
 use ReflectionProperty;
 
@@ -184,6 +185,22 @@ class RequestListDatabaseTest extends TestCase
 
         self::assertCount(4, $forms);
         self::assertSame('contact-phpunit (en): Updated contact form', $forms[3]['title']);
+    }
+
+    public function testDecodesPlainAndEncryptedSubmitDataForDeleteEvents(): void
+    {
+        $decodeSubmitData = new ReflectionMethod(RequestList::class, 'decodeSubmitData');
+        $submitData = '{"email":"user@example.com","message":"Hello"}';
+        $expected = [
+            'email' => 'user@example.com',
+            'message' => 'Hello'
+        ];
+
+        self::assertSame($expected, $decodeSubmitData->invoke(null, $submitData));
+        self::assertSame(
+            $expected,
+            $decodeSubmitData->invoke(null, Encryption::encrypt($submitData))
+        );
     }
 
     private function insertForm(Connection $Connection, int $id, string $identifier, string $title): void

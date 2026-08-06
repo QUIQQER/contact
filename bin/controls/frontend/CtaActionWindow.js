@@ -43,6 +43,12 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
             message_placeholder: '',
             submit_label: '',
 
+            // views
+            startView: 'form', // form, select, ai
+            aiControl: '',
+            aiControlOptions: '',
+            aiSidebar: false,
+
             // buttons
             btnStyle: 'button', // iconRounded, icon, button
             size: 'default',

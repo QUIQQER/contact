@@ -44,6 +44,12 @@ class Control extends QUI\Control
             'message_placeholder' => '',
             'submit_label' => '',
 
+            // views
+            'startView' => 'form', // form, select, ai
+            'aiControl' => '',
+            'aiControlOptions' => '',
+            'aiSidebar' => false, // show the branding sidebar in the ai view
+
             // buttons
             'btnStyle' => 'iconRounded', // iconRounded, icon, button
             'size' => 'default',
@@ -104,6 +110,21 @@ class Control extends QUI\Control
             'grid', 'labelLeft' => $this->getAttribute('formDesign'),
             default => 'default'
         };
+
+        // views: form (default), select, ai
+        $aiControl = $this->sanitizeModulePath((string)$this->getAttribute('aiControl'));
+        $hasAiControl = $aiControl !== '';
+        $aiControlOptions = $this->sanitizeAiControlOptions((string)$this->getAttribute('aiControlOptions'));
+
+        $startView = match ($this->getAttribute('startView')) {
+            'select' => 'select',
+            'ai' => $hasAiControl ? 'ai' : 'form',
+            default => 'form'
+        };
+
+        $aiSidebar = $this->getAttribute('aiSidebar') === true
+            || $this->getAttribute('aiSidebar') === 1
+            || $this->getAttribute('aiSidebar') === '1';
 
         $Engine = QUI::getTemplateManager()->getEngine();
 
@@ -344,7 +365,16 @@ class Control extends QUI\Control
             'formDesign' => $formDesign,
             'btnStyle' => $btnStyle,
             'hasButtons' => !empty($buttons),
-            'buttons' => $buttons
+            'buttons' => $buttons,
+            'startView' => $startView,
+            'aiControl' => $aiControl,
+            'aiControlOptions' => $aiControlOptions,
+            'aiSidebar' => $aiSidebar,
+            'hasAiControl' => $hasAiControl,
+            'aiChoiceLabel' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.choice.ai'),
+            'formChoiceLabel' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.choice.form'),
+            'selectTrust' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.select.trust'),
+            'selectPrivacyHint' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.select.privacyHint')
         ]);
 
         return $Engine->fetch(dirname(__FILE__) . '/Control.html');
@@ -1153,6 +1183,53 @@ class Control extends QUI\Control
     }
 
     /**
+     * Sanitize a JavaScript (AMD) module path used for the alternative "ai" view.
+     * Only path-like strings are allowed; anything else results in an empty string.
+     */
+    private function sanitizeModulePath(string $path): string
+    {
+        $path = trim($path);
+
+        if ($path === '') {
+            return '';
+        }
+
+        if (!preg_match('#^[A-Za-z0-9_./-]+$#', $path)) {
+            return '';
+        }
+
+        // a module path always references a package/sub path
+        if (!str_contains($path, '/')) {
+            return '';
+        }
+
+        return $path;
+    }
+
+    /**
+     * Sanitize the opaque options object that is forwarded to the alternative view control.
+     * Must be a JSON object; returns a normalized JSON string or an empty string.
+     */
+    private function sanitizeAiControlOptions(string $json): string
+    {
+        $json = trim($json);
+
+        if ($json === '') {
+            return '';
+        }
+
+        $decoded = json_decode($json, true);
+
+        if (!is_array($decoded)) {
+            return '';
+        }
+
+        $encoded = json_encode($decoded, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
+        return $encoded === false ? '' : $encoded;
+    }
+
+    /**
      * Retrieves the list of allowed attributes for the current context.
      *
      * @return array<string> An array of strings representing the allowed attribute keys.
@@ -1177,6 +1254,10 @@ class Control extends QUI\Control
             'message_placeholder',
             'submit_label',
             'success_message',
+            'startView',
+            'aiControl',
+            'aiControlOptions',
+            'aiSidebar',
             'whatsapp',
             'whatsappLabel',
             'phone',

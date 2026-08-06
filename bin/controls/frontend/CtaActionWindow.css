@@ -50,9 +50,13 @@
     overflow: auto;
 }
 
+.qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__rightContent {
+    overflow: auto;
+    height: 100%;
+}
+
 @media screen and (min-width: 768px) {
-    .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__leftContent,
-    .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__rightContent {
+    .qui-contact-controls-ctaActionWindow .quiqqer-contact-ctaAction__leftContent {
         overflow: auto;
         height: 100%;
     }

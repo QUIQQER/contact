@@ -36,6 +36,12 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             submit_label: '',
             success_message: '',
 
+            // views
+            startView: 'form', // form, select, ai
+            aiControl: '',
+            aiControlOptions: '',
+            aiSidebar: false,
+
             // buttons
             btnStyle: 'button', // iconRounded, icon, button
             size: 'default',
@@ -59,6 +65,8 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             this.parent(options);
 
             this.Loader = new QUILoader();
+            this.$Layout = null;
+            this.$aiMounted = false;
 
             this.addEvents({
                 onImport: this.$onImport
@@ -86,6 +94,7 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                 this.Loader.inject(this.getElm());
 
                 QUI.parse(container).then(() => {
+                    this.$initViews();
                     this.fireEvent('load', [this]);
                 });
             }, {
@@ -132,7 +141,210 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                 }
             }
 
+            this.$initViews();
             this.fireEvent('load', [this]);
+        },
+
+        /**
+         * Wire up the view switching (select / form / ai) and mount the
+         * configured ai control when the ai view is active on load.
+         *
+         * The init guard lives on the layout element (DOM), not on the
+         * instance: the ajax render returns a wrapper carrying data-qui, so
+         * QUI.parse may import the control twice. The DOM guard makes sure the
+         * choices are only wired and the ai control only mounted once.
+         */
+        $initViews: function () {
+            const layout = this.getElm().querySelector('[data-name="layout"]');
+
+            if (!layout || layout.getAttribute('data-views-init') === '1') {
+                return;
+            }
+
+            layout.setAttribute('data-views-init', '1');
+
+            this.$Layout = layout;
+
+            const aiControl = layout.getAttribute('data-ai-control');
+
+            if (aiControl) {
+                this.setAttribute('aiControl', aiControl);
+            }
+
+            const aiControlOptions = layout.getAttribute('data-ai-control-options');
+
+            if (aiControlOptions) {
+                this.setAttribute('aiControlOptions', aiControlOptions);
+            }
+
+            this.getElm().querySelectorAll('[data-name="viewChoice"]').forEach((choice) => {
+                choice.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    this.switchView(choice.getAttribute('data-view-target'));
+                });
+            });
+
+            const activeView = this.getActiveView();
+
+            if (activeView === 'ai') {
+                this.$mountAiControl();
+            }
+        },
+
+        /**
+         * @return {string} the currently active view (select | form | ai)
+         */
+        getActiveView: function () {
+            if (!this.$Layout) {
+                return 'form';
+            }
+
+            return this.$Layout.getAttribute('data-active-view') || 'form';
+        },
+
+        /**
+         * Switch the visible view with a soft cross-fade.
+         *
+         * @param {string} name - select | form | ai
+         * @return {Promise}
+         */
+        switchView: function (name) {
+            const layout = this.$Layout || this.getElm().querySelector('[data-name="layout"]');
+
+            if (!layout) {
+                return Promise.resolve();
+            }
+
+            if (['select', 'form', 'ai'].indexOf(name) === -1) {
+                name = 'form';
+            }
+
+            const currentName = layout.getAttribute('data-active-view') || 'form';
+
+            if (currentName === name) {
+                return Promise.resolve();
+            }
+
+            const current = this.getElm().querySelector('[data-view="' + currentName + '"]');
+            const target = this.getElm().querySelector('[data-view="' + name + '"]');
+
+            if (!target) {
+                return Promise.resolve();
+            }
+
+            const reduceMotion = window.matchMedia
+                && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            return new Promise((resolve) => {
+                const finish = () => {
+                    this.$focusView(target);
+                    this.fireEvent('viewChange', [this, name]);
+                    resolve();
+                };
+
+                const activate = () => {
+                    layout.setAttribute('data-active-view', name);
+
+                    if (name === 'ai') {
+                        this.$mountAiControl();
+                    }
+
+                    if (reduceMotion) {
+                        target.style.opacity = 1;
+                        finish();
+                        return;
+                    }
+
+                    target.style.opacity = 0;
+
+                    moofx(target).animate({
+                        opacity: 1
+                    }, {
+                        duration: 250,
+                        callback: finish
+                    });
+                };
+
+                if (current && !reduceMotion) {
+                    moofx(current).animate({
+                        opacity: 0
+                    }, {
+                        duration: 150,
+                        callback: activate
+                    });
+
+                    return;
+                }
+
+                activate();
+            });
+        },
+
+        /**
+         * Move focus to the first interactive element of the given view.
+         *
+         * @param {HTMLElement} view
+         */
+        $focusView: function (view) {
+            const focusable = view.querySelector(
+                'input, textarea, button, a[href], [tabindex]:not([tabindex="-1"])'
+            );
+
+            if (focusable) {
+                focusable.focus();
+            }
+        },
+
+        /**
+         * Lazily inject the configured alternative view control (e.g. an AI
+         * chat agent) into the ai view. The control module path and its
+         * options come from the neutral aiControl / aiControlOptions options.
+         *
+         * The mount guard lives on the host element (DOM) so a doubly imported
+         * control cannot inject the ai control twice into the same host.
+         */
+        $mountAiControl: function () {
+            const host = this.getElm().querySelector('[data-name="aiHost"]');
+
+            if (!host) {
+                return;
+            }
+
+            if (this.$aiMounted || host.getAttribute('data-ai-mounted') === '1') {
+                this.$aiMounted = true;
+
+                return;
+            }
+
+            const path = this.getAttribute('aiControl');
+
+            if (!path) {
+                return;
+            }
+
+            this.$aiMounted = true;
+            host.setAttribute('data-ai-mounted', '1');
+            this.Loader.show();
+
+            let options = {};
+            const optionsRaw = this.getAttribute('aiControlOptions');
+
+            if (optionsRaw) {
+                try {
+                    options = JSON.parse(optionsRaw);
+                } catch (e) {
+                    options = {};
+                }
+            }
+
+            require([path], (Control) => {
+                new Control(options).inject(host);
+                this.Loader.hide();
+            }, () => {
+                host.removeAttribute('data-ai-mounted');
+                this.$aiMounted = false;
+                this.Loader.hide();
+            });
         },
 
         send: function () {
@@ -567,6 +779,12 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
                 message_label: this.getAttribute('message_label'),
                 message_placeholder: this.getAttribute('message_placeholder'),
                 submit_label: this.getAttribute('submit_label'),
+
+                // views
+                startView: this.getAttribute('startView'),
+                aiControl: this.getAttribute('aiControl'),
+                aiControlOptions: this.getAttribute('aiControlOptions'),
+                aiSidebar: this.getAttribute('aiSidebar'),
 
                 // buttons
                 btnStyle: this.getAttribute('btnStyle'),

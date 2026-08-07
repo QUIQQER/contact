@@ -46,16 +46,15 @@ class EventHandler
         }
 
         $Projects = QUI::getProjectManager();
-        $projects = $Projects->getProjects();
 
-        foreach ($projects as $project) {
-            $Project = $Projects->getProject($project);
+        foreach ($Projects->getProjects(true) as $Project) {
+            $projectName = $Project->getName();
 
             foreach ($Project->getLanguages() as $lang) {
-                $Project = $Projects->getProject($project, $lang);
+                $LangProject = $Projects->getProject($projectName, $lang);
 
                 try {
-                    $contactSites = $Project->getSites([
+                    $contactSites = $LangProject->getSites([
                         'where' => [
                             'active' => -1,
                             'type' => 'quiqqer/contact:types/contact'
@@ -123,10 +122,10 @@ class EventHandler
     /**
      * Parses information from a quiqqer/contact:types/contact Site to the quiqqer_contact_forms table
      *
-     * @param Site $Site
+     * @param QUI\Interfaces\Projects\Site $Site
      * @throws QUI\Exception|DBALException
      */
-    protected static function parseContactSiteIntoFormTable(Site $Site): void
+    protected static function parseContactSiteIntoFormTable(QUI\Interfaces\Projects\Site $Site): void
     {
         $formFields = $Site->getAttribute('quiqqer.contact.settings.form');
 

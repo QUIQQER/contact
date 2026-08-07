@@ -22,6 +22,24 @@ class Control extends QUI\Control
     protected array $customButtons = [];
 
     /**
+     * Temporary hardcoded integration of the AI agent view.
+     *
+     * @todo TEMPORARY SOLUTION. The AI agent view (currently the
+     *       pcsg/sales-agent chat agent) is detected by hardcoding the package
+     *       name, its PHP class and its frontend control module path below.
+     *       As soon as a general provider/registry for AI agent views exists,
+     *       replace this with a lookup over that module instead of hardcoding
+     *       pcsg/sales-agent here.
+     *       https://dev.quiqqer.com/pcsg/sales-agent/-/work_items/1
+     */
+    private const AI_AGENT_VIEW_PACKAGE = 'pcsg/sales-agent';
+
+    private const AI_AGENT_VIEW_CLASS = 'PCSG\SalesAgentControl';
+
+    private const AI_AGENT_VIEW_JS_CONTROL =
+        'package/pcsg/sales-agent/bin/js/frontend/controls/SalesAgent';
+
+    /**
      * @param array<string, mixed> $attributes
      */
     public function __construct(array $attributes = [])
@@ -112,12 +130,21 @@ class Control extends QUI\Control
         };
 
         // views: form (default), select, ai
-        $aiControl = $this->sanitizeModulePath((string)$this->getAttribute('aiControl'));
+        //
+        // @todo TEMPORARY SOLUTION: the AI agent view is currently detected by
+        //       hardcoding the pcsg/sales-agent package (see
+        //       self::AI_AGENT_VIEW_PACKAGE). The editor setting for a manual
+        //       control module path was removed; the control is resolved here
+        //       automatically. Replace this with a general AI-agent-view
+        //       provider lookup later.
+        $aiControl = self::getAiAgentViewControl();
         $hasAiControl = $aiControl !== '';
         $aiControlOptions = $this->sanitizeAiControlOptions((string)$this->getAttribute('aiControlOptions'));
 
+        // "select" (choice between AI agent and form) only makes sense when the
+        // AI agent view is available, otherwise fall back to the form.
         $startView = match ($this->getAttribute('startView')) {
-            'select' => 'select',
+            'select' => $hasAiControl ? 'select' : 'form',
             'ai' => $hasAiControl ? 'ai' : 'form',
             default => 'form'
         };
@@ -1183,31 +1210,44 @@ class Control extends QUI\Control
     }
 
     /**
-     * Sanitize a JavaScript (AMD) module path used for the alternative "ai" view.
-     * Only path-like strings are allowed; anything else results in an empty string.
+     * Whether the AI agent view is available.
+     *
+     * @todo TEMPORARY SOLUTION: hardcoded to pcsg/sales-agent, see
+     *       self::AI_AGENT_VIEW_PACKAGE. Replace with a general
+     *       AI-agent-view provider lookup later.
      */
-    private function sanitizeModulePath(string $path): string
+    public static function isAiAgentViewAvailable(): bool
     {
-        $path = trim($path);
-
-        if ($path === '') {
-            return '';
+        try {
+            if (!QUI::getPackageManager()->isInstalled(self::AI_AGENT_VIEW_PACKAGE)) {
+                return false;
+            }
+        } catch (QUI\Exception) {
+            return false;
         }
 
-        if (!preg_match('#^[A-Za-z0-9_./-]+$#', $path)) {
-            return '';
-        }
-
-        // a module path always references a package/sub path
-        if (!str_contains($path, '/')) {
-            return '';
-        }
-
-        return $path;
+        return class_exists(self::AI_AGENT_VIEW_CLASS);
     }
 
     /**
-     * Sanitize the opaque options object that is forwarded to the alternative view control.
+     * Frontend control module path of the AI agent view, or an empty string
+     * when the AI agent view is not available.
+     *
+     * @todo TEMPORARY SOLUTION: hardcoded to pcsg/sales-agent, see
+     *       self::AI_AGENT_VIEW_PACKAGE. Replace with a general
+     *       AI-agent-view provider lookup later.
+     */
+    public static function getAiAgentViewControl(): string
+    {
+        if (!self::isAiAgentViewAvailable()) {
+            return '';
+        }
+
+        return self::AI_AGENT_VIEW_JS_CONTROL;
+    }
+
+    /**
+     * Sanitize the opaque options object that is forwarded to the AI agent view control.
      * Must be a JSON object; returns a normalized JSON string or an empty string.
      */
     private function sanitizeAiControlOptions(string $json): string

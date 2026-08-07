@@ -474,24 +474,16 @@
             <en><![CDATA[Form]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.startView.select">
-            <de><![CDATA[Auswahl (KI oder Formular)]]></de>
-            <en><![CDATA[Choice (AI or form)]]></en>
+            <de><![CDATA[Auswahl - KI Agent oder Formular]]></de>
+            <en><![CDATA[Choice - AI agent or form]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.startView.ai">
-            <de><![CDATA[Direkt Alternative Ansicht (KI)]]></de>
-            <en><![CDATA[Alternative view directly (AI)]]></en>
-        </locale>
-        <locale name="brick.control.ctaAction.setting.aiControl">
-            <de><![CDATA[Alternative Ansicht: Control-Modulpfad <br><small>CTA Kontaktformular</small>]]></de>
-            <en><![CDATA[Alternative view: control module path <br><small>CTA contact form</small>]]></en>
-        </locale>
-        <locale name="brick.control.ctaAction.setting.aiControl.desc">
-            <de><![CDATA[Optionaler Modulpfad eines Controls, das als alternative Ansicht (z. B. KI-Agent) geladen wird. Leer lassen, um keine Alternative anzubieten. Beispiel: package/pcsg/sales-agent/bin/js/frontend/controls/SalesAgent]]></de>
-            <en><![CDATA[Optional module path of a control loaded as an alternative view (e.g. an AI agent). Leave empty to offer no alternative. Example: package/pcsg/sales-agent/bin/js/frontend/controls/SalesAgent]]></en>
+            <de><![CDATA[KI Agent]]></de>
+            <en><![CDATA[AI agent]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.aiSidebar">
-            <de><![CDATA[Alternative Ansicht: Sidebar anzeigen <br><small>CTA Kontaktformular</small>]]></de>
-            <en><![CDATA[Alternative view: show sidebar <br><small>CTA contact form</small>]]></en>
+            <de><![CDATA[KI-Agent-Ansicht: Sidebar anzeigen <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[AI agent view: show sidebar <br><small>CTA contact form</small>]]></en>
         </locale>
         <locale name="brick.control.ctaAction.setting.aiSidebar.hide">
             <de><![CDATA[Nein (empfohlen)]]></de>

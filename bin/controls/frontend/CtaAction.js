@@ -296,9 +296,9 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
         },
 
         /**
-         * Lazily inject the configured alternative view control (e.g. an AI
+         * Lazily inject the configured AI agent view control (e.g. an AI
          * chat agent) into the ai view. The control module path and its
-         * options come from the neutral aiControl / aiControlOptions options.
+         * options come from the aiControl / aiControlOptions options.
          *
          * The mount guard lives on the host element (DOM) so a doubly imported
          * control cannot inject the ai control twice into the same host.

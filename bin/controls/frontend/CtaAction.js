@@ -340,11 +340,31 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaAction', [
             require([path], (Control) => {
                 new Control(options).inject(host);
                 this.Loader.hide();
+                this.$notifyAiMounted(host);
             }, () => {
                 host.removeAttribute('data-ai-mounted');
                 this.$aiMounted = false;
                 this.Loader.hide();
+                this.$notifyAiMounted(host);
             });
+        },
+
+        /**
+         * Signal that the ai control finished mounting (or failed) via a
+         * bubbling DOM event on the ai host.
+         *
+         * The ajax render carries data-qui, so QUI.parse may create a second
+         * CtaAction instance; the ai control is mounted by whichever instance
+         * wins the DOM guard, not necessarily the one a caller (e.g.
+         * CtaActionWindow) holds a reference to. A DOM event reaches listeners
+         * regardless of which instance did the mount.
+         *
+         * @param {HTMLElement} host - the ai host element
+         */
+        $notifyAiMounted: function (host) {
+            host.dispatchEvent(new CustomEvent('quiqqer-contact-ctaAction-aiMounted', {
+                bubbles: true
+            }));
         },
 
         send: function () {

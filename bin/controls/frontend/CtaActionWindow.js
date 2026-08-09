@@ -86,13 +86,23 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
         $onOpen: function () {
             this.getContent().classList.add('qui-contact-controls-ctaActionWindow');
             this.getContent().innerHTML = '';
-            this.getContent().innerHTML = this.$getSkeletonHtml(this.getAttribute('formDesign'));
+            this.getContent().innerHTML = this.$getSkeletonHtml();
 
             let SkeletonLoader = this.getContent().querySelector('[data-name="skeletonLoader"]');
             let ControlContainer =  document.createElement('div');
             ControlContainer.classList.add('qui-contact-controls-ctaActionWindow__controlContainer');
             ControlContainer.style.opacity = '0';
             this.getContent().appendChild(ControlContainer);
+
+            const aiControlPath = this.getAttribute('aiControl');
+
+            // Prefetch the ai control in parallel to the CtaAction control and
+            // its ajax render. On a slow line the (larger) ai module loads while
+            // the layout is still loading, so it can mount right away instead of
+            // adding another wait after the layout is ready.
+            if (aiControlPath) {
+                require([aiControlPath], function () {}, function () {});
+            }
 
             // Prevent flashing of the SkeletonLoader
             // If the CtaAction control is quickly loaded,
@@ -104,14 +114,46 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
                 }
             }, 250);
 
+            const revealControl = () => {
+                ControlContainer.style.opacity = '1';
+
+                if (SkeletonLoader && SkeletonLoader.isConnected) {
+                    SkeletonLoader.remove();
+                }
+            };
+
+            // The ai view fills its host asynchronously and, because the ajax
+            // render carries data-qui, the ai control is mounted by whichever
+            // (possibly re-parsed) CtaAction instance wins the DOM guard - not
+            // necessarily this.$ctaAction. So the mount is signalled by a
+            // bubbling DOM event instead of an instance event; the skeleton then
+            // hands over to the ai control's own skeleton without a gap.
+            this.getContent().addEventListener(
+                'quiqqer-contact-ctaAction-aiMounted',
+                revealControl
+            );
+
             require(['package/quiqqer/contact/bin/controls/frontend/CtaAction'], (CtaAction) => {
                 this.$ctaAction = new CtaAction(this.getAttributes());
 
                 this.getCtaAction().addEvents({
                     onLoad: () => {
                         this.fireEvent('load', [this, this.getCtaAction()]);
-                        ControlContainer.style.opacity = '1';
-                        SkeletonLoader.remove();
+
+                        // Reveal now unless we still wait for an ai control to
+                        // mount into an (as yet empty) ai host. Read the actually
+                        // rendered view so a server-side downgrade (ai -> form)
+                        // cannot leave the skeleton hanging.
+                        const layout = ControlContainer.querySelector('[data-name="layout"]');
+                        const aiHost = ControlContainer.querySelector('[data-name="aiHost"]');
+                        const aiPending = layout
+                            && layout.getAttribute('data-active-view') === 'ai'
+                            && aiHost
+                            && aiHost.children.length === 0;
+
+                        if (!aiPending) {
+                            revealControl();
+                        }
                     },
                     onSendBegin: () => {
                         this.Loader.show();
@@ -144,89 +186,164 @@ define('package/quiqqer/contact/bin/controls/frontend/CtaActionWindow', [
         },
 
         /**
+         * Get the skeleton HTML for the configured start view.
          *
-         * Get the skeleton HTML. The form design corresponds to the forwarded attribute.
+         * The skeleton mirrors the layout the real control will show, so a slow
+         * load does not flash a different structure than the final view. The
+         * sidebar only appears when the target view actually shows it: form
+         * always, ai only with aiSidebar, select never. This matches the
+         * [data-active-view] rules in the control's Control.css.
          *
          * @return {string} The skeleton HTML.
-         *
-         * @param formDesign
          */
-        $getSkeletonHtml: function(formDesign) {
+        $getSkeletonHtml: function () {
+            const startView = this.getAttribute('startView');
+            const showSidebar = startView === 'form'
+                || (startView === 'ai' && this.$isAiSidebar());
+
+            let rightContent;
+
+            if (startView === 'select') {
+                rightContent = this.$getSelectSkeletonHtml();
+            } else if (startView === 'ai') {
+                rightContent = this.$getAiSkeletonHtml();
+            } else {
+                rightContent = this.$getFormSkeletonHtml(this.getAttribute('formDesign'));
+            }
+
             return `
-<div class="qui-contact-controls-ctaActionWindow__skeletonLoader" data-name="skeletonLoader" style="opacity: 0;">
+<div class="qui-contact-controls-ctaActionWindow__skeletonLoader" data-name="skeletonLoader" style="opacity: 0;" aria-hidden="true">
     <div class="quiqqer-contact-ctaAction">
-        <aside class="quiqqer-contact-ctaAction__leftContent">
-        <div class="default-content">
-            <span class="skeleton-loader skeleton-loader-header" style="width: 60%;"></span>
-            <span class="skeleton-loader skeleton-loader-text" style="width: 100%;"></span>
-            <span class="skeleton-loader skeleton-loader-text" style="width: 90%;"></span>
-            <span class="skeleton-loader skeleton-loader-text" style="width: 100%;"></span>
-            <span class="skeleton-loader skeleton-loader-text" style="width: 80%;"></span>
-        </div>
-        </aside>
+        ${showSidebar ? this.$getSidebarSkeletonHtml() : ''}
         <section class="quiqqer-contact-ctaAction__rightContent">
-            <span class="skeleton-loader skeleton-loader-header" style="width: 40%;"></span>
-            <span class="skeleton-loader skeleton-loader-text" style="width: 90%;"></span>
-            <span class="skeleton-loader skeleton-loader-text" style="width: 50%; margin-bottom: 2rem;"></span>
-            
-            <form class="quiqqer-contact-ctaAction__form form form--${formDesign} quiqqer-contact-ctaAction__form--dummy-content">
-                <div class="form-field form-field--name">
-                    <div class="form-label">
-                        <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 4rem;"></span>
-                    </div>
-                    <div class="form-control">
-                        <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg"></div>
-                    </div>
-                </div>
-                <div class="form-field form-field--company">
-                    <div class="form-label">
-                        <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 5rem;"></span>
-                    </div>
-                    <div class="form-control">
-                        <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg"></div>
-                    </div>
-                </div>
-                <div class="form-field form-field--email">
-                    <div class="form-label">
-                        <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 3rem;"></span>
-                    </div>
-                    <div class="form-control">
-                        <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg"></div>
-                    </div>
-                </div>
-                <div class="form-field form-field--phone">
-                    <div class="form-label">
-                        <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 6rem;"></span>
-                    </div>
-                    <div class="form-control">
-                        <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg"></div>
-                    </div>
-                </div>
-                <div class="form-field form-field--message">
-                    <div class="form-label">
-                        <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 8rem;"></span>
-                    </div>
-                    <div class="form-control">
-                        <div class="skeleton-loader skeleton-loader-text" style="height: 7rem;"></div>
-                    </div>
-                </div>
-                <div class="form-field form-field--privacy">
-                    <label class="check">
-                        <div style="display: flex; gap: 1ch; margin-bottom: 0.5em;">
-                            <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 1.5rem;"></div>
-                            <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm"></div>
-                        </div>
-                        <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm"></div>                    
-                    </label>
-                </div>
-                <div class="form-actions">
-                    <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg" style="width: min(15rem, 100%);"></span>
-                </div>
-            </form>
+            ${rightContent}
         </section>
     </div>
 </div>
             `;
+        },
+
+        /**
+         * @return {boolean} whether the ai view shows the sidebar
+         */
+        $isAiSidebar: function () {
+            const value = this.getAttribute('aiSidebar');
+
+            return value === true || value === 1 || value === '1';
+        },
+
+        /**
+         * @return {string} sidebar (left content) skeleton
+         */
+        $getSidebarSkeletonHtml: function () {
+            return `
+<aside class="quiqqer-contact-ctaAction__leftContent">
+    <div class="default-content">
+        <span class="skeleton-loader skeleton-loader-header" style="width: 60%;"></span>
+        <span class="skeleton-loader skeleton-loader-text" style="width: 100%;"></span>
+        <span class="skeleton-loader skeleton-loader-text" style="width: 90%;"></span>
+        <span class="skeleton-loader skeleton-loader-text" style="width: 100%;"></span>
+        <span class="skeleton-loader skeleton-loader-text" style="width: 80%;"></span>
+    </div>
+</aside>`;
+        },
+
+        /**
+         * @param {string} formDesign - default, grid, labelLeft
+         * @return {string} form view skeleton (inner right content)
+         */
+        $getFormSkeletonHtml: function (formDesign) {
+            return `
+<span class="skeleton-loader skeleton-loader-header" style="width: 40%;"></span>
+<span class="skeleton-loader skeleton-loader-text" style="width: 90%;"></span>
+<span class="skeleton-loader skeleton-loader-text" style="width: 50%; margin-bottom: 2rem;"></span>
+
+<form class="quiqqer-contact-ctaAction__form form form--${formDesign} quiqqer-contact-ctaAction__form--dummy-content">
+    <div class="form-field form-field--name">
+        <div class="form-label">
+            <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 4rem;"></span>
+        </div>
+        <div class="form-control">
+            <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg"></div>
+        </div>
+    </div>
+    <div class="form-field form-field--company">
+        <div class="form-label">
+            <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 5rem;"></span>
+        </div>
+        <div class="form-control">
+            <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg"></div>
+        </div>
+    </div>
+    <div class="form-field form-field--email">
+        <div class="form-label">
+            <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 3rem;"></span>
+        </div>
+        <div class="form-control">
+            <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg"></div>
+        </div>
+    </div>
+    <div class="form-field form-field--phone">
+        <div class="form-label">
+            <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 6rem;"></span>
+        </div>
+        <div class="form-control">
+            <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg"></div>
+        </div>
+    </div>
+    <div class="form-field form-field--message">
+        <div class="form-label">
+            <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 8rem;"></span>
+        </div>
+        <div class="form-control">
+            <div class="skeleton-loader skeleton-loader-text" style="height: 7rem;"></div>
+        </div>
+    </div>
+    <div class="form-field form-field--privacy">
+        <label class="check">
+            <div style="display: flex; gap: 1ch; margin-bottom: 0.5em;">
+                <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm" style="width: 1.5rem;"></div>
+                <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm"></div>
+            </div>
+            <div class="skeleton-loader skeleton-loader-text skeleton-loader-text--sm"></div>
+        </label>
+    </div>
+    <div class="form-actions">
+        <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg" style="width: min(15rem, 100%);"></span>
+    </div>
+</form>`;
+        },
+
+        /**
+         * @return {string} select view skeleton (inner right content):
+         *     centered heading, teaser lines and two choice buttons
+         */
+        $getSelectSkeletonHtml: function () {
+            return `
+<div class="quiqqer-contact-ctaAction__skeleton-select">
+    <span class="skeleton-loader skeleton-loader-header" style="width: 60%;"></span>
+    <span class="skeleton-loader skeleton-loader-text" style="width: 85%;"></span>
+    <span class="skeleton-loader skeleton-loader-text" style="width: 70%;"></span>
+    <div class="quiqqer-contact-ctaAction__skeleton-choices">
+        <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg"></span>
+        <span class="skeleton-loader skeleton-loader-text skeleton-loader-text--lg"></span>
+    </div>
+</div>`;
+        },
+
+        /**
+         * @return {string} ai view loader (inner right content): a neutral,
+         *     centered spinner. The ai view is filled by a pluggable ai control
+         *     (see Control.php AI_AGENT_VIEW_JS_CONTROL) that ships its own
+         *     skeleton once mounted, so this deliberately does not mimic any
+         *     specific control's layout; it only bridges the load until the ai
+         *     control takes over (see the aiMounted handover in $onOpen).
+         */
+        $getAiSkeletonHtml: function () {
+            return `
+<div class="quiqqer-contact-ctaAction__skeleton-ai">
+    <span class="quiqqer-contact-ctaAction__skeleton-ai-spinner fa fa-circle-o-notch fa-spin" aria-hidden="true"></span>
+</div>`;
         }
     });
 });

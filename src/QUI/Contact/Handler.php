@@ -75,7 +75,8 @@ class Handler
         }
 
         foreach ($addresses as $addressData) {
-            $Mail->addRecipient($addressData['email'], $addressData['name']);
+            $name = $addressData['name'];
+            $Mail->addRecipient($addressData['email'], is_string($name) ? $name : false);
         }
 
         foreach ($Form->getElements() as $FormElement) {

@@ -24,6 +24,38 @@
                     </option>
                 </setting>
 
+                <!--
+                    The "Auswahl" and "KI Agent" options are only usable when the
+                    AI agent view is available. The data-qui control removes them
+                    in the editor when it is not.
+
+                    @todo TEMPORARY SOLUTION: availability is currently tied to
+                          the hardcoded pcsg/sales-agent integration (see the PHP
+                          Control and CtaActionStartView.js).
+                -->
+                <setting name="startView" type="select"
+                         data-qui="package/quiqqer/contact/bin/controls/backend/CtaActionStartView">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.startView"/>
+                    <option value="form">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.startView.form"/>
+                    </option>
+                    <option value="select">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.startView.select"/>
+                    </option>
+                    <option value="ai">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.startView.ai"/>
+                    </option>
+                </setting>
+                <setting name="aiSidebar" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.aiSidebar"/>
+                    <option value="0">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.aiSidebar.hide"/>
+                    </option>
+                    <option value="1">
+                        <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.aiSidebar.show"/>
+                    </option>
+                </setting>
+
                 <setting name="recipient" type="text">
                     <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.recipient"/>
                 </setting>

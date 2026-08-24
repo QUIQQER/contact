@@ -1,112 +1,178 @@
-<aside data-name="left" class="quiqqer-contact-ctaAction__leftContent">
-    {if $logo}
-    <div class="logo" aria-hidden="true">
-        {image image=$logo height=50 class="logo-img"}
-    </div>
-    {/if}
+<div data-name="layout"
+     class="quiqqer-contact-ctaAction__layout"
+     data-active-view="{$startView}"
+     data-ai-sidebar="{if $aiSidebar}1{else}0{/if}"
+     data-ai-control="{$aiControl}"
+     {if $aiControlOptions}data-ai-control-options='{$aiControlOptions|escape:'html'}'{/if}>
 
-    <div class="default-content">
-        {$content}
-    </div>
-
-    {if $hasButtons}
-        <div data-name="buttons" class="btn-container quiqqer-contact-ctaAction-buttons quiqqer-contact-ctaAction-buttons--{$btnStyle}">
-            {foreach from=$buttons item=button}
-                {$button->create()}
-            {/foreach}
+    <aside data-name="left" class="quiqqer-contact-ctaAction__leftContent">
+        {if $logo}
+        <div class="logo" aria-hidden="true">
+            {image image=$logo height=50 class="logo-img"}
         </div>
-    {/if}
-</aside>
+        {/if}
 
-<section data-name="right" class="quiqqer-contact-ctaAction__rightContent">
-    {if $title}
-        <h3>{$title}</h3>
-    {/if}
+        <div class="default-content">
+            {$content}
+        </div>
 
-    {if $description}
-        <p class="sub">{$description}</p>
-    {/if}
-
-    <form action="#" method="post" class="quiqqer-contact-ctaAction__form form form--{$formDesign}">
-
-        <div class="form-field form-field--name">
-            <label class="form-label" for="name">
-                {$nameLabel}
-            </label>
-            <div class="form-control">
-                <input type="text"
-                       name="name"
-                       id="name"
-                       placeholder="{$namePlaceholder}"
-                       autocomplete="name"
-                       required
-                />
+        {if $hasButtons}
+            <div data-name="buttons" class="btn-container quiqqer-contact-ctaAction-buttons quiqqer-contact-ctaAction-buttons--{$btnStyle}">
+                {foreach from=$buttons item=button}
+                    {$button->create()}
+                {/foreach}
             </div>
-        </div>
-        <div class="form-field form-field--company">
-            <label class="form-label" for="company">
-                {$companyLabel}
-            </label>
-            <div class="form-control">
-                <input type="text"
-                       name="company"
-                       id="company"
-                       placeholder="{$companyPlaceholder}"
-                       autocomplete="name"
-                />
+        {/if}
+    </aside>
+
+    <section data-name="right" class="quiqqer-contact-ctaAction__rightContent">
+        <div data-name="views" class="quiqqer-contact-ctaAction__views">
+
+            {* Auswahl-Ansicht *}
+            <div data-view="select" class="quiqqer-contact-ctaAction__view quiqqer-contact-ctaAction__view--select">
+                {if $selectTrust}
+                    <p class="quiqqer-contact-ctaAction__trust">
+                        <span class="quiqqer-contact-ctaAction__trust-icon fa fa-check-circle" aria-hidden="true"></span>
+                        <span>{$selectTrust|escape:'html'}</span>
+                    </p>
+                {/if}
+
+                {if $title}
+                    <h3 style="margin-top: 0;">{$title}</h3>
+                {/if}
+
+                {if $description}
+                    <p class="sub">{$description}</p>
+                {/if}
+
+                <div data-name="viewChoices"
+                     class="quiqqer-contact-ctaAction__choices"
+                     role="group"
+                     aria-label="{$title}">
+                    {if $hasAiControl}
+                        <button type="button"
+                                data-name="viewChoice"
+                                data-view-target="ai"
+                                class="btn btn-primary btn-lg quiqqer-contact-ctaAction__choice quiqqer-contact-ctaAction__choice--ai">
+                            <span class="btn__icon fa fa-magic" aria-hidden="true"></span>
+                            <span class="btn__text">{$aiChoiceLabel|escape:'html'}</span>
+                        </button>
+                    {/if}
+                    <button type="button"
+                            data-name="viewChoice"
+                            data-view-target="form"
+                            class="btn {if $hasAiControl}btn-primary-outline{else}btn-primary{/if} btn-lg quiqqer-contact-ctaAction__choice">
+                        <span class="btn__icon fa fa-pencil-square-o" aria-hidden="true"></span>
+                        <span class="btn__text">{$formChoiceLabel|escape:'html'}</span>
+                    </button>
+                </div>
+
+                {if $selectPrivacyHint}
+                    <p class="quiqqer-contact-ctaAction__privacyHint">
+                        <span class="fa fa-lock" aria-hidden="true"></span>
+                        <span>{$selectPrivacyHint|escape:'html'}</span>
+                    </p>
+                {/if}
             </div>
-        </div>
 
-        <div class="form-field form-field--email">
-            <label class="form-label" for="email">
-                {$emailLabel}
-            </label>
-            <div class="form-control">
-                <input type="email"
-                       name="email"
-                       id="email"
-                       placeholder="{$emailPlaceholder}"
-                       autocomplete="name"
-                       required
-                />
+            {* Formular-Ansicht *}
+            <div data-view="form" class="quiqqer-contact-ctaAction__view quiqqer-contact-ctaAction__view--form">
+                {if $title}
+                    <h3>{$title}</h3>
+                {/if}
+
+                {if $description}
+                    <p class="sub">{$description}</p>
+                {/if}
+
+                <form action="#" method="post" class="quiqqer-contact-ctaAction__form form form--{$formDesign}">
+
+                    <div class="form-field form-field--name">
+                        <label class="form-label" for="name">
+                            {$nameLabel}
+                        </label>
+                        <div class="form-control">
+                            <input type="text"
+                                   name="name"
+                                   id="name"
+                                   placeholder="{$namePlaceholder}"
+                                   autocomplete="name"
+                                   required
+                            />
+                        </div>
+                    </div>
+                    <div class="form-field form-field--company">
+                        <label class="form-label" for="company">
+                            {$companyLabel}
+                        </label>
+                        <div class="form-control">
+                            <input type="text"
+                                   name="company"
+                                   id="company"
+                                   placeholder="{$companyPlaceholder}"
+                                   autocomplete="name"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-field form-field--email">
+                        <label class="form-label" for="email">
+                            {$emailLabel}
+                        </label>
+                        <div class="form-control">
+                            <input type="email"
+                                   name="email"
+                                   id="email"
+                                   placeholder="{$emailPlaceholder}"
+                                   autocomplete="name"
+                                   required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-field form-field--phone">
+                        <label class="form-label" for="phone">
+                            {$phoneLabel}
+                        </label>
+                        <div class="form-control">
+                            <input type="tel"
+                                   name="phone"
+                                   id="phone"
+                                   placeholder="{$phonePlaceholder}"
+                                   autocomplete="tel"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-field form-field--message">
+                        <label class="form-label" for="message">
+                            {$messageLabel}
+                        </label>
+                        <div class="form-control">
+                            <textarea name="message" id="message" placeholder="{$messagePlaceholder}" required class="quiqqer-contact-ctaAction__textarea"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-field form-field--privacy">
+                        <label data-name="privacy" class="check">
+                            <input type="checkbox" name="privacy" id="privacy" required/>
+                            <span>{$privacyText}</span>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-primary" type="submit">
+                            {$submitLabel}
+                        </button>
+                    </div>
+
+                </form>
             </div>
-        </div>
 
-        <div class="form-field form-field--phone">
-            <label class="form-label" for="phone">
-                {$phoneLabel}
-            </label>
-            <div class="form-control">
-                <input type="tel"
-                       name="phone"
-                       id="phone"
-                       placeholder="{$phonePlaceholder}"
-                       autocomplete="tel"
-                />
-            </div>
+            {* KI-Ansicht (wird per JS mit dem aiControl befüllt) *}
+            <div data-view="ai"
+                 data-name="aiHost"
+                 class="quiqqer-contact-ctaAction__view quiqqer-contact-ctaAction__view--ai"></div>
         </div>
-
-        <div class="form-field form-field--message">
-            <label class="form-label" for="message">
-                {$messageLabel}
-            </label>
-            <div class="form-control">
-                <textarea name="message" id="message" placeholder="{$messagePlaceholder}" required class="quiqqer-contact-ctaAction__textarea"></textarea>
-            </div>
-        </div>
-
-        <div class="form-field form-field--privacy">
-            <label data-name="privacy" class="check">
-                <input type="checkbox" name="privacy" id="privacy" required/>
-                <span>{$privacyText}</span>
-            </label>
-        </div>
-
-        <div class="form-actions">
-            <button class="btn btn-primary" type="submit">
-                {$submitLabel}
-            </button>
-        </div>
-
-    </form>
-</section>
+    </section>
+</div>

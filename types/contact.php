@@ -15,6 +15,8 @@ use QUI\Contact\Blacklist;
 use QUI\FormBuilder\Fields\EMail as FormBuilderEmailType;
 use QUI\Contact\ContactException;
 
+$Template->getJsonLd()->set('type', 'ContactPage');
+
 $formData = json_decode($Site->getAttribute('quiqqer.contact.settings.form'), true);
 
 if (!is_array($formData)) {

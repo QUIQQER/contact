@@ -22,6 +22,24 @@ class Control extends QUI\Control
     protected array $customButtons = [];
 
     /**
+     * Temporary hardcoded integration of the AI agent view.
+     *
+     * @todo TEMPORARY SOLUTION. The AI agent view (currently the
+     *       pcsg/sales-agent chat agent) is detected by hardcoding the package
+     *       name, its PHP class and its frontend control module path below.
+     *       As soon as a general provider/registry for AI agent views exists,
+     *       replace this with a lookup over that module instead of hardcoding
+     *       pcsg/sales-agent here.
+     *       https://dev.quiqqer.com/pcsg/sales-agent/-/work_items/1
+     */
+    private const AI_AGENT_VIEW_PACKAGE = 'pcsg/sales-agent';
+
+    private const AI_AGENT_VIEW_CLASS = 'PCSG\SalesAgentControl';
+
+    private const AI_AGENT_VIEW_JS_CONTROL =
+        'package/pcsg/sales-agent/bin/js/frontend/controls/SalesAgent';
+
+    /**
      * @param array<string, mixed> $attributes
      */
     public function __construct(array $attributes = [])
@@ -43,6 +61,12 @@ class Control extends QUI\Control
             'message_label' => '',
             'message_placeholder' => '',
             'submit_label' => '',
+
+            // views
+            'startView' => 'form', // form, select, ai
+            'aiControl' => '',
+            'aiControlOptions' => '',
+            'aiSidebar' => false, // show the branding sidebar in the ai view
 
             // buttons
             'btnStyle' => 'iconRounded', // iconRounded, icon, button
@@ -104,6 +128,30 @@ class Control extends QUI\Control
             'grid', 'labelLeft' => $this->getAttribute('formDesign'),
             default => 'default'
         };
+
+        // views: form (default), select, ai
+        //
+        // @todo TEMPORARY SOLUTION: the AI agent view is currently detected by
+        //       hardcoding the pcsg/sales-agent package (see
+        //       self::AI_AGENT_VIEW_PACKAGE). The editor setting for a manual
+        //       control module path was removed; the control is resolved here
+        //       automatically. Replace this with a general AI-agent-view
+        //       provider lookup later.
+        $aiControl = self::getAiAgentViewControl();
+        $hasAiControl = $aiControl !== '';
+        $aiControlOptions = $this->sanitizeAiControlOptions((string)$this->getAttribute('aiControlOptions'));
+
+        // "select" (choice between AI agent and form) only makes sense when the
+        // AI agent view is available, otherwise fall back to the form.
+        $startView = match ($this->getAttribute('startView')) {
+            'select' => $hasAiControl ? 'select' : 'form',
+            'ai' => $hasAiControl ? 'ai' : 'form',
+            default => 'form'
+        };
+
+        $aiSidebar = $this->getAttribute('aiSidebar') === true
+            || $this->getAttribute('aiSidebar') === 1
+            || $this->getAttribute('aiSidebar') === '1';
 
         $Engine = QUI::getTemplateManager()->getEngine();
 
@@ -344,7 +392,16 @@ class Control extends QUI\Control
             'formDesign' => $formDesign,
             'btnStyle' => $btnStyle,
             'hasButtons' => !empty($buttons),
-            'buttons' => $buttons
+            'buttons' => $buttons,
+            'startView' => $startView,
+            'aiControl' => $aiControl,
+            'aiControlOptions' => $aiControlOptions,
+            'aiSidebar' => $aiSidebar,
+            'hasAiControl' => $hasAiControl,
+            'aiChoiceLabel' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.choice.ai'),
+            'formChoiceLabel' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.choice.form'),
+            'selectTrust' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.select.trust'),
+            'selectPrivacyHint' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.select.privacyHint')
         ]);
 
         return $Engine->fetch(dirname(__FILE__) . '/Control.html');
@@ -1153,6 +1210,66 @@ class Control extends QUI\Control
     }
 
     /**
+     * Whether the AI agent view is available.
+     *
+     * @todo TEMPORARY SOLUTION: hardcoded to pcsg/sales-agent, see
+     *       self::AI_AGENT_VIEW_PACKAGE. Replace with a general
+     *       AI-agent-view provider lookup later.
+     */
+    public static function isAiAgentViewAvailable(): bool
+    {
+        try {
+            if (!QUI::getPackageManager()->isInstalled(self::AI_AGENT_VIEW_PACKAGE)) {
+                return false;
+            }
+        } catch (QUI\Exception) {
+            return false;
+        }
+
+        return class_exists(self::AI_AGENT_VIEW_CLASS);
+    }
+
+    /**
+     * Frontend control module path of the AI agent view, or an empty string
+     * when the AI agent view is not available.
+     *
+     * @todo TEMPORARY SOLUTION: hardcoded to pcsg/sales-agent, see
+     *       self::AI_AGENT_VIEW_PACKAGE. Replace with a general
+     *       AI-agent-view provider lookup later.
+     */
+    public static function getAiAgentViewControl(): string
+    {
+        if (!self::isAiAgentViewAvailable()) {
+            return '';
+        }
+
+        return self::AI_AGENT_VIEW_JS_CONTROL;
+    }
+
+    /**
+     * Sanitize the opaque options object that is forwarded to the AI agent view control.
+     * Must be a JSON object; returns a normalized JSON string or an empty string.
+     */
+    private function sanitizeAiControlOptions(string $json): string
+    {
+        $json = trim($json);
+
+        if ($json === '') {
+            return '';
+        }
+
+        $decoded = json_decode($json, true);
+
+        if (!is_array($decoded)) {
+            return '';
+        }
+
+        $encoded = json_encode($decoded, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+
+        return $encoded === false ? '' : $encoded;
+    }
+
+    /**
      * Retrieves the list of allowed attributes for the current context.
      *
      * @return array<string> An array of strings representing the allowed attribute keys.
@@ -1177,6 +1294,10 @@ class Control extends QUI\Control
             'message_placeholder',
             'submit_label',
             'success_message',
+            'startView',
+            'aiControl',
+            'aiControlOptions',
+            'aiSidebar',
             'whatsapp',
             'whatsappLabel',
             'phone',

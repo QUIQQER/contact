@@ -22,7 +22,7 @@
   },
   "require": {
     "php": "^8.2",
-    "quiqqer/core": "^2.24",
+    "quiqqer/core": "^2.30",
     "quiqqer/formbuilder": "^2",
     "quiqqer/components": "^1",
     "quiqqer/bricks": "^2"

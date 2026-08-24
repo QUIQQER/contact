@@ -8,6 +8,22 @@
             <locale group="quiqqer/contact" var="package.description"/>
         </description>
 
+        <capabilities schemaVersion="1">
+            <capability id="communication.contact-forms">
+                <title>Contact forms</title>
+                <description>
+                    Creates configurable contact forms with e-mail delivery, submitter confirmations, protected request storage and administration exports, and spam filtering.
+                </description>
+            </capability>
+
+            <capability id="communication.contact-call-to-actions">
+                <title>Contact call-to-actions</title>
+                <description>
+                    Provides configurable contact call-to-action controls and bricks with an inquiry form and direct phone, e-mail, WhatsApp, or custom actions.
+                </description>
+            </capability>
+        </capabilities>
+
         <image src="URL_OPT_DIR/quiqqer/contact/bin/images/Logo.jpg"/>
 
         <preview>

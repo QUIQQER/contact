@@ -317,6 +317,22 @@
             <de><![CDATA[Ein paar Infos reichen – wir klären den Rest im Gespräch.]]></de>
             <en><![CDATA[Some information is enough – we clarify the rest in conversation.]]></en>
         </locale>
+        <locale name="contact.ctaAction.choice.ai">
+            <de><![CDATA[Von unserer KI beraten lassen]]></de>
+            <en><![CDATA[Get advice from our AI]]></en>
+        </locale>
+        <locale name="contact.ctaAction.choice.form">
+            <de><![CDATA[Formular ausfüllen]]></de>
+            <en><![CDATA[Fill out the form]]></en>
+        </locale>
+        <locale name="contact.ctaAction.select.trust">
+            <de><![CDATA[Antwort meist am selben Tag]]></de>
+            <en><![CDATA[Usually answered the same day]]></en>
+        </locale>
+        <locale name="contact.ctaAction.select.privacyHint">
+            <de><![CDATA[Deine Angaben werden vertraulich behandelt.]]></de>
+            <en><![CDATA[Your details are treated confidentially.]]></en>
+        </locale>
         <locale name="contact.ctaAction.default_name_label">
             <de><![CDATA[Name]]></de>
             <en><![CDATA[Name]]></en>
@@ -447,6 +463,35 @@
         <locale name="brick.control.ctaAction.setting.formDesign.labelLeft">
             <de><![CDATA[Labels links]]></de>
             <en><![CDATA[Labels left]]></en>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.startView">
+            <de><![CDATA[Ansicht beim Öffnen <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[View on open <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.startView.form">
+            <de><![CDATA[Formular]]></de>
+            <en><![CDATA[Form]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.startView.select">
+            <de><![CDATA[Auswahl - KI Agent oder Formular]]></de>
+            <en><![CDATA[Choice - AI agent or form]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.startView.ai">
+            <de><![CDATA[KI Agent]]></de>
+            <en><![CDATA[AI agent]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.aiSidebar">
+            <de><![CDATA[KI-Agent-Ansicht: Sidebar anzeigen <br><small>CTA Kontaktformular</small>]]></de>
+            <en><![CDATA[AI agent view: show sidebar <br><small>CTA contact form</small>]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.aiSidebar.hide">
+            <de><![CDATA[Nein (empfohlen)]]></de>
+            <en><![CDATA[No (recommended)]]></en>
+        </locale>
+        <locale name="brick.control.ctaAction.setting.aiSidebar.show">
+            <de><![CDATA[Ja]]></de>
+            <en><![CDATA[Yes]]></en>
         </locale>
 
         <locale name="brick.control.ctaAction.frontend.btn.email.title">

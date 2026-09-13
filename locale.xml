@@ -1828,7 +1828,6 @@
             <pl><![CDATA[Dane bloku CTA]]></pl>
         </locale>
 
-
         <locale name="brick.control.ctaAction.mail.brick.brickId">
             <de><![CDATA[ID]]></de>
             <en><![CDATA[ID]]></en>
@@ -1937,6 +1936,1609 @@
             <fr><![CDATA[L’e-mail n’a pas pu être envoyé.]]></fr>
             <it><![CDATA[Non è stato possibile inviare l’email.]]></it>
             <pl><![CDATA[Nie udało się wysłać wiadomości e-mail.]]></pl>
+        </locale>
+
+        <locale name="brick.control.ctaAction.setting.description">
+            <de><![CDATA[Zeigt ein Kontaktformular oder eine Auswahl an Kontaktmöglichkeiten und eigenen Aktionen. Optional lassen sich weitere Informationen und Buttons in einer Seitenleiste sowie ein KI-Chat über einen Agenten-Baustein einbinden.]]></de>
+            <en><![CDATA[Displays a contact form or a selection of contact options and custom actions. Optionally add further information and buttons in a sidebar, as well as an AI chat via an agent brick.]]></en>
+            <es><![CDATA[Muestra un formulario de contacto o una selección de opciones de contacto y acciones personalizadas. Opcionalmente, permite añadir información y botones en una barra lateral, así como un chat de IA mediante un bloque de agente.]]></es>
+            <pt><![CDATA[Apresenta um formulário de contacto ou uma seleção de opções de contacto e ações personalizadas. Opcionalmente, permite adicionar informações e botões numa barra lateral, bem como um chat de IA através de um bloco de agente.]]></pt>
+            <fr><![CDATA[Affiche un formulaire de contact ou une sélection de moyens de contact et d’actions personnalisées. Des informations et des boutons peuvent être ajoutés dans une barre latérale, ainsi qu’un chat IA via un bloc d’agent.]]></fr>
+            <it><![CDATA[Mostra un modulo di contatto o una selezione di opzioni di contatto e azioni personalizzate. È possibile aggiungere informazioni e pulsanti in una barra laterale, oltre a una chat IA tramite un blocco agente.]]></it>
+            <pl><![CDATA[Wyświetla formularz kontaktowy lub wybór sposobów kontaktu i własnych działań. Opcjonalnie można dodać informacje i przyciski w panelu bocznym oraz czat AI za pomocą bloku agenta.]]></pl>
+        </locale>
+
+        <!-- ContactHub -->
+        <locale name="contact.contactHub.send.success" html="true">
+            <de><![CDATA[<strong>Vielen Dank für Ihre Nachricht</strong> <p>Wir werden uns so schnell wie möglich bei Ihnen melden.</p>]]></de>
+            <en><![CDATA[<strong>Thank you for your message</strong> <p>We will get back to you as soon as possible.</p>]]></en>
+            <es><![CDATA[<strong>Gracias por su mensaje</strong> <p>Nos pondremos en contacto con usted lo antes posible.</p>]]></es>
+            <pt><![CDATA[<strong>Obrigado pela sua mensagem</strong> <p>Entraremos em contacto consigo o mais rapidamente possível.</p>]]></pt>
+            <fr><![CDATA[<strong>Merci pour votre message</strong> <p>Nous vous recontacterons dans les meilleurs délais.</p>]]></fr>
+            <it><![CDATA[<strong>Grazie per il tuo messaggio</strong> <p>Ti ricontatteremo il prima possibile.</p>]]></it>
+            <pl><![CDATA[<strong>Dziękujemy za wiadomość</strong> <p>Skontaktujemy się z Tobą tak szybko, jak to możliwe.</p>]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_title">
+            <de><![CDATA[Kontakt aufnehmen]]></de>
+            <en><![CDATA[Contact us]]></en>
+            <es><![CDATA[Contacte con nosotros]]></es>
+            <pt><![CDATA[Contacte-nos]]></pt>
+            <fr><![CDATA[Contactez-nous]]></fr>
+            <it><![CDATA[Contattaci]]></it>
+            <pl><![CDATA[Skontaktuj się z nami]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_header">
+            <de><![CDATA[]]></de>
+            <en><![CDATA[]]></en>
+            <es><![CDATA[]]></es>
+            <pt><![CDATA[]]></pt>
+            <fr><![CDATA[]]></fr>
+            <it><![CDATA[]]></it>
+            <pl><![CDATA[]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_description">
+            <de><![CDATA[Ein paar Infos reichen – wir klären den Rest im Gespräch.]]></de>
+            <en><![CDATA[A few details are all we need — we can discuss the rest together.]]></en>
+            <es><![CDATA[Cuéntenos brevemente qué necesita; hablaremos del resto.]]></es>
+            <pt><![CDATA[Diga-nos brevemente o que precisa; tratamos do resto em conversa.]]></pt>
+            <fr><![CDATA[Quelques informations suffisent ; nous préciserons le reste ensemble.]]></fr>
+            <it><![CDATA[Bastano poche informazioni: chiariremo il resto insieme.]]></it>
+            <pl><![CDATA[Podaj kilka informacji — resztę ustalimy w rozmowie.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formEnabled">
+            <de><![CDATA[Kontaktformular anbieten <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Offer contact form <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Ofrecer formulario de contacto <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Disponibilizar formulário de contacto <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Proposer un formulaire de contact <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Offri un modulo di contatto <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Udostępnij formularz kontaktowy <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formEnabled.desc">
+            <de><![CDATA[Gilt für den gesamten Baustein. Ausgeschaltet wird weder das eingebaute Formular noch sein Einstiegsbutton angezeigt. Eigene Links zu Kontaktseiten bleiben möglich.]]></de>
+            <en><![CDATA[Applies to the entire brick. When disabled, neither the built-in form nor its entry button is shown. Custom links to contact pages remain available.]]></en>
+            <es><![CDATA[Se aplica a todo el bloque. Si se desactiva, se ocultan tanto el formulario integrado como el botón que lo abre. Se pueden seguir usando enlaces personalizados a páginas de contacto.]]></es>
+            <pt><![CDATA[Aplica-se a todo o bloco. Se estiver desativado, o formulário integrado e o botão que o abre ficam ocultos. Continuam a ser possíveis ligações personalizadas para páginas de contacto.]]></pt>
+            <fr><![CDATA[S’applique à l’ensemble du bloc. Lorsque cette option est désactivée, le formulaire intégré et son bouton d’ouverture sont masqués. Les liens personnalisés vers des pages de contact restent possibles.]]></fr>
+            <it><![CDATA[Si applica all’intero blocco. Se disattivato, nasconde sia il modulo integrato sia il pulsante che lo apre. Restano disponibili i link personalizzati alle pagine di contatto.]]></it>
+            <pl><![CDATA[Dotyczy całego bloku. Po wyłączeniu wbudowany formularz i przycisk otwierający go są ukryte. Nadal można używać własnych linków do stron kontaktowych.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formSidebar">
+            <de><![CDATA[Sidebar im Formular anzeigen <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Show sidebar in the form <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Mostrar barra lateral en el formulario <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Mostrar barra lateral no formulário <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Afficher la barre latérale du formulaire <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Mostra la barra laterale nel modulo <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Pokaż panel boczny w formularzu <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formSidebarAi">
+            <de><![CDATA[KI-Beratung in der Formular-Sidebar anzeigen <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Show AI advice in the form sidebar <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Mostrar asesoramiento con IA en la barra lateral del formulario <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Mostrar aconselhamento com IA na barra lateral do formulário <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Afficher le conseil par IA dans la barre latérale du formulaire <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Mostra la consulenza IA nella barra laterale del modulo <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Pokaż doradztwo AI w panelu bocznym formularza <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formSidebarAi.desc">
+            <de><![CDATA[Wechselt im selben Baustein zum hinterlegten Agenten. Nur bei eingeschalteter Formular-Sidebar und verfügbarem Agenten.]]></de>
+            <en><![CDATA[Switches to the configured agent in the same brick. Requires an enabled form sidebar and an available agent.]]></en>
+            <es><![CDATA[Abre el agente configurado dentro del mismo bloque. Requiere que la barra lateral del formulario esté activada y que el agente esté disponible.]]></es>
+            <pt><![CDATA[Abre o agente configurado no mesmo bloco. Requer que a barra lateral do formulário esteja ativada e que o agente esteja disponível.]]></pt>
+            <fr><![CDATA[Ouvre l’agent configuré dans le même bloc. La barre latérale du formulaire doit être activée et l’agent disponible.]]></fr>
+            <it><![CDATA[Apre l’agente configurato nello stesso blocco. Richiede che la barra laterale del modulo sia attiva e che l’agente sia disponibile.]]></it>
+            <pl><![CDATA[Otwiera skonfigurowanego agenta w tym samym bloku. Wymaga włączonego panelu bocznego formularza i dostępnego agenta.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.contactDisplay">
+            <de><![CDATA[Darstellung: E-Mail, WhatsApp und Telefon <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Display: email, WhatsApp and phone <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Visualización: correo electrónico, WhatsApp y teléfono <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Apresentação: e-mail, WhatsApp e telefone <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Affichage : e-mail, WhatsApp et téléphone <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Visualizzazione: email, WhatsApp e telefono <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Wyświetlanie: e-mail, WhatsApp i telefon <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.contactDisplay.desc">
+            <de><![CDATA[Gemeinsame Icon-/Textdarstellung der festen Kontaktwege, unabhängig von der Button-Form.]]></de>
+            <en><![CDATA[Shared icon/text display for built-in contact methods, independent of button design.]]></en>
+            <es><![CDATA[Define cómo se muestran los iconos y el texto de los medios de contacto integrados, independientemente de la forma de los botones.]]></es>
+            <pt><![CDATA[Define a apresentação de ícones e texto dos meios de contacto integrados, independentemente da forma dos botões.]]></pt>
+            <fr><![CDATA[Définit l’affichage des icônes et du texte pour les moyens de contact intégrés, indépendamment de la forme des boutons.]]></fr>
+            <it><![CDATA[Definisce la visualizzazione di icone e testo per i canali di contatto integrati, indipendentemente dalla forma dei pulsanti.]]></it>
+            <pl><![CDATA[Określa sposób wyświetlania ikon i tekstu dla wbudowanych metod kontaktu, niezależnie od kształtu przycisków.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.btnStyle.rounded">
+            <de><![CDATA[Abgerundet]]></de>
+            <en><![CDATA[Rounded]]></en>
+            <es><![CDATA[Redondeado]]></es>
+            <pt><![CDATA[Arredondado]]></pt>
+            <fr><![CDATA[Arrondi]]></fr>
+            <it><![CDATA[Arrotondato]]></it>
+            <pl><![CDATA[Zaokrąglony]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.display.icon-text">
+            <de><![CDATA[Icon + Text]]></de>
+            <en><![CDATA[Icon + text]]></en>
+            <es><![CDATA[Icono + texto]]></es>
+            <pt><![CDATA[Ícone + texto]]></pt>
+            <fr><![CDATA[Icône + texte]]></fr>
+            <it><![CDATA[Icona + testo]]></it>
+            <pl><![CDATA[Ikona + tekst]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.display.text">
+            <de><![CDATA[Nur Text]]></de>
+            <en><![CDATA[Text only]]></en>
+            <es><![CDATA[Solo texto]]></es>
+            <pt><![CDATA[Apenas texto]]></pt>
+            <fr><![CDATA[Texte seul]]></fr>
+            <it><![CDATA[Solo testo]]></it>
+            <pl><![CDATA[Tylko tekst]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.display.icon">
+            <de><![CDATA[Nur Icon]]></de>
+            <en><![CDATA[Icon only]]></en>
+            <es><![CDATA[Solo icono]]></es>
+            <pt><![CDATA[Apenas ícone]]></pt>
+            <fr><![CDATA[Icône seule]]></fr>
+            <it><![CDATA[Solo icona]]></it>
+            <pl><![CDATA[Tylko ikona]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.section.start">
+            <de><![CDATA[Startansicht]]></de>
+            <en><![CDATA[Start view]]></en>
+            <es><![CDATA[Vista inicial]]></es>
+            <pt><![CDATA[Vista inicial]]></pt>
+            <fr><![CDATA[Vue initiale]]></fr>
+            <it><![CDATA[Vista iniziale]]></it>
+            <pl><![CDATA[Widok początkowy]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.section.offers">
+            <de><![CDATA[Formular & KI-Agent]]></de>
+            <en><![CDATA[Form & AI agent]]></en>
+            <es><![CDATA[Formulario y agente de IA]]></es>
+            <pt><![CDATA[Formulário e agente de IA]]></pt>
+            <fr><![CDATA[Formulaire et agent IA]]></fr>
+            <it><![CDATA[Modulo e agente IA]]></it>
+            <pl><![CDATA[Formularz i agent AI]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.section.appearance">
+            <de><![CDATA[Darstellung]]></de>
+            <en><![CDATA[Appearance]]></en>
+            <es><![CDATA[Apariencia]]></es>
+            <pt><![CDATA[Aspeto]]></pt>
+            <fr><![CDATA[Apparence]]></fr>
+            <it><![CDATA[Aspetto]]></it>
+            <pl><![CDATA[Wygląd]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.section.buttons">
+            <de><![CDATA[Kontakt-Buttons]]></de>
+            <en><![CDATA[Contact buttons]]></en>
+            <es><![CDATA[Botones de contacto]]></es>
+            <pt><![CDATA[Botões de contacto]]></pt>
+            <fr><![CDATA[Boutons de contact]]></fr>
+            <it><![CDATA[Pulsanti di contatto]]></it>
+            <pl><![CDATA[Przyciski kontaktu]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.channels.email">
+            <de><![CDATA[E-Mail]]></de>
+            <en><![CDATA[Email]]></en>
+            <es><![CDATA[Correo electrónico]]></es>
+            <pt><![CDATA[E-mail]]></pt>
+            <fr><![CDATA[E-mail]]></fr>
+            <it><![CDATA[Email]]></it>
+            <pl><![CDATA[E-mail]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.channels.whatsapp">
+            <de><![CDATA[WhatsApp]]></de>
+            <en><![CDATA[WhatsApp]]></en>
+            <es><![CDATA[WhatsApp]]></es>
+            <pt><![CDATA[WhatsApp]]></pt>
+            <fr><![CDATA[WhatsApp]]></fr>
+            <it><![CDATA[WhatsApp]]></it>
+            <pl><![CDATA[WhatsApp]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.channels.phone">
+            <de><![CDATA[Telefon]]></de>
+            <en><![CDATA[Phone]]></en>
+            <es><![CDATA[Teléfono]]></es>
+            <pt><![CDATA[Telefone]]></pt>
+            <fr><![CDATA[Téléphone]]></fr>
+            <it><![CDATA[Telefono]]></it>
+            <pl><![CDATA[Telefon]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.channels.active">
+            <de><![CDATA[aktiv]]></de>
+            <en><![CDATA[active]]></en>
+            <es><![CDATA[activo]]></es>
+            <pt><![CDATA[ativo]]></pt>
+            <fr><![CDATA[actif]]></fr>
+            <it><![CDATA[attivo]]></it>
+            <pl><![CDATA[aktywny]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.channels.text">
+            <de><![CDATA[Angezeigter Text]]></de>
+            <en><![CDATA[Displayed text]]></en>
+            <es><![CDATA[Texto mostrado]]></es>
+            <pt><![CDATA[Texto exibido]]></pt>
+            <fr><![CDATA[Texte affiché]]></fr>
+            <it><![CDATA[Testo visualizzato]]></it>
+            <pl><![CDATA[Wyświetlany tekst]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.channels.email.value">
+            <de><![CDATA[E-Mail-Adresse]]></de>
+            <en><![CDATA[Email address]]></en>
+            <es><![CDATA[Dirección de correo]]></es>
+            <pt><![CDATA[Endereço de e-mail]]></pt>
+            <fr><![CDATA[Adresse e-mail]]></fr>
+            <it><![CDATA[Indirizzo email]]></it>
+            <pl><![CDATA[Adres e-mail]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.channels.whatsapp.value">
+            <de><![CDATA[WhatsApp-Nummer]]></de>
+            <en><![CDATA[WhatsApp number]]></en>
+            <es><![CDATA[Número de WhatsApp]]></es>
+            <pt><![CDATA[Número de WhatsApp]]></pt>
+            <fr><![CDATA[Numéro WhatsApp]]></fr>
+            <it><![CDATA[Numero WhatsApp]]></it>
+            <pl><![CDATA[Numer WhatsApp]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.channels.phone.value">
+            <de><![CDATA[Telefonnummer]]></de>
+            <en><![CDATA[Phone number]]></en>
+            <es><![CDATA[Número de teléfono]]></es>
+            <pt><![CDATA[Número de telefone]]></pt>
+            <fr><![CDATA[Numéro de téléphone]]></fr>
+            <it><![CDATA[Numero di telefono]]></it>
+            <pl><![CDATA[Numer telefonu]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.group">
+            <de><![CDATA[Zuordnung]]></de>
+            <en><![CDATA[Group]]></en>
+            <es><![CDATA[Grupo]]></es>
+            <pt><![CDATA[Grupo]]></pt>
+            <fr><![CDATA[Groupe]]></fr>
+            <it><![CDATA[Gruppo]]></it>
+            <pl><![CDATA[Grupa]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.group.primary">
+            <de><![CDATA[Hauptaktion]]></de>
+            <en><![CDATA[Primary action]]></en>
+            <es><![CDATA[Acción principal]]></es>
+            <pt><![CDATA[Ação principal]]></pt>
+            <fr><![CDATA[Action principale]]></fr>
+            <it><![CDATA[Azione principale]]></it>
+            <pl><![CDATA[Działanie główne]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.group.secondary">
+            <de><![CDATA[Weiterer Kontaktweg]]></de>
+            <en><![CDATA[Additional contact method]]></en>
+            <es><![CDATA[Medio de contacto adicional]]></es>
+            <pt><![CDATA[Meio de contacto adicional]]></pt>
+            <fr><![CDATA[Autre moyen de contact]]></fr>
+            <it><![CDATA[Canale di contatto aggiuntivo]]></it>
+            <pl><![CDATA[Dodatkowa metoda kontaktu]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.display">
+            <de><![CDATA[Darstellung]]></de>
+            <en><![CDATA[Display]]></en>
+            <es><![CDATA[Visualización]]></es>
+            <pt><![CDATA[Apresentação]]></pt>
+            <fr><![CDATA[Affichage]]></fr>
+            <it><![CDATA[Visualizzazione]]></it>
+            <pl><![CDATA[Wyświetlanie]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.noActions">
+            <de><![CDATA[Keine nutzbaren Kontaktaktionen konfiguriert. Aktiviere das Formular, wähle einen verfügbaren KI-Agenten oder ergänze einen Kontaktweg.]]></de>
+            <en><![CDATA[No usable contact actions configured. Enable the form, select an available AI agent or add a contact method.]]></en>
+            <es><![CDATA[No hay opciones de contacto disponibles configuradas. Active el formulario, seleccione un agente de IA disponible o añada un medio de contacto.]]></es>
+            <pt><![CDATA[Não existem opções de contacto utilizáveis configuradas. Ative o formulário, selecione um agente de IA disponível ou adicione um meio de contacto.]]></pt>
+            <fr><![CDATA[Aucune option de contact utilisable n’est configurée. Activez le formulaire, sélectionnez un agent IA disponible ou ajoutez un moyen de contact.]]></fr>
+            <it><![CDATA[Non sono configurate opzioni di contatto utilizzabili. Attiva il modulo, seleziona un agente IA disponibile o aggiungi un canale di contatto.]]></it>
+            <pl><![CDATA[Nie skonfigurowano żadnej dostępnej opcji kontaktu. Włącz formularz, wybierz dostępnego agenta AI lub dodaj metodę kontaktu.]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.aiError">
+            <de><![CDATA[Die KI-Beratung konnte nicht geladen werden. Bitte wähle einen anderen Kontaktweg.]]></de>
+            <en><![CDATA[AI advice could not be loaded. Please choose another contact method.]]></en>
+            <es><![CDATA[No se ha podido cargar el asesoramiento con IA. Elija otro medio de contacto.]]></es>
+            <pt><![CDATA[Não foi possível carregar o aconselhamento com IA. Escolha outro meio de contacto.]]></pt>
+            <fr><![CDATA[Le conseil par IA n’a pas pu être chargé. Choisissez un autre moyen de contact.]]></fr>
+            <it><![CDATA[Non è stato possibile caricare la consulenza IA. Scegli un altro canale di contatto.]]></it>
+            <pl><![CDATA[Nie udało się załadować doradztwa AI. Wybierz inną metodę kontaktu.]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.overview">
+            <de><![CDATA[Zur Kontaktübersicht]]></de>
+            <en><![CDATA[Back to contact overview]]></en>
+            <es><![CDATA[Volver a las opciones de contacto]]></es>
+            <pt><![CDATA[Voltar às opções de contacto]]></pt>
+            <fr><![CDATA[Revenir aux options de contact]]></fr>
+            <it><![CDATA[Torna alle opzioni di contatto]]></it>
+            <pl><![CDATA[Wróć do opcji kontaktu]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.formDisabled">
+            <de><![CDATA[Das Kontaktformular ist deaktiviert.]]></de>
+            <en><![CDATA[The contact form is disabled.]]></en>
+            <es><![CDATA[El formulario de contacto está desactivado.]]></es>
+            <pt><![CDATA[O formulário de contacto está desativado.]]></pt>
+            <fr><![CDATA[Le formulaire de contact est désactivé.]]></fr>
+            <it><![CDATA[Il modulo di contatto è disattivato.]]></it>
+            <pl><![CDATA[Formularz kontaktowy jest wyłączony.]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.choice.ai">
+            <de><![CDATA[KI-Beratung]]></de>
+            <en><![CDATA[AI advice]]></en>
+            <es><![CDATA[Asesoramiento con IA]]></es>
+            <pt><![CDATA[Aconselhamento com IA]]></pt>
+            <fr><![CDATA[Conseil par IA]]></fr>
+            <it><![CDATA[Consulenza IA]]></it>
+            <pl><![CDATA[Doradztwo AI]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.choice.form">
+            <de><![CDATA[Formular ausfüllen]]></de>
+            <en><![CDATA[Fill out the form]]></en>
+            <es><![CDATA[Rellenar el formulario]]></es>
+            <pt><![CDATA[Preencher o formulário]]></pt>
+            <fr><![CDATA[Remplir le formulaire]]></fr>
+            <it><![CDATA[Compila il modulo]]></it>
+            <pl><![CDATA[Wypełnij formularz]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.select.trust">
+            <de><![CDATA[Antwort meist am selben Tag]]></de>
+            <en><![CDATA[Usually answered the same day]]></en>
+            <es><![CDATA[Solemos responder el mismo día]]></es>
+            <pt><![CDATA[Normalmente respondemos no próprio dia]]></pt>
+            <fr><![CDATA[Réponse généralement le jour même]]></fr>
+            <it><![CDATA[Di solito rispondiamo in giornata]]></it>
+            <pl><![CDATA[Zwykle odpowiadamy tego samego dnia]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.select.privacyHint">
+            <de><![CDATA[Deine Angaben werden vertraulich behandelt.]]></de>
+            <en><![CDATA[Your details are treated confidentially.]]></en>
+            <es><![CDATA[Sus datos se tratarán de forma confidencial.]]></es>
+            <pt><![CDATA[Os seus dados serão tratados de forma confidencial.]]></pt>
+            <fr><![CDATA[Vos informations seront traitées de manière confidentielle.]]></fr>
+            <it><![CDATA[I tuoi dati saranno trattati in modo riservato.]]></it>
+            <pl><![CDATA[Twoje dane będą traktowane poufnie.]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_name_label">
+            <de><![CDATA[Name]]></de>
+            <en><![CDATA[Name]]></en>
+            <es><![CDATA[Nombre]]></es>
+            <pt><![CDATA[Nome]]></pt>
+            <fr><![CDATA[Nom]]></fr>
+            <it><![CDATA[Nome]]></it>
+            <pl><![CDATA[Imię i nazwisko]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_name_placeholder">
+            <de><![CDATA[Vor- und Nachname]]></de>
+            <en><![CDATA[First and Last name]]></en>
+            <es><![CDATA[Nombre y apellidos]]></es>
+            <pt><![CDATA[Nome e apelido]]></pt>
+            <fr><![CDATA[Prénom et nom]]></fr>
+            <it><![CDATA[Nome e cognome]]></it>
+            <pl><![CDATA[Imię i nazwisko]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_company_label">
+            <de><![CDATA[Unternehmen (optional)]]></de>
+            <en><![CDATA[Company (optional)]]></en>
+            <es><![CDATA[Empresa (opcional)]]></es>
+            <pt><![CDATA[Empresa (opcional)]]></pt>
+            <fr><![CDATA[Entreprise (facultatif)]]></fr>
+            <it><![CDATA[Azienda (facoltativo)]]></it>
+            <pl><![CDATA[Firma (opcjonalnie)]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_company_placeholder">
+            <de><![CDATA[Firma / Organisation]]></de>
+            <en><![CDATA[Company / Organization]]></en>
+            <es><![CDATA[Empresa / Organización]]></es>
+            <pt><![CDATA[Empresa / Organização]]></pt>
+            <fr><![CDATA[Entreprise / Organisation]]></fr>
+            <it><![CDATA[Azienda / Organizzazione]]></it>
+            <pl><![CDATA[Firma / Organizacja]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_email_label">
+            <de><![CDATA[E-Mail]]></de>
+            <en><![CDATA[Email]]></en>
+            <es><![CDATA[Correo electrónico]]></es>
+            <pt><![CDATA[E-mail]]></pt>
+            <fr><![CDATA[E-mail]]></fr>
+            <it><![CDATA[Email]]></it>
+            <pl><![CDATA[E-mail]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_email_placeholder">
+            <de><![CDATA[name@firma.de]]></de>
+            <en><![CDATA[name@organization.com]]></en>
+            <es><![CDATA[nombre@empresa.es]]></es>
+            <pt><![CDATA[nome@empresa.pt]]></pt>
+            <fr><![CDATA[nom@entreprise.fr]]></fr>
+            <it><![CDATA[nome@azienda.it]]></it>
+            <pl><![CDATA[imie@firma.pl]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_phone_label">
+            <de><![CDATA[Telefon]]></de>
+            <en><![CDATA[Phone]]></en>
+            <es><![CDATA[Teléfono]]></es>
+            <pt><![CDATA[Telefone]]></pt>
+            <fr><![CDATA[Téléphone]]></fr>
+            <it><![CDATA[Telefono]]></it>
+            <pl><![CDATA[Telefon]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_phone_placeholder">
+            <de><![CDATA[+49 123 456789]]></de>
+            <en><![CDATA[+1 123 456789]]></en>
+            <es><![CDATA[+34 612 345 678]]></es>
+            <pt><![CDATA[+351 912 345 678]]></pt>
+            <fr><![CDATA[+33 6 12 34 56 78]]></fr>
+            <it><![CDATA[+39 312 345 6789]]></it>
+            <pl><![CDATA[+48 123 456 789]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_message_label">
+            <de><![CDATA[Nachricht]]></de>
+            <en><![CDATA[Message]]></en>
+            <es><![CDATA[Mensaje]]></es>
+            <pt><![CDATA[Mensagem]]></pt>
+            <fr><![CDATA[Message]]></fr>
+            <it><![CDATA[Messaggio]]></it>
+            <pl><![CDATA[Wiadomość]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_message_placeholder">
+            <de><![CDATA[Kurzbeschreibung, Ziele, ggf. Links...]]></de>
+            <en><![CDATA[Short description, goals, maybe links...]]></en>
+            <es><![CDATA[Breve descripción, objetivos y enlaces si procede…]]></es>
+            <pt><![CDATA[Breve descrição, objetivos e ligações relevantes…]]></pt>
+            <fr><![CDATA[Brève description, objectifs, liens utiles…]]></fr>
+            <it><![CDATA[Breve descrizione, obiettivi ed eventuali link…]]></it>
+            <pl><![CDATA[Krótki opis, cele, ewentualne linki…]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_content" html="true">
+            <de><![CDATA[
+            <h2>Unverbindlich anfragen</h2>
+            <p class="lead">
+                Sag uns kurz, was du vorhast – wir melden uns zeitnah mit einer klaren Einschätzung
+                (Budget, Aufwand, nächste Schritte).
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Antwort in 24–48h</strong><br>
+                    <span>In der Regel schneller – je nach Projektlage.</span>
+                </li>
+                <li>
+                    <strong>Direkt zum Punkt</strong><br>
+                    <span>Keine Werbefloskeln, sondern konkrete Optionen.</span>
+                </li>
+                <li>
+                    <strong>Alles aus einer Hand</strong><br>
+                    <span>Website, Shop, Webapp – inkl. Wartung &amp; Weiterentwicklung.</span>
+                </li>
+            </ul>
+            ]]></de>
+            <en><![CDATA[
+            <h2>Make a non-binding inquiry</h2>
+            <p class="lead">
+                Tell us briefly what you have in mind – we will get back to you promptly with a clear assessment
+                (budget, effort, next steps).
+            </p>
+
+            <ul>
+                <li>
+                    <strong>Answer within 24–48h</strong><br>
+                    <span>In general faster – depending on project situation.</span>
+                </li>
+                <li>
+                    <strong>Direct to the point</strong><br>
+                    <span>No sales pitches, just concrete options.</span>
+                </li>
+                <li>
+                    <strong>One-stop solution</strong><br>
+                    <span>Website, Shop, Webapp – including maintenance &amp; further development.</span>
+                </li>
+            </ul>
+            ]]></en>
+            <es><![CDATA[<h2>Consúltenos sin compromiso</h2>
+<p class="lead">Cuéntenos brevemente qué tiene en mente. Le responderemos pronto con una valoración clara del presupuesto, el trabajo necesario y los próximos pasos.</p>
+<ul>
+<li><strong>Respuesta en 24–48 h</strong><br><span>Normalmente antes, según la carga de proyectos.</span></li>
+<li><strong>Vamos al grano</strong><br><span>Opciones concretas, sin discursos comerciales.</span></li>
+<li><strong>Todo con un único equipo</strong><br><span>Sitios web, tiendas y aplicaciones web, con mantenimiento y mejoras continuas.</span></li>
+</ul>]]></es>
+            <pt><![CDATA[<h2>Contacte-nos sem compromisso</h2>
+<p class="lead">Diga-nos brevemente o que tem em mente. Responderemos em breve com uma avaliação clara do orçamento, do trabalho necessário e dos próximos passos.</p>
+<ul>
+<li><strong>Resposta em 24–48 h</strong><br><span>Geralmente mais cedo, consoante os projetos em curso.</span></li>
+<li><strong>Direto ao assunto</strong><br><span>Opções concretas, sem discursos comerciais.</span></li>
+<li><strong>Tudo com a mesma equipa</strong><br><span>Sites, lojas e aplicações web, incluindo manutenção e evolução contínua.</span></li>
+</ul>]]></pt>
+            <fr><![CDATA[<h2>Parlons de votre projet, sans engagement</h2>
+<p class="lead">Décrivez-nous brièvement votre projet. Nous vous répondrons rapidement avec une estimation claire du budget, du travail à prévoir et des prochaines étapes.</p>
+<ul>
+<li><strong>Réponse sous 24–48 h</strong><br><span>Généralement plus tôt, selon les projets en cours.</span></li>
+<li><strong>Droit au but</strong><br><span>Des options concrètes, sans discours commercial.</span></li>
+<li><strong>Un seul interlocuteur</strong><br><span>Site, boutique ou application web, avec maintenance et évolutions.</span></li>
+</ul>]]></fr>
+            <it><![CDATA[<h2>Chiedi informazioni senza impegno</h2>
+<p class="lead">Raccontaci brevemente cosa hai in mente. Ti risponderemo presto con una valutazione chiara di budget, impegno richiesto e prossimi passi.</p>
+<ul>
+<li><strong>Risposta entro 24–48 ore</strong><br><span>Di solito anche prima, in base ai progetti in corso.</span></li>
+<li><strong>Dritti al punto</strong><br><span>Opzioni concrete, senza discorsi commerciali.</span></li>
+<li><strong>Un unico team per tutto</strong><br><span>Siti, negozi e applicazioni web, con manutenzione e sviluppi futuri.</span></li>
+</ul>]]></it>
+            <pl><![CDATA[<h2>Zapytaj bez zobowiązań</h2>
+<p class="lead">Opisz krótko swój pomysł. Wkrótce wrócimy z konkretną oceną budżetu, nakładu pracy i kolejnych kroków.</p>
+<ul>
+<li><strong>Odpowiedź w ciągu 24–48 godzin</strong><br><span>Zwykle szybciej, zależnie od bieżących projektów.</span></li>
+<li><strong>Od razu do rzeczy</strong><br><span>Konkretne opcje zamiast reklamowych haseł.</span></li>
+<li><strong>Wszystko w jednym miejscu</strong><br><span>Strona, sklep, aplikacja internetowa — wraz z utrzymaniem i dalszym rozwojem.</span></li>
+</ul>]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.privacy">
+            <de><![CDATA[
+            Ich habe die [privacyLink] gelesen. Mit dem Absenden stimmst du der Verarbeitung deiner Angaben zur Bearbeitung der Anfrage zu.
+            ]]></de>
+            <en><![CDATA[
+            I have read the [privacyLink]. By submitting, you agree to the processing of your data for the processing of the request.
+            ]]></en>
+            <es><![CDATA[He leído la [privacyLink]. Al enviar el formulario, acepta que sus datos se procesen para atender su consulta.]]></es>
+            <pt><![CDATA[Li a [privacyLink]. Ao enviar o formulário, concorda com o tratamento dos seus dados para dar resposta ao seu pedido.]]></pt>
+            <fr><![CDATA[J’ai lu la [privacyLink]. En envoyant le formulaire, vous acceptez que vos données soient traitées pour répondre à votre demande.]]></fr>
+            <it><![CDATA[Ho letto l’[privacyLink]. Inviando il modulo, acconsenti al trattamento dei tuoi dati per gestire la richiesta.]]></it>
+            <pl><![CDATA[Potwierdzam zapoznanie się z dokumentem [privacyLink]. Wysyłając formularz, wyrażasz zgodę na przetwarzanie swoich danych w celu obsługi zapytania.]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.default_submit_label">
+            <de><![CDATA[Anfrage senden]]></de>
+            <en><![CDATA[Submit request]]></en>
+            <es><![CDATA[Enviar consulta]]></es>
+            <pt><![CDATA[Enviar pedido]]></pt>
+            <fr><![CDATA[Envoyer la demande]]></fr>
+            <it><![CDATA[Invia richiesta]]></it>
+            <pl><![CDATA[Wyślij zapytanie]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.title">
+            <de><![CDATA[Kontaktaufnahme]]></de>
+            <en><![CDATA[Contact hub]]></en>
+            <es><![CDATA[Centro de contacto]]></es>
+            <pt><![CDATA[Centro de contacto]]></pt>
+            <fr><![CDATA[Espace de contact]]></fr>
+            <it><![CDATA[Centro contatti]]></it>
+            <pl><![CDATA[Centrum kontaktu]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.ctaDescription">
+            <de><![CDATA[Kontakt Einleitungstext <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Contact introduction text <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Texto de introducción <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Texto de introdução <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Texte d’introduction <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Testo introduttivo <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Tekst wprowadzający <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.recipient">
+            <de><![CDATA[Empfänger für Formularanfragen <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Recipient for form submissions <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Destinatario de las consultas del formulario <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Destinatário dos pedidos do formulário <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Destinataire des demandes du formulaire <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Destinatario delle richieste del modulo <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Odbiorca zapytań z formularza <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.recipient.description">
+            <de><![CDATA[E-Mail-Adresse für eingehende Formularanfragen. Ohne Angabe wird die konfigurierte Administrator-E-Mail verwendet. Diese Einstellung ist unabhängig von der Adresse des E-Mail-Kontaktbuttons.]]></de>
+            <en><![CDATA[Email address for incoming form submissions. If empty, the configured administrator email is used. This setting is independent of the email contact button address.]]></en>
+            <es><![CDATA[Dirección de correo para las consultas enviadas mediante el formulario. Si está vacía, se utiliza el correo del administrador configurado. Esta opción es independiente de la dirección del botón de contacto por correo.]]></es>
+            <pt><![CDATA[Endereço de e-mail para os pedidos enviados pelo formulário. Se estiver vazio, é utilizado o e-mail do administrador configurado. Esta opção é independente do endereço do botão de contacto por e-mail.]]></pt>
+            <fr><![CDATA[Adresse e-mail destinée aux demandes envoyées par le formulaire. Si le champ est vide, l’adresse e-mail de l’administrateur configurée est utilisée. Ce réglage est indépendant de l’adresse du bouton de contact par e-mail.]]></fr>
+            <it><![CDATA[Indirizzo email per le richieste inviate tramite il modulo. Se vuoto, viene utilizzata l’email dell’amministratore configurata. Questa impostazione è indipendente dall’indirizzo del pulsante di contatto email.]]></it>
+            <pl><![CDATA[Adres e-mail odbierający zapytania z formularza. Jeśli pole jest puste, używany jest skonfigurowany adres e-mail administratora. To ustawienie jest niezależne od adresu przycisku kontaktu e-mail.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.logo">
+            <de><![CDATA[Logo <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Logo <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Logotipo <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Logótipo <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Logo <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Logo <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Logo <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formDesign">
+            <de><![CDATA[Formular-Layout <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Form layout <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Diseño del formulario <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Disposição do formulário <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Mise en page du formulaire <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Layout del modulo <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Układ formularza <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formDesign.default">
+            <de><![CDATA[Standard (Inputs untereinander)]]></de>
+            <en><![CDATA[Default (stacked inputs)]]></en>
+            <es><![CDATA[Predeterminado (campos uno debajo de otro)]]></es>
+            <pt><![CDATA[Predefinido (campos uns por baixo dos outros)]]></pt>
+            <fr><![CDATA[Par défaut (champs empilés)]]></fr>
+            <it><![CDATA[Predefinito (campi uno sotto l’altro)]]></it>
+            <pl><![CDATA[Domyślny (pola jedno pod drugim)]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formDesign.grid">
+            <de><![CDATA[Raster (grid)]]></de>
+            <en><![CDATA[Grid]]></en>
+            <es><![CDATA[Cuadrícula]]></es>
+            <pt><![CDATA[Grelha]]></pt>
+            <fr><![CDATA[Grille]]></fr>
+            <it><![CDATA[Griglia]]></it>
+            <pl><![CDATA[Siatka]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formDesign.labelLeft">
+            <de><![CDATA[Labels links]]></de>
+            <en><![CDATA[Labels left]]></en>
+            <es><![CDATA[Etiquetas a la izquierda]]></es>
+            <pt><![CDATA[Etiquetas à esquerda]]></pt>
+            <fr><![CDATA[Libellés à gauche]]></fr>
+            <it><![CDATA[Etichette a sinistra]]></it>
+            <pl><![CDATA[Etykiety po lewej]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.startView">
+            <de><![CDATA[Ansicht beim Öffnen <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[View on open <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Vista al abrir <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Vista ao abrir <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Vue à l’ouverture <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Vista all’apertura <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Widok po otwarciu <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.startView.form">
+            <de><![CDATA[Formular]]></de>
+            <en><![CDATA[Form]]></en>
+            <es><![CDATA[Formulario]]></es>
+            <pt><![CDATA[Formulário]]></pt>
+            <fr><![CDATA[Formulaire]]></fr>
+            <it><![CDATA[Modulo]]></it>
+            <pl><![CDATA[Formularz]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.startView.select">
+            <de><![CDATA[Kontaktübersicht]]></de>
+            <en><![CDATA[Contact overview]]></en>
+            <es><![CDATA[Opciones de contacto]]></es>
+            <pt><![CDATA[Opções de contacto]]></pt>
+            <fr><![CDATA[Options de contact]]></fr>
+            <it><![CDATA[Opzioni di contatto]]></it>
+            <pl><![CDATA[Opcje kontaktu]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.startView.ai">
+            <de><![CDATA[KI Agent]]></de>
+            <en><![CDATA[AI agent]]></en>
+            <es><![CDATA[Agente de IA]]></es>
+            <pt><![CDATA[Agente de IA]]></pt>
+            <fr><![CDATA[Agent IA]]></fr>
+            <it><![CDATA[Agente IA]]></it>
+            <pl><![CDATA[Agent AI]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiBrickId">
+            <de><![CDATA[KI-Agent-Baustein <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[AI agent brick <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Bloque del agente de IA <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Bloco do agente de IA <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Bloc de l’agent IA <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Blocco dell’agente IA <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Blok agenta AI <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiBrickId.description">
+            <de><![CDATA[Der Baustein, der in der KI-Ansicht angezeigt wird. Er bestimmt, welcher Agent antwortet – Persona, Wissen und Begrüßung werden in diesem Baustein gepflegt, nicht hier. Ohne gültigen, aktiven Agenten bleibt die Kontaktübersicht verfügbar. Eine nicht verfügbare Startansicht fällt auf die Kontaktübersicht zurück. Kontext, den ein Button mitgibt, wird an diesen Baustein weitergereicht.]]></de>
+            <en><![CDATA[The brick shown in the AI view. It decides which agent answers - persona, knowledge and greeting are configured in that brick, not here. Without a valid, active agent the contact overview remains available. An unavailable start view falls back to the contact overview. Context handed in by a button is passed on to this brick.]]></en>
+            <es><![CDATA[Bloque que se muestra en la vista de IA. Determina qué agente responde; su personalidad, conocimientos y saludo se configuran en ese bloque. Si no hay un agente válido y activo, las opciones de contacto siguen disponibles. Si la vista inicial no está disponible, se muestran las opciones de contacto. El contexto que envíe un botón se transmite a este bloque.]]></es>
+            <pt><![CDATA[Bloco apresentado na vista de IA. Determina qual o agente que responde; a personalidade, os conhecimentos e a saudação são configurados nesse bloco. Sem um agente válido e ativo, as opções de contacto continuam disponíveis. Se a vista inicial não estiver disponível, são apresentadas as opções de contacto. O contexto enviado por um botão é transmitido a este bloco.]]></pt>
+            <fr><![CDATA[Bloc affiché dans la vue IA. Il détermine l’agent qui répond ; sa personnalité, ses connaissances et son message d’accueil se configurent dans ce bloc. Sans agent valide et actif, les options de contact restent disponibles. Si la vue initiale est indisponible, les options de contact s’affichent à sa place. Le contexte fourni par un bouton est transmis à ce bloc.]]></fr>
+            <it><![CDATA[Blocco mostrato nella vista IA. Determina quale agente risponde; personalità, conoscenze e messaggio di benvenuto si configurano in quel blocco. Senza un agente valido e attivo, le opzioni di contatto restano disponibili. Se la vista iniziale non è disponibile, vengono mostrate le opzioni di contatto. Il contesto fornito da un pulsante viene trasmesso a questo blocco.]]></it>
+            <pl><![CDATA[Blok wyświetlany w widoku AI. Określa, który agent odpowiada; jego osobowość, wiedzę i powitanie konfiguruje się w tym bloku. Bez prawidłowego, aktywnego agenta opcje kontaktu pozostają dostępne. Jeśli widok początkowy jest niedostępny, zamiast niego pojawiają się opcje kontaktu. Kontekst przekazany przez przycisk trafia do tego bloku.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiContext">
+            <de><![CDATA[Kontext für den KI-Agenten <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Context for the AI agent <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Contexto para el agente de IA <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Contexto para o agente de IA <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Contexte pour l’agent IA <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Contesto per l’agente IA <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Kontekst dla agenta AI <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiContext.description">
+            <de><![CDATA[Freitext, aus dem der Agent erfährt, worum es geht – z. B. „Paket: Starter · Variante: Kaufen“. Sinnvoll, wenn dieser Baustein fest auf einer Produktseite sitzt. Gibt ein Button beim Öffnen einen eigenen Kontext mit, gewinnt dieser; das Feld hier ist der Rückfall. Liegt Kontext vor, eröffnet der Agent das Gespräch standardmäßig selbst.]]></de>
+            <en><![CDATA[Free text telling the agent what this is about, e.g. "Package: Starter - Variant: Buy". Useful when this brick sits on a fixed product page. A context handed in by a button when opening wins; this field is the fallback. With a context present the agent opens the conversation itself by default.]]></en>
+            <es><![CDATA[Texto libre que explica al agente de qué se trata, por ejemplo: "Paquete: Starter · Opción: Comprar". Resulta útil si el bloque está integrado en una página de producto concreta. Si un botón envía su propio contexto al abrir, ese contexto tiene prioridad; este campo se usa como alternativa. Cuando hay contexto, el agente inicia la conversación por defecto.]]></es>
+            <pt><![CDATA[Texto livre que indica ao agente o assunto, por exemplo: "Pacote: Starter · Opção: Comprar". É útil quando o bloco está integrado numa página de produto específica. Se um botão enviar o seu próprio contexto ao abrir, esse contexto tem prioridade; este campo é usado como alternativa. Quando existe contexto, o agente inicia a conversa por predefinição.]]></pt>
+            <fr><![CDATA[Texte libre qui précise le sujet à l’agent, par exemple : "Offre : Starter · Option : Acheter". Utile lorsque ce bloc est intégré à une page produit précise. Si un bouton fournit son propre contexte à l’ouverture, celui-ci est prioritaire ; ce champ sert de solution de repli. Lorsqu’un contexte est présent, l’agent engage la conversation par défaut.]]></fr>
+            <it><![CDATA[Testo libero che spiega all’agente l’argomento, ad esempio: "Pacchetto: Starter · Opzione: Acquista". Utile quando il blocco è integrato in una pagina prodotto specifica. Se un pulsante fornisce un proprio contesto all’apertura, quel contesto ha la precedenza; questo campo viene usato come alternativa. In presenza di un contesto, l’agente avvia la conversazione per impostazione predefinita.]]></it>
+            <pl><![CDATA[Dowolny tekst wyjaśniający agentowi temat, na przykład: "Pakiet: Starter · Wariant: Zakup". Przydatny, gdy blok jest umieszczony na konkretnej stronie produktu. Jeśli przycisk przekazuje własny kontekst przy otwieraniu, ma on pierwszeństwo; to pole jest używane w pozostałych przypadkach. Gdy kontekst jest dostępny, agent domyślnie sam rozpoczyna rozmowę.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiSidebar">
+            <de><![CDATA[KI-Agent-Ansicht: Sidebar anzeigen <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[AI agent view: show sidebar <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Vista del agente de IA: mostrar barra lateral <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Vista do agente de IA: mostrar barra lateral <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Vue de l’agent IA : afficher la barre latérale <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Vista dell’agente IA: mostra barra laterale <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Widok agenta AI: pokaż panel boczny <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiSidebar.hide">
+            <de><![CDATA[Nein (empfohlen)]]></de>
+            <en><![CDATA[No (recommended)]]></en>
+            <es><![CDATA[No (recomendado)]]></es>
+            <pt><![CDATA[Não (recomendado)]]></pt>
+            <fr><![CDATA[Non (recommandé)]]></fr>
+            <it><![CDATA[No (consigliato)]]></it>
+            <pl><![CDATA[Nie (zalecane)]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiSidebar.show">
+            <de><![CDATA[Ja]]></de>
+            <en><![CDATA[Yes]]></en>
+            <es><![CDATA[Sí]]></es>
+            <pt><![CDATA[Sim]]></pt>
+            <fr><![CDATA[Oui]]></fr>
+            <it><![CDATA[Sì]]></it>
+            <pl><![CDATA[Tak]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.frontend.btn.email.title">
+            <de><![CDATA[Kontaktieren Sie uns per Mail]]></de>
+            <en><![CDATA[Contact us by email]]></en>
+            <es><![CDATA[Escríbanos por correo electrónico]]></es>
+            <pt><![CDATA[Contacte-nos por e-mail]]></pt>
+            <fr><![CDATA[Contactez-nous par e-mail]]></fr>
+            <it><![CDATA[Contattaci via email]]></it>
+            <pl><![CDATA[Napisz do nas e-mail]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.frontend.btn.whatsapp.title">
+            <de><![CDATA[Schreiben Sie uns per WhatsApp]]></de>
+            <en><![CDATA[Message us on WhatsApp]]></en>
+            <es><![CDATA[Escríbanos por WhatsApp]]></es>
+            <pt><![CDATA[Envie-nos uma mensagem pelo WhatsApp]]></pt>
+            <fr><![CDATA[Écrivez-nous sur WhatsApp]]></fr>
+            <it><![CDATA[Scrivici su WhatsApp]]></it>
+            <pl><![CDATA[Napisz do nas na WhatsApp]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.frontend.btn.phone.title">
+            <de><![CDATA[Rufen Sie uns an]]></de>
+            <en><![CDATA[Give us a call]]></en>
+            <es><![CDATA[Llámenos]]></es>
+            <pt><![CDATA[Ligue-nos]]></pt>
+            <fr><![CDATA[Appelez-nous]]></fr>
+            <it><![CDATA[Chiamaci]]></it>
+            <pl><![CDATA[Zadzwoń do nas]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.secondaryActionsLabel">
+            <de><![CDATA[Beschriftung der weiteren Kontaktwege <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Additional contact methods label <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Etiqueta de los medios de contacto adicionales <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Etiqueta dos meios de contacto adicionais <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Libellé des autres moyens de contact <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Etichetta dei canali di contatto aggiuntivi <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Etykieta dodatkowych metod kontaktu <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.secondaryActionsLabel.desc">
+            <de><![CDATA[Nur in der Ansicht „Kontaktübersicht“ sichtbar. Optionaler dezenter Text zwischen Hauptaktionen und weiteren Kontaktwegen, z. B. „Weitere Kontaktmöglichkeiten“. Leer oder ohne weitere Kontaktwege wird nichts angezeigt.]]></de>
+            <en><![CDATA[Only visible in the "Contact overview" view. Optional muted text between primary actions and additional contact methods. Hidden when empty or no additional contact methods are available.]]></en>
+            <es><![CDATA[Solo se muestra en la vista "Opciones de contacto". Texto discreto opcional entre las acciones principales y los medios de contacto adicionales, por ejemplo: "Otras formas de contacto". No se muestra si está vacío o no hay medios de contacto adicionales.]]></es>
+            <pt><![CDATA[Visível apenas na vista "Opções de contacto". Texto discreto opcional entre as ações principais e os meios de contacto adicionais, por exemplo: "Outras formas de contacto". Não é apresentado se estiver vazio ou se não existirem meios de contacto adicionais.]]></pt>
+            <fr><![CDATA[Visible uniquement dans la vue "Options de contact". Texte discret facultatif entre les actions principales et les autres moyens de contact, par exemple : "Autres moyens de nous contacter". Masqué si le champ est vide ou si aucun autre moyen de contact n’est disponible.]]></fr>
+            <it><![CDATA[Visibile solo nella vista "Opzioni di contatto". Testo discreto facoltativo tra le azioni principali e i canali di contatto aggiuntivi, ad esempio: "Altri modi per contattarci". Non viene mostrato se il campo è vuoto o non sono disponibili altri canali di contatto.]]></it>
+            <pl><![CDATA[Widoczny tylko w widoku "Opcje kontaktu". Opcjonalny, dyskretny tekst między działaniami głównymi a dodatkowymi metodami kontaktu, na przykład: "Inne sposoby kontaktu". Jest ukryty, gdy pole jest puste lub nie ma dodatkowych metod kontaktu.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiButtonText">
+            <de><![CDATA[KI-Button: Beschriftung <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[AI button: label <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Botón de IA: etiqueta <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Botão de IA: etiqueta <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Bouton IA : libellé <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Pulsante IA: etichetta <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Przycisk AI: etykieta <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiButtonText.desc">
+            <de><![CDATA[Leer verwendet „KI-Beratung“. Gilt auch für den KI-Button in der Formular-Sidebar.]]></de>
+            <en><![CDATA[Leave empty to use “AI advice”. Also applies to the AI button in the form sidebar.]]></en>
+            <es><![CDATA[Déjelo vacío para usar "Asesoramiento con IA". También se aplica al botón de IA de la barra lateral del formulario.]]></es>
+            <pt><![CDATA[Deixe vazio para usar "Aconselhamento com IA". Também se aplica ao botão de IA na barra lateral do formulário.]]></pt>
+            <fr><![CDATA[Laissez vide pour utiliser "Conseil par IA". S’applique aussi au bouton IA de la barre latérale du formulaire.]]></fr>
+            <it><![CDATA[Lascia vuoto per usare "Consulenza IA". Si applica anche al pulsante IA nella barra laterale del modulo.]]></it>
+            <pl><![CDATA[Pozostaw puste, aby użyć tekstu "Doradztwo AI". Dotyczy również przycisku AI w panelu bocznym formularza.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiButtonIcon">
+            <de><![CDATA[KI-Button: Icon <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[AI button: icon <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Botón de IA: icono <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Botão de IA: ícone <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Bouton IA : icône <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Pulsante IA: icona <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Przycisk AI: ikona <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiButtonIcon.desc">
+            <de><![CDATA[Optionales Icon neben der Beschriftung. Leer zeigt nur Text.]]></de>
+            <en><![CDATA[Optional icon next to the label. Leave empty for text only.]]></en>
+            <es><![CDATA[Icono opcional junto a la etiqueta. Déjelo vacío para mostrar solo texto.]]></es>
+            <pt><![CDATA[Ícone opcional junto à etiqueta. Deixe vazio para mostrar apenas texto.]]></pt>
+            <fr><![CDATA[Icône facultative à côté du libellé. Laissez vide pour afficher uniquement le texte.]]></fr>
+            <it><![CDATA[Icona facoltativa accanto all’etichetta. Lascia vuoto per mostrare solo il testo.]]></it>
+            <pl><![CDATA[Opcjonalna ikona obok etykiety. Pozostaw puste, aby wyświetlać tylko tekst.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formButtonText">
+            <de><![CDATA[Formular-Button: Beschriftung <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Form button: label <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Botón del formulario: etiqueta <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Botão do formulário: etiqueta <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Bouton du formulaire : libellé <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Pulsante del modulo: etichetta <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Przycisk formularza: etykieta <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formButtonText.desc">
+            <de><![CDATA[Leer verwendet „Formular ausfüllen“. Betrifft den Einstieg ins Formular, nicht den Absende-Button.]]></de>
+            <en><![CDATA[Leave empty to use “Fill out the form”. Applies to the form entry button, not the submit button.]]></en>
+            <es><![CDATA[Déjelo vacío para usar "Rellenar el formulario". Se aplica al botón que abre el formulario, no al botón de envío.]]></es>
+            <pt><![CDATA[Deixe vazio para usar "Preencher o formulário". Aplica-se ao botão que abre o formulário, não ao botão de envio.]]></pt>
+            <fr><![CDATA[Laissez vide pour utiliser "Remplir le formulaire". Concerne le bouton d’ouverture du formulaire, pas le bouton d’envoi.]]></fr>
+            <it><![CDATA[Lascia vuoto per usare "Compila il modulo". Si applica al pulsante che apre il modulo, non al pulsante di invio.]]></it>
+            <pl><![CDATA[Pozostaw puste, aby użyć tekstu "Wypełnij formularz". Dotyczy przycisku otwierającego formularz, a nie przycisku wysyłania.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formButtonIcon">
+            <de><![CDATA[Formular-Button: Icon <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Form button: icon <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Botón del formulario: icono <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Botão do formulário: ícone <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Bouton du formulaire : icône <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Pulsante del modulo: icona <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Przycisk formularza: ikona <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formButtonIcon.desc">
+            <de><![CDATA[Optionales Icon neben der Beschriftung. Leer zeigt nur Text.]]></de>
+            <en><![CDATA[Optional icon next to the label. Leave empty for text only.]]></en>
+            <es><![CDATA[Icono opcional junto a la etiqueta. Déjelo vacío para mostrar solo texto.]]></es>
+            <pt><![CDATA[Ícone opcional junto à etiqueta. Deixe vazio para mostrar apenas texto.]]></pt>
+            <fr><![CDATA[Icône facultative à côté du libellé. Laissez vide pour afficher uniquement le texte.]]></fr>
+            <it><![CDATA[Icona facoltativa accanto all’etichetta. Lascia vuoto per mostrare solo il testo.]]></it>
+            <pl><![CDATA[Opcjonalna ikona obok etykiety. Pozostaw puste, aby wyświetlać tylko tekst.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.btnStyle.desc">
+            <de><![CDATA[Gilt nur für weitere Kontaktwege: E-Mail, WhatsApp, Telefon und eigene Nebenaktionen. „Abgerundet“ macht reine Icon-Buttons rund und Buttons mit Text pillenförmig. Die konkrete Darstellung hängt vom Template ab. Hauptaktionen bleiben unverändert.]]></de>
+            <en><![CDATA[Applies only to additional contact methods: email, WhatsApp, phone and custom secondary actions. “Rounded” makes icon-only buttons circular and buttons with text pill-shaped. Appearance depends on the template. Primary actions are unaffected.]]></en>
+            <es><![CDATA[Solo se aplica a los medios de contacto adicionales: correo electrónico, WhatsApp, teléfono y acciones secundarias personalizadas. "Redondeado" hace circulares los botones que solo tienen icono y da extremos redondeados a los botones con texto. El aspecto concreto depende de la plantilla. Las acciones principales no cambian.]]></es>
+            <pt><![CDATA[Aplica-se apenas aos meios de contacto adicionais: e-mail, WhatsApp, telefone e ações secundárias personalizadas. "Arredondado" torna circulares os botões que só têm ícone e dá extremidades arredondadas aos botões com texto. O aspeto concreto depende do modelo. As ações principais não são alteradas.]]></pt>
+            <fr><![CDATA[S’applique uniquement aux autres moyens de contact : e-mail, WhatsApp, téléphone et actions secondaires personnalisées. "Arrondi" rend circulaires les boutons composés d’une icône seule et donne une forme de pilule aux boutons avec texte. Le rendu dépend du modèle. Les actions principales restent inchangées.]]></fr>
+            <it><![CDATA[Si applica solo ai canali di contatto aggiuntivi: email, WhatsApp, telefono e azioni secondarie personalizzate. "Arrotondato" rende circolari i pulsanti con la sola icona e a forma di pillola quelli con testo. L’aspetto effettivo dipende dal template. Le azioni principali restano invariate.]]></it>
+            <pl><![CDATA[Dotyczy tylko dodatkowych metod kontaktu: e-maila, WhatsAppa, telefonu i własnych działań dodatkowych. Opcja "Zaokrąglony" nadaje przyciskom z samą ikoną kształt koła, a przyciskom z tekstem kształt kapsułki. Wygląd zależy od szablonu. Działania główne pozostają bez zmian.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.btnStyle">
+            <de><![CDATA[Button-Form der weiteren Kontaktwege <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Button shape for additional contact methods <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Forma de los botones de contacto adicionales <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Forma dos botões de contacto adicionais <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Forme des boutons des autres moyens de contact <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Forma dei pulsanti dei canali di contatto aggiuntivi <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Kształt przycisków dodatkowych metod kontaktu <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.btnStyle.button">
+            <de><![CDATA[Standard]]></de>
+            <en><![CDATA[Standard]]></en>
+            <es><![CDATA[Estándar]]></es>
+            <pt><![CDATA[Padrão]]></pt>
+            <fr><![CDATA[Standard]]></fr>
+            <it><![CDATA[Standard]]></it>
+            <pl><![CDATA[Standardowy]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.btnStyle.icon">
+            <de><![CDATA[Nur Icon]]></de>
+            <en><![CDATA[Only icon]]></en>
+            <es><![CDATA[Solo icono]]></es>
+            <pt><![CDATA[Apenas ícone]]></pt>
+            <fr><![CDATA[Icône seule]]></fr>
+            <it><![CDATA[Solo icona]]></it>
+            <pl><![CDATA[Tylko ikona]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.btnStyle.iconRounded">
+            <de><![CDATA[Nur Icon (rund)]]></de>
+            <en><![CDATA[Only icon (round)]]></en>
+            <es><![CDATA[Solo icono (circular)]]></es>
+            <pt><![CDATA[Apenas ícone (circular)]]></pt>
+            <fr><![CDATA[Icône seule (rond)]]></fr>
+            <it><![CDATA[Solo icona (rotondo)]]></it>
+            <pl><![CDATA[Tylko ikona (okrągły)]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.size">
+            <de><![CDATA[Button-Größe <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Button size <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Tamaño de los botones <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Tamanho dos botões <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Taille des boutons <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Dimensione dei pulsanti <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Rozmiar przycisków <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.size.default">
+            <de><![CDATA[Standard]]></de>
+            <en><![CDATA[Default]]></en>
+            <es><![CDATA[Predeterminado]]></es>
+            <pt><![CDATA[Predefinido]]></pt>
+            <fr><![CDATA[Par défaut]]></fr>
+            <it><![CDATA[Predefinito]]></it>
+            <pl><![CDATA[Domyślny]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.size.small">
+            <de><![CDATA[Klein]]></de>
+            <en><![CDATA[Small]]></en>
+            <es><![CDATA[Pequeño]]></es>
+            <pt><![CDATA[Pequeno]]></pt>
+            <fr><![CDATA[Petit]]></fr>
+            <it><![CDATA[Piccolo]]></it>
+            <pl><![CDATA[Mały]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.size.large">
+            <de><![CDATA[Groß]]></de>
+            <en><![CDATA[Large]]></en>
+            <es><![CDATA[Grande]]></es>
+            <pt><![CDATA[Grande]]></pt>
+            <fr><![CDATA[Grand]]></fr>
+            <it><![CDATA[Grande]]></it>
+            <pl><![CDATA[Duży]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.predefinedButtons">
+            <de><![CDATA[Vordefinierte Kontakt-Buttons]]></de>
+            <en><![CDATA[Predefined contact buttons]]></en>
+            <es><![CDATA[Botones de contacto predefinidos]]></es>
+            <pt><![CDATA[Botões de contacto predefinidos]]></pt>
+            <fr><![CDATA[Boutons de contact prédéfinis]]></fr>
+            <it><![CDATA[Pulsanti di contatto predefiniti]]></it>
+            <pl><![CDATA[Predefiniowane przyciski kontaktu]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.predefinedButtons.desc">
+            <de><![CDATA[E-Mail, WhatsApp und Telefon. Wert eintragen genügt. Ein deaktivierter Kanal bleibt gespeichert, wird aber nicht angezeigt.]]></de>
+            <en><![CDATA[Email, WhatsApp and phone. Just enter a value. A deactivated channel stays saved but is not shown.]]></en>
+            <es><![CDATA[Correo, WhatsApp y teléfono. Basta con introducir un valor. Un canal desactivado se guarda pero no se muestra.]]></es>
+            <pt><![CDATA[E-mail, WhatsApp e telefone. Basta introduzir um valor. Um canal desativado é guardado mas não é apresentado.]]></pt>
+            <fr><![CDATA[E-mail, WhatsApp et téléphone. Il suffit de saisir une valeur. Un canal désactivé reste enregistré mais n'est pas affiché.]]></fr>
+            <it><![CDATA[Email, WhatsApp e telefono. Basta inserire un valore. Un canale disattivato resta salvato ma non viene mostrato.]]></it>
+            <pl><![CDATA[E-mail, WhatsApp i telefon. Wystarczy podać wartość. Wyłączony kanał pozostaje zapisany, ale nie jest wyświetlany.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons">
+            <de><![CDATA[Zusätzliche Buttons <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Additional buttons <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Botones adicionales <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Botões adicionais <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Boutons supplémentaires <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Pulsanti aggiuntivi <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Dodatkowe przyciski <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.desc">
+            <de><![CDATA[Eigene Hauptaktionen erscheinen zwischen KI-Beratung und Formular. Weitere Kontaktwege erscheinen darunter in einer umbrechenden Reihe. Reihenfolge und Darstellung werden pro Button eingestellt. Reine Icon-Buttons benötigen ein Icon und eine verständliche Beschriftung (Text oder ARIA-Label).]]></de>
+            <en><![CDATA[Custom primary actions appear between AI advice and the form. Additional contact methods appear in a wrapping row below. Configure order and display per button. Icon-only buttons require an icon and an accessible label (text or ARIA label).]]></en>
+            <es><![CDATA[Las acciones principales personalizadas aparecen entre el asesoramiento con IA y el formulario. Los medios de contacto adicionales se muestran debajo, en una fila que se adapta al espacio disponible. El orden y la presentación se configuran para cada botón. Los botones que solo muestran un icono necesitan un icono y una etiqueta accesible (texto o etiqueta ARIA).]]></es>
+            <pt><![CDATA[As ações principais personalizadas aparecem entre o aconselhamento com IA e o formulário. Os meios de contacto adicionais aparecem abaixo, numa fila que passa para a linha seguinte quando necessário. A ordem e a apresentação são configuradas por botão. Os botões que só mostram um ícone precisam de um ícone e de uma etiqueta acessível (texto ou etiqueta ARIA).]]></pt>
+            <fr><![CDATA[Les actions principales personnalisées apparaissent entre le conseil par IA et le formulaire. Les autres moyens de contact s’affichent en dessous, sur une rangée qui passe à la ligne si nécessaire. L’ordre et l’affichage se règlent pour chaque bouton. Les boutons composés d’une icône seule doivent avoir une icône et un libellé accessible (texte ou libellé ARIA).]]></fr>
+            <it><![CDATA[Le azioni principali personalizzate appaiono tra la consulenza IA e il modulo. I canali di contatto aggiuntivi sono mostrati sotto, in una riga che va a capo se necessario. Ordine e visualizzazione si impostano per ogni pulsante. I pulsanti con la sola icona richiedono un’icona e un’etichetta accessibile (testo o etichetta ARIA).]]></it>
+            <pl><![CDATA[Własne działania główne pojawiają się między doradztwem AI a formularzem. Dodatkowe metody kontaktu są wyświetlane poniżej, w wierszu zawijanym w razie potrzeby. Kolejność i sposób wyświetlania ustawia się osobno dla każdego przycisku. Przyciski z samą ikoną wymagają ikony i dostępnej etykiety (tekstu lub etykiety ARIA).]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.empty">
+            <de><![CDATA[Noch keine zusätzlichen Buttons hinterlegt.]]></de>
+            <en><![CDATA[No additional buttons configured yet.]]></en>
+            <es><![CDATA[Todavía no hay botones adicionales configurados.]]></es>
+            <pt><![CDATA[Ainda não existem botões adicionais configurados.]]></pt>
+            <fr><![CDATA[Aucun bouton supplémentaire n’est encore configuré.]]></fr>
+            <it><![CDATA[Non sono ancora configurati pulsanti aggiuntivi.]]></it>
+            <pl><![CDATA[Nie skonfigurowano jeszcze dodatkowych przycisków.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.btn.add">
+            <de><![CDATA[Button hinzufügen]]></de>
+            <en><![CDATA[Add button]]></en>
+            <es><![CDATA[Añadir botón]]></es>
+            <pt><![CDATA[Adicionar botão]]></pt>
+            <fr><![CDATA[Ajouter un bouton]]></fr>
+            <it><![CDATA[Aggiungi pulsante]]></it>
+            <pl><![CDATA[Dodaj przycisk]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.btn.edit.title">
+            <de><![CDATA[Button bearbeiten]]></de>
+            <en><![CDATA[Edit button]]></en>
+            <es><![CDATA[Editar botón]]></es>
+            <pt><![CDATA[Editar botão]]></pt>
+            <fr><![CDATA[Modifier le bouton]]></fr>
+            <it><![CDATA[Modifica pulsante]]></it>
+            <pl><![CDATA[Edytuj przycisk]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.btn.delete.title">
+            <de><![CDATA[Button löschen]]></de>
+            <en><![CDATA[Delete button]]></en>
+            <es><![CDATA[Eliminar botón]]></es>
+            <pt><![CDATA[Eliminar botão]]></pt>
+            <fr><![CDATA[Supprimer le bouton]]></fr>
+            <it><![CDATA[Elimina pulsante]]></it>
+            <pl><![CDATA[Usuń przycisk]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.window.add.title">
+            <de><![CDATA[Neuen Button hinzufügen]]></de>
+            <en><![CDATA[Add new button]]></en>
+            <es><![CDATA[Añadir nuevo botón]]></es>
+            <pt><![CDATA[Adicionar novo botão]]></pt>
+            <fr><![CDATA[Ajouter un nouveau bouton]]></fr>
+            <it><![CDATA[Aggiungi nuovo pulsante]]></it>
+            <pl><![CDATA[Dodaj nowy przycisk]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.window.edit.title">
+            <de><![CDATA[Button bearbeiten]]></de>
+            <en><![CDATA[Edit button]]></en>
+            <es><![CDATA[Editar botón]]></es>
+            <pt><![CDATA[Editar botão]]></pt>
+            <fr><![CDATA[Modifier le bouton]]></fr>
+            <it><![CDATA[Modifica pulsante]]></it>
+            <pl><![CDATA[Edytuj przycisk]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.window.delete.title">
+            <de><![CDATA[Button entfernen]]></de>
+            <en><![CDATA[Remove button]]></en>
+            <es><![CDATA[Quitar botón]]></es>
+            <pt><![CDATA[Remover botão]]></pt>
+            <fr><![CDATA[Retirer le bouton]]></fr>
+            <it><![CDATA[Rimuovi pulsante]]></it>
+            <pl><![CDATA[Usuń przycisk]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.window.delete.text">
+            <de><![CDATA[Diesen Zusatzbutton wirklich löschen?]]></de>
+            <en><![CDATA[Do you really want to delete this additional button?]]></en>
+            <es><![CDATA[¿Desea eliminar este botón adicional?]]></es>
+            <pt><![CDATA[Pretende eliminar este botão adicional?]]></pt>
+            <fr><![CDATA[Voulez-vous supprimer ce bouton supplémentaire ?]]></fr>
+            <it><![CDATA[Vuoi eliminare questo pulsante aggiuntivo?]]></it>
+            <pl><![CDATA[Czy na pewno chcesz usunąć ten dodatkowy przycisk?]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.form.text">
+            <de><![CDATA[Text]]></de>
+            <en><![CDATA[Text]]></en>
+            <es><![CDATA[Texto]]></es>
+            <pt><![CDATA[Texto]]></pt>
+            <fr><![CDATA[Texte]]></fr>
+            <it><![CDATA[Testo]]></it>
+            <pl><![CDATA[Tekst]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.form.icon">
+            <de><![CDATA[Icon-Klassen]]></de>
+            <en><![CDATA[Icon classes]]></en>
+            <es><![CDATA[Clases del icono]]></es>
+            <pt><![CDATA[Classes do ícone]]></pt>
+            <fr><![CDATA[Classes de l’icône]]></fr>
+            <it><![CDATA[Classi dell’icona]]></it>
+            <pl><![CDATA[Klasy ikony]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.form.cssClass">
+            <de><![CDATA[Button-CSS-Klassen]]></de>
+            <en><![CDATA[Button CSS classes]]></en>
+            <es><![CDATA[Clases CSS del botón]]></es>
+            <pt><![CDATA[Classes CSS do botão]]></pt>
+            <fr><![CDATA[Classes CSS du bouton]]></fr>
+            <it><![CDATA[Classi CSS del pulsante]]></it>
+            <pl><![CDATA[Klasy CSS przycisku]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.customButtons.form.href">
+            <de><![CDATA[Link]]></de>
+            <en><![CDATA[Link]]></en>
+            <es><![CDATA[Enlace]]></es>
+            <pt><![CDATA[Ligação]]></pt>
+            <fr><![CDATA[Lien]]></fr>
+            <it><![CDATA[Link]]></it>
+            <pl><![CDATA[Link]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.bgColor">
+            <de><![CDATA[Hintergrundfarbe <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Background color <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Color de fondo <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Cor de fundo <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Couleur d’arrière-plan <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Colore di sfondo <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Kolor tła <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.bgColor.description">
+            <de><![CDATA[Setzt die Hintergrundfarbe des gesamten ContactHub-Blocks (CSS Variable: --qui-contact-contactHub-bgColor).]]></de>
+            <en><![CDATA[Sets the background color of the whole ContactHub block (CSS variable: --qui-contact-contactHub-bgColor).]]></en>
+            <es><![CDATA[Define el color de fondo de todo el bloque ContactHub (variable CSS: --qui-contact-contactHub-bgColor).]]></es>
+            <pt><![CDATA[Define a cor de fundo de todo o bloco ContactHub (variável CSS: --qui-contact-contactHub-bgColor).]]></pt>
+            <fr><![CDATA[Définit la couleur d’arrière-plan de l’ensemble du bloc ContactHub (variable CSS : --qui-contact-contactHub-bgColor).]]></fr>
+            <it><![CDATA[Imposta il colore di sfondo dell’intero blocco ContactHub (variabile CSS: --qui-contact-contactHub-bgColor).]]></it>
+            <pl><![CDATA[Ustawia kolor tła całego bloku ContactHub (zmienna CSS: --qui-contact-contactHub-bgColor).]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.color">
+            <de><![CDATA[Textfarbe <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Text color <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Color del texto <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Cor do texto <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Couleur du texte <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Colore del testo <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Kolor tekstu <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.color.description">
+            <de><![CDATA[Setzt die Textfarbe des gesamten ContactHub-Blocks (CSS Variable: --qui-contact-contactHub-color).]]></de>
+            <en><![CDATA[Sets the text color of the whole ContactHub block (CSS variable: --qui-contact-contactHub-color).]]></en>
+            <es><![CDATA[Define el color del texto de todo el bloque ContactHub (variable CSS: --qui-contact-contactHub-color).]]></es>
+            <pt><![CDATA[Define a cor do texto de todo o bloco ContactHub (variável CSS: --qui-contact-contactHub-color).]]></pt>
+            <fr><![CDATA[Définit la couleur du texte de l’ensemble du bloc ContactHub (variable CSS : --qui-contact-contactHub-color).]]></fr>
+            <it><![CDATA[Imposta il colore del testo dell’intero blocco ContactHub (variabile CSS: --qui-contact-contactHub-color).]]></it>
+            <pl><![CDATA[Ustawia kolor tekstu całego bloku ContactHub (zmienna CSS: --qui-contact-contactHub-color).]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.leftBgColor">
+            <de><![CDATA[Hintergrundfarbe (linke Spalte) <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Background color (left column) <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Color de fondo (columna izquierda) <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Cor de fundo (coluna esquerda) <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Couleur d’arrière-plan (colonne de gauche) <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Colore di sfondo (colonna sinistra) <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Kolor tła (lewa kolumna) <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.leftBgColor.description">
+            <de><![CDATA[Setzt die Hintergrundfarbe der linken Spalte (CSS Variable: --qui-contact-contactHub-left-bgColor).]]></de>
+            <en><![CDATA[Sets the background color of the left column (CSS variable: --qui-contact-contactHub-left-bgColor).]]></en>
+            <es><![CDATA[Define el color de fondo de la columna izquierda (variable CSS: --qui-contact-contactHub-left-bgColor).]]></es>
+            <pt><![CDATA[Define a cor de fundo da coluna esquerda (variável CSS: --qui-contact-contactHub-left-bgColor).]]></pt>
+            <fr><![CDATA[Définit la couleur d’arrière-plan de la colonne de gauche (variable CSS : --qui-contact-contactHub-left-bgColor).]]></fr>
+            <it><![CDATA[Imposta il colore di sfondo della colonna sinistra (variabile CSS: --qui-contact-contactHub-left-bgColor).]]></it>
+            <pl><![CDATA[Ustawia kolor tła lewej kolumny (zmienna CSS: --qui-contact-contactHub-left-bgColor).]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.leftColor">
+            <de><![CDATA[Textfarbe (linke Spalte) <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Text color (left column) <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Color del texto (columna izquierda) <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Cor do texto (coluna esquerda) <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Couleur du texte (colonne de gauche) <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Colore del testo (colonna sinistra) <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Kolor tekstu (lewa kolumna) <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.leftColor.description">
+            <de><![CDATA[Setzt die Textfarbe der linken Spalte (CSS Variable: --qui-contact-contactHub-left-color).]]></de>
+            <en><![CDATA[Sets the text color of the left column (CSS variable: --qui-contact-contactHub-left-color).]]></en>
+            <es><![CDATA[Define el color del texto de la columna izquierda (variable CSS: --qui-contact-contactHub-left-color).]]></es>
+            <pt><![CDATA[Define a cor do texto da coluna esquerda (variável CSS: --qui-contact-contactHub-left-color).]]></pt>
+            <fr><![CDATA[Définit la couleur du texte de la colonne de gauche (variable CSS : --qui-contact-contactHub-left-color).]]></fr>
+            <it><![CDATA[Imposta il colore del testo della colonna sinistra (variabile CSS: --qui-contact-contactHub-left-color).]]></it>
+            <pl><![CDATA[Ustawia kolor tekstu lewej kolumny (zmienna CSS: --qui-contact-contactHub-left-color).]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.title">
+            <de><![CDATA[Neue Kontaktanfrage:]]></de>
+            <en><![CDATA[New contact request:]]></en>
+            <es><![CDATA[Nueva consulta de contacto:]]></es>
+            <pt><![CDATA[Novo pedido de contacto:]]></pt>
+            <fr><![CDATA[Nouvelle demande de contact :]]></fr>
+            <it><![CDATA[Nuova richiesta di contatto:]]></it>
+            <pl><![CDATA[Nowe zapytanie kontaktowe:]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.brick.title">
+            <de><![CDATA[Baustein ContactHub Daten]]></de>
+            <en><![CDATA[Brick ContactHub data]]></en>
+            <es><![CDATA[Datos del bloque ContactHub]]></es>
+            <pt><![CDATA[Dados do bloco ContactHub]]></pt>
+            <fr><![CDATA[Données du bloc ContactHub]]></fr>
+            <it><![CDATA[Dati del blocco ContactHub]]></it>
+            <pl><![CDATA[Dane bloku ContactHub]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.brick.brickId">
+            <de><![CDATA[ID]]></de>
+            <en><![CDATA[ID]]></en>
+            <es><![CDATA[ID]]></es>
+            <pt><![CDATA[ID]]></pt>
+            <fr><![CDATA[ID]]></fr>
+            <it><![CDATA[ID]]></it>
+            <pl><![CDATA[ID]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.brick.brickTitle">
+            <de><![CDATA[Titel]]></de>
+            <en><![CDATA[Title]]></en>
+            <es><![CDATA[Título]]></es>
+            <pt><![CDATA[Título]]></pt>
+            <fr><![CDATA[Titre]]></fr>
+            <it><![CDATA[Titolo]]></it>
+            <pl><![CDATA[Tytuł]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.contact">
+            <de><![CDATA[Kontakt]]></de>
+            <en><![CDATA[Contact]]></en>
+            <es><![CDATA[Contacto]]></es>
+            <pt><![CDATA[Contacto]]></pt>
+            <fr><![CDATA[Contact]]></fr>
+            <it><![CDATA[Contatto]]></it>
+            <pl><![CDATA[Kontakt]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.contact.name">
+            <de><![CDATA[Name]]></de>
+            <en><![CDATA[Name]]></en>
+            <es><![CDATA[Nombre]]></es>
+            <pt><![CDATA[Nome]]></pt>
+            <fr><![CDATA[Nom]]></fr>
+            <it><![CDATA[Nome]]></it>
+            <pl><![CDATA[Imię i nazwisko]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.contact.email">
+            <de><![CDATA[E-Mail]]></de>
+            <en><![CDATA[E-mail]]></en>
+            <es><![CDATA[Correo electrónico]]></es>
+            <pt><![CDATA[E-mail]]></pt>
+            <fr><![CDATA[E-mail]]></fr>
+            <it><![CDATA[Email]]></it>
+            <pl><![CDATA[E-mail]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.contact.phone">
+            <de><![CDATA[Telefon]]></de>
+            <en><![CDATA[Phone]]></en>
+            <es><![CDATA[Teléfono]]></es>
+            <pt><![CDATA[Telefone]]></pt>
+            <fr><![CDATA[Téléphone]]></fr>
+            <it><![CDATA[Telefono]]></it>
+            <pl><![CDATA[Telefon]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.contact.company">
+            <de><![CDATA[Unternehmen]]></de>
+            <en><![CDATA[Company]]></en>
+            <es><![CDATA[Empresa]]></es>
+            <pt><![CDATA[Empresa]]></pt>
+            <fr><![CDATA[Entreprise]]></fr>
+            <it><![CDATA[Azienda]]></it>
+            <pl><![CDATA[Firma]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.contact.message">
+            <de><![CDATA[Nachricht]]></de>
+            <en><![CDATA[Message]]></en>
+            <es><![CDATA[Mensaje]]></es>
+            <pt><![CDATA[Mensagem]]></pt>
+            <fr><![CDATA[Message]]></fr>
+            <it><![CDATA[Messaggio]]></it>
+            <pl><![CDATA[Wiadomość]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.exception.nameNeeded">
+            <de><![CDATA[Bitte einen Namen angeben]]></de>
+            <en><![CDATA[Please provide a name]]></en>
+            <es><![CDATA[Introduzca su nombre.]]></es>
+            <pt><![CDATA[Introduza o seu nome.]]></pt>
+            <fr><![CDATA[Indiquez votre nom.]]></fr>
+            <it><![CDATA[Inserisci il tuo nome.]]></it>
+            <pl><![CDATA[Podaj imię i nazwisko.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.exception.emailNeeded">
+            <de><![CDATA[Bitte eine E-Mail-Adresse oder Telefonnummer angeben]]></de>
+            <en><![CDATA[Please provide either email or phone]]></en>
+            <es><![CDATA[Introduzca una dirección de correo electrónico o un número de teléfono.]]></es>
+            <pt><![CDATA[Introduza um endereço de e-mail ou um número de telefone.]]></pt>
+            <fr><![CDATA[Indiquez une adresse e-mail ou un numéro de téléphone.]]></fr>
+            <it><![CDATA[Inserisci un indirizzo email o un numero di telefono.]]></it>
+            <pl><![CDATA[Podaj adres e-mail lub numer telefonu.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.exception.emailInvalid">
+            <de><![CDATA[Bitte eine gültige E-Mail angeben]]></de>
+            <en><![CDATA[Please provide a valid email]]></en>
+            <es><![CDATA[Introduzca una dirección de correo electrónico válida.]]></es>
+            <pt><![CDATA[Introduza um endereço de e-mail válido.]]></pt>
+            <fr><![CDATA[Indiquez une adresse e-mail valide.]]></fr>
+            <it><![CDATA[Inserisci un indirizzo email valido.]]></it>
+            <pl><![CDATA[Podaj prawidłowy adres e-mail.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.exception.mailSendFailed">
+            <de><![CDATA[Die E-Mail konnte nicht versendet werden]]></de>
+            <en><![CDATA[The email could not be sent]]></en>
+            <es><![CDATA[No se ha podido enviar el correo electrónico.]]></es>
+            <pt><![CDATA[Não foi possível enviar o e-mail.]]></pt>
+            <fr><![CDATA[L’e-mail n’a pas pu être envoyé.]]></fr>
+            <it><![CDATA[Non è stato possibile inviare l’email.]]></it>
+            <pl><![CDATA[Nie udało się wysłać wiadomości e-mail.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.exception.invalidEmail">
+            <de><![CDATA[Bitte eine gültige E-Mail angeben]]></de>
+            <en><![CDATA[Please provide a valid email]]></en>
+            <es><![CDATA[Introduzca una dirección de correo electrónico válida.]]></es>
+            <pt><![CDATA[Introduza um endereço de e-mail válido.]]></pt>
+            <fr><![CDATA[Indiquez une adresse e-mail valide.]]></fr>
+            <it><![CDATA[Inserisci un indirizzo email valido.]]></it>
+            <pl><![CDATA[Podaj prawidłowy adres e-mail.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.description">
+            <de><![CDATA[<p>Ein einfacher Weg zur passenden Kontaktmöglichkeit: „Kontaktaufnahme“ bündelt Kontaktformular, Kontaktwege und eigene Aktionen in einem flexibel gestaltbaren Baustein.</p>
+<ul>
+    <li>Direkter Einstieg ins Kontaktformular oder übersichtliche Auswahl der Kontaktmöglichkeiten.</li>
+    <li>Telefon, E-Mail und WhatsApp sowie eigene Aktionen wie „Termin vereinbaren“.</li>
+    <li>Optionale Seitenleiste mit ergänzenden Informationen und Kontaktbuttons.</li>
+    <li>Optionaler KI-Chat über einen Agenten-Baustein, etwa für Fragen zu Produkten oder Leistungen.</li>
+    <li>Anpassbare Formularlayouts, Farben und Button-Darstellungen für eine stimmige Einbindung in die Website.</li>
+</ul>
+<p>Vom einfachen Kontaktformular bis zur Kontaktübersicht mit KI-Beratung lassen sich die angebotenen Möglichkeiten nach Bedarf kombinieren. Auch ohne KI-Agent nutzbar.</p>]]></de>
+            <en><![CDATA[<p>Make it easy for visitors to get in touch. Contact hub brings your contact channels together in one flexible brick.</p>
+<ul>
+    <li>Show the contact form directly or start with a clear selection of contact options.</li>
+    <li>Offer phone, email and WhatsApp alongside custom actions such as “Book an appointment”.</li>
+    <li>Add an optional sidebar with further information and contact buttons.</li>
+    <li>Optionally integrate an AI chat through an agent brick, for questions about products or services.</li>
+    <li>Adapt the form layout, colours and button appearance to your website.</li>
+</ul>
+<p>From a simple contact form to a contact overview with AI advice, you choose which options visitors receive. Works without an AI agent too.</p>]]></en>
+            <es><![CDATA[<p>Facilite que los visitantes se pongan en contacto con usted. El centro de contacto reúne sus canales de contacto en un bloque flexible.</p>
+<ul>
+    <li>Muestre directamente el formulario o una selección clara de opciones de contacto.</li>
+    <li>Ofrezca teléfono, correo electrónico y WhatsApp, además de acciones propias como «Reservar una cita».</li>
+    <li>Añada una barra lateral opcional con información adicional y botones de contacto.</li>
+    <li>Integre opcionalmente un chat de IA mediante un bloque de agente para preguntas sobre productos o servicios.</li>
+    <li>Adapte el diseño del formulario, los colores y los botones a su sitio web.</li>
+</ul>
+<p>Desde un formulario sencillo hasta una vista de contacto con asesoramiento por IA: usted decide qué opciones ofrece. También funciona sin agente de IA.</p>]]></es>
+            <pt><![CDATA[<p>Facilite o contacto dos visitantes consigo. O centro de contacto reúne os seus canais de contacto num bloco flexível.</p>
+<ul>
+    <li>Apresente diretamente o formulário ou uma seleção clara de opções de contacto.</li>
+    <li>Disponibilize telefone, e-mail e WhatsApp, além de ações próprias como «Marcar uma reunião».</li>
+    <li>Adicione uma barra lateral opcional com informações adicionais e botões de contacto.</li>
+    <li>Integre opcionalmente um chat de IA através de um bloco de agente para perguntas sobre produtos ou serviços.</li>
+    <li>Adapte a disposição do formulário, as cores e os botões ao seu site.</li>
+</ul>
+<p>Desde um formulário simples até uma visão geral de contacto com aconselhamento por IA: escolha as opções que oferece aos visitantes. Também funciona sem agente de IA.</p>]]></pt>
+            <fr><![CDATA[<p>Facilitez la prise de contact de vos visiteurs. L’espace de contact réunit vos moyens de contact dans un bloc flexible.</p>
+<ul>
+    <li>Affichez directement le formulaire ou une sélection claire des moyens de contact.</li>
+    <li>Proposez le téléphone, l’e-mail et WhatsApp, ainsi que des actions personnalisées comme «Prendre rendez-vous».</li>
+    <li>Ajoutez une barre latérale facultative avec des informations complémentaires et des boutons de contact.</li>
+    <li>Intégrez, si souhaité, un chat IA via un bloc d’agent pour les questions sur vos produits ou services.</li>
+    <li>Adaptez la disposition du formulaire, les couleurs et les boutons à votre site.</li>
+</ul>
+<p>Du formulaire simple à une vue d’ensemble avec conseil par IA, choisissez les possibilités offertes à vos visiteurs. Fonctionne aussi sans agent IA.</p>]]></fr>
+            <it><![CDATA[<p>Rendete semplice ai visitatori mettersi in contatto con voi. Il centro contatti riunisce i vostri canali di contatto in un blocco flessibile.</p>
+<ul>
+    <li>Mostrate direttamente il modulo o una chiara selezione delle opzioni di contatto.</li>
+    <li>Offrite telefono, email e WhatsApp, oltre ad azioni personalizzate come «Prenota un appuntamento».</li>
+    <li>Aggiungete una barra laterale opzionale con informazioni aggiuntive e pulsanti di contatto.</li>
+    <li>Integrate, se desiderato, una chat IA tramite un blocco agente per domande su prodotti o servizi.</li>
+    <li>Adattate il layout del modulo, i colori e i pulsanti al vostro sito.</li>
+</ul>
+<p>Dal semplice modulo a una panoramica dei contatti con consulenza IA: scegliete le possibilità da offrire ai visitatori. Funziona anche senza agente IA.</p>]]></it>
+            <pl><![CDATA[<p>Ułatw odwiedzającym nawiązanie kontaktu. Centrum kontaktu łączy dostępne kanały kontaktu w jednym elastycznym bloku.</p>
+<ul>
+    <li>Wyświetl od razu formularz lub przejrzysty wybór sposobów kontaktu.</li>
+    <li>Udostępnij telefon, e-mail i WhatsApp oraz własne działania, takie jak „Umów spotkanie”.</li>
+    <li>Dodaj opcjonalny panel boczny z dodatkowymi informacjami i przyciskami kontaktowymi.</li>
+    <li>Opcjonalnie dodaj czat AI za pomocą bloku agenta, np. do pytań o produkty lub usługi.</li>
+    <li>Dostosuj układ formularza, kolory i wygląd przycisków do swojej strony.</li>
+</ul>
+<p>Od prostego formularza po przegląd możliwości kontaktu z doradztwem AI – samodzielnie wybierasz dostępne opcje. Działa również bez agenta AI.</p>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.ctaDescription.placeholder">
+            <de><![CDATA[Fragen zu Produkten oder Leistungen? Hier geht es zur passenden Kontaktmöglichkeit.]]></de>
+            <en><![CDATA[Questions about products or services? Contact options at a glance.]]></en>
+            <es><![CDATA[¿Preguntas sobre productos o servicios? Opciones de contacto disponibles.]]></es>
+            <pt><![CDATA[Dúvidas sobre produtos ou serviços? Opções de contacto disponíveis.]]></pt>
+            <fr><![CDATA[Des questions sur les produits ou services ? Les moyens de contact en un coup d’œil.]]></fr>
+            <it><![CDATA[Domande su prodotti o servizi? Le opzioni di contatto a colpo d’occhio.]]></it>
+            <pl><![CDATA[Pytania o produkty lub usługi? Dostępne sposoby kontaktu w jednym miejscu.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiContext.placeholder">
+            <de><![CDATA[Produkt: Starter-Paket · Thema: Funktionen und Preise]]></de>
+            <en><![CDATA[Product: Starter package · Topic: Features and pricing]]></en>
+            <es><![CDATA[Producto: Paquete inicial · Tema: Funciones y precios]]></es>
+            <pt><![CDATA[Produto: Pacote inicial · Tema: Funcionalidades e preços]]></pt>
+            <fr><![CDATA[Produit : Pack de démarrage · Sujet : Fonctionnalités et tarifs]]></fr>
+            <it><![CDATA[Prodotto: Pacchetto iniziale · Argomento: Funzioni e prezzi]]></it>
+            <pl><![CDATA[Produkt: Pakiet startowy · Temat: Funkcje i ceny]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.recipient.placeholder">
+            <de><![CDATA[anfragen@example.com]]></de>
+            <en><![CDATA[anfragen@example.com]]></en>
+            <es><![CDATA[anfragen@example.com]]></es>
+            <pt><![CDATA[anfragen@example.com]]></pt>
+            <fr><![CDATA[anfragen@example.com]]></fr>
+            <it><![CDATA[anfragen@example.com]]></it>
+            <pl><![CDATA[anfragen@example.com]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.email.placeholder">
+            <de><![CDATA[kontakt@example.com]]></de>
+            <en><![CDATA[kontakt@example.com]]></en>
+            <es><![CDATA[kontakt@example.com]]></es>
+            <pt><![CDATA[kontakt@example.com]]></pt>
+            <fr><![CDATA[kontakt@example.com]]></fr>
+            <it><![CDATA[kontakt@example.com]]></it>
+            <pl><![CDATA[kontakt@example.com]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.phone.placeholder">
+            <de><![CDATA[+49 30 12345678]]></de>
+            <en><![CDATA[+49 30 12345678]]></en>
+            <es><![CDATA[+49 30 12345678]]></es>
+            <pt><![CDATA[+49 30 12345678]]></pt>
+            <fr><![CDATA[+49 30 12345678]]></fr>
+            <it><![CDATA[+49 30 12345678]]></it>
+            <pl><![CDATA[+49 30 12345678]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.whatsapp.placeholder">
+            <de><![CDATA[+49 170 1234567]]></de>
+            <en><![CDATA[+49 170 1234567]]></en>
+            <es><![CDATA[+49 170 1234567]]></es>
+            <pt><![CDATA[+49 170 1234567]]></pt>
+            <fr><![CDATA[+49 170 1234567]]></fr>
+            <it><![CDATA[+49 170 1234567]]></it>
+            <pl><![CDATA[+49 170 1234567]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.emailLabel.placeholder">
+            <de><![CDATA[E-Mail schreiben]]></de>
+            <en><![CDATA[Send an email]]></en>
+            <es><![CDATA[Enviar un correo]]></es>
+            <pt><![CDATA[Enviar e-mail]]></pt>
+            <fr><![CDATA[Envoyer un e-mail]]></fr>
+            <it><![CDATA[Inviare un’email]]></it>
+            <pl><![CDATA[Wysłać e-mail]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.phoneLabel.placeholder">
+            <de><![CDATA[Telefonisch Kontakt aufnehmen]]></de>
+            <en><![CDATA[Contact by phone]]></en>
+            <es><![CDATA[Contactar por teléfono]]></es>
+            <pt><![CDATA[Contactar por telefone]]></pt>
+            <fr><![CDATA[Contact par téléphone]]></fr>
+            <it><![CDATA[Contatto telefonico]]></it>
+            <pl><![CDATA[Kontakt telefoniczny]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.whatsappLabel.placeholder">
+            <de><![CDATA[Kontakt per WhatsApp]]></de>
+            <en><![CDATA[Contact via WhatsApp]]></en>
+            <es><![CDATA[Contacto por WhatsApp]]></es>
+            <pt><![CDATA[Contacto por WhatsApp]]></pt>
+            <fr><![CDATA[Contact via WhatsApp]]></fr>
+            <it><![CDATA[Contatto tramite WhatsApp]]></it>
+            <pl><![CDATA[Kontakt przez WhatsApp]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.secondaryActionsLabel.placeholder">
+            <de><![CDATA[Weitere Kontaktmöglichkeiten]]></de>
+            <en><![CDATA[More contact options]]></en>
+            <es><![CDATA[Más opciones de contacto]]></es>
+            <pt><![CDATA[Mais opções de contacto]]></pt>
+            <fr><![CDATA[Autres moyens de contact]]></fr>
+            <it><![CDATA[Altre opzioni di contatto]]></it>
+            <pl><![CDATA[Inne sposoby kontaktu]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.aiButtonText.placeholder">
+            <de><![CDATA[KI-Beratung]]></de>
+            <en><![CDATA[AI advice]]></en>
+            <es><![CDATA[Asesoramiento por IA]]></es>
+            <pt><![CDATA[Aconselhamento por IA]]></pt>
+            <fr><![CDATA[Conseil par IA]]></fr>
+            <it><![CDATA[Consulenza IA]]></it>
+            <pl><![CDATA[Doradztwo AI]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.formButtonText.placeholder">
+            <de><![CDATA[Formular ausfüllen]]></de>
+            <en><![CDATA[Fill in the form]]></en>
+            <es><![CDATA[Rellenar el formulario]]></es>
+            <pt><![CDATA[Preencher formulário]]></pt>
+            <fr><![CDATA[Remplir le formulaire]]></fr>
+            <it><![CDATA[Compilare il modulo]]></it>
+            <pl><![CDATA[Wypełnić formularz]]></pl>
         </locale>
 
     </groups>

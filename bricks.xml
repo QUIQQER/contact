@@ -1,7 +1,194 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <quiqqer>
     <bricks>
-        <brick control="\QUI\Contact\CtaAction\Control" category="cta" supportsWindowAutoHeight="1">
+        <brick control="\QUI\Contact\ContactHub" category="cta" supportsWindowAutoHeight="1">
+            <title>
+                <locale group="quiqqer/contact" var="brick.control.contactHub.setting.title"/>
+            </title>
+            <description>
+                <locale group="quiqqer/contact" var="brick.control.contactHub.setting.description"/>
+            </description>
+
+            <settings>
+                <setting name="startView" type="select"
+                         data-qui="package/quiqqer/contact/bin/controls/backend/ContactHubStartView">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.startView"/>
+                    <option value="form">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.startView.form"/>
+                    </option>
+                    <option value="select">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.startView.select"/>
+                    </option>
+                    <option value="ai">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.startView.ai"/>
+                    </option>
+                </setting>
+                <setting name="ctaDescription" type="text" data-name="contactHubPlaceholder">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.ctaDescription"/>
+                </setting>
+
+                <setting name="formEnabled" type="checkbox">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formEnabled"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.formEnabled.desc"/></description>
+                    <defaultValue>1</defaultValue>
+                </setting>
+                <setting name="aiBrickId" type="hidden"
+                         data-qui="package/quiqqer/bricks/bin/Controls/backend/BrickIdInput"
+                         data-qui-options-brickcategories="aiAgent"
+                >
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiBrickId"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiBrickId.description"/>
+                    </description>
+                </setting>
+                <setting name="aiContext" type="text" data-name="contactHubPlaceholder"
+                >
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiContext"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiContext.description"/>
+                    </description>
+                </setting>
+                <setting name="recipient" type="text" data-name="contactHubPlaceholder">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.recipient"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.recipient.description"/>
+                    </description>
+                </setting>
+                <setting name="formButtonText" type="text" data-name="contactHubPlaceholder">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonText"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonText.desc"/></description>
+                </setting>
+                <setting name="formButtonIcon" type="text" data-qui="controls/projects/project/media/Input" data-qui-options-cssclasses="1" data-qui-options-mediabutton="0">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonIcon"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonIcon.desc"/></description>
+                </setting>
+                <setting name="aiButtonText" type="text" data-name="contactHubPlaceholder">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonText"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonText.desc"/></description>
+                </setting>
+                <setting name="aiButtonIcon" type="text" data-qui="controls/projects/project/media/Input" data-qui-options-cssclasses="1" data-qui-options-mediabutton="0">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonIcon"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonIcon.desc"/></description>
+                </setting>
+
+                <setting name="predefinedButtons" type="hidden"
+                         data-qui="package/quiqqer/contact/bin/controls/backend/ContactHubChannels">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.predefinedButtons"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.predefinedButtons.desc"/>
+                    </description>
+                </setting>
+                <setting name="customButtons" type="hidden"
+                         data-qui="package/quiqqer/contact/bin/controls/backend/ContactHubButtons">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.customButtons"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.customButtons.desc"/>
+                    </description>
+                </setting>
+                <setting name="secondaryActionsLabel" type="text" data-name="contactHubPlaceholder"
+                         data-dependency="startView" data-dependency-options="select">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.secondaryActionsLabel"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.secondaryActionsLabel.desc"/></description>
+                </setting>
+
+                <setting name="btnStyle" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.btnStyle"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.btnStyle.desc"/></description>
+
+                    <option value="button">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.btnStyle.button"/>
+                    </option>
+                    <option value="rounded">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.btnStyle.rounded"/>
+                    </option>
+                    <defaultValue>button</defaultValue>
+                </setting>
+                <setting name="contactDisplay" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.contactDisplay"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.contactDisplay.desc"/></description>
+                    <option value="icon-text"><locale group="quiqqer/contact" var="contact.contactHub.display.icon-text"/></option>
+                    <option value="text"><locale group="quiqqer/contact" var="contact.contactHub.display.text"/></option>
+                    <option value="icon"><locale group="quiqqer/contact" var="contact.contactHub.display.icon"/></option>
+                    <defaultValue>icon-text</defaultValue>
+                </setting>
+                <setting name="size" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.size"/>
+
+                    <option value="default">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.size.default"/>
+                    </option>
+                    <option value="sm">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.size.small"/>
+                    </option>
+                    <option value="lg">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.size.large"/>
+                    </option>
+                </setting>
+                <setting name="formDesign" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formDesign"/>
+                    <option></option>
+                    <option value="default">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formDesign.default"/>
+                    </option>
+                    <option value="grid">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formDesign.grid"/>
+                    </option>
+                    <option value="labelLeft">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formDesign.labelLeft"/>
+                    </option>
+                </setting>
+                <setting name="formSidebar" type="checkbox"
+                         data-qui="package/quiqqer/core/bin/QUI/controls/settings/Dependency">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formSidebar"/>
+                    <defaultValue>0</defaultValue>
+                </setting>
+                <setting name="formSidebarAi" type="checkbox"
+                         data-dependency="formSidebar" data-dependency-options="1">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formSidebarAi"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.formSidebarAi.desc"/></description>
+                    <defaultValue>0</defaultValue>
+                </setting>
+                <setting name="aiSidebar" type="select">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiSidebar"/>
+                    <option value="0">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiSidebar.hide"/>
+                    </option>
+                    <option value="1">
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiSidebar.show"/>
+                    </option>
+                </setting>
+                <setting name="logo" type="text" data-qui="controls/projects/project/media/Input">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.logo"/>
+                </setting>
+                <setting name="bgColor" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.bgColor"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.bgColor.description"/>
+                    </description>
+                </setting>
+                <setting name="color" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.color"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.color.description"/>
+                    </description>
+                </setting>
+                <setting name="leftBgColor" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.leftBgColor"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.leftBgColor.description"/>
+                    </description>
+                </setting>
+                <setting name="leftColor" type="color">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.leftColor"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.leftColor.description"/>
+                    </description>
+                </setting>
+
+            </settings>
+        </brick>
+
+        <brick control="\QUI\Contact\CtaAction\Control" deprecated="1" category="cta" supportsWindowAutoHeight="1">
             <title>
                 <locale group="quiqqer/contact" var="brick.control.ctaAction.setting.title"/>
             </title>

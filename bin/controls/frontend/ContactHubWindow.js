@@ -76,6 +76,9 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindow', [
             aiButtonIcon: '',
             formButtonText: '',
             formButtonIcon: '',
+            selectTrustText: '',
+            selectPrivacyHintEnabled: true,
+            selectPrivacyHintText: '',
 
             // design
             formDesign: 'default', // default, grid, labelLeft

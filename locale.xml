@@ -2139,6 +2139,16 @@
             <pl><![CDATA[Przyciski kontaktu]]></pl>
         </locale>
 
+        <locale name="contact.contactHub.section.texts">
+            <de><![CDATA[Texte]]></de>
+            <en><![CDATA[Text]]></en>
+            <es><![CDATA[Textos]]></es>
+            <pt><![CDATA[Textos]]></pt>
+            <fr><![CDATA[Textes]]></fr>
+            <it><![CDATA[Testi]]></it>
+            <pl><![CDATA[Teksty]]></pl>
+        </locale>
+
         <locale name="contact.contactHub.channels.email">
             <de><![CDATA[E-Mail]]></de>
             <en><![CDATA[Email]]></en>
@@ -2330,7 +2340,7 @@
         </locale>
 
         <locale name="contact.contactHub.select.privacyHint">
-            <de><![CDATA[Deine Angaben werden vertraulich behandelt.]]></de>
+            <de><![CDATA[Alle Angaben werden vertraulich behandelt.]]></de>
             <en><![CDATA[Your details are treated confidentially.]]></en>
             <es><![CDATA[Sus datos se tratarán de forma confidencial.]]></es>
             <pt><![CDATA[Os seus dados serão tratados de forma confidencial.]]></pt>
@@ -2556,13 +2566,83 @@
         </locale>
 
         <locale name="brick.control.contactHub.setting.ctaDescription">
-            <de><![CDATA[Kontakt Einleitungstext <br><small>Kontaktaufnahme</small>]]></de>
-            <en><![CDATA[Contact introduction text <br><small>Contact hub</small>]]></en>
-            <es><![CDATA[Texto de introducción <br><small>Centro de contacto</small>]]></es>
-            <pt><![CDATA[Texto de introdução <br><small>Centro de contacto</small>]]></pt>
-            <fr><![CDATA[Texte d’introduction <br><small>Espace de contact</small>]]></fr>
-            <it><![CDATA[Testo introduttivo <br><small>Centro contatti</small>]]></it>
-            <pl><![CDATA[Tekst wprowadzający <br><small>Centrum kontaktu</small>]]></pl>
+            <de><![CDATA[Untertitel <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Subtitle <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Subtítulo <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Subtítulo <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Sous-titre <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Sottotitolo <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Podtytuł <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.ctaDescription.description">
+            <de><![CDATA[Erscheint direkt unter der Überschrift: in der Kontaktübersicht oberhalb der Hauptaktionen und in der Formularansicht oberhalb des Formulars. In der KI-Ansicht und der Sidebar wird der Text nicht angezeigt. Leer verwendet den sprachabhängigen Standardtext.]]></de>
+            <en><![CDATA[Appears directly below the heading: above the primary actions in the contact overview and above the form in the form view. The text is not shown in the AI view or sidebar. If left empty, the language-specific default text is used.]]></en>
+            <es><![CDATA[Aparece directamente debajo del encabezado: encima de las acciones principales en la vista general de contacto y encima del formulario en la vista de formulario. El texto no se muestra en la vista de IA ni en la barra lateral. Si se deja vacío, se utiliza el texto predeterminado del idioma.]]></es>
+            <pt><![CDATA[Aparece diretamente abaixo do título: acima das ações principais na vista geral de contacto e acima do formulário na vista de formulário. O texto não é apresentado na vista de IA nem na barra lateral. Se ficar vazio, é utilizado o texto predefinido do idioma.]]></pt>
+            <fr><![CDATA[S’affiche directement sous le titre : au-dessus des actions principales dans l’aperçu des contacts et au-dessus du formulaire dans la vue du formulaire. Le texte ne s’affiche ni dans la vue IA ni dans la barre latérale. Si le champ est vide, le texte par défaut de la langue est utilisé.]]></fr>
+            <it><![CDATA[Compare direttamente sotto il titolo: sopra le azioni principali nella panoramica dei contatti e sopra il modulo nella vista del modulo. Il testo non viene mostrato nella vista IA né nella barra laterale. Se il campo è vuoto, viene utilizzato il testo predefinito della lingua.]]></it>
+            <pl><![CDATA[Wyświetla się bezpośrednio pod nagłówkiem: nad głównymi działaniami w przeglądzie kontaktu oraz nad formularzem w widoku formularza. Tekst nie jest wyświetlany w widoku AI ani na pasku bocznym. Puste pole powoduje użycie domyślnego tekstu dla danego języka.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.selectTrustText">
+            <de><![CDATA[Hinweis zur Antwortzeit <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Response time notice <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Aviso sobre el tiempo de respuesta <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Informação sobre o tempo de resposta <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Indication du délai de réponse <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Indicazione sui tempi di risposta <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Informacja o czasie odpowiedzi <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.selectTrustText.description">
+            <de><![CDATA[Optionaler Text im hervorgehobenen Hinweis oberhalb der Überschrift in der Kontaktübersicht. Leer verwendet „Antwort meist am selben Tag“.]]></de>
+            <en><![CDATA[Optional text in the highlighted notice above the heading in the contact overview. If left empty, “Usually answered the same day” is used.]]></en>
+            <es><![CDATA[Texto opcional del aviso destacado situado encima del encabezado en la vista general de contacto. Si se deja vacío, se utiliza «Solemos responder el mismo día».]]></es>
+            <pt><![CDATA[Texto opcional do aviso destacado acima do título na vista geral de contacto. Se ficar vazio, é utilizado «Normalmente respondemos no próprio dia».]]></pt>
+            <fr><![CDATA[Texte facultatif de l’indication mise en évidence au-dessus du titre dans l’aperçu des contacts. Si le champ est vide, « Réponse généralement le jour même » est utilisé.]]></fr>
+            <it><![CDATA[Testo facoltativo dell’avviso evidenziato sopra il titolo nella panoramica dei contatti. Se il campo è vuoto, viene utilizzato « Di solito rispondiamo in giornata ».]]></it>
+            <pl><![CDATA[Opcjonalny tekst wyróżnionej informacji nad nagłówkiem w przeglądzie kontaktu. Puste pole powoduje użycie tekstu „Zwykle odpowiadamy tego samego dnia”.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.selectPrivacyHintEnabled">
+            <de><![CDATA[Datenschutz-Hinweis anzeigen <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Show privacy notice <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Mostrar aviso de privacidad <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Mostrar aviso de privacidade <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Afficher l’avis de confidentialité <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Mostra l’avviso sulla privacy <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Pokaż informację o prywatności <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.selectPrivacyHintEnabled.description">
+            <de><![CDATA[Steuert den kurzen Hinweis mit Schloss-Symbol am Ende der Kontaktübersicht. Ausgeschaltet wird er vollständig ausgeblendet; die Einwilligung im Formular bleibt davon unberührt.]]></de>
+            <en><![CDATA[Controls the short notice with the lock icon at the end of the contact overview. Turning it off hides the notice completely; the consent field in the form is unaffected.]]></en>
+            <es><![CDATA[Controla el aviso breve con el icono de candado al final de la vista general de contacto. Al desactivarlo, el aviso se oculta por completo; el consentimiento del formulario no se ve afectado.]]></es>
+            <pt><![CDATA[Controla o aviso curto com o ícone de cadeado no final da vista geral de contacto. Ao desativar, o aviso fica totalmente oculto; o consentimento no formulário não é afetado.]]></pt>
+            <fr><![CDATA[Contrôle la courte indication avec l’icône de cadenas à la fin de l’aperçu des contacts. La désactivation masque entièrement cette indication ; le consentement du formulaire reste inchangé.]]></fr>
+            <it><![CDATA[Controlla il breve avviso con l’icona del lucchetto alla fine della panoramica dei contatti. Disattivandolo, l’avviso viene nascosto completamente; il consenso nel modulo non cambia.]]></it>
+            <pl><![CDATA[Steruje krótką informacją z ikoną kłódki na końcu przeglądu kontaktu. Wyłączenie całkowicie ją ukrywa; zgoda w formularzu pozostaje bez zmian.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.selectPrivacyHintText">
+            <de><![CDATA[Text des Datenschutz-Hinweises <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Privacy notice text <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Texto del aviso de privacidad <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Texto do aviso de privacidade <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Texte de l’avis de confidentialité <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Testo dell’avviso sulla privacy <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Tekst informacji o prywatności <br><small>Centrum kontaktu</small>]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.selectPrivacyHintText.description">
+            <de><![CDATA[Optionaler eigener Text für den Datenschutz-Hinweis am Ende der Kontaktübersicht. Leer verwendet „Alle Angaben werden vertraulich behandelt“.]]></de>
+            <en><![CDATA[Optional custom text for the privacy notice at the end of the contact overview. If left empty, “Your details are treated confidentially” is used.]]></en>
+            <es><![CDATA[Texto personalizado opcional para el aviso de privacidad al final de la vista general de contacto. Si se deja vacío, se utiliza «Sus datos se tratarán de forma confidencial».]]></es>
+            <pt><![CDATA[Texto personalizado opcional para o aviso de privacidade no final da vista geral de contacto. Se ficar vazio, é utilizado «Os seus dados serão tratados de forma confidencial».]]></pt>
+            <fr><![CDATA[Texte personnalisé facultatif pour l’avis de confidentialité à la fin de l’aperçu des contacts. Si le champ est vide, « Vos informations seront traitées de manière confidentielle » est utilisé.]]></fr>
+            <it><![CDATA[Testo personalizzato facoltativo per l’avviso sulla privacy alla fine della panoramica dei contatti. Se il campo è vuoto, viene utilizzato « I tuoi dati saranno trattati in modo riservato ».]]></it>
+            <pl><![CDATA[Opcjonalny własny tekst informacji o prywatności na końcu przeglądu kontaktu. Puste pole powoduje użycie tekstu „Twoje dane będą traktowane poufnie”.]]></pl>
         </locale>
 
         <locale name="brick.control.contactHub.setting.recipient">
@@ -3429,6 +3509,26 @@
             <fr><![CDATA[Des questions sur les produits ou services ? Les moyens de contact en un coup d’œil.]]></fr>
             <it><![CDATA[Domande su prodotti o servizi? Le opzioni di contatto a colpo d’occhio.]]></it>
             <pl><![CDATA[Pytania o produkty lub usługi? Dostępne sposoby kontaktu w jednym miejscu.]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.selectTrustText.placeholder">
+            <de><![CDATA[Antwort meist am selben Tag]]></de>
+            <en><![CDATA[Usually answered the same day]]></en>
+            <es><![CDATA[Solemos responder el mismo día]]></es>
+            <pt><![CDATA[Normalmente respondemos no próprio dia]]></pt>
+            <fr><![CDATA[Réponse généralement le jour même]]></fr>
+            <it><![CDATA[Di solito rispondiamo in giornata]]></it>
+            <pl><![CDATA[Zwykle odpowiadamy tego samego dnia]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.setting.selectPrivacyHintText.placeholder">
+            <de><![CDATA[Alle Angaben werden vertraulich behandelt.]]></de>
+            <en><![CDATA[Your details are treated confidentially.]]></en>
+            <es><![CDATA[Sus datos se tratarán de forma confidencial.]]></es>
+            <pt><![CDATA[Os seus dados serão tratados de forma confidencial.]]></pt>
+            <fr><![CDATA[Vos informations seront traitées de manière confidentielle.]]></fr>
+            <it><![CDATA[I tuoi dati saranno trattati in modo riservato.]]></it>
+            <pl><![CDATA[Twoje dane będą traktowane poufnie.]]></pl>
         </locale>
 
         <locale name="brick.control.contactHub.setting.aiContext.placeholder">

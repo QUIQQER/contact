@@ -69,6 +69,7 @@ class ContactHub extends QUI\Control
             'content' => '',
             'title' => '',
             'description' => '',
+            'ctaDescription' => '',
 
             'name_label' => '',
             'name_placeholder' => '',
@@ -102,6 +103,9 @@ class ContactHub extends QUI\Control
             'aiButtonIcon' => '',
             'formButtonText' => '',
             'formButtonIcon' => '',
+            'selectTrustText' => '',
+            'selectPrivacyHintEnabled' => true,
+            'selectPrivacyHintText' => '',
 
             // design
             'formDesign' => '', // default, grid, labelLeft
@@ -132,10 +136,6 @@ class ContactHub extends QUI\Control
                     if ($brick->getAttribute('frontendTitle')) {
                         $this->setAttribute('title', $brick->getAttribute('frontendTitle'));
                     }
-
-                    if ($brick->getAttribute('ctaDescription')) {
-                        $this->setAttribute('description', $brick->getAttribute('ctaDescription'));
-                    }
                 }
 
                 if (!empty($this->getAttribute('logo'))) {
@@ -146,6 +146,12 @@ class ContactHub extends QUI\Control
                 }
             } catch (QUI\Exception) {
             }
+        }
+
+        $ctaDescription = trim((string)$this->getAttribute('ctaDescription'));
+
+        if ($ctaDescription !== '') {
+            $this->setAttribute('description', $ctaDescription);
         }
 
         $formDesign = match ($this->getAttribute('formDesign')) {
@@ -373,8 +379,16 @@ class ContactHub extends QUI\Control
             'aiChoiceIcon' => $this->sanitizeCssClassList((string)$this->getAttribute('aiButtonIcon')),
             'formChoiceIcon' => $this->sanitizeCssClassList((string)$this->getAttribute('formButtonIcon')),
             'secondaryActionsLabel' => trim((string)$this->getAttribute('secondaryActionsLabel')),
-            'selectTrust' => QUI::getLocale()->get('quiqqer/contact', 'contact.contactHub.select.trust'),
-            'selectPrivacyHint' => QUI::getLocale()->get('quiqqer/contact', 'contact.contactHub.select.privacyHint')
+            'selectTrust' => $this->resolveTextOverride(
+                'selectTrustText',
+                'contact.contactHub.select.trust'
+            ),
+            'selectPrivacyHint' => $this->normalizeBooleanFlag(
+                $this->getAttribute('selectPrivacyHintEnabled')
+            ) ? $this->resolveTextOverride(
+                'selectPrivacyHintText',
+                'contact.contactHub.select.privacyHint'
+            ) : ''
         ]);
 
         return $Engine->fetch(dirname(__FILE__) . '/ContactHub.html');
@@ -1135,6 +1149,17 @@ class ContactHub extends QUI\Control
             || $value === '1';
     }
 
+    private function resolveTextOverride(string $attribute, string $locale): string
+    {
+        $text = trim((string)$this->getAttribute($attribute));
+
+        if ($text !== '') {
+            return $text;
+        }
+
+        return QUI::getLocale()->get('quiqqer/contact', $locale);
+    }
+
     private function sanitizeButtonHref(string $href): string
     {
         $href = trim($href);
@@ -1456,6 +1481,9 @@ class ContactHub extends QUI\Control
             'aiButtonIcon',
             'formButtonText',
             'formButtonIcon',
+            'selectTrustText',
+            'selectPrivacyHintEnabled',
+            'selectPrivacyHintText',
             'formDesign',
             'btnStyle',
             'size',

@@ -282,6 +282,66 @@ class ContactHubControlTest extends TestCase
         self::assertSame(0, $default->query('//*[@data-name="viewChoice"]//span[contains(@class,"btn__icon")]')->length);
     }
 
+    public function testOverviewNoticesSupportDefaultsOverridesAndPrivacyOptOut(): void
+    {
+        $default = $this->xpath($this->createControl()->getBody());
+        $trust = $default->query('//*[contains(@class,"quiqqer-contact-contactHub__trust")]')->item(0);
+        $privacy = $default->query('//*[contains(@class,"quiqqer-contact-contactHub__privacyHint")]')->item(0);
+
+        self::assertSame(
+            \QUI::getLocale()->get('quiqqer/contact', 'contact.contactHub.select.trust'),
+            trim($trust->textContent)
+        );
+        self::assertSame(
+            \QUI::getLocale()->get('quiqqer/contact', 'contact.contactHub.select.privacyHint'),
+            trim($privacy->textContent)
+        );
+
+        $html = $this->createControl([
+            'selectTrustText' => 'Reply <script>today</script>',
+            'selectPrivacyHintText' => 'Private & secure'
+        ])->getBody();
+        $custom = $this->xpath($html);
+
+        self::assertStringNotContainsString('<script>', $html);
+        self::assertSame(
+            'Reply <script>today</script>',
+            trim($custom->query('//*[contains(@class,"quiqqer-contact-contactHub__trust")]')->item(0)->textContent)
+        );
+        self::assertSame(
+            'Private & secure',
+            trim($custom->query('//*[contains(@class,"quiqqer-contact-contactHub__privacyHint")]')->item(0)->textContent)
+        );
+
+        $hidden = $this->xpath($this->createControl([
+            'selectPrivacyHintEnabled' => false,
+            'selectPrivacyHintText' => 'Must not appear'
+        ])->getBody());
+        self::assertSame(
+            0,
+            $hidden->query('//*[contains(@class,"quiqqer-contact-contactHub__privacyHint")]')->length
+        );
+
+        foreach (['selectTrustText', 'selectPrivacyHintEnabled', 'selectPrivacyHintText'] as $attribute) {
+            self::assertContains($attribute, ContactHub::getAllowedAttributes());
+        }
+    }
+
+    public function testCtaDescriptionOverridesTheDefaultDescription(): void
+    {
+        $html = $this->createControl([
+            'description' => 'Default description',
+            'ctaDescription' => 'Configured <script>subtitle</script>'
+        ])->getBody();
+
+        self::assertStringNotContainsString('<script>', $html);
+        self::assertStringContainsString(
+            'Configured &lt;script&gt;subtitle&lt;/script&gt;',
+            $html
+        );
+        self::assertStringNotContainsString('Default description', $html);
+    }
+
     public function testSecondaryLabelOnlyAppearsWithTextAndSecondaryActions(): void
     {
         $attributes = ['secondaryActionsLabel' => 'More <script>actions</script>'];

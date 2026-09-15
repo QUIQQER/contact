@@ -10,6 +10,9 @@
     --inner-padding: var(--qui-contact-contactHub-inner-padding, clamp(1.5rem, 4%, 2.5rem));
     --_actions-gap: var(--qui-contact-contactHub-actions-gap, var(--qui-spacing, 1rem));
     --_actions-maxWidth: var(--qui-contact-contactHub-actions-maxWidth, 28rem);
+    --_primary-actions-spacing: var(--qui-contact-contactHub-primary-actions-spacing, var(--qui-spacing-xl, 2rem));
+    --_secondary-actions-spacing: var(--qui-contact-contactHub-secondary-actions-spacing, var(--qui-spacing-lg, 1.5rem));
+    --_sidebar-actions-spacing: var(--qui-contact-contactHub-sidebar-actions-spacing, var(--qui-spacing-xl, 2rem));
     --_select-paddingBlock: var(--qui-contact-contactHub-select-paddingBlock, calc(var(--qui-spacing-xl, 2rem) * 2));
     --logo-height: var(--qui-contact-contactHub-logo-height, 50px);
 
@@ -53,6 +56,8 @@
 
 .quiqqer-contact-contactHub .logo-img {
     height: var(--logo-height);
+    max-width: 100%;
+    width: auto;
 }
 
 .quiqqer-contact-contactHub-buttons {
@@ -310,6 +315,15 @@
     margin-block: 1rem;
 }
 
+.quiqqer-contact-contactHub__leftContent > .quiqqer-contact-contactHub__primaryActions {
+    margin-top: var(--_sidebar-actions-spacing);
+}
+
+.quiqqer-contact-contactHub__leftContent > .quiqqer-contact-contactHub__primaryActions:not(:has(> .btn)) +
+.quiqqer-contact-contactHub__secondaryActions {
+    margin-top: var(--_sidebar-actions-spacing);
+}
+
 .quiqqer-contact-contactHub__secondaryActions {
     display: flex;
     flex-wrap: wrap;
@@ -325,18 +339,22 @@
     margin-inline: auto;
 }
 
+.quiqqer-contact-contactHub__view--select .quiqqer-contact-contactHub__primaryActions {
+    margin-block: var(--_primary-actions-spacing);
+}
+
 .quiqqer-contact-contactHub__secondaryLabel {
     color: var(--qui-colors-muted);
     font-size: 0.875rem;
-    margin-block: var(--_actions-gap);
+    margin-block: var(--_actions-gap) var(--_secondary-actions-spacing);
 }
 
 .quiqqer-contact-contactHub__view--select .quiqqer-contact-contactHub__secondaryActions {
     justify-content: center;
 }
 
-.quiqqer-contact-contactHub__primaryActions:empty,
-.quiqqer-contact-contactHub__secondaryActions:empty,
+.quiqqer-contact-contactHub__primaryActions:not(:has(> .btn)),
+.quiqqer-contact-contactHub__secondaryActions:not(:has(> .btn)),
 .quiqqer-contact-contactHub__layout:not([data-active-view="form"]) .quiqqer-contact-contactHub__sidebarAi {
     display: none;
 }
@@ -365,6 +383,10 @@
 /* Embedded views may turn the window content into a non-scrolling flex host.
    The contact views still need their own natural height and window scrollbar. */
 .qui-window-simpleWindow-content:has(.quiqqer-contact-contactHub--inWindow [data-name="layout"]:not([data-active-view="ai"])) {
+    overflow: visible;
+}
+
+.qui-window-simpleWindow-content:has(.quiqqer-contact-contactHub--inWindow.quiqqer-contact-contactHub--windowScrollable [data-name="layout"]:not([data-active-view="ai"])) {
     overflow: auto;
 }
 

@@ -72,7 +72,13 @@ define('package/quiqqer/contact/bin/controls/backend/ContactHubStartView', [
         },
 
         $groupSettings: function (scope) {
-            [['startView', 'start'], ['formEnabled', 'offers'], ['predefinedButtons', 'buttons'], ['btnStyle', 'appearance']].forEach(([name, section]) => {
+            [
+                ['startView', 'start'],
+                ['formEnabled', 'offers'],
+                ['predefinedButtons', 'buttons'],
+                ['ctaDescription', 'texts'],
+                ['btnStyle', 'appearance']
+            ].forEach(([name, section]) => {
                 const row = scope.querySelector('[name="' + name + '"]')?.closest('tr');
                 if (!row) {
                     return;

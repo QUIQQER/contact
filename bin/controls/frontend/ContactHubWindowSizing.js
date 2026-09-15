@@ -92,8 +92,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
                     }
                     parent = parent.parentElement;
                 }
-                height = Math.ceil(height);
-                return contentAutoHeight ? height : Math.min(height, workHeight);
+                return Math.ceil(height);
             };
 
             const update = async () => {
@@ -107,11 +106,25 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
                 }
 
                 const mobile = window.matchMedia('(max-width: 767px)').matches;
-                const height = mobile ? workHeight : measure();
-                if (height <= 0 || Number(win.getAttribute('maxHeight')) === height) {
+                const naturalHeight = measure();
+                const height = mobile
+                    ? workHeight
+                    : (contentAutoHeight ? naturalHeight : Math.min(naturalHeight, workHeight));
+                if (height <= 0) {
                     return;
                 }
+
+                const unchanged = Number(win.getAttribute('maxHeight')) === height;
                 win.setAttribute('maxHeight', height);
+                root.classList.toggle(
+                    'quiqqer-contact-contactHub--windowScrollable',
+                    mobile || naturalHeight > win.getOpeningHeight()
+                );
+
+                if (unchanged) {
+                    return;
+                }
+
                 resizing = true;
                 // Suppress temporary overflow while growing, not when the
                 // viewport already limits the window and scrolling is needed.
@@ -134,9 +147,17 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
                 }
             };
             const prepareHeight = () => {
-                const height = window.matchMedia('(max-width: 767px)').matches ? workHeight : measure();
+                const mobile = window.matchMedia('(max-width: 767px)').matches;
+                const naturalHeight = measure();
+                const height = mobile
+                    ? workHeight
+                    : (contentAutoHeight ? naturalHeight : Math.min(naturalHeight, workHeight));
                 if (height > 0) {
                     win.setAttribute('maxHeight', height);
+                    root.classList.toggle(
+                        'quiqqer-contact-contactHub--windowScrollable',
+                        mobile || naturalHeight > win.getOpeningHeight()
+                    );
                 }
             };
             win.addEvent('contentReady', prepareHeight);
@@ -151,6 +172,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
             const dispose = () => {
                 disposed = true;
                 root.classList.remove('quiqqer-contact-contactHub--windowGrowing');
+                root.classList.remove('quiqqer-contact-contactHub--windowScrollable');
                 observer.disconnect();
                 node.removeEventListener('keydown', keepFocusInWindow);
                 if (node.contains(document.activeElement) && opener?.isConnected) {

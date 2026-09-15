@@ -64,6 +64,9 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
             aiButtonIcon: '',
             formButtonText: '',
             formButtonIcon: '',
+            selectTrustText: '',
+            selectPrivacyHintEnabled: true,
+            selectPrivacyHintText: '',
 
             // design
             formDesign: 'default', // default, grid, labelLeft
@@ -854,6 +857,9 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
                 aiButtonIcon: this.getAttribute('aiButtonIcon'),
                 formButtonText: this.getAttribute('formButtonText'),
                 formButtonIcon: this.getAttribute('formButtonIcon'),
+                selectTrustText: this.getAttribute('selectTrustText'),
+                selectPrivacyHintEnabled: this.getAttribute('selectPrivacyHintEnabled'),
+                selectPrivacyHintText: this.getAttribute('selectPrivacyHintText'),
 
                 // design
                 formDesign: this.getAttribute('formDesign'),

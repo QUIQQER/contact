@@ -23,10 +23,6 @@
                         <locale group="quiqqer/contact" var="brick.control.contactHub.setting.startView.ai"/>
                     </option>
                 </setting>
-                <setting name="ctaDescription" type="text" data-name="contactHubPlaceholder">
-                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.ctaDescription"/>
-                </setting>
-
                 <setting name="formEnabled" type="checkbox">
                     <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formEnabled"/>
                     <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.formEnabled.desc"/></description>
@@ -54,23 +50,6 @@
                         <locale group="quiqqer/contact" var="brick.control.contactHub.setting.recipient.description"/>
                     </description>
                 </setting>
-                <setting name="formButtonText" type="text" data-name="contactHubPlaceholder">
-                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonText"/>
-                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonText.desc"/></description>
-                </setting>
-                <setting name="formButtonIcon" type="text" data-qui="controls/projects/project/media/Input" data-qui-options-cssclasses="1" data-qui-options-mediabutton="0">
-                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonIcon"/>
-                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonIcon.desc"/></description>
-                </setting>
-                <setting name="aiButtonText" type="text" data-name="contactHubPlaceholder">
-                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonText"/>
-                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonText.desc"/></description>
-                </setting>
-                <setting name="aiButtonIcon" type="text" data-qui="controls/projects/project/media/Input" data-qui-options-cssclasses="1" data-qui-options-mediabutton="0">
-                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonIcon"/>
-                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonIcon.desc"/></description>
-                </setting>
-
                 <setting name="predefinedButtons" type="hidden"
                          data-qui="package/quiqqer/contact/bin/controls/backend/ContactHubChannels">
                     <locale group="quiqqer/contact" var="brick.control.contactHub.setting.predefinedButtons"/>
@@ -85,10 +64,54 @@
                         <locale group="quiqqer/contact" var="brick.control.contactHub.setting.customButtons.desc"/>
                     </description>
                 </setting>
+                <setting name="formButtonIcon" type="text" data-qui="controls/projects/project/media/Input" data-qui-options-cssclasses="1" data-qui-options-mediabutton="0">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonIcon"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonIcon.desc"/></description>
+                </setting>
+                <setting name="aiButtonIcon" type="text" data-qui="controls/projects/project/media/Input" data-qui-options-cssclasses="1" data-qui-options-mediabutton="0">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonIcon"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonIcon.desc"/></description>
+                </setting>
+
+                <setting name="ctaDescription" type="text" data-name="contactHubPlaceholder">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.ctaDescription"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.ctaDescription.description"/>
+                    </description>
+                </setting>
+                <setting name="formButtonText" type="text" data-name="contactHubPlaceholder">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonText"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.formButtonText.desc"/></description>
+                </setting>
+                <setting name="aiButtonText" type="text" data-name="contactHubPlaceholder">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonText"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.aiButtonText.desc"/></description>
+                </setting>
                 <setting name="secondaryActionsLabel" type="text" data-name="contactHubPlaceholder"
                          data-dependency="startView" data-dependency-options="select">
                     <locale group="quiqqer/contact" var="brick.control.contactHub.setting.secondaryActionsLabel"/>
                     <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.secondaryActionsLabel.desc"/></description>
+                </setting>
+                <setting name="selectTrustText" type="text" data-name="contactHubPlaceholder">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.selectTrustText"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.selectTrustText.description"/>
+                    </description>
+                </setting>
+                <setting name="selectPrivacyHintEnabled" type="checkbox"
+                         data-qui="package/quiqqer/core/bin/QUI/controls/settings/Dependency">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.selectPrivacyHintEnabled"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.selectPrivacyHintEnabled.description"/>
+                    </description>
+                    <defaultValue>1</defaultValue>
+                </setting>
+                <setting name="selectPrivacyHintText" type="text" data-name="contactHubPlaceholder"
+                         data-dependency="selectPrivacyHintEnabled" data-dependency-options="1">
+                    <locale group="quiqqer/contact" var="brick.control.contactHub.setting.selectPrivacyHintText"/>
+                    <description>
+                        <locale group="quiqqer/contact" var="brick.control.contactHub.setting.selectPrivacyHintText.description"/>
+                    </description>
                 </setting>
 
                 <setting name="btnStyle" type="select">

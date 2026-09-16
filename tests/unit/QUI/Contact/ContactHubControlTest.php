@@ -188,6 +188,35 @@ class ContactHubControlTest extends TestCase
         self::assertSame($agent > 0, str_contains($html, 'data-view-target="ai"'));
     }
 
+    public function testBrickParamStartViewOverridesConfiguredViewForCurrentRender(): void
+    {
+        self::assertSame('select', $this->createControl([
+            'startView' => 'form',
+            'param-start-view' => 'select'
+        ])->getViewConfiguration()['startView']);
+
+        self::assertSame('ai', $this->createControl([
+            'startView' => 'form',
+            'param-start-view' => ' ai '
+        ], 42)->getViewConfiguration()['startView']);
+
+        self::assertSame('select', $this->createControl([
+            'startView' => 'form',
+            'param-start-view' => 'invalid'
+        ], 42)->getViewConfiguration()['startView']);
+
+        self::assertSame('select', $this->createControl([
+            'startView' => 'select',
+            'formEnabled' => false,
+            'param-start-view' => 'form'
+        ])->getViewConfiguration()['startView']);
+
+        self::assertSame('form', $this->createControl([
+            'startView' => 'form',
+            'param-start-view' => '   '
+        ])->getViewConfiguration()['startView']);
+    }
+
     public function testFormSidebarAiRequiresAllThreeConditions(): void
     {
         foreach ([false, true] as $sidebar) {

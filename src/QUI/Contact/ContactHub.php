@@ -1385,9 +1385,14 @@ class ContactHub extends QUI\Control
         $aiBrickId = $this->resolveAiBrickId();
         $formEnabled = $this->normalizeBooleanFlag($this->getAttribute('formEnabled'));
         $formSidebar = $formEnabled && $this->normalizeBooleanFlag($this->getAttribute('formSidebar'));
+        $startView = trim((string)$this->getAttribute('param-start-view'));
+
+        if ($startView === '') {
+            $startView = (string)$this->getAttribute('startView');
+        }
 
         return [
-            'startView' => match ($this->getAttribute('startView')) {
+            'startView' => match ($startView) {
                 'form' => $formEnabled ? 'form' : 'select',
                 'ai' => $aiBrickId > 0 ? 'ai' : 'select',
                 default => 'select'

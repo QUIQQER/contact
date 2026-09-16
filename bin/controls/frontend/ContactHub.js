@@ -635,7 +635,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
             buttonData = typeOf(buttonData) === 'object' ? buttonData : {};
 
             const text = (buttonData.text || '').toString().trim();
-            const title = (buttonData.title || text).toString().trim();
+            const title = (buttonData.title || buttonData.titleAttribute || text).toString().trim();
             const ariaLabel = (buttonData.ariaLabel || text || title).toString().trim();
 
             return {

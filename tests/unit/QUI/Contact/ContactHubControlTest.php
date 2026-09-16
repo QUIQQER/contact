@@ -101,6 +101,14 @@ class ContactHubControlTest extends TestCase
         self::assertTrue($button['targetBlank']);
         self::assertTrue($button['disabled']);
         self::assertSame('', $button['onClick']);
+
+        $button = $this->invoke($Control, 'normalizeButtonConfig', [[
+            'title' => '',
+            'titleAttribute' => 'Calendar',
+        ]]);
+
+        self::assertSame('Calendar', $button['title']);
+        self::assertSame('Calendar', $button['ariaLabel']);
     }
 
     public function testKeepsSafeButtonLinksAndCallbacks(): void

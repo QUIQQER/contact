@@ -2269,6 +2269,46 @@
             <pl><![CDATA[Wyświetlanie]]></pl>
         </locale>
 
+        <locale name="contact.contactHub.buttonLabel">
+            <de><![CDATA[Beschriftung]]></de>
+            <en><![CDATA[Label]]></en>
+            <es><![CDATA[Etiqueta]]></es>
+            <pt><![CDATA[Legenda]]></pt>
+            <fr><![CDATA[Libellé]]></fr>
+            <it><![CDATA[Etichetta]]></it>
+            <pl><![CDATA[Etykieta]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.buttonLabel.description">
+            <de><![CDATA[Pflichtfeld. Bei „Nur Icon“ wird die Beschriftung nicht angezeigt, sondern als barrierefreie Bezeichnung verwendet.]]></de>
+            <en><![CDATA[Required. With “Icon only”, the label is not displayed but is used as the accessible name.]]></en>
+            <es><![CDATA[Campo obligatorio. Con «Solo icono», la etiqueta no se muestra, sino que se utiliza como nombre accesible.]]></es>
+            <pt><![CDATA[Campo obrigatório. Com “Apenas ícone”, a legenda não é apresentada, mas é utilizada como nome acessível.]]></pt>
+            <fr><![CDATA[Champ obligatoire. Avec « Icône seule », le libellé n’est pas affiché, mais sert de nom accessible.]]></fr>
+            <it><![CDATA[Campo obbligatorio. Con “Solo icona”, l’etichetta non viene mostrata, ma viene usata come nome accessibile.]]></it>
+            <pl><![CDATA[Pole wymagane. Przy ustawieniu „Tylko ikona” etykieta nie jest wyświetlana, lecz służy jako dostępna nazwa.]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.buttonLabel.required">
+            <de><![CDATA[Bitte eine Beschriftung eingeben.]]></de>
+            <en><![CDATA[Please enter a label.]]></en>
+            <es><![CDATA[Introduzca una etiqueta.]]></es>
+            <pt><![CDATA[Introduza uma legenda.]]></pt>
+            <fr><![CDATA[Saisissez un libellé.]]></fr>
+            <it><![CDATA[Inserire un’etichetta.]]></it>
+            <pl><![CDATA[Wprowadź etykietę.]]></pl>
+        </locale>
+
+        <locale name="contact.contactHub.icon.required">
+            <de><![CDATA[Bitte ein Icon auswählen.]]></de>
+            <en><![CDATA[Please select an icon.]]></en>
+            <es><![CDATA[Seleccione un icono.]]></es>
+            <pt><![CDATA[Selecione um ícone.]]></pt>
+            <fr><![CDATA[Sélectionnez une icône.]]></fr>
+            <it><![CDATA[Selezionare un’icona.]]></it>
+            <pl><![CDATA[Wybierz ikonę.]]></pl>
+        </locale>
+
         <locale name="contact.contactHub.noActions">
             <de><![CDATA[Keine nutzbaren Kontaktaktionen konfiguriert. Aktiviere das Formular, wähle einen verfügbaren KI-Agenten oder ergänze einen Kontaktweg.]]></de>
             <en><![CDATA[No usable contact actions configured. Enable the form, select an available AI agent or add a contact method.]]></en>

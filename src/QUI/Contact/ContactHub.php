@@ -1011,6 +1011,10 @@ class ContactHub extends QUI\Control
         $ariaLabel = trim((string)($button['ariaLabel'] ?? ''));
         $text = trim((string)($button['text'] ?? ''));
 
+        if ($title === '') {
+            $title = trim((string)($button['titleAttribute'] ?? ''));
+        }
+
         if ($title === '' && $text !== '') {
             $title = $text;
         }

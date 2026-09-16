@@ -31,7 +31,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindow', [
             header: '',
             content: '',
             title: '',
-            description: '',
+            ctaDescription: '',
 
             name_label: '',
             name_placeholder: '',

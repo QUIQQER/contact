@@ -23,7 +23,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
             header: '',
             content: '',
             title: '',
-            description: '',
+            ctaDescription: '',
 
             name_label: '',
             name_placeholder: '',
@@ -823,7 +823,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
                 header: this.getAttribute('header'),
                 content: this.getAttribute('content'),
                 title: this.getAttribute('title'),
-                description: this.getAttribute('description'),
+                ctaDescription: this.getAttribute('ctaDescription'),
 
                 name_label: this.getAttribute('name_label'),
                 name_placeholder: this.getAttribute('name_placeholder'),

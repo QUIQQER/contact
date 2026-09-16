@@ -17,7 +17,7 @@ class ContactHubControlTest extends TestCase
     {
         $Control = new class ([
             'title' => 'Contact',
-            'description' => 'Description',
+            'ctaDescription' => 'Description',
             'content' => '<p>Content</p>',
             'name_label' => 'Name',
             'name_placeholder' => 'Name',
@@ -364,10 +364,24 @@ class ContactHubControlTest extends TestCase
         }
     }
 
-    public function testCtaDescriptionOverridesTheDefaultDescription(): void
+    public function testCtaDescriptionIgnoresReservedBrickDescriptionAndUsesLocaleFallback(): void
     {
+        $localeDescription = \QUI::getLocale()->get(
+            'quiqqer/contact',
+            'contact.contactHub.default_description'
+        );
+        $defaultHtml = $this->createControl([
+            'description' => 'Brick metadata description'
+        ])->getBody();
+
+        self::assertStringContainsString(
+            htmlspecialchars($localeDescription, ENT_QUOTES, 'UTF-8'),
+            $defaultHtml
+        );
+        self::assertStringNotContainsString('Brick metadata description', $defaultHtml);
+
         $html = $this->createControl([
-            'description' => 'Default description',
+            'description' => 'Brick metadata description',
             'ctaDescription' => 'Configured <script>subtitle</script>'
         ])->getBody();
 
@@ -376,7 +390,9 @@ class ContactHubControlTest extends TestCase
             'Configured &lt;script&gt;subtitle&lt;/script&gt;',
             $html
         );
-        self::assertStringNotContainsString('Default description', $html);
+        self::assertStringNotContainsString('Brick metadata description', $html);
+        self::assertContains('ctaDescription', ContactHub::getAllowedAttributes());
+        self::assertNotContains('description', ContactHub::getAllowedAttributes());
     }
 
     public function testSecondaryLabelOnlyAppearsWithTextAndSecondaryActions(): void
@@ -397,7 +413,7 @@ class ContactHubControlTest extends TestCase
         foreach ([[], [['text' => 'Appointment', 'href' => '/appointment']]] as $buttons) {
             $html = $this->createControl([
                 'startView' => 'form', 'formEnabled' => false,
-                'title' => 'Custom overview', 'description' => 'Custom description', 'customButtons' => $buttons
+                'title' => 'Custom overview', 'ctaDescription' => 'Custom description', 'customButtons' => $buttons
             ])->getBody();
             self::assertStringContainsString('data-active-view="select"', $html);
             self::assertStringContainsString('Custom overview', $html);

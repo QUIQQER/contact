@@ -68,7 +68,6 @@ class ContactHub extends QUI\Control
             'header' => '',
             'content' => '',
             'title' => '',
-            'description' => '',
             'ctaDescription' => '',
 
             'name_label' => '',
@@ -148,12 +147,6 @@ class ContactHub extends QUI\Control
             }
         }
 
-        $ctaDescription = trim((string)$this->getAttribute('ctaDescription'));
-
-        if ($ctaDescription !== '') {
-            $this->setAttribute('description', $ctaDescription);
-        }
-
         $formDesign = match ($this->getAttribute('formDesign')) {
             'grid', 'labelLeft' => $this->getAttribute('formDesign'),
             default => 'default'
@@ -202,7 +195,7 @@ class ContactHub extends QUI\Control
 
         $title = $this->getAttribute('title');
         //$header = $this->getAttribute('header');
-        $description = $this->getAttribute('description');
+        $description = trim((string)$this->getAttribute('ctaDescription'));
         $content = $this->getAttribute('content');
 
         $nameLabel = $this->getAttribute('name_label');
@@ -1462,7 +1455,7 @@ class ContactHub extends QUI\Control
             'header',
             'content',
             'title',
-            'description',
+            'ctaDescription',
             'name_label',
             'name_placeholder',
             'company_label',

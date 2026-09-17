@@ -429,6 +429,10 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
             return new Promise((resolve, reject) => {
                 this.getSuccessHtml().then(/** @param {string} successHtml */(successHtml) => {
                     QUIAjax.post('package_quiqqer_contact_ajax_contactHub_send', () => {
+                        this.$Layout?.dispatchEvent(new CustomEvent('quiqqer-contact-contactHub-success', {
+                            bubbles: true
+                        }));
+
                         // finish mess
                         const success = document.createElement('div');
                         success.classList.add('quiqqer-contact-contactHub__success');

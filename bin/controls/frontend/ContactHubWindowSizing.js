@@ -35,6 +35,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
             let resizing = false;
             let pending = false;
             let disposed = false;
+            let heightFrozen = false;
             const opener = document.activeElement;
             const title = layout.querySelector('[data-name="viewTitle"]');
             node.setAttribute('role', 'dialog');
@@ -97,7 +98,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
 
             const update = async () => {
                 frame = 0;
-                if (disposed || !root.isConnected || win.getAttribute('contentPending')) {
+                if (disposed || heightFrozen || !root.isConnected || win.getAttribute('contentPending')) {
                     return;
                 }
                 if (resizing) {
@@ -142,11 +143,15 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
                 }
             };
             const schedule = () => {
-                if (!disposed && !frame) {
+                if (!disposed && !heightFrozen && !frame) {
                     frame = requestAnimationFrame(update);
                 }
             };
             const prepareHeight = () => {
+                if (disposed || heightFrozen) {
+                    return;
+                }
+
                 const mobile = window.matchMedia('(max-width: 767px)').matches;
                 const naturalHeight = measure();
                 const height = mobile
@@ -164,6 +169,15 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
             const observer = new ResizeObserver(schedule);
             observer.observe(layout);
             observer.observe(root);
+            // Keep the form's window height when its layout is replaced by the success message.
+            const freezeHeight = () => {
+                heightFrozen = true;
+                pending = false;
+                cancelAnimationFrame(frame);
+                frame = 0;
+                observer.disconnect();
+            };
+            layout.addEventListener('quiqqer-contact-contactHub-success', freezeHeight);
             content.addEventListener('quiqqer-contact-contactHub-viewChange', schedule);
             content.addEventListener('quiqqer-contact-contactHub-aiMounted', schedule);
             window.addEventListener('resize', schedule);
@@ -174,6 +188,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
                 root.classList.remove('quiqqer-contact-contactHub--windowGrowing');
                 root.classList.remove('quiqqer-contact-contactHub--windowScrollable');
                 observer.disconnect();
+                layout.removeEventListener('quiqqer-contact-contactHub-success', freezeHeight);
                 node.removeEventListener('keydown', keepFocusInWindow);
                 if (node.contains(document.activeElement) && opener?.isConnected) {
                     opener.focus({preventScroll: true});

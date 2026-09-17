@@ -32,6 +32,7 @@ class ContactHub extends QUI\Control
     public const AI_AGENT_BRICK_CATEGORY = 'aiAgent';
 
     private const DEFAULT_COUNTRY_CODE = '49';
+    private const FORM_CONTEXT_MAX_LENGTH = 2000;
 
     /**
      * The fixed, curated contact channels and how each renders as a button.
@@ -358,6 +359,7 @@ class ContactHub extends QUI\Control
             'secondaryButtons' => $buttons['secondary'],
             'sidebarButtons' => $this->getButtons($btnStyle),
             'formEnabled' => $views['formEnabled'],
+            'formContext' => $this->normalizeFormContext($aiBrickParams['context'] ?? ''),
             'formSidebar' => $views['formSidebar'],
             'formSidebarAi' => $views['formSidebarAi'],
             'startView' => $startView,
@@ -506,6 +508,16 @@ class ContactHub extends QUI\Control
                 (string)$brick->getAttribute('title')
             );
         }
+
+        $context = $this->normalizeFormContext($formData['context'] ?? '');
+
+        if ($context !== '') {
+            $html .= $this->buildHtmlListItem(
+                $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.context'),
+                $context
+            );
+        }
+
         $html .= '</ul>';
 
         // contact data
@@ -652,6 +664,17 @@ class ContactHub extends QUI\Control
             data-project="' . $project . '" 
             data-lang="' . $lang . '" 
             data-id="' . $id . '">' . $title . '</a>';
+    }
+
+    private function normalizeFormContext(mixed $context): string
+    {
+        if (!is_string($context)) {
+            return '';
+        }
+
+        $context = trim(preg_replace('/[\s\x00-\x1F\x7F]+/u', ' ', $context) ?? '');
+
+        return mb_substr($context, 0, self::FORM_CONTEXT_MAX_LENGTH, 'UTF-8');
     }
 
     private function buildHtmlListItem(string $label, string $value): string

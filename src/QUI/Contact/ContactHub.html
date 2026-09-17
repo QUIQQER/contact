@@ -84,6 +84,9 @@
                 {/if}
 
                 <form data-name="form" action="#" method="post" class="quiqqer-contact-contactHub__form form form--{$formDesign}">
+                    {if $formContext !== ''}
+                        <input type="hidden" name="context" value="{$formContext|escape:'html'}"/>
+                    {/if}
 
                     <div class="form-field form-field--name">
                         <label data-name="fieldLabel" class="form-label" for="{$formId|escape:'html'}-name">

@@ -9,6 +9,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use DOMDocument;
 use DOMXPath;
 use QUI\Contact\ContactHub;
+use QUI\Mail\Mailer;
+use QUI\Mail\Manager;
 use ReflectionMethod;
 
 class ContactHubControlTest extends TestCase
@@ -157,6 +159,105 @@ class ContactHubControlTest extends TestCase
         ]);
 
         self::assertSame([], $this->invoke($Control, 'collectBrickParams', []));
+    }
+
+    /** @return iterable<string, array{array<string, mixed>, string}> */
+    public static function formContexts(): iterable
+    {
+        yield 'opener overrides fallback' => [
+            ['param-context' => 'Paket: Starter', 'aiContext' => 'Fallback'], 'Paket: Starter'
+        ];
+        yield 'configured fallback' => [['aiContext' => 'Paket: Business'], 'Paket: Business'];
+        yield 'blank opener uses fallback' => [
+            ['param-context' => '   ', 'aiContext' => 'Paket: Business'], 'Paket: Business'
+        ];
+        yield 'no context' => [[], ''];
+        yield 'invalid opener' => [['param-context' => ['invalid']], ''];
+        yield 'other parameters are not form fields' => [['param-kickoff' => 'always'], ''];
+        yield 'attribute injection' => [
+            ['param-context' => '"><script>alert(1)</script> & Angebot'],
+            '"><script>alert(1)</script> & Angebot'
+        ];
+        yield 'whitespace' => [['param-context' => "  Paket:\nStarter\t· Kaufen  "], 'Paket: Starter · Kaufen'];
+        yield 'unicode length limit' => [['param-context' => str_repeat('ä', 2001)], str_repeat('ä', 2000)];
+    }
+
+    /** @param array<string, mixed> $attributes */
+    #[DataProvider('formContexts')]
+    public function testFormContextIsOnlyRenderedAsHiddenField(array $attributes, string $expected): void
+    {
+        foreach (['form' => 0, 'select' => 0, 'ai' => 42] as $startView => $agent) {
+            $Control = $this->createControl($attributes + ['startView' => $startView], $agent);
+            $xpath = $this->xpath($Control->getBody());
+            $fields = $xpath->query('//form//input[@name="context" and @type="hidden"]');
+            self::assertSame($expected === '' ? 0 : 1, $fields->length);
+
+            if ($expected !== '') {
+                self::assertSame($expected, $fields->item(0)->getAttribute('value'));
+                self::assertStringNotContainsString($expected, $xpath->evaluate('string(//form)'));
+            }
+
+            self::assertSame(0, $xpath->query('//form//script | //form//*[@name="kickoff"]')->length);
+        }
+    }
+
+    /** @return iterable<string, array{array<string, mixed>, string}> */
+    public static function submittedContexts(): iterable
+    {
+        yield 'missing field from old form' => [[], ''];
+        yield 'empty' => [['context' => ''], ''];
+        yield 'blank' => [['context' => " \n\t "], ''];
+        yield 'array' => [['context' => ['Paket: Starter']], ''];
+        yield 'boolean' => [['context' => true], ''];
+        yield 'number' => [['context' => 42], ''];
+        yield 'zero text' => [['context' => '0'], '0'];
+        yield 'whitespace and controls' => [['context' => " Paket:\nStarter\t\0· Kaufen "], 'Paket: Starter · Kaufen'];
+        yield 'html' => [['context' => '<script>alert(1)</script> & Angebot'], '<script>alert(1)</script> & Angebot'];
+        yield 'unicode length limit' => [['context' => str_repeat('ä', 2001)], str_repeat('ä', 2000)];
+        yield 'invalid UTF-8' => [['context' => "\xFF"], ''];
+    }
+
+    /** @param array<string, mixed> $formData */
+    #[DataProvider('submittedContexts')]
+    public function testMailIncludesOnlyValidContextSeparatelyFromMessage(array $formData, string $expected): void
+    {
+        $originalManager = \QUI::$MailManager;
+        $Mailer = $this->createMock(Mailer::class);
+        $Mailer->expects(self::once())->method('setBody')->with(self::callback(
+            function (string $html) use ($expected): bool {
+                $label = \QUI::getLocale()->get('quiqqer/contact', 'brick.control.contactHub.mail.context');
+                $row = '<li><strong>' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . ':</strong> ';
+
+                if ($expected === '') {
+                    self::assertStringNotContainsString($row, $html);
+                } else {
+                    self::assertStringContainsString(
+                        $row . htmlspecialchars($expected, ENT_QUOTES, 'UTF-8') . '</li>',
+                        $html
+                    );
+                }
+
+                self::assertSame('Original message & question', $this->xpath($html)->evaluate('string(//p)'));
+                self::assertStringNotContainsString('<script>', $html);
+                self::assertStringNotContainsString('unrelated parameter', $html);
+                return true;
+            }
+        ));
+        $Mailer->expects(self::once())->method('send')->willReturn(true);
+        $Manager = $this->createMock(Manager::class);
+        $Manager->method('getMailer')->willReturn($Mailer);
+        \QUI::$MailManager = $Manager;
+
+        try {
+            $this->createControl()->send($formData + [
+                'name' => 'Test',
+                'email' => 'test@example.com',
+                'message' => 'Original message & question',
+                'kickoff' => 'unrelated parameter'
+            ]);
+        } finally {
+            \QUI::$MailManager = $originalManager;
+        }
     }
 
     public function testResolveAiBrickIdRejectsAnUnusableSelection(): void

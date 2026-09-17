@@ -2816,23 +2816,23 @@
         </locale>
 
         <locale name="brick.control.contactHub.setting.aiContext">
-            <de><![CDATA[Kontext für den KI-Agenten <br><small>Kontaktaufnahme</small>]]></de>
-            <en><![CDATA[Context for the AI agent <br><small>Contact hub</small>]]></en>
-            <es><![CDATA[Contexto para el agente de IA <br><small>Centro de contacto</small>]]></es>
-            <pt><![CDATA[Contexto para o agente de IA <br><small>Centro de contacto</small>]]></pt>
-            <fr><![CDATA[Contexte pour l’agent IA <br><small>Espace de contact</small>]]></fr>
-            <it><![CDATA[Contesto per l’agente IA <br><small>Centro contatti</small>]]></it>
-            <pl><![CDATA[Kontekst dla agenta AI <br><small>Centrum kontaktu</small>]]></pl>
+            <de><![CDATA[Kontext für KI-Agent und Anfrage-Mail <br><small>Kontaktaufnahme</small>]]></de>
+            <en><![CDATA[Context for AI agent and request email <br><small>Contact hub</small>]]></en>
+            <es><![CDATA[Contexto para el agente de IA y el correo de consulta <br><small>Centro de contacto</small>]]></es>
+            <pt><![CDATA[Contexto para o agente de IA e o email do pedido <br><small>Centro de contacto</small>]]></pt>
+            <fr><![CDATA[Contexte pour l’agent IA et l’e-mail de demande <br><small>Espace de contact</small>]]></fr>
+            <it><![CDATA[Contesto per l’agente IA e l’email di richiesta <br><small>Centro contatti</small>]]></it>
+            <pl><![CDATA[Kontekst dla agenta AI i wiadomości z zapytaniem <br><small>Centrum kontaktu</small>]]></pl>
         </locale>
 
         <locale name="brick.control.contactHub.setting.aiContext.description">
-            <de><![CDATA[Freitext, aus dem der Agent erfährt, worum es geht – z. B. „Paket: Starter · Variante: Kaufen“. Sinnvoll, wenn dieser Baustein fest auf einer Produktseite sitzt. Gibt ein Button beim Öffnen einen eigenen Kontext mit, gewinnt dieser; das Feld hier ist der Rückfall. Liegt Kontext vor, eröffnet der Agent das Gespräch standardmäßig selbst.]]></de>
-            <en><![CDATA[Free text telling the agent what this is about, e.g. "Package: Starter - Variant: Buy". Useful when this brick sits on a fixed product page. A context handed in by a button when opening wins; this field is the fallback. With a context present the agent opens the conversation itself by default.]]></en>
-            <es><![CDATA[Texto libre que explica al agente de qué se trata, por ejemplo: "Paquete: Starter · Opción: Comprar". Resulta útil si el bloque está integrado en una página de producto concreta. Si un botón envía su propio contexto al abrir, ese contexto tiene prioridad; este campo se usa como alternativa. Cuando hay contexto, el agente inicia la conversación por defecto.]]></es>
-            <pt><![CDATA[Texto livre que indica ao agente o assunto, por exemplo: "Pacote: Starter · Opção: Comprar". É útil quando o bloco está integrado numa página de produto específica. Se um botão enviar o seu próprio contexto ao abrir, esse contexto tem prioridade; este campo é usado como alternativa. Quando existe contexto, o agente inicia a conversa por predefinição.]]></pt>
-            <fr><![CDATA[Texte libre qui précise le sujet à l’agent, par exemple : "Offre : Starter · Option : Acheter". Utile lorsque ce bloc est intégré à une page produit précise. Si un bouton fournit son propre contexte à l’ouverture, celui-ci est prioritaire ; ce champ sert de solution de repli. Lorsqu’un contexte est présent, l’agent engage la conversation par défaut.]]></fr>
-            <it><![CDATA[Testo libero che spiega all’agente l’argomento, ad esempio: "Pacchetto: Starter · Opzione: Acquista". Utile quando il blocco è integrato in una pagina prodotto specifica. Se un pulsante fornisce un proprio contesto all’apertura, quel contesto ha la precedenza; questo campo viene usato come alternativa. In presenza di un contesto, l’agente avvia la conversazione per impostazione predefinita.]]></it>
-            <pl><![CDATA[Dowolny tekst wyjaśniający agentowi temat, na przykład: "Pakiet: Starter · Wariant: Zakup". Przydatny, gdy blok jest umieszczony na konkretnej stronie produktu. Jeśli przycisk przekazuje własny kontekst przy otwieraniu, ma on pierwszeństwo; to pole jest używane w pozostałych przypadkach. Gdy kontekst jest dostępny, agent domyślnie sam rozpoczyna rozmowę.]]></pl>
+            <de><![CDATA[Freitext zum Angebot oder Thema, z. B. „Paket: Starter · Variante: Kaufen“. Ein beim Öffnen übergebener Kontext hat Vorrang; dieses Feld dient als Rückfall. Der Kontext wird an den KI-Agenten weitergereicht und beim Formularversand als eigene Zeile in die Anfrage-Mail übernommen (maximal 2.000 Zeichen). Im Formular wird er nicht angezeigt. Liegt Kontext vor, eröffnet der Agent das Gespräch standardmäßig selbst.]]></de>
+            <en><![CDATA[Free text about the offer or topic, e.g. "Package: Starter - Variant: Buy". Context supplied when opening takes precedence; this field is the fallback. The context is passed to the AI agent and included as a separate line in the request email when the form is submitted (up to 2,000 characters). It is not displayed in the form. With context present, the agent starts the conversation by default.]]></en>
+            <es><![CDATA[Texto libre sobre la oferta o el tema, por ejemplo: "Paquete: Starter · Opción: Comprar". El contexto recibido al abrir tiene prioridad; este campo se usa como alternativa. El contexto se transmite al agente de IA y se incluye en una línea separada del correo de consulta al enviar el formulario (hasta 2.000 caracteres). No se muestra en el formulario. Cuando hay contexto, el agente inicia la conversación por defecto.]]></es>
+            <pt><![CDATA[Texto livre sobre a oferta ou o assunto, por exemplo: "Pacote: Starter · Opção: Comprar". O contexto recebido ao abrir tem prioridade; este campo é usado como alternativa. O contexto é transmitido ao agente de IA e incluído numa linha separada do email do pedido ao enviar o formulário (até 2.000 caracteres). Não é apresentado no formulário. Quando existe contexto, o agente inicia a conversa por predefinição.]]></pt>
+            <fr><![CDATA[Texte libre sur l’offre ou le sujet, par exemple : "Offre : Starter · Option : Acheter". Le contexte fourni à l’ouverture est prioritaire ; ce champ sert de solution de repli. Le contexte est transmis à l’agent IA et inclus sur une ligne distincte dans l’e-mail de demande lors de l’envoi du formulaire (2 000 caractères maximum). Il n’est pas affiché dans le formulaire. Lorsqu’un contexte est présent, l’agent engage la conversation par défaut.]]></fr>
+            <it><![CDATA[Testo libero sull’offerta o sull’argomento, ad esempio: "Pacchetto: Starter · Opzione: Acquista". Il contesto fornito all’apertura ha la precedenza; questo campo viene usato come alternativa. Il contesto viene trasmesso all’agente IA e incluso in una riga separata nell’email di richiesta all’invio del modulo (massimo 2.000 caratteri). Non viene mostrato nel modulo. In presenza di un contesto, l’agente avvia la conversazione per impostazione predefinita.]]></it>
+            <pl><![CDATA[Dowolny tekst dotyczący oferty lub tematu, na przykład: "Pakiet: Starter · Wariant: Zakup". Kontekst przekazany przy otwieraniu ma pierwszeństwo; to pole jest używane w pozostałych przypadkach. Kontekst jest przekazywany agentowi AI i dodawany jako osobny wiersz do wiadomości z zapytaniem po wysłaniu formularza (maksymalnie 2000 znaków). Nie jest wyświetlany w formularzu. Gdy kontekst jest dostępny, agent domyślnie sam rozpoczyna rozmowę.]]></pl>
         </locale>
 
         <locale name="brick.control.contactHub.setting.aiSidebar">
@@ -3363,6 +3363,16 @@
             <fr><![CDATA[Titre]]></fr>
             <it><![CDATA[Titolo]]></it>
             <pl><![CDATA[Tytuł]]></pl>
+        </locale>
+
+        <locale name="brick.control.contactHub.mail.context">
+            <de><![CDATA[Anfragekontext]]></de>
+            <en><![CDATA[Request context]]></en>
+            <es><![CDATA[Contexto de la consulta]]></es>
+            <pt><![CDATA[Contexto do pedido]]></pt>
+            <fr><![CDATA[Contexte de la demande]]></fr>
+            <it><![CDATA[Contesto della richiesta]]></it>
+            <pl><![CDATA[Kontekst zapytania]]></pl>
         </locale>
 
         <locale name="brick.control.contactHub.mail.contact">

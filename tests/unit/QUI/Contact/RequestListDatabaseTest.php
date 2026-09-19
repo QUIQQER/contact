@@ -136,6 +136,75 @@ class RequestListDatabaseTest extends TestCase
         self::assertSame(1, RequestList::getList(['id' => 1], true));
     }
 
+    public function testPackageSetupLoadsOnlyActiveContactSites(): void
+    {
+        $Connection = QUI::getDataBaseConnection();
+        $Schema = new Schema();
+        $Sites = $Schema->createTable('contact_setup_test_sites');
+        foreach (['id', 'active', 'deleted', 'order_field'] as $column) {
+            $Sites->addColumn($column, 'integer');
+        }
+        $Sites->addColumn('type', 'string');
+        $Sites->setPrimaryKey(['id']);
+
+        foreach ($Schema->toSql($Connection->getDatabasePlatform()) as $statement) {
+            $Connection->executeStatement($statement);
+        }
+
+        foreach ([1, 0, -1] as $index => $active) {
+            $Connection->insert('contact_setup_test_sites', [
+                'id' => $index + 1,
+                'active' => $active,
+                'deleted' => 0,
+                'order_field' => $index,
+                'type' => 'quiqqer/contact:types/contact'
+            ]);
+        }
+        $Connection->insert('contact_setup_test_sites', [
+            'id' => 4, 'active' => 1, 'deleted' => 1, 'order_field' => 4,
+            'type' => 'quiqqer/contact:types/contact'
+        ]);
+        $Connection->insert('contact_setup_test_sites', [
+            'id' => 5, 'active' => 1, 'deleted' => 0, 'order_field' => 5,
+            'type' => 'quiqqer/sitetypes:types/text'
+        ]);
+
+        // Keep the real getSites/getSitesIds query; mock only loading the selected site.
+        $Project = $this->getMockBuilder(Project::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['getName', 'getLanguages', 'getTemplate', 'table', 'get'])
+            ->getMock();
+        $Project->method('getName')->willReturn('contact-setup-test');
+        $Project->method('getLanguages')->willReturn(['en']);
+        $Project->method('getTemplate')->willReturn('test-template');
+        $Project->method('table')->willReturn('contact_setup_test_sites');
+        $Site = $this->createMock(Site::class);
+        $Site->expects(self::once())->method('getAttribute')
+            ->with('quiqqer.contact.settings.form')->willReturn(null);
+        $Project->expects(self::once())->method('get')->with(1)->willReturn($Site);
+        $Package = $this->createMock(QUI\Package\Package::class);
+        $Package->method('getName')->willReturn('quiqqer/contact');
+
+        $Config = QUI\Projects\Manager::getConfig();
+        $ConfigData = new ReflectionProperty(QUI\Config::class, 'iniParsedArray');
+        $originalConfig = $ConfigData->getValue($Config);
+        $originalProjects = QUI\Projects\Manager::$projects;
+        $originalStandard = QUI\Projects\Manager::$Standard;
+
+        try {
+            $ConfigData->setValue($Config, [
+                'contact-setup-test' => ['default_lang' => 'en', 'template' => 'test-template']
+            ]);
+            QUI\Projects\Manager::$projects = ['contact-setup-test' => ['en' => $Project]];
+
+            EventHandler::onPackageSetup($Package);
+        } finally {
+            $ConfigData->setValue($Config, $originalConfig);
+            QUI\Projects\Manager::$projects = $originalProjects;
+            QUI\Projects\Manager::$Standard = $originalStandard;
+        }
+    }
+
     public function testCreatesAndUpdatesFormMetadataFromContactSite(): void
     {
         $formData = json_encode([

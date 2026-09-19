@@ -56,7 +56,7 @@ class EventHandler
                 try {
                     $contactSites = $LangProject->getSites([
                         'where' => [
-                            'active' => -1,
+                            'active' => 1,
                             'type' => 'quiqqer/contact:types/contact'
                         ]
                     ]);

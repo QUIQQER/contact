@@ -1,6 +1,6 @@
 <?php
 
-namespace QUI\Contact\CtaAction;
+namespace QUI\Contact;
 
 use DOMDocument;
 use DOMElement;
@@ -10,13 +10,11 @@ use QUI\Exception;
 use QUI\Components\Controls\Button;
 
 /**
- * This class represents a control for managing a contact call-to-action (CTA) element in a QUI application.
+ * This class represents a control for managing a contact hub in a QUI application.
  * It provides functionality to configure its attributes and render its content dynamically. Additionally,
  * it supports form submission for collecting user input and validating the required fields.
- *
- * @deprecated Use \QUI\Contact\ContactHub instead.
  */
-class Control extends QUI\Control
+class ContactHub extends QUI\Control
 {
     /**
      * @var array<int, array{text: string, icon: string, cssClass: string, href: string}>
@@ -33,6 +31,35 @@ class Control extends QUI\Control
      */
     public const AI_AGENT_BRICK_CATEGORY = 'aiAgent';
 
+    private const DEFAULT_COUNTRY_CODE = '49';
+    private const FORM_CONTEXT_MAX_LENGTH = 2000;
+
+    /**
+     * The fixed, curated contact channels and how each renders as a button.
+     *
+     * @var array<string, array{icon: string, class: string, btnType: string, title: string}>
+     */
+    private const CHANNEL_META = [
+        'email' => [
+            'icon' => 'fa fa-envelope',
+            'class' => 'btn--mail',
+            'btnType' => '',
+            'title' => 'brick.control.contactHub.frontend.btn.email.title',
+        ],
+        'whatsapp' => [
+            'icon' => 'fa fa-whatsapp',
+            'class' => 'btn--whatsapp',
+            'btnType' => '',
+            'title' => 'brick.control.contactHub.frontend.btn.whatsapp.title',
+        ],
+        'phone' => [
+            'icon' => 'fa fa-phone',
+            'class' => 'btn--phone',
+            'btnType' => 'secondary',
+            'title' => 'brick.control.contactHub.frontend.btn.phone.title',
+        ],
+    ];
+
     /**
      * @param array<string, mixed> $attributes
      */
@@ -42,7 +69,7 @@ class Control extends QUI\Control
             'header' => '',
             'content' => '',
             'title' => '',
-            'description' => '',
+            'ctaDescription' => '',
 
             'name_label' => '',
             'name_placeholder' => '',
@@ -69,18 +96,16 @@ class Control extends QUI\Control
             'btnStyle' => 'button', // button, rounded
             'contactDisplay' => 'icon-text', // icon-text, text, icon
             'size' => 'default',
-            'whatsapp' => '',
-            'whatsappLabel' => '',
-            'phone' => '',
-            'phoneLabel' => '',
-            'email' => '',
-            'emailLabel' => '',
+            'predefinedButtons' => '',
             'customButtons' => '',
             'secondaryActionsLabel' => '',
             'aiButtonText' => '',
             'aiButtonIcon' => '',
             'formButtonText' => '',
             'formButtonIcon' => '',
+            'selectTrustText' => '',
+            'selectPrivacyHintEnabled' => true,
+            'selectPrivacyHintText' => '',
 
             // design
             'formDesign' => '', // default, grid, labelLeft
@@ -92,9 +117,9 @@ class Control extends QUI\Control
 
         parent::__construct($attributes);
 
-        $this->setJavaScriptControl('package/quiqqer/contact/bin/controls/frontend/CtaAction');
-        $this->addCSSClass('quiqqer-contact-ctaAction');
-        $this->addCSSFile(dirname(__FILE__) . '/Control.css');
+        $this->setJavaScriptControl('package/quiqqer/contact/bin/controls/frontend/ContactHub');
+        $this->addCSSClass('quiqqer-contact-contactHub');
+        $this->addCSSFile(dirname(__FILE__) . '/ContactHub.css');
     }
 
     public function getBody(): string
@@ -110,10 +135,6 @@ class Control extends QUI\Control
                 if ($brick !== null) {
                     if ($brick->getAttribute('frontendTitle')) {
                         $this->setAttribute('title', $brick->getAttribute('frontendTitle'));
-                    }
-
-                    if ($brick->getAttribute('ctaDescription')) {
-                        $this->setAttribute('description', $brick->getAttribute('ctaDescription'));
                     }
                 }
 
@@ -175,7 +196,7 @@ class Control extends QUI\Control
 
         $title = $this->getAttribute('title');
         //$header = $this->getAttribute('header');
-        $description = $this->getAttribute('description');
+        $description = trim((string)$this->getAttribute('ctaDescription'));
         $content = $this->getAttribute('content');
 
         $nameLabel = $this->getAttribute('name_label');
@@ -193,95 +214,95 @@ class Control extends QUI\Control
         if (empty($title)) {
             $title = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_title'
+                'contact.contactHub.default_title'
             );
         }
 
         if (empty($description)) {
             $description = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_description'
+                'contact.contactHub.default_description'
             );
         }
 
         if (empty($content)) {
             $content = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_content'
+                'contact.contactHub.default_content'
             );
         }
 
         if (empty($nameLabel)) {
             $nameLabel = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_name_label'
+                'contact.contactHub.default_name_label'
             );
         }
 
         if (empty($namePlaceholder)) {
             $namePlaceholder = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_name_placeholder'
+                'contact.contactHub.default_name_placeholder'
             );
         }
 
         if (empty($companyLabel)) {
             $companyLabel = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_company_label'
+                'contact.contactHub.default_company_label'
             );
         }
 
         if (empty($companyPlaceholder)) {
             $companyPlaceholder = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_company_placeholder'
+                'contact.contactHub.default_company_placeholder'
             );
         }
 
         if (empty($emailLabel)) {
             $emailLabel = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_email_label'
+                'contact.contactHub.default_email_label'
             );
         }
         if (empty($emailPlaceholder)) {
             $emailPlaceholder = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_email_placeholder'
+                'contact.contactHub.default_email_placeholder'
             );
         }
 
         if (empty($phoneLabel)) {
             $phoneLabel = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_phone_label'
+                'contact.contactHub.default_phone_label'
             );
         }
         if (empty($phonePlaceholder)) {
             $phonePlaceholder = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_phone_placeholder'
+                'contact.contactHub.default_phone_placeholder'
             );
         }
 
         if (empty($messageLabel)) {
             $messageLabel = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_message_label'
+                'contact.contactHub.default_message_label'
             );
         }
         if (empty($messagePlaceholder)) {
             $messagePlaceholder = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_message_placeholder'
+                'contact.contactHub.default_message_placeholder'
             );
         }
 
         if (empty($submitLabel)) {
             $submitLabel = QUI::getLocale()->get(
                 'quiqqer/contact',
-                'contact.ctaAction.default_submit_label'
+                'contact.contactHub.default_submit_label'
             );
         }
 
@@ -304,72 +325,6 @@ class Control extends QUI\Control
         $messageLabel = htmlspecialchars($messageLabel, ENT_QUOTES, 'UTF-8');
         $messagePlaceholder = htmlspecialchars($messagePlaceholder, ENT_QUOTES, 'UTF-8');
         $submitLabel = htmlspecialchars($submitLabel, ENT_QUOTES, 'UTF-8');
-
-        // buttons
-        if (!empty($this->getAttribute('whatsapp'))) {
-            $whatsapp = $this->getAttribute('whatsapp');
-            $whatsapp = preg_replace('/\D+/', '', (string)$whatsapp) ?? '';
-
-            $whatsappLabel = (string)$this->getAttribute('whatsappLabel');
-
-            // Wenn Nummer mit 0 beginnt, ersetze führende 0 durch 49 (DE)
-            if ($whatsapp !== '' && preg_match('/^0\d+$/', $whatsapp)) {
-                $whatsapp = '49' . substr($whatsapp, 1);
-            }
-
-            if ($whatsappLabel === '') {
-                $whatsappLabel = $whatsapp;
-            }
-
-            $this->setAttribute('whatsapp', $whatsapp);
-            $this->setAttribute('whatsappLabel', $whatsappLabel);
-            $Engine->assign('whatsapp', $whatsapp);
-            $Engine->assign('whatsappLabel', $whatsappLabel);
-        }
-
-        if (!empty($this->getAttribute('phone'))) {
-            $phone = $this->getAttribute('phone');
-            $phone = preg_replace('/\D+/', '', (string)$phone) ?? '';
-
-            $contactPhoneLabel = (string)$this->getAttribute('phoneLabel');
-
-            // Wenn Nummer mit 0 beginnt, ersetze führende 0 durch 49 (DE)
-            if ($phone !== '' && preg_match('/^0\d+$/', $phone)) {
-                $phone = '49' . substr($phone, 1);
-            }
-
-            if ($contactPhoneLabel === '') {
-                $contactPhoneLabel = $phone;
-            }
-
-            $this->setAttribute('phone', $phone);
-            $this->setAttribute('phoneLabel', $contactPhoneLabel);
-            $Engine->assign('phone', $phone);
-            $Engine->assign('contactPhoneLabel', $contactPhoneLabel);
-        }
-
-        if (!empty($this->getAttribute('email'))) {
-            $email = $this->getAttribute('email');
-
-            $contactEmailLabel = (string)$this->getAttribute('emailLabel');
-
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $email = (string)$email;
-                $this->setAttribute('email', $email);
-
-                if ($contactEmailLabel === '') {
-                    $contactEmailLabel = $email;
-                }
-
-                $this->setAttribute('emailLabel', $contactEmailLabel);
-
-                $Engine->assign('email', $email);
-                $Engine->assign('contactEmailLabel', $contactEmailLabel);
-            } else {
-                $this->setAttribute('email', '');
-                $this->setAttribute('emailLabel', '');
-            }
-        }
 
         $btnStyle = $this->getAttribute('btnStyle') === 'rounded' ? 'rounded' : 'button';
         $this->setJavaScriptControlOption('btnStyle', $btnStyle);
@@ -394,16 +349,17 @@ class Control extends QUI\Control
             'messageLabel' => $messageLabel,
             'messagePlaceholder' => $messagePlaceholder,
             'submitLabel' => $submitLabel,
-            'privacyText' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.privacy', [
+            'privacyText' => QUI::getLocale()->get('quiqqer/contact', 'contact.contactHub.privacy', [
                 'privacyLink' => $this->getPrivacyLink()
             ]),
-            'formId' => 'cta-' . QUI\Utils\Uuid::get(),
+            'formId' => 'contactHub-' . QUI\Utils\Uuid::get(),
             'formDesign' => $formDesign,
             'btnStyle' => $btnStyle,
             'primaryButtons' => $buttons['primary'],
             'secondaryButtons' => $buttons['secondary'],
             'sidebarButtons' => $this->getButtons($btnStyle),
             'formEnabled' => $views['formEnabled'],
+            'formContext' => $this->normalizeFormContext($aiBrickParams['context'] ?? ''),
             'formSidebar' => $views['formSidebar'],
             'formSidebarAi' => $views['formSidebarAi'],
             'startView' => $startView,
@@ -412,17 +368,25 @@ class Control extends QUI\Control
             'aiSidebar' => $views['aiSidebar'],
             'hasAiBrick' => $hasAiBrick,
             'aiChoiceLabel' => trim((string)$this->getAttribute('aiButtonText'))
-                ?: QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.choice.ai'),
+                ?: QUI::getLocale()->get('quiqqer/contact', 'contact.contactHub.choice.ai'),
             'formChoiceLabel' => trim((string)$this->getAttribute('formButtonText'))
-                ?: QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.choice.form'),
+                ?: QUI::getLocale()->get('quiqqer/contact', 'contact.contactHub.choice.form'),
             'aiChoiceIcon' => $this->sanitizeCssClassList((string)$this->getAttribute('aiButtonIcon')),
             'formChoiceIcon' => $this->sanitizeCssClassList((string)$this->getAttribute('formButtonIcon')),
             'secondaryActionsLabel' => trim((string)$this->getAttribute('secondaryActionsLabel')),
-            'selectTrust' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.select.trust'),
-            'selectPrivacyHint' => QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.select.privacyHint')
+            'selectTrust' => $this->resolveTextOverride(
+                'selectTrustText',
+                'contact.contactHub.select.trust'
+            ),
+            'selectPrivacyHint' => $this->normalizeBooleanFlag(
+                $this->getAttribute('selectPrivacyHintEnabled')
+            ) ? $this->resolveTextOverride(
+                'selectPrivacyHintText',
+                'contact.contactHub.select.privacyHint'
+            ) : ''
         ]);
 
-        return $Engine->fetch(dirname(__FILE__) . '/Control.html');
+        return $Engine->fetch(dirname(__FILE__) . '/ContactHub.html');
     }
 
     public function addButton(
@@ -455,7 +419,7 @@ class Control extends QUI\Control
         }
 
         if (!$this->normalizeBooleanFlag($formEnabled)) {
-            throw new QUI\Exception(QUI::getLocale()->get('quiqqer/contact', 'contact.ctaAction.formDisabled'));
+            throw new QUI\Exception(QUI::getLocale()->get('quiqqer/contact', 'contact.contactHub.formDisabled'));
         }
 
         $name = trim((string)($formData['name'] ?? ''));
@@ -466,19 +430,19 @@ class Control extends QUI\Control
 
         if ($name === '') {
             throw new QUI\Exception(
-                QUI::getLocale()->get('quiqqer/contact', 'brick.control.ctaAction.exception.nameNeeded')
+                QUI::getLocale()->get('quiqqer/contact', 'brick.control.contactHub.exception.nameNeeded')
             );
         }
 
         if (!$hasEmail && !$hasPhone) {
             throw new QUI\Exception(
-                QUI::getLocale()->get('quiqqer/contact', 'brick.control.ctaAction.exception.emailNeeded')
+                QUI::getLocale()->get('quiqqer/contact', 'brick.control.contactHub.exception.emailNeeded')
             );
         }
 
         if ($hasEmail && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new QUI\Exception(
-                QUI::getLocale()->get('quiqqer/contact', 'brick.control.ctaAction.exception.invalidEmail')
+                QUI::getLocale()->get('quiqqer/contact', 'brick.control.contactHub.exception.invalidEmail')
             );
         }
 
@@ -524,58 +488,68 @@ class Control extends QUI\Control
         $locale = QUI::getLocale();
 
         $html = $this->buildHtmlHeading(
-            $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.title')
+            $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.title')
         );
 
         // source data
         $html .= $this->buildHtmlHeading(
-            $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.brick.title')
+            $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.brick.title')
         );
         $html .= '<ul>';
 
         if ($brick) {
             $html .= $this->buildHtmlListItem(
-                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.brick.brickId'),
+                $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.brick.brickId'),
                 (string)$brick->getAttribute('id')
             );
 
             $html .= $this->buildHtmlListItem(
-                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.brick.brickTitle'),
+                $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.brick.brickTitle'),
                 (string)$brick->getAttribute('title')
             );
         }
+
+        $context = $this->normalizeFormContext($formData['context'] ?? '');
+
+        if ($context !== '') {
+            $html .= $this->buildHtmlListItem(
+                $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.context'),
+                $context
+            );
+        }
+
         $html .= '</ul>';
 
         // contact data
         $html .= $this->buildHtmlHeading(
-            $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact')
+            $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.contact')
         );
         $html .= '<ul>';
 
         if (!empty($formData['name'])) {
             $html .= $this->buildHtmlListItem(
-                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact.name'),
+                $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.contact.name'),
                 $formData['name']
             );
         }
 
         if (!empty($formData['company'])) {
             $html .= $this->buildHtmlListItem(
-                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact.company'),
+                $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.contact.company'),
                 $formData['company']
             );
         }
 
         if (!empty($formData['email'])) {
             $html .= $this->buildHtmlListItem(
-                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact.email'),
+                $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.contact.email'),
                 $formData['email']
             );
         }
 
         if (!empty($formData['phone'])) {
             $html .= $this->buildHtmlListItem(
-                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact.phone'),
+                $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.contact.phone'),
                 $formData['phone']
             );
         }
@@ -584,7 +558,7 @@ class Control extends QUI\Control
 
         if (!empty($formData['message'])) {
             $html .= $this->buildHtmlHeading(
-                $locale->get('quiqqer/contact', 'brick.control.ctaAction.mail.contact.message')
+                $locale->get('quiqqer/contact', 'brick.control.contactHub.mail.contact.message')
             );
             $html .= $this->buildHtmlParagraph($formData['message'], true);
         }
@@ -597,7 +571,7 @@ class Control extends QUI\Control
         } catch (\Exception $e) {
             QUI\System\Log::addError($e->getMessage());
             throw new QUI\Exception(
-                QUI::getLocale()->get('quiqqer/contact', 'brick.control.ctaAction.exception.mailSendFailed')
+                QUI::getLocale()->get('quiqqer/contact', 'brick.control.contactHub.exception.mailSendFailed')
             );
         }
     }
@@ -692,6 +666,17 @@ class Control extends QUI\Control
             data-id="' . $id . '">' . $title . '</a>';
     }
 
+    private function normalizeFormContext(mixed $context): string
+    {
+        if (!is_string($context)) {
+            return '';
+        }
+
+        $context = trim(preg_replace('/[\s\x00-\x1F\x7F]+/u', ' ', $context) ?? '');
+
+        return mb_substr($context, 0, self::FORM_CONTEXT_MAX_LENGTH, 'UTF-8');
+    }
+
     private function buildHtmlListItem(string $label, string $value): string
     {
         $safeLabel = htmlspecialchars($label, ENT_QUOTES, 'UTF-8');
@@ -769,7 +754,7 @@ class Control extends QUI\Control
 
         $doc = new DOMDocument('1.0', 'UTF-8');
         $prevUseErrors = libxml_use_internal_errors(true);
-        $wrapperId = 'quiqqer-contact-ctaAction-sanitize-root';
+        $wrapperId = 'quiqqer-contact-contactHub-sanitize-root';
 
         $doc->loadHTML(
             '<?xml encoding="UTF-8"><div id="' . $wrapperId . '">' . $html . '</div>',
@@ -839,58 +824,160 @@ class Control extends QUI\Control
     }
 
     /**
+     * The curated contact channels, expanded into ordered button configs.
+     *
      * @return array<int, array<string, mixed>>
      */
     private function getDefaultButtons(): array
     {
         $buttons = [];
 
-        if ($this->getAttribute('email')) {
-            $buttons[] = [
-                'text' => (string)$this->getAttribute('emailLabel'),
-                'icon' => 'fa fa-envelope',
-                'href' => 'mailto:' . (string)$this->getAttribute('email'),
-                'title' => QUI::getLocale()->get(
-                    'quiqqer/contact',
-                    'brick.control.ctaAction.frontend.btn.email.title'
-                ),
-                'ariaLabel' => (string)$this->getAttribute('emailLabel'),
-                'customClass' => 'btn--mail',
-                'btnType' => '',
-            ];
-        }
+        foreach ($this->getPredefinedChannels() as $channel) {
+            $href = $this->buildChannelHref($channel['type'], $channel['value']);
 
-        if ($this->getAttribute('whatsapp')) {
-            $buttons[] = [
-                'text' => (string)$this->getAttribute('whatsappLabel'),
-                'icon' => 'fa fa-whatsapp',
-                'href' => 'whatsapp://send?phone=' . (string)$this->getAttribute('whatsapp'),
-                'title' => QUI::getLocale()->get(
-                    'quiqqer/contact',
-                    'brick.control.ctaAction.frontend.btn.whatsapp.title'
-                ),
-                'ariaLabel' => (string)$this->getAttribute('whatsappLabel'),
-                'customClass' => 'btn--whatsapp',
-                'btnType' => '',
-            ];
-        }
+            if ($href === null) {
+                continue;
+            }
 
-        if ($this->getAttribute('phone')) {
-            $buttons[] = [
-                'text' => (string)$this->getAttribute('phoneLabel'),
-                'icon' => 'fa fa-phone',
-                'href' => 'tel:' . (string)$this->getAttribute('phone'),
-                'title' => QUI::getLocale()->get(
+            $meta = self::CHANNEL_META[$channel['type']];
+            $label = $channel['label'];
+
+            if ($label === '') {
+                $label = QUI::getLocale()->get(
                     'quiqqer/contact',
-                    'brick.control.ctaAction.frontend.btn.phone.title'
-                ),
-                'ariaLabel' => (string)$this->getAttribute('phoneLabel'),
-                'customClass' => 'btn--phone',
-                'btnType' => 'secondary',
+                    'brick.control.contactHub.setting.' . $channel['type'] . 'Label.placeholder'
+                );
+            }
+
+            $buttons[] = [
+                'text' => $label,
+                'icon' => $meta['icon'],
+                'href' => $href,
+                'title' => QUI::getLocale()->get('quiqqer/contact', $meta['title']),
+                'ariaLabel' => $label,
+                'customClass' => $meta['class'],
+                'btnType' => $meta['btnType'],
             ];
         }
 
         return $buttons;
+    }
+
+    /**
+     * The active, filled channels in the fixed order email, whatsapp, phone.
+     *
+     * @return array<int, array{type: string, value: string, label: string}>
+     */
+    private function getPredefinedChannels(): array
+    {
+        $configured = $this->getAttribute('predefinedButtons');
+
+        if (is_string($configured)) {
+            $decoded = json_decode($configured, true);
+            $configured = is_array($decoded) ? $decoded : [];
+        }
+
+        if (!is_array($configured)) {
+            return [];
+        }
+
+        $byType = [];
+
+        foreach ($configured as $entry) {
+            if (!is_array($entry)) {
+                continue;
+            }
+
+            $type = (string)($entry['type'] ?? '');
+
+            if (!isset(self::CHANNEL_META[$type]) || isset($byType[$type])) {
+                continue;
+            }
+
+            // active defaults to true; only an explicit off hides a channel
+            if (in_array($entry['active'] ?? true, [false, 0, '0'], true)) {
+                continue;
+            }
+
+            $byType[$type] = [
+                'type' => $type,
+                'value' => trim((string)($entry['value'] ?? '')),
+                'label' => trim((string)($entry['label'] ?? '')),
+            ];
+        }
+
+        $channels = [];
+
+        foreach (array_keys(self::CHANNEL_META) as $type) {
+            if (isset($byType[$type])) {
+                $channels[] = $byType[$type];
+            }
+        }
+
+        return $channels;
+    }
+
+    /**
+     * Build the href for a channel value, or null when it is unusable.
+     *
+     * Phone numbers become E.164 "tel:" links with a leading "+", WhatsApp
+     * uses the wa.me web link so it also works without the app installed.
+     */
+    private function buildChannelHref(string $type, string $value): ?string
+    {
+        $value = trim($value);
+
+        if ($value === '') {
+            return null;
+        }
+
+        if ($type === 'email') {
+            return filter_var($value, FILTER_VALIDATE_EMAIL) ? 'mailto:' . $value : null;
+        }
+
+        $digits = $this->normalizePhoneNumber($value);
+
+        if ($digits === null) {
+            return null;
+        }
+
+        return match ($type) {
+            'whatsapp' => 'https://wa.me/' . $digits,
+            'phone' => 'tel:+' . $digits,
+            default => null,
+        };
+    }
+
+    /**
+     * Normalize a phone number to E.164 digits without the leading "+".
+     *
+     * A leading "+"/"00" counts as international, a national trunk "0" gets the
+     * German country code, and anything else stays ambiguous and is rejected
+     * rather than turned into a broken link.
+     */
+    private function normalizePhoneNumber(string $value): ?string
+    {
+        $value = trim($value);
+        $international = str_starts_with($value, '+') || str_starts_with($value, '00');
+        $digits = preg_replace('/\D+/', '', $value) ?? '';
+
+        if ($digits === '') {
+            return null;
+        }
+
+        if ($international) {
+            if (str_starts_with($digits, '00')) {
+                $digits = substr($digits, 2);
+            }
+
+            return $digits === '' ? null : $digits;
+        }
+
+        if (str_starts_with($digits, '0')) {
+            return self::DEFAULT_COUNTRY_CODE . substr($digits, 1);
+        }
+
+        return null;
     }
 
     /**
@@ -939,6 +1026,10 @@ class Control extends QUI\Control
         $title = trim((string)($button['title'] ?? ''));
         $ariaLabel = trim((string)($button['ariaLabel'] ?? ''));
         $text = trim((string)($button['text'] ?? ''));
+
+        if ($title === '') {
+            $title = trim((string)($button['titleAttribute'] ?? ''));
+        }
 
         if ($title === '' && $text !== '') {
             $title = $text;
@@ -1076,6 +1167,17 @@ class Control extends QUI\Control
         return $value === true
             || $value === 1
             || $value === '1';
+    }
+
+    private function resolveTextOverride(string $attribute, string $locale): string
+    {
+        $text = trim((string)$this->getAttribute($attribute));
+
+        if ($text !== '') {
+            return $text;
+        }
+
+        return QUI::getLocale()->get('quiqqer/contact', $locale);
     }
 
     private function sanitizeButtonHref(string $href): string
@@ -1303,9 +1405,14 @@ class Control extends QUI\Control
         $aiBrickId = $this->resolveAiBrickId();
         $formEnabled = $this->normalizeBooleanFlag($this->getAttribute('formEnabled'));
         $formSidebar = $formEnabled && $this->normalizeBooleanFlag($this->getAttribute('formSidebar'));
+        $startView = trim((string)$this->getAttribute('param-start-view'));
+
+        if ($startView === '') {
+            $startView = (string)$this->getAttribute('startView');
+        }
 
         return [
-            'startView' => match ($this->getAttribute('startView')) {
+            'startView' => match ($startView) {
                 'form' => $formEnabled ? 'form' : 'select',
                 'ai' => $aiBrickId > 0 ? 'ai' : 'select',
                 default => 'select'
@@ -1371,7 +1478,7 @@ class Control extends QUI\Control
             'header',
             'content',
             'title',
-            'description',
+            'ctaDescription',
             'name_label',
             'name_placeholder',
             'company_label',
@@ -1392,18 +1499,16 @@ class Control extends QUI\Control
             'formSidebar',
             'formSidebarAi',
             'contactDisplay',
-            'whatsapp',
-            'whatsappLabel',
-            'phone',
-            'phoneLabel',
-            'email',
-            'emailLabel',
+            'predefinedButtons',
             'customButtons',
             'secondaryActionsLabel',
             'aiButtonText',
             'aiButtonIcon',
             'formButtonText',
             'formButtonIcon',
+            'selectTrustText',
+            'selectPrivacyHintEnabled',
+            'selectPrivacyHintText',
             'formDesign',
             'btnStyle',
             'size',
@@ -1416,10 +1521,10 @@ class Control extends QUI\Control
 
     /**
      * Set custom CSS variable to the control as inline style
-     * --_q-controlSetting-$name: var(--qui-contact-ctaAction-$name, $value);
+     * --_q-controlSetting-$name: var(--qui-contact-contactHub-$name, $value);
      *
      * Example:
-     *     --_q-controlSetting-bgColor: var(--qui-contact-ctaAction-bgColor, #ffffff);
+     *     --_q-controlSetting-bgColor: var(--qui-contact-contactHub-bgColor, #ffffff);
      *
      * @param string $name
      * @param string $value
@@ -1434,7 +1539,7 @@ class Control extends QUI\Control
 
         $this->setStyle(
             '--_q-controlSetting-' . $name,
-            'var(--qui-contact-ctaAction-' . $name . ', ' . $value . ')'
+            'var(--qui-contact-contactHub-' . $name . ', ' . $value . ')'
         );
     }
 }

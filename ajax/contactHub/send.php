@@ -1,0 +1,40 @@
+<?php
+
+use QUI\Contact\ContactHub;
+
+QUI::getAjax()->registerFunction(
+    'package_quiqqer_contact_ajax_contactHub_send',
+    function ($attributes, $formData) {
+        $control = new ContactHub();
+
+        if (!empty($attributes) && is_string($attributes)) {
+            $allowed = ContactHub::getAllowedAttributes();
+            $attributes = json_decode($attributes, true);
+
+            if (!empty($attributes) && is_array($attributes)) {
+                $attributes = array_intersect_key($attributes, array_flip($allowed));
+            } else {
+                $attributes = [];
+            }
+
+            foreach ($attributes as $key => $value) {
+                if (is_string($value)) {
+                    $attributes[$key] = trim(strip_tags($value));
+                }
+            }
+
+            $control->setAttributes($attributes);
+        }
+
+        if (is_string($formData)) {
+            $formData = json_decode($formData, true);
+        }
+
+        if (!is_array($formData) || empty($formData)) {
+            throw new \Exception('Invalid form data');
+        }
+
+        $control->send($formData);
+    },
+    ['attributes', 'formData']
+);

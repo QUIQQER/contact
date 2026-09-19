@@ -1,0 +1,228 @@
+.qui-window-popup--contactHubWindow {
+    --_qui-window-borderRadius: var(--qui-contact-contactHubWindow-borderRadius, 0);
+
+    border-radius: var(--_qui-window-borderRadius);
+}
+
+@media screen and (max-width: 767px) {
+    .qui-window-popup--contactHubWindow {
+        border-radius: 0;
+    }
+}
+
+.qui-contact-controls-contactHubWindow,
+.qui-contact-controls-contactHubWindow__controlContainer {
+    display: flex;
+}
+
+.qui-contact-controls-contactHubWindow__controlContainer {
+    transition: opacity 0.5s ease;
+}
+
+.qui-contact-controls-contactHubWindow .quiqqer-contact-contactHub,
+.qui-contact-controls-contactHubWindow__controlContainer {
+    width: 100%;
+    min-height: 0;
+}
+
+/**
+ * Close button
+ */
+.qui-window-popup--contactHubWindow .qui-window-popup-title-close {
+    background-color: transparent !important;
+    opacity: 0.5;
+    top: 1rem;
+    right: 1rem;
+}
+
+.qui-window-popup--contactHubWindow .qui-window-popup-title-close:hover {
+    background-color: transparent !important;
+    opacity: 1;
+}
+/**
+ * 1. Override .quiqqer-contact-contactHub css variables in QUI Popup
+ */
+.qui-contact-controls-contactHubWindow .quiqqer-contact-contactHub {
+    outline: none;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    overflow: visible;
+    align-self: flex-start;
+}
+
+.qui-contact-controls-contactHubWindow .quiqqer-contact-contactHub__rightContent {
+    min-height: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .qui-contact-controls-contactHubWindow .quiqqer-contact-contactHub__leftContent {
+        min-height: 0;
+    }
+}
+
+/**
+ * Copy ContactHub css to style skeleton loader
+ */
+.qui-contact-controls-contactHubWindow__skeletonLoader {
+    width: 100%;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+
+    :where(.quiqqer-contact-contactHub) {
+        --wrapper-bgColor: var(--qui-contact-contactHub-wrapper-bgColor, var(--_q-controlSetting-bgColor, var(--qui-colors-body-bgColor, #fff)));
+        --wrapper-Color: var(--qui-contact-contactHub-wrapper-Color, var(--_q-controlSetting-color, var(--qui-colors-body, currentColor)));
+        --wrapper-borderColor: var(--qui-contact-contactHub-wrapper-borderColor, var(--left-bgColor));
+        --wrapper-borderWidth: var(--qui-contact-contactHubWindow-wrapper-borderWidth, 0);
+        --wrapper-borderStyle: var(--qui-contact-contactHub-wrapper-borderStyle, solid);
+        --borderRadius: var(--qui-contact-contactHubWindow-borderRadius, 0);
+        --left-bgColor: var(--qui-contact-contactHub-left-bgColor, var(--_q-controlSetting-left-bgColor, hsl(from var(--qui-colors-body-bgColor, #fff) h s calc(l - 5))));
+        --left-color: var(--qui-contact-contactHub-left-color, var(--_q-controlSetting-left-color, var(--qui-colors-body, currentColor)));
+        --inner-padding: var(--qui-contact-contactHub-inner-padding, clamp(1.5rem, 4%, 2.5rem));
+
+        display: flex;
+        flex-wrap: wrap;
+        border-radius: var(--borderRadius);
+        background-color: var(--wrapper-bgColor);
+        color: var(--wrapper-Color);
+    }
+
+    .quiqqer-contact-contactHub__leftContent {
+        flex: 1 0 min(350px, 100%);
+    }
+
+    .quiqqer-contact-contactHub__rightContent {
+        flex: 1 0 min(500px, 100%);
+    }
+
+    /* Left content */
+    .quiqqer-contact-contactHub__leftContent {
+        background-color: var(--left-bgColor);
+        color: var(--left-color);
+        padding: var(--inner-padding);
+        border-radius: var(--borderRadius);
+    }
+
+    /* Right content */
+    .quiqqer-contact-contactHub__rightContent {
+        padding: var(--inner-padding);
+    }
+
+    @media screen and (max-width: 767px) {
+        .quiqqer-contact-contactHub__rightContent {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    /**
+     * Form design: grid
+     */
+    .quiqqer-contact-contactHub .form--grid.form {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .quiqqer-contact-contactHub .form--grid .form-field {
+        min-width: calc(50% - 1rem);
+        flex-grow: 1;
+    }
+
+    .quiqqer-contact-contactHub .form--grid .form-field--message,
+    .quiqqer-contact-contactHub .form--grid .form-field--privacy,
+    .quiqqer-contact-contactHub .form--grid .form-actions {
+        min-width: 100%;
+    }
+
+    /**
+     * Form design: labels left
+     */
+    .quiqqer-contact-contactHub .form--labelLeft {
+        --input-minWidth: 300px;
+        --label-minWidth: 200px;
+    }
+
+    .quiqqer-contact-contactHub .form--labelLeft .form-field,
+    .quiqqer-contact-contactHub .form--labelLeft .form-actions {
+        align-items: baseline;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    /* only for skeleton loader */
+    .quiqqer-contact-contactHub .form--labelLeft.quiqqer-contact-contactHub__form--dummy-content .form-field,
+    .quiqqer-contact-contactHub .form--labelLeft.quiqqer-contact-contactHub__form--dummy-content .form-actions {
+        align-items: flex-start;
+    }
+
+    .quiqqer-contact-contactHub .form--labelLeft .form-label {
+        width: min(var(--label-minWidth), 100%);
+    }
+
+    .quiqqer-contact-contactHub .form--labelLeft .form-control {
+        flex-grow: 1;
+        flex-basis: var(--input-minWidth);
+    }
+
+    .quiqqer-contact-contactHub .form--labelLeft .form-field--privacy:before,
+    .quiqqer-contact-contactHub .form--labelLeft .form-actions:before {
+        content: '';
+        width: min(var(--label-minWidth), 100%);
+    }
+
+    .quiqqer-contact-contactHub .form--labelLeft .form-field--privacy label.check,
+    .quiqqer-contact-contactHub .form--labelLeft .form-actions > .btn {
+        flex-basis: var(--input-minWidth);
+        flex-grow: 1;
+    }
+
+    /**
+     * Select view skeleton: centered, without sidebar. Mirrors
+     * .quiqqer-contact-contactHub__view--select from Control.css, which is not
+     * loaded yet while the skeleton is visible.
+     */
+    .quiqqer-contact-contactHub__skeleton-select {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-height: 0;
+        width: 100%;
+        margin-inline: auto;
+        text-align: center;
+    }
+
+    .quiqqer-contact-contactHub__skeleton-choices {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 2rem;
+        width: 100%;
+    }
+
+    /**
+     * AI view loader: neutral, centered spinner. The ai view is filled by a
+     * pluggable ai control that ships its own skeleton once mounted, so this
+     * stays provider-agnostic and only bridges the load (see the aiMounted
+     * handover in ContactHubWindow.js).
+     */
+    .quiqqer-contact-contactHub__skeleton-ai {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .quiqqer-contact-contactHub__skeleton-ai-spinner {
+        font-size: 2rem;
+        opacity: 0.4;
+    }
+}
+
+.qui-contact-controls-contactHubWindow .quiqqer-contact-contactHub:has([data-active-view="ai"]),
+.qui-contact-controls-contactHubWindow__controlContainer:has([data-active-view="ai"]) {
+    height: 100%;
+}

@@ -1,0 +1,211 @@
+<div data-name="layout"
+     class="quiqqer-contact-contactHub__layout"
+     data-active-view="{$startView}"
+     data-form-enabled="{if $formEnabled}1{else}0{/if}"
+     data-form-sidebar="{if $formSidebar}1{else}0{/if}"
+     data-ai-sidebar="{if $aiSidebar}1{else}0{/if}"
+     data-ai-brick-id="{$aiBrickId}"
+     {if $aiBrickParams}data-ai-brick-params='{$aiBrickParams|escape:'html'}'{/if}>
+
+    <section data-name="right" class="quiqqer-contact-contactHub__rightContent">
+        <div data-name="views" class="quiqqer-contact-contactHub__views">
+
+            {* Auswahl-Ansicht *}
+            <div data-name="selectView" tabindex="-1" data-view="select" class="quiqqer-contact-contactHub__view quiqqer-contact-contactHub__view--select">
+                {if $selectTrust}
+                    <p class="quiqqer-contact-contactHub__trust">
+                        <span class="quiqqer-contact-contactHub__trust-icon fa fa-check-circle" aria-hidden="true"></span>
+                        <span>{$selectTrust|escape:'html'}</span>
+                    </p>
+                {/if}
+
+                {if $title}
+                    <h3 data-name="viewTitle" style="margin-top: 0;">{$title}</h3>
+                {/if}
+
+                {if $description}
+                    <p class="sub">{$description}</p>
+                {/if}
+
+                <div data-name="primaryActions"
+                     class="quiqqer-contact-contactHub__choices quiqqer-contact-contactHub__primaryActions"
+                     role="group"
+                     aria-label="{$title}">
+                    {if $hasAiBrick}
+                        <button type="button"
+                                data-name="viewChoice"
+                                data-view-target="ai"
+                                class="btn btn-primary btn-lg quiqqer-contact-contactHub__choice quiqqer-contact-contactHub__choice--ai">
+                            {if $aiChoiceIcon}<span class="btn__icon {$aiChoiceIcon|escape:'html'}" aria-hidden="true"></span>{/if}
+                            <span class="btn__text">{$aiChoiceLabel|escape:'html'}</span>
+                        </button>
+                    {/if}
+                    {if $formEnabled}
+                    <button type="button"
+                            data-name="viewChoice"
+                            data-view-target="form"
+                            class="btn {if $hasAiBrick}btn-primary-outline{else}btn-primary{/if} btn-lg quiqqer-contact-contactHub__choice">
+                        {if $formChoiceIcon}<span class="btn__icon {$formChoiceIcon|escape:'html'}" aria-hidden="true"></span>{/if}
+                        <span class="btn__text">{$formChoiceLabel|escape:'html'}</span>
+                    </button>
+                    {/if}
+                    {foreach from=$primaryButtons item=button}
+                        {$button->create()}
+                    {/foreach}
+                </div>
+                {if $secondaryActionsLabel}
+                <p data-name="secondaryActionsLabel" class="quiqqer-contact-contactHub__secondaryLabel"{if !$secondaryButtons} hidden{/if}>
+                    {$secondaryActionsLabel|escape:'html'}
+                </p>
+                {/if}
+                <div data-name="secondaryActions" class="quiqqer-contact-contactHub-buttons quiqqer-contact-contactHub__secondaryActions">
+                    {foreach from=$secondaryButtons item=button}
+                        {$button->create()}
+                    {/foreach}
+                </div>
+
+                {if $selectPrivacyHint}
+                    <p class="quiqqer-contact-contactHub__privacyHint">
+                        <span class="fa fa-lock" aria-hidden="true"></span>
+                        <span>{$selectPrivacyHint|escape:'html'}</span>
+                    </p>
+                {/if}
+            </div>
+
+            {* Formular-Ansicht *}
+            {if $formEnabled}
+            <div data-name="formView" tabindex="-1" data-view="form" class="quiqqer-contact-contactHub__view quiqqer-contact-contactHub__view--form">
+                {if $title}
+                    <h3 data-name="viewTitle">{$title}</h3>
+                {/if}
+
+                {if $description}
+                    <p class="sub">{$description}</p>
+                {/if}
+
+                <form data-name="form" action="#" method="post" class="quiqqer-contact-contactHub__form form form--{$formDesign}">
+                    {if $formContext !== ''}
+                        <input type="hidden" name="context" value="{$formContext|escape:'html'}"/>
+                    {/if}
+
+                    <div class="form-field form-field--name">
+                        <label data-name="fieldLabel" class="form-label" for="{$formId|escape:'html'}-name">
+                            {$nameLabel}
+                        </label>
+                        <div class="form-control">
+                            <input type="text"
+                                   name="name"
+                                   id="{$formId|escape:'html'}-name"
+                                   placeholder="{$namePlaceholder}"
+                                   autocomplete="name"
+                                   required
+                            />
+                        </div>
+                    </div>
+                    <div class="form-field form-field--company">
+                        <label data-name="fieldLabel" class="form-label" for="{$formId|escape:'html'}-company">
+                            {$companyLabel}
+                        </label>
+                        <div class="form-control">
+                            <input type="text"
+                                   name="company"
+                                   id="{$formId|escape:'html'}-company"
+                                   placeholder="{$companyPlaceholder}"
+                                   autocomplete="organization"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-field form-field--email">
+                        <label data-name="fieldLabel" class="form-label" for="{$formId|escape:'html'}-email">
+                            {$emailLabel}
+                        </label>
+                        <div class="form-control">
+                            <input type="email"
+                                   name="email"
+                                   id="{$formId|escape:'html'}-email"
+                                   placeholder="{$emailPlaceholder}"
+                                   autocomplete="email"
+                                   required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-field form-field--phone">
+                        <label data-name="fieldLabel" class="form-label" for="{$formId|escape:'html'}-phone">
+                            {$phoneLabel}
+                        </label>
+                        <div class="form-control">
+                            <input type="tel"
+                                   name="phone"
+                                   id="{$formId|escape:'html'}-phone"
+                                   placeholder="{$phonePlaceholder}"
+                                   autocomplete="tel"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-field form-field--message">
+                        <label data-name="fieldLabel" class="form-label" for="{$formId|escape:'html'}-message">
+                            {$messageLabel}
+                        </label>
+                        <div class="form-control">
+                            <textarea name="message" id="{$formId|escape:'html'}-message" placeholder="{$messagePlaceholder}" required class="quiqqer-contact-contactHub__textarea"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-field form-field--privacy">
+                        <label data-name="privacy" class="check">
+                            <input type="checkbox" name="privacy" id="{$formId|escape:'html'}-privacy" required/>
+                            <span>{$privacyText}</span>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-primary" type="submit">
+                            {$submitLabel}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+            {/if}
+
+            {* KI-Ansicht (wird per JS mit dem gewählten Baustein befüllt) *}
+            <div data-view="ai"
+                 data-name="aiHost" tabindex="-1"
+                 class="quiqqer-contact-contactHub__view quiqqer-contact-contactHub__view--ai"></div>
+        </div>
+    </section>
+
+    <aside data-name="left" class="quiqqer-contact-contactHub__leftContent">
+        {if $logo}
+        <div class="logo" aria-hidden="true">
+            {image image=$logo height=50 class="logo-img"}
+        </div>
+        {/if}
+
+        <div class="default-content">
+            {$content}
+        </div>
+
+        <div class="quiqqer-contact-contactHub__primaryActions" data-name="primaryActions">
+            {if $formSidebarAi}
+                <button type="button" data-name="viewChoice" data-view-target="ai"
+                        class="btn btn-primary quiqqer-contact-contactHub__sidebarAi">
+                    {if $aiChoiceIcon}<span class="btn__icon {$aiChoiceIcon|escape:'html'}" aria-hidden="true"></span>{/if}
+                    <span class="btn__text">{$aiChoiceLabel|escape:'html'}</span>
+                </button>
+            {/if}
+            {foreach from=$sidebarButtons.primary item=button}
+                {$button->create()}
+            {/foreach}
+        </div>
+        <div data-name="secondaryActions" class="quiqqer-contact-contactHub-buttons quiqqer-contact-contactHub__secondaryActions">
+            {foreach from=$sidebarButtons.secondary item=button}
+                {$button->create()}
+            {/foreach}
+        </div>
+    </aside>
+</div>

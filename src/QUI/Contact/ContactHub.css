@@ -1,0 +1,423 @@
+.quiqqer-contact-contactHub {
+    --wrapper-bgColor: var(--qui-contact-contactHub-wrapper-bgColor, var(--_q-controlSetting-bgColor, var(--qui-colors-body-bgColor, #fff)));
+    --wrapper-Color: var(--qui-contact-contactHub-wrapper-Color, var(--_q-controlSetting-color, var(--qui-colors-body, currentColor)));
+    --wrapper-borderColor: var(--qui-contact-contactHub-wrapper-borderColor, var(--left-bgColor));
+    --wrapper-borderWidth: var(--qui-contact-contactHub-wrapper-borderWidth, 0.25rem);
+    --wrapper-borderStyle: var(--qui-contact-contactHub-wrapper-borderStyle, solid);
+    --borderRadius: var(--qui-contact-contactHub-borderRadius, 0);
+    --left-bgColor: var(--qui-contact-contactHub-left-bgColor, var(--_q-controlSetting-left-bgColor, hsl(from var(--qui-colors-body-bgColor, #fff) h s calc(l - 5))));
+    --left-color: var(--qui-contact-contactHub-left-color, var(--_q-controlSetting-left-color, var(--qui-colors-body, currentColor)));
+    --inner-padding: var(--qui-contact-contactHub-inner-padding, clamp(1.5rem, 4%, 2.5rem));
+    --_actions-gap: var(--qui-contact-contactHub-actions-gap, var(--qui-spacing, 1rem));
+    --_actions-maxWidth: var(--qui-contact-contactHub-actions-maxWidth, 28rem);
+    --_primary-actions-spacing: var(--qui-contact-contactHub-primary-actions-spacing, var(--qui-spacing-xl, 2rem));
+    --_secondary-actions-spacing: var(--qui-contact-contactHub-secondary-actions-spacing, var(--qui-spacing-lg, 1.5rem));
+    --_sidebar-actions-spacing: var(--qui-contact-contactHub-sidebar-actions-spacing, var(--qui-spacing-xl, 2rem));
+    --_select-paddingBlock: var(--qui-contact-contactHub-select-paddingBlock, calc(var(--qui-spacing-xl, 2rem) * 2));
+    --logo-height: var(--qui-contact-contactHub-logo-height, 50px);
+
+    outline: var(--wrapper-borderWidth) var(--wrapper-borderStyle) var(--wrapper-borderColor);
+    outline-offset: calc(var(--wrapper-borderWidth) * -1);
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    border-radius: var(--borderRadius);
+    background-color: var(--wrapper-bgColor);
+    color: var(--wrapper-Color);
+}
+
+@media screen and (max-width: 767px) {
+    .quiqqer-contact-contactHub {
+        border-radius: 0;
+    }
+}
+
+.quiqqer-contact-contactHub__leftContent {
+    flex: 1 0 min(350px, 100%);
+}
+
+.quiqqer-contact-contactHub__rightContent {
+    flex: 1 0 min(500px, 100%);
+}
+
+/**
+ * Left content
+ */
+.quiqqer-contact-contactHub__leftContent {
+    background-color: var(--left-bgColor);
+    color: var(--left-color);
+    padding: var(--inner-padding);
+    border-radius: var(--borderRadius);
+}
+
+.quiqqer-contact-contactHub .logo {
+    margin-bottom: 1.5rem;
+}
+
+.quiqqer-contact-contactHub .logo-img {
+    height: var(--logo-height);
+    max-width: 100%;
+    width: auto;
+}
+
+.quiqqer-contact-contactHub-buttons {
+    margin-top: 1rem;
+}
+
+/**
+ * Right content
+ */
+.quiqqer-contact-contactHub__rightContent {
+    padding: var(--inner-padding);
+}
+
+@media screen and (min-width: 768px) {
+    .quiqqer-contact-contactHub__layout[data-active-view="select"] > .quiqqer-contact-contactHub__rightContent {
+        padding-block: var(--_select-paddingBlock);
+    }
+}
+
+/**
+ * Layout / Views (select / form / ai)
+ */
+.quiqqer-contact-contactHub__layout {
+    display: flex;
+    /* Main content comes first in the DOM and when stacked; the sidebar
+       remains on the left when both columns fit next to each other. */
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+
+/* Each view independently controls sidebar availability. */
+.quiqqer-contact-contactHub__layout[data-active-view="select"] > [data-name="left"],
+.quiqqer-contact-contactHub__layout[data-active-view="form"]:not([data-form-sidebar="1"]) > [data-name="left"],
+.quiqqer-contact-contactHub__layout[data-active-view="ai"]:not([data-ai-sidebar="1"]) > [data-name="left"] {
+    display: none;
+}
+
+/* The embedded AI control provides its own content padding. */
+.quiqqer-contact-contactHub__layout[data-active-view="ai"] > .quiqqer-contact-contactHub__rightContent {
+    padding: 0;
+}
+
+.quiqqer-contact-contactHub__view {
+    display: none;
+}
+
+.quiqqer-contact-contactHub__views {
+    height: 100%;
+}
+
+.quiqqer-contact-contactHub__layout[data-active-view="select"] .quiqqer-contact-contactHub__view--select,
+.quiqqer-contact-contactHub__layout[data-active-view="form"] .quiqqer-contact-contactHub__view--form {
+    display: block;
+}
+
+.quiqqer-contact-contactHub__layout[data-active-view="ai"] .quiqqer-contact-contactHub__view--ai {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Select-Ansicht im Modal vertikal zentrieren. Als Inline-Baustein
+   (Höhe = Inhalt) bleibt margin-block wirkungslos, überläuft der Inhalt
+   die Modalhöhe, bleibt der obere Rand per Scroll erreichbar. */
+.quiqqer-contact-contactHub__layout[data-active-view="select"] .quiqqer-contact-contactHub__views {
+    display: flex;
+    flex-direction: column;
+}
+
+.quiqqer-contact-contactHub__layout[data-active-view="select"] .quiqqer-contact-contactHub__view--select {
+    margin-block: auto;
+}
+
+.quiqqer-contact-contactHub__view--ai > * {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+/* Auswahl-Screen: fokussiert und zentriert, ohne Sidebar */
+.quiqqer-contact-contactHub__view--select {
+    min-width: 0;
+    width: 100%;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.quiqqer-contact-contactHub__view--select > h3 {
+    margin-bottom: 0.5rem;
+}
+
+/* Vertrauens-Badge oberhalb der Überschrift */
+.quiqqer-contact-contactHub__trust {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--qui-colors-primary);
+    background-color: color-mix(in srgb, var(--qui-colors-primary) 12%, transparent);
+}
+
+.quiqqer-contact-contactHub__choices {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.quiqqer-contact-contactHub__choice {
+    justify-content: center;
+    text-align: center;
+}
+
+/* KI-Empfehlung hervorheben: Verlauf und weicher Schatten aus dem Primärton */
+.quiqqer-contact-contactHub__choice--ai {
+    box-shadow: 0 12px 26px -14px color-mix(in srgb, var(--qui-colors-primary) 65%, transparent);
+}
+
+.quiqqer-contact-contactHub__choice--ai:hover {
+    filter: brightness(0.97);
+}
+
+/* Datenschutz-Hinweis als abgesetzter Fuß */
+.quiqqer-contact-contactHub__privacyHint {
+    color: var(--qui-colors-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+    font-size: 0.8125rem;
+    opacity: 0.75;
+}
+
+.quiqqer-contact-contactHub__rightContent :where(.sub) {
+    font-size: 0.875rem;
+}
+
+.quiqqer-contact-contactHub__textarea {
+    min-height: 170px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/**
+ * Contact buttons
+ */
+
+/* brand */
+.quiqqer-contact-contactHub-buttons .btn--whatsapp {
+    --qui-btn-bgColor: #27d367;
+    --qui-btn-color: #fff;
+    --qui-btn-borderColor: #27d367;
+    --qui-btn-bgColor--hover: #22b559;
+    --qui-btn-color--hover: #fff;
+    --qui-btn-borderColor--hover: #22b559;
+}
+
+.quiqqer-contact-contactHub-buttons .btn--mail {
+    --qui-btn-bgColor: #4ab1f0;
+    --qui-btn-color: #fff;
+    --qui-btn-borderColor: #4ab1f0;
+    --qui-btn-bgColor--hover: #409ad2;
+    --qui-btn-color--hover: #fff;
+    --qui-btn-borderColor--hover: #409ad2;
+}
+
+/**
+ * Form
+ */
+.quiqqer-contact-contactHub .form {
+    display: grid;
+    gap: 1rem;
+}
+
+.quiqqer-contact-contactHub .form-field {
+    display: grid;
+    gap: 0.25rem;
+}
+
+.quiqqer-contact-contactHub .form-control {
+    display: grid;
+}
+
+/**
+ * Form design: grid
+ */
+.quiqqer-contact-contactHub .form--grid.form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quiqqer-contact-contactHub .form--grid .form-field {
+    min-width: calc(50% - 1rem);
+    flex-grow: 1;
+}
+
+.quiqqer-contact-contactHub .form--grid .form-field--message,
+.quiqqer-contact-contactHub .form--grid .form-field--privacy,
+.quiqqer-contact-contactHub .form--grid .form-actions {
+    min-width: 100%;
+}
+
+/**
+ * Form design: labels left
+ */
+.quiqqer-contact-contactHub .form--labelLeft {
+    --input-minWidth: 300px;
+    --label-minWidth: 200px;
+}
+
+.quiqqer-contact-contactHub .form--labelLeft .form-field,
+.quiqqer-contact-contactHub .form--labelLeft .form-actions {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quiqqer-contact-contactHub .form--labelLeft .form-label {
+    width: min(var(--label-minWidth), 100%);
+}
+
+.quiqqer-contact-contactHub .form--labelLeft .form-control {
+    flex-grow: 1;
+    flex-basis: var(--input-minWidth);
+}
+
+.quiqqer-contact-contactHub .form--labelLeft .form-field--privacy:before,
+.quiqqer-contact-contactHub .form--labelLeft .form-actions:before {
+    content: '';
+    width: min(var(--label-minWidth), 100%);
+}
+
+.quiqqer-contact-contactHub .form--labelLeft .form-field--privacy label.check,
+.quiqqer-contact-contactHub .form--labelLeft .form-actions > .btn {
+    flex-basis: var(--input-minWidth);
+    flex-grow: 1;
+}
+
+.quiqqer-contact-contactHub__primaryActions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_actions-gap);
+    margin-block: 1rem;
+}
+
+.quiqqer-contact-contactHub__leftContent > .quiqqer-contact-contactHub__primaryActions {
+    margin-top: var(--_sidebar-actions-spacing);
+}
+
+.quiqqer-contact-contactHub__leftContent > .quiqqer-contact-contactHub__primaryActions:not(:has(> .btn)) +
+.quiqqer-contact-contactHub__secondaryActions {
+    margin-top: var(--_sidebar-actions-spacing);
+}
+
+.quiqqer-contact-contactHub__secondaryActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--_actions-gap);
+}
+
+.quiqqer-contact-contactHub__view--select .quiqqer-contact-contactHub__primaryActions,
+.quiqqer-contact-contactHub__view--select .quiqqer-contact-contactHub__secondaryActions,
+.quiqqer-contact-contactHub__secondaryLabel,
+.quiqqer-contact-contactHub__privacyHint {
+    width: 100%;
+    max-width: var(--_actions-maxWidth);
+    margin-inline: auto;
+}
+
+.quiqqer-contact-contactHub__view--select .quiqqer-contact-contactHub__primaryActions {
+    margin-block: var(--_primary-actions-spacing);
+}
+
+.quiqqer-contact-contactHub__secondaryLabel {
+    color: var(--qui-colors-muted);
+    font-size: 0.875rem;
+    margin-block: var(--_actions-gap) var(--_secondary-actions-spacing);
+}
+
+.quiqqer-contact-contactHub__view--select .quiqqer-contact-contactHub__secondaryActions {
+    justify-content: center;
+}
+
+.quiqqer-contact-contactHub__primaryActions:not(:has(> .btn)),
+.quiqqer-contact-contactHub__secondaryActions:not(:has(> .btn)),
+.quiqqer-contact-contactHub__layout:not([data-active-view="form"]) .quiqqer-contact-contactHub__sidebarAi {
+    display: none;
+}
+
+.quiqqer-contact-contactHub__primaryActions > .btn,
+.quiqqer-contact-contactHub__secondaryActions > .btn {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.quiqqer-contact-contactHub__layout[data-active-view="select"],
+.quiqqer-contact-contactHub__layout[data-active-view="form"],
+.quiqqer-contact-contactHub__layout:not([data-active-view="ai"]) .quiqqer-contact-contactHub__views {
+    height: auto;
+}
+
+.quiqqer-contact-contactHub--inWindow {
+    align-self: flex-start;
+    outline: none;
+    border: 0;
+    border-radius: 0;
+}
+
+/* Embedded views may turn the window content into a non-scrolling flex host.
+   The contact views still need their own natural height and window scrollbar. */
+.qui-window-simpleWindow-content:has(.quiqqer-contact-contactHub--inWindow [data-name="layout"]:not([data-active-view="ai"])) {
+    overflow: visible;
+}
+
+.qui-window-simpleWindow-content:has(.quiqqer-contact-contactHub--inWindow.quiqqer-contact-contactHub--windowScrollable [data-name="layout"]:not([data-active-view="ai"])) {
+    overflow: auto;
+}
+
+.qui-window-simpleWindow-content:has(.quiqqer-contact-contactHub--inWindow.quiqqer-contact-contactHub--windowGrowing [data-name="layout"]:not([data-active-view="ai"])) {
+    overflow: hidden;
+}
+
+.quiqqer-contact-contactHub--inWindow .quiqqer-contact-contactHub__leftContent {
+    border-radius: 0;
+}
+
+.quiqqer-contact-contactHub--inWindow:has([data-active-view="ai"]) {
+    height: 100%;
+    min-height: 0;
+    overflow: auto;
+}
+
+/* Pass the bounded window height through to the embedded chat. The outer
+   ContactHub scrolls to a stacked sidebar; the chat keeps its own scroll area. */
+.quiqqer-contact-contactHub--inWindow .quiqqer-contact-contactHub__layout[data-active-view="ai"] > .quiqqer-contact-contactHub__rightContent {
+    height: 100%;
+    min-height: 0;
+}
+
+.quiqqer-contact-contactHub__view:focus-visible,
+.quiqqer-contact-contactHub [data-name="viewChoice"]:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+/* The form fields indicate focus; the surrounding view is only a fallback target. */
+.quiqqer-contact-contactHub__view--form:focus-visible {
+    outline: none;
+}

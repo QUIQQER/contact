@@ -276,7 +276,7 @@
  * Form design: labels left
  */
 .quiqqer-contact-contactHub .form--labelLeft {
-    --input-minWidth: 300px;
+    --input-minWidth: 260px;
     --label-minWidth: 200px;
 }
 

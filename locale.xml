@@ -2725,6 +2725,16 @@
             <pl><![CDATA[Układ formularza <br><small>Centrum kontaktu</small>]]></pl>
         </locale>
 
+        <locale name="brick.control.contactHub.setting.formDesign.description">
+            <de><![CDATA[Bei „Labels links“ stehen die Beschriftungen neben den Eingabefeldern. Reicht die Breite nicht aus, stehen sie wie bei „Standard“ darüber.]]></de>
+            <en><![CDATA[With “Labels left”, labels appear beside the input fields. If there is not enough width, they appear above the fields as in “Default”.]]></en>
+            <es><![CDATA[Con «Etiquetas a la izquierda», las etiquetas aparecen junto a los campos. Si no hay suficiente ancho, aparecen encima como en «Predeterminado».]]></es>
+            <pt><![CDATA[Com «Etiquetas à esquerda», as etiquetas aparecem ao lado dos campos. Se não houver largura suficiente, aparecem por cima como em «Predefinido».]]></pt>
+            <fr><![CDATA[Avec «Libellés à gauche», les libellés apparaissent à côté des champs. Si la largeur est insuffisante, ils passent au-dessus comme avec «Par défaut».]]></fr>
+            <it><![CDATA[Con «Etichette a sinistra», le etichette appaiono accanto ai campi. Se lo spazio non basta, appaiono sopra come con «Predefinito».]]></it>
+            <pl><![CDATA[Przy opcji „Etykiety po lewej” etykiety są obok pól. Gdy brakuje miejsca, pojawiają się nad nimi jak przy opcji „Domyślny”.]]></pl>
+        </locale>
+
         <locale name="brick.control.contactHub.setting.formDesign.default">
             <de><![CDATA[Standard (Inputs untereinander)]]></de>
             <en><![CDATA[Default (stacked inputs)]]></en>

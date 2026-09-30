@@ -149,6 +149,7 @@
                 </setting>
                 <setting name="formDesign" type="select">
                     <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formDesign"/>
+                    <description><locale group="quiqqer/contact" var="brick.control.contactHub.setting.formDesign.description"/></description>
                     <option></option>
                     <option value="default">
                         <locale group="quiqqer/contact" var="brick.control.contactHub.setting.formDesign.default"/>

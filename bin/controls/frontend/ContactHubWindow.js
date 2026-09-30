@@ -23,7 +23,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindow', [
         options: {
             maxHeight: 800,
             contentAutoHeight: true,
-            maxWidth: 1200,
+            maxWidth: 1000,
             backgroundClosable: false,
             resizable: false,
 

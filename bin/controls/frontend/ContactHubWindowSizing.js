@@ -1,32 +1,11 @@
 /** Content sizing shared by the dedicated ContactHub window and a generic BrickWindow. */
-define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
-    'qui/QUI',
-    'qui/controls/windows/SimpleWindow'
-], function (QUI, SimpleWindow) {
+define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [], function () {
     'use strict';
 
     return {
-        attach: function (control, layout) {
-            let node = layout.parentElement;
-            let win = null;
-
-            // Imported controls have no QUI parent; find the owning window via
-            // registered ancestor controls, without relying on styling classes.
-            while (node) {
-                const candidate = QUI.Controls.getById(node.getAttribute('data-quiid'));
-                if (candidate instanceof SimpleWindow) {
-                    win = candidate;
-                    break;
-                }
-                node = node.parentElement;
-            }
-
-            if (!win) {
-                return null;
-            }
-
+        attach: function (win, layout) {
+            const node = win.getElm();
             const root = layout.parentElement;
-            root.classList.add('quiqqer-contact-contactHub--inWindow');
             const content = win.getContent();
             const originalMaxHeight = win.getAttribute('maxHeight');
             const workHeight = Number(originalMaxHeight) || 800;
@@ -36,44 +15,6 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
             let pending = false;
             let disposed = false;
             let heightFrozen = false;
-            const opener = document.activeElement;
-            const title = layout.querySelector('[data-name="viewTitle"]');
-            node.setAttribute('role', 'dialog');
-            node.setAttribute('aria-modal', 'true');
-            if (title) {
-                node.setAttribute('aria-label', title.textContent.trim());
-            }
-
-            const keepFocusInWindow = (event) => {
-                if (event.key !== 'Tab') {
-                    return;
-                }
-                const focusable = Array.from(node.querySelectorAll(
-                    'button:not([disabled]), input:not([disabled]), textarea:not([disabled]),'
-                    + ' select:not([disabled]), a[href]:not([aria-disabled="true"]), [tabindex="0"]'
-                )).filter((element) => element.getClientRects().length > 0);
-                const first = focusable[0];
-                const last = focusable[focusable.length - 1];
-                if (first && event.shiftKey && (document.activeElement === first || !focusable.includes(document.activeElement))) {
-                    event.preventDefault();
-                    last.focus();
-                } else if (last && !event.shiftKey && document.activeElement === last) {
-                    event.preventDefault();
-                    first.focus();
-                }
-            };
-            node.addEventListener('keydown', keepFocusInWindow);
-            const focusView = () => {
-                if (!disposed && !win.getAttribute('contentPending')) {
-                    const view = layout.querySelector('[data-name="' + control.$viewElementName(layout.dataset.activeView) + '"]');
-                    if (view) {
-                        control.$focusView(view);
-                    }
-                }
-            };
-            requestAnimationFrame(focusView);
-            win.addEvent('open', focusView);
-
             const measure = () => {
                 if (layout.dataset.activeView === 'ai') {
                     return workHeight;
@@ -189,23 +130,14 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
                 root.classList.remove('quiqqer-contact-contactHub--windowScrollable');
                 observer.disconnect();
                 layout.removeEventListener('quiqqer-contact-contactHub-success', freezeHeight);
-                node.removeEventListener('keydown', keepFocusInWindow);
-                if (node.contains(document.activeElement) && opener?.isConnected) {
-                    opener.focus({preventScroll: true});
-                }
                 cancelAnimationFrame(frame);
                 window.removeEventListener('resize', schedule);
                 content.removeEventListener('quiqqer-contact-contactHub-viewChange', schedule);
                 content.removeEventListener('quiqqer-contact-contactHub-aiMounted', schedule);
                 win.removeEvent('resize', schedule);
                 win.removeEvent('contentReady', prepareHeight);
-                win.removeEvent('open', focusView);
-                win.removeEvent('closeBegin', dispose);
-                control.removeEvent('destroy', dispose);
                 win.setAttribute('maxHeight', originalMaxHeight);
             };
-            win.addEvent('closeBegin', dispose);
-            control.addEvent('destroy', dispose);
             schedule();
             return {dispose: dispose};
         }

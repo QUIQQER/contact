@@ -2,13 +2,14 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
 
     'qui/QUI',
     'qui/controls/Control',
+    'qui/controls/windows/SimpleWindow',
     'qui/controls/loader/Loader',
     'Ajax',
     'Locale',
     'package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing',
     'package/quiqqer/bricks/bin/Controls/WindowContentReveal'
 
-], function (QUI, QUIControl, QUILoader, QUIAjax, QUILocale, WindowSizing, WindowContentReveal) {
+], function (QUI, QUIControl, SimpleWindow, QUILoader, QUIAjax, QUILocale, WindowSizing, WindowContentReveal) {
     "use strict";
 
     const lg = 'quiqqer/contact';
@@ -205,7 +206,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
                 }
             }, true);
 
-            this.$windowSizing = WindowSizing.attach(this, layout);
+            this.$initWindow(layout);
 
             const aiBrickId = layout.getAttribute('data-ai-brick-id');
 
@@ -231,6 +232,90 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
             if (activeView === 'ai') {
                 this.$mountAiBrick();
             }
+        },
+
+        /**
+         * Connect ContactHub to its owning window, including styling and focus.
+         * Inline ContactHub controls need no window integration.
+         */
+        $initWindow: function (layout) {
+            let node = layout.parentElement;
+            let win = null;
+
+            // Imported controls have no QUI parent; find the owning window via
+            // registered ancestor controls, without relying on styling classes.
+            while (node) {
+                const candidate = QUI.Controls.getById(node.getAttribute('data-quiid'));
+                if (candidate instanceof SimpleWindow) {
+                    win = candidate;
+                    break;
+                }
+                node = node.parentElement;
+            }
+
+            if (!win) {
+                return;
+            }
+
+            node.classList.add('qui-window-popup--contactHubWindow');
+
+            const root = layout.parentElement;
+            root.classList.add('quiqqer-contact-contactHub--inWindow');
+            let disposed = false;
+            const opener = document.activeElement;
+            const title = layout.querySelector('[data-name="viewTitle"]');
+            node.setAttribute('role', 'dialog');
+            node.setAttribute('aria-modal', 'true');
+            if (title) {
+                node.setAttribute('aria-label', title.textContent.trim());
+            }
+
+            const keepFocusInWindow = (event) => {
+                if (event.key !== 'Tab') {
+                    return;
+                }
+                const focusable = Array.from(node.querySelectorAll(
+                    'button:not([disabled]), input:not([disabled]), textarea:not([disabled]),'
+                    + ' select:not([disabled]), a[href]:not([aria-disabled="true"]), [tabindex="0"]'
+                )).filter((element) => element.getClientRects().length > 0);
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (first && event.shiftKey && (document.activeElement === first || !focusable.includes(document.activeElement))) {
+                    event.preventDefault();
+                    last.focus();
+                } else if (last && !event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first.focus();
+                }
+            };
+            node.addEventListener('keydown', keepFocusInWindow);
+            const focusView = () => {
+                if (!disposed && !win.getAttribute('contentPending')) {
+                    const view = layout.querySelector('[data-name="' + this.$viewElementName(layout.dataset.activeView) + '"]');
+                    if (view) {
+                        this.$focusView(view);
+                    }
+                }
+            };
+            requestAnimationFrame(focusView);
+            win.addEvent('open', focusView);
+
+            const sizing = WindowSizing.attach(win, layout);
+            this.$windowSizing = sizing;
+
+            const dispose = () => {
+                disposed = true;
+                sizing.dispose();
+                node.removeEventListener('keydown', keepFocusInWindow);
+                if (node.contains(document.activeElement) && opener?.isConnected) {
+                    opener.focus({preventScroll: true});
+                }
+                win.removeEvent('open', focusView);
+                win.removeEvent('closeBegin', dispose);
+                this.removeEvent('destroy', dispose);
+            };
+            win.addEvent('closeBegin', dispose);
+            this.addEvent('destroy', dispose);
         },
 
         /**

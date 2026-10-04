@@ -10,11 +10,14 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
             const originalMaxHeight = win.getAttribute('maxHeight');
             const workHeight = Number(originalMaxHeight) || 800;
             const contentAutoHeight = win.getAttribute('contentAutoHeight') === true;
+            let preserveInitialHeight = win.getAttribute('preserveInitialHeight') === true;
+            let currentView = layout.dataset.activeView;
             let frame = 0;
             let resizing = false;
             let pending = false;
             let disposed = false;
             let heightFrozen = false;
+            root.classList.toggle('quiqqer-contact-contactHub--initialHeight', preserveInitialHeight);
             const measure = () => {
                 if (layout.dataset.activeView === 'ai') {
                     return workHeight;
@@ -49,7 +52,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
 
                 const mobile = window.matchMedia('(max-width: 767px)').matches;
                 const naturalHeight = measure();
-                const height = mobile
+                const height = mobile || preserveInitialHeight
                     ? workHeight
                     : (contentAutoHeight ? naturalHeight : Math.min(naturalHeight, workHeight));
                 if (height <= 0) {
@@ -95,7 +98,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
 
                 const mobile = window.matchMedia('(max-width: 767px)').matches;
                 const naturalHeight = measure();
-                const height = mobile
+                const height = mobile || preserveInitialHeight
                     ? workHeight
                     : (contentAutoHeight ? naturalHeight : Math.min(naturalHeight, workHeight));
                 if (height > 0) {
@@ -110,7 +113,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
             const observer = new ResizeObserver(schedule);
             observer.observe(layout);
             observer.observe(root);
-            // Keep the form's window height when its layout is replaced by the success message.
+            // Preserve the layout after submission and throughout the closing animation.
             const freezeHeight = () => {
                 heightFrozen = true;
                 pending = false;
@@ -119,27 +122,38 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindowSizing', [
                 observer.disconnect();
             };
             layout.addEventListener('quiqqer-contact-contactHub-success', freezeHeight);
-            content.addEventListener('quiqqer-contact-contactHub-viewChange', schedule);
+            const onViewChange = () => {
+                if (disposed || heightFrozen || layout.dataset.activeView === currentView) {
+                    return;
+                }
+
+                currentView = layout.dataset.activeView;
+                preserveInitialHeight = false;
+                root.classList.remove('quiqqer-contact-contactHub--initialHeight');
+                schedule();
+            };
+            content.addEventListener('quiqqer-contact-contactHub-viewChange', onViewChange);
             content.addEventListener('quiqqer-contact-contactHub-aiMounted', schedule);
             window.addEventListener('resize', schedule);
             win.addEvent('resize', schedule);
 
             const dispose = () => {
                 disposed = true;
+                root.classList.remove('quiqqer-contact-contactHub--initialHeight');
                 root.classList.remove('quiqqer-contact-contactHub--windowGrowing');
                 root.classList.remove('quiqqer-contact-contactHub--windowScrollable');
                 observer.disconnect();
                 layout.removeEventListener('quiqqer-contact-contactHub-success', freezeHeight);
                 cancelAnimationFrame(frame);
                 window.removeEventListener('resize', schedule);
-                content.removeEventListener('quiqqer-contact-contactHub-viewChange', schedule);
+                content.removeEventListener('quiqqer-contact-contactHub-viewChange', onViewChange);
                 content.removeEventListener('quiqqer-contact-contactHub-aiMounted', schedule);
                 win.removeEvent('resize', schedule);
                 win.removeEvent('contentReady', prepareHeight);
                 win.setAttribute('maxHeight', originalMaxHeight);
             };
             schedule();
-            return {dispose: dispose};
+            return {dispose: dispose, freeze: freezeHeight};
         }
     };
 });

@@ -16,13 +16,14 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindow', [
         Extends: SimpleWindow,
 
         Binds: [
-            '$onOpen',
             '$onCreate'
         ],
 
         options: {
             maxHeight: 800,
             contentAutoHeight: true,
+            prepareContent: false,
+            preserveInitialHeight: false,
             maxWidth: 1000,
             backgroundClosable: false,
             resizable: false,
@@ -91,8 +92,12 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindow', [
         initialize: function (options) {
             this.parent(options);
 
-            // An explicitly supplied height remains a ceiling unless the caller
-            // explicitly opts into natural content height as well.
+            if (options?.preserveInitialHeight === undefined) {
+                this.setAttribute('preserveInitialHeight', Number(options?.maxHeight) > 0);
+            }
+
+            // After the first view change, the supplied height remains a ceiling
+            // unless the caller explicitly opts into natural content height.
             if (Number(options?.maxHeight) > 0 && options?.contentAutoHeight === undefined) {
                 this.setAttribute('contentAutoHeight', false);
             }
@@ -101,37 +106,31 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindow', [
             this.$contentPromise = null;
 
             this.addEvents({
-                onOpen: this.$onOpen,
+                onCloseBegin: () => {
+                    this.$contactHub?.destroy();
+                    this.$contactHub = null;
+                },
                 onCreate: this.$onCreate
             });
         },
 
         open: function (callback) {
-            return WindowContentReveal.prepare(this, () => this.$loadContent()).then(() => {
-                return SimpleWindow.prototype.open.call(this, callback);
-            }).catch((error) => {
-                console.error(error);
-                this.destroy();
-                throw error;
-            });
+            return WindowContentReveal.open(
+                this,
+                () => this.$loadContent(),
+                () => SimpleWindow.prototype.open.call(this, callback)
+            );
         },
 
         $onCreate: function() {
             this.getElm().classList.add('qui-window-popup--contactHubWindow');
         },
 
-        $onOpen: function () {
-            if (this.$contentPromise) {
-                return;
+        $loadContent: function () {
+            if (this.getAttribute('contentCancelled')) {
+                return Promise.resolve();
             }
 
-            this.$loadContent().catch((error) => {
-                console.error(error);
-                this.close();
-            });
-        },
-
-        $loadContent: function () {
             if (this.$contentPromise) {
                 return this.$contentPromise;
             }
@@ -151,16 +150,21 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindow', [
                 // If the ContactHub control is quickly loaded,
                 // it is not necessary to show the SkeletonLoader for a short period of time.
                 // Show the SkeletonLoader after 250ms, because the Control may take longer to load.
-                setTimeout(() => {
-                    if (SkeletonLoader && SkeletonLoader.isConnected) {
+                const skeletonTimer = setTimeout(() => {
+                    if (!this.getAttribute('contentCancelled') && SkeletonLoader?.isConnected) {
                         SkeletonLoader.style.opacity = '1';
                     }
                 }, 250);
 
                 const revealControl = () => {
+                    clearTimeout(skeletonTimer);
+                    if (this.getAttribute('contentCancelled')) {
+                        resolve();
+                        return;
+                    }
                     ControlContainer.style.opacity = '1';
 
-                    if (SkeletonLoader && SkeletonLoader.isConnected) {
+                    if (SkeletonLoader?.isConnected) {
                         SkeletonLoader.remove();
                     }
                     resolve();
@@ -176,12 +180,26 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHubWindow', [
                     'quiqqer-contact-contactHub-aiMounted', revealControl, {once: true}
                 );
 
+                this.addEvent('closeBegin', () => {
+                    clearTimeout(skeletonTimer);
+                    this.getContent().removeEventListener('quiqqer-contact-contactHub-aiMounted', revealControl);
+                    resolve();
+                });
+
                 require(['package/quiqqer/contact/bin/controls/frontend/ContactHub'], (ContactHub) => {
+                    if (this.getAttribute('contentCancelled')) {
+                        resolve();
+                        return;
+                    }
                     this.$contactHub = new ContactHub(this.getAttributes());
 
                     this.getContactHub().addEvents({
-                        onLoadError: reject,
+                        onLoadError: (Control, error) => reject(error),
                         onLoad: () => {
+                            if (this.getAttribute('contentCancelled')) {
+                                resolve();
+                                return;
+                            }
                             this.fireEvent('load', [this, this.getContactHub()]);
 
                             // Reveal now unless we still wait for an ai control to

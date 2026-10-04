@@ -83,13 +83,22 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
             this.Loader = new QUILoader();
             this.$Layout = null;
             this.$aiMounted = false;
+            this.$loadCancelled = false;
 
             this.addEvents({
-                onImport: this.$onImport
+                onImport: this.$onImport,
+                onDestroy: () => { this.$loadCancelled = true; }
             });
         },
 
+        $isLoadCancelled: function () {
+            return this.$loadCancelled || Boolean(this.$Elm?.closest('[data-window-content-cancelled="1"]'));
+        },
+
         $onImport: function () {
+            if (this.$isLoadCancelled()) {
+                return;
+            }
             this.getElm().style.width = '100%';
             WindowContentReveal.registerBrick(this.getElm().getAttribute('data-brickid'));
             this.setAttribute('btnStyle', this.getElm().getAttribute('data-qui-options-btnstyle'));
@@ -107,11 +116,21 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
 
             this.$Elm = container;
 
+            if (this.$isLoadCancelled()) {
+                return container;
+            }
+
             QUIAjax.get('package_quiqqer_contact_ajax_contactHub_get', (html) => {
+                if (this.$isLoadCancelled()) {
+                    return;
+                }
                 container.innerHTML = html;
                 this.Loader.inject(this.getElm());
 
                 QUI.parse(container).then(() => {
+                    if (this.$isLoadCancelled()) {
+                        return;
+                    }
                     this.$initViews();
                     this.fireEvent('load', [this]);
                 }).catch((error) => {
@@ -185,6 +204,9 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
          * choices are only wired and the ai control only mounted once.
          */
         $initViews: function () {
+            if (this.$isLoadCancelled()) {
+                return;
+            }
             const layout = this.getElm().querySelector('[data-name="layout"]');
 
             this.$Layout = layout;
@@ -261,8 +283,9 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
 
             const root = layout.parentElement;
             root.classList.add('quiqqer-contact-contactHub--inWindow');
+            root.classList.toggle('quiqqer-contact-contactHub--contentPending', Boolean(win.getAttribute('contentPending')));
             let disposed = false;
-            const opener = document.activeElement;
+            const opener = win.$contentOpener || document.activeElement;
             const title = layout.querySelector('[data-name="viewTitle"]');
             node.setAttribute('role', 'dialog');
             node.setAttribute('aria-modal', 'true');
@@ -271,7 +294,7 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
             }
 
             const keepFocusInWindow = (event) => {
-                if (event.key !== 'Tab') {
+                if (event.key !== 'Tab' || win.getAttribute('contentPending')) {
                     return;
                 }
                 const focusable = Array.from(node.querySelectorAll(
@@ -290,7 +313,8 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
             };
             node.addEventListener('keydown', keepFocusInWindow);
             const focusView = () => {
-                if (!disposed && !win.getAttribute('contentPending')) {
+                if (!disposed && !this.$isLoadCancelled() && !win.getAttribute('contentPending')) {
+                    root.classList.remove('quiqqer-contact-contactHub--contentPending');
                     const view = layout.querySelector('[data-name="' + this.$viewElementName(layout.dataset.activeView) + '"]');
                     if (view) {
                         this.$focusView(view);
@@ -299,22 +323,31 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
             };
             requestAnimationFrame(focusView);
             win.addEvent('open', focusView);
+            win.addEvent('contentReady', focusView);
 
             const sizing = WindowSizing.attach(win, layout);
             this.$windowSizing = sizing;
 
+            const cancel = () => {
+                this.$loadCancelled = true;
+                sizing.freeze();
+            };
             const dispose = () => {
                 disposed = true;
+                this.$loadCancelled = true;
                 sizing.dispose();
                 node.removeEventListener('keydown', keepFocusInWindow);
                 if (node.contains(document.activeElement) && opener?.isConnected) {
                     opener.focus({preventScroll: true});
                 }
                 win.removeEvent('open', focusView);
-                win.removeEvent('closeBegin', dispose);
+                win.removeEvent('contentReady', focusView);
+                win.removeEvent('closeBegin', cancel);
+                win.removeEvent('close', dispose);
                 this.removeEvent('destroy', dispose);
             };
-            win.addEvent('closeBegin', dispose);
+            win.addEvent('closeBegin', cancel);
+            win.addEvent('close', dispose);
             this.addEvent('destroy', dispose);
         },
 
@@ -438,6 +471,9 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
             }
 
             QUIAjax.get('package_quiqqer_bricks_ajax_brick_render', (html) => {
+                if (this.$isLoadCancelled()) {
+                    return;
+                }
                 if (typeof html !== 'string' || !html.trim()) {
                     this.$showAiError(host);
                     return;
@@ -451,6 +487,9 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
                 }
 
                 QUI.parse(host).then(() => {
+                    if (this.$isLoadCancelled()) {
+                        return;
+                    }
                     this.Loader.hide();
                     this.$notifyAiMounted(host);
 
@@ -462,6 +501,9 @@ define('package/quiqqer/contact/bin/controls/frontend/ContactHub', [
         },
 
         $showAiError: function (host) {
+            if (this.$isLoadCancelled()) {
+                return;
+            }
             host.removeAttribute('data-ai-mounted');
             this.$aiMounted = false;
             this.Loader.hide();

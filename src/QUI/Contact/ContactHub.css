@@ -380,6 +380,12 @@
     border-radius: 0;
 }
 
+/* Brick HTML arrives before its window integration and sizing are initialized. */
+.qui-window-simpleWindow-content .quiqqer-contact-contactHub:not(.quiqqer-contact-contactHub--inWindow),
+.quiqqer-contact-contactHub--inWindow.quiqqer-contact-contactHub--contentPending {
+    visibility: hidden;
+}
+
 /* Embedded views may turn the window content into a non-scrolling flex host.
    The contact views still need their own natural height and window scrollbar. */
 .qui-window-simpleWindow-content:has(.quiqqer-contact-contactHub--inWindow [data-name="layout"]:not([data-active-view="ai"])) {
@@ -396,6 +402,25 @@
 
 .quiqqer-contact-contactHub--inWindow .quiqqer-contact-contactHub__leftContent {
     border-radius: 0;
+}
+
+.quiqqer-contact-contactHub--inWindow .quiqqer-contact-contactHub__layout[data-active-view="select"] > .quiqqer-contact-contactHub__rightContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.quiqqer-contact-contactHub--inWindow .quiqqer-contact-contactHub__layout[data-active-view="select"] .quiqqer-contact-contactHub__views {
+    flex: 1;
+}
+
+/* Fill the configured opening height while keeping taller content scrollable by the window. */
+.quiqqer-contact-contactHub--inWindow.quiqqer-contact-contactHub--initialHeight:not(:has([data-active-view="ai"])) {
+    height: 100%;
+    overflow: visible;
+}
+
+.quiqqer-contact-contactHub--inWindow.quiqqer-contact-contactHub--initialHeight > .quiqqer-contact-contactHub__layout:not([data-active-view="ai"]) {
+    min-height: 100%;
 }
 
 .quiqqer-contact-contactHub--inWindow:has([data-active-view="ai"]) {

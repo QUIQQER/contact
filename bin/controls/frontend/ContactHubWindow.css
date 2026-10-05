@@ -223,6 +223,7 @@
 }
 
 .qui-contact-controls-contactHubWindow .quiqqer-contact-contactHub:has([data-active-view="ai"]),
+.qui-contact-controls-contactHubWindow__controlContainer:has(.quiqqer-contact-contactHub--initialHeight),
 .qui-contact-controls-contactHubWindow__controlContainer:has([data-active-view="ai"]) {
     height: 100%;
 }
